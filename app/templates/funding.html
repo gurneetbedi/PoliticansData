@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+{% block title %}Political Funding Flows | PolitiTrack India{% endblock %}
+{% block content %}
+
+<main class="flex-1 max-w-container-max w-full mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg space-y-stack-lg">
+
+  <!-- HEADER -->
+  <section>
+    <div class="flex items-center gap-2 mb-2">
+      <span class="material-symbols-outlined text-secondary-container">account_tree</span>
+      <span class="text-label-sm font-label-sm uppercase tracking-widest text-on-surface-variant">Reports · Money in Politics</span>
+    </div>
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-stack-md">
+      <div>
+        <h1 class="font-display-lg text-display-lg-mobile md:text-headline-lg text-primary">Political funding flows</h1>
+        <p class="font-body-lg text-body-lg text-on-surface-variant mt-2 max-w-2xl">
+          Tracking electoral bond donations and ECI-disclosed funding to political parties.
+          The dataset is in active development — preview metrics are derived from the
+          March 2024 SBI Electoral Bonds disclosure as published by ADR.
+        </p>
+      </div>
+      <div class="flex gap-stack-sm">
+        <button class="flex items-center gap-1 px-4 py-2 border border-outline-variant rounded-lg font-label-lg text-label-lg hover:bg-surface-container-low transition-colors" disabled>
+          <span class="material-symbols-outlined text-[18px]">download</span> Export CSV
+        </button>
+        <a href="https://myneta.info/electoral_bonds" target="_blank" class="flex items-center gap-1 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-lg text-label-lg hover:opacity-90 transition-opacity">
+          <span class="material-symbols-outlined text-[18px]">open_in_new</span> Source data (ADR)
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HERO: SANKEY-STYLE FLOW -->
+  <section class="bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+    <div class="p-stack-md border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+      <div class="flex items-center gap-stack-sm">
+        <span class="material-symbols-outlined text-primary">account_tree</span>
+        <h3 class="font-label-lg text-label-lg uppercase tracking-widest text-on-surface-variant">Funding flow visualization</h3>
+      </div>
+      <span class="text-label-sm font-label-sm text-on-secondary-container bg-secondary-fixed px-2 py-1 rounded">Preview · using ADR electoral bonds data</span>
+    </div>
+
+    <!-- Inline SVG sankey-style flow -->
+    <div class="relative w-full bg-white p-8" style="aspect-ratio: 16/9;">
+      <svg viewBox="0 0 1000 500" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+        <!-- Source columns (left) -->
+        <g>
+          <rect x="40" y="60" width="160" height="60" rx="6" fill="#1b5670"/>
+          <text x="120" y="92" fill="white" font-size="14" font-weight="700" text-anchor="middle">Corporate Groups</text>
+          <text x="120" y="110" fill="white" font-size="11" text-anchor="middle" opacity="0.85">~54% share</text>
+
+          <rect x="40" y="190" width="160" height="60" rx="6" fill="#d9714f"/>
+          <text x="120" y="222" fill="white" font-size="14" font-weight="700" text-anchor="middle">Electoral Trusts</text>
+          <text x="120" y="240" fill="white" font-size="11" text-anchor="middle" opacity="0.85">~26% share</text>
+
+          <rect x="40" y="320" width="160" height="60" rx="6" fill="#7d8c69"/>
+          <text x="120" y="352" fill="white" font-size="14" font-weight="700" text-anchor="middle">Individual Donors</text>
+          <text x="120" y="370" fill="white" font-size="11" text-anchor="middle" opacity="0.85">~13% share</text>
+
+          <rect x="40" y="420" width="160" height="44" rx="6" fill="#c6c6cd"/>
+          <text x="120" y="446" fill="#0b1c30" font-size="12" font-weight="700" text-anchor="middle">Undisclosed</text>
+        </g>
+
+        <!-- Flow paths (Sankey style) -->
+        <g fill="none" stroke-opacity="0.45">
+          <path d="M 200 90  C 400 90, 600 110, 800 110"  stroke="#1b5670" stroke-width="36"/>
+          <path d="M 200 100 C 400 110, 600 180, 800 200" stroke="#1b5670" stroke-width="22"/>
+          <path d="M 200 220 C 400 220, 600 230, 800 270" stroke="#d9714f" stroke-width="28"/>
+          <path d="M 200 350 C 400 340, 600 320, 800 320" stroke="#7d8c69" stroke-width="18"/>
+          <path d="M 200 442 C 400 430, 600 380, 800 380" stroke="#c6c6cd" stroke-width="10"/>
+        </g>
+
+        <!-- Destination columns (right - parties) -->
+        <g>
+          <rect x="800" y="80" width="160" height="60" rx="6" fill="#ff9933"/>
+          <text x="880" y="112" fill="white" font-size="14" font-weight="700" text-anchor="middle">BJP</text>
+          <text x="880" y="128" fill="white" font-size="11" text-anchor="middle" opacity="0.9">₹6,061 Cr</text>
+
+          <rect x="800" y="170" width="160" height="60" rx="6" fill="#19aaed"/>
+          <text x="880" y="202" fill="white" font-size="14" font-weight="700" text-anchor="middle">INC</text>
+          <text x="880" y="218" fill="white" font-size="11" text-anchor="middle" opacity="0.9">₹1,422 Cr</text>
+
+          <rect x="800" y="250" width="160" height="44" rx="6" fill="#22336d"/>
+          <text x="880" y="276" fill="white" font-size="13" font-weight="700" text-anchor="middle">DMK · BRS</text>
+
+          <rect x="800" y="305" width="160" height="44" rx="6" fill="#019cdf"/>
+          <text x="880" y="331" fill="white" font-size="13" font-weight="700" text-anchor="middle">AAP · TMC</text>
+
+          <rect x="800" y="360" width="160" height="44" rx="6" fill="#c0392b"/>
+          <text x="880" y="386" fill="white" font-size="13" font-weight="700" text-anchor="middle">Others</text>
+        </g>
+
+        <!-- Labels -->
+        <text x="120" y="36" fill="#45464d" font-size="12" font-weight="600" text-anchor="middle">SOURCES</text>
+        <text x="880" y="36" fill="#45464d" font-size="12" font-weight="600" text-anchor="middle">RECIPIENTS</text>
+      </svg>
+    </div>
+
+    <!-- Footer stats -->
+    <div class="p-stack-md bg-surface-container-lowest grid grid-cols-2 md:grid-cols-4 gap-stack-md">
+      <div class="flex flex-col border-r border-outline-variant md:last:border-none pr-4">
+        <span class="text-label-sm font-label-sm text-on-surface-variant">Primary source</span>
+        <span class="font-label-lg text-label-lg text-primary">Corporate (~54%)</span>
+      </div>
+      <div class="flex flex-col border-r border-outline-variant md:last:border-none pr-4">
+        <span class="text-label-sm font-label-sm text-on-surface-variant">Modal channel</span>
+        <span class="font-label-lg text-label-lg text-primary">Electoral Bonds</span>
+      </div>
+      <div class="flex flex-col border-r border-outline-variant md:last:border-none pr-4">
+        <span class="text-label-sm font-label-sm text-on-surface-variant">Transparency rate</span>
+        <span class="font-label-lg text-label-lg text-primary">~82% disclosed</span>
+      </div>
+      <div class="flex flex-col">
+        <span class="text-label-sm font-label-sm text-on-surface-variant">Last reference</span>
+        <span class="font-label-lg text-label-lg text-primary">Mar 2024 · SBI</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY METRICS -->
+  <section class="grid grid-cols-1 md:grid-cols-3 gap-stack-md">
+    <div class="bg-white p-stack-lg border border-outline-variant rounded-xl flex flex-col gap-base">
+      <span class="text-on-surface-variant font-label-lg text-label-lg flex items-center gap-base">
+        <span class="material-symbols-outlined text-[20px]">payments</span>
+        Total disclosed funding
+      </span>
+      <div class="flex items-baseline gap-stack-sm mt-stack-sm">
+        <h4 class="font-display-lg text-display-lg text-primary">₹8,452 Cr</h4>
+      </div>
+      <div class="flex items-center gap-base text-on-tertiary-container bg-tertiary-fixed px-2 py-0.5 rounded w-fit text-label-sm font-label-sm mt-base">
+        <span class="material-symbols-outlined text-sm">trending_up</span>
+        +12.4% vs previous cycle
+      </div>
+      <p class="text-label-sm text-on-surface-variant mt-2 italic">Electoral bonds across all parties (2019-2024).</p>
+    </div>
+
+    <div class="bg-white p-stack-lg border border-outline-variant rounded-xl flex flex-col gap-base">
+      <span class="text-on-surface-variant font-label-lg text-label-lg flex items-center gap-base">
+        <span class="material-symbols-outlined text-[20px]">hub</span>
+        Source diversification
+      </span>
+      <div class="flex items-baseline gap-stack-sm mt-stack-sm">
+        <h4 class="font-display-lg text-display-lg text-primary">0.68</h4>
+      </div>
+      <div class="w-full bg-surface-container-high h-1.5 rounded-full mt-base overflow-hidden">
+        <div class="bg-secondary-container h-full" style="width: 68%"></div>
+      </div>
+      <p class="text-label-sm text-on-surface-variant mt-2 italic">Higher = more donors. Lower = concentration.</p>
+    </div>
+
+    <div class="bg-white p-stack-lg border border-outline-variant rounded-xl flex flex-col gap-base">
+      <span class="text-on-surface-variant font-label-lg text-label-lg flex items-center gap-base">
+        <span class="material-symbols-outlined text-[20px]">visibility</span>
+        Donor anonymity
+      </span>
+      <div class="flex items-baseline gap-stack-sm mt-stack-sm">
+        <h4 class="font-display-lg text-display-lg text-primary">~18%</h4>
+      </div>
+      <div class="flex items-center gap-base text-error bg-error-container px-2 py-0.5 rounded w-fit text-label-sm font-label-sm mt-base">
+        <span class="material-symbols-outlined text-sm">warning</span>
+        Identity hidden by design
+      </div>
+      <p class="text-label-sm text-on-surface-variant mt-2 italic">Electoral bonds historically masked donor identity until 2024 SC ruling.</p>
+    </div>
+  </section>
+
+  <!-- DATA-NOT-YET-COLLECTED BANNER -->
+  <section class="bg-secondary-fixed border border-secondary-container rounded-xl p-stack-lg">
+    <div class="flex items-start gap-stack-md">
+      <span class="material-symbols-outlined text-secondary-container text-3xl">construction</span>
+      <div>
+        <h3 class="font-headline-md text-headline-md text-on-secondary-fixed mb-1">Data collection in progress</h3>
+        <p class="text-body-md text-on-secondary-fixed-variant max-w-3xl mb-3">
+          PolitiTrack currently scrapes candidate affidavit data from ADR's myneta. Electoral-bonds and party-donation
+          flows are a separate dataset that ADR publishes at <a href="https://myneta.info/electoral_bonds" target="_blank" class="underline font-bold">myneta.info/electoral_bonds</a>.
+          A scraper for this source is on the roadmap.
+        </p>
+        <p class="text-body-md text-on-secondary-fixed-variant max-w-3xl">
+          Until then, the numbers shown above are illustrative based on ADR's publicly released March 2024 analysis.
+          For citations and per-donor breakdowns, follow the source link above.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ALERTS / WATCHLIST -->
+  <section>
+    <h2 class="font-headline-md text-headline-md text-on-surface mb-stack-md">Funding flow alerts</h2>
+    <div class="space-y-stack-sm">
+      <div class="bg-white p-stack-md rounded-xl border border-outline-variant flex items-center gap-stack-md">
+        <span class="material-symbols-outlined text-error bg-error-container p-3 rounded-full">trending_up</span>
+        <div class="flex-1">
+          <p class="font-bold text-on-surface">Sharp increase in single-source funding</p>
+          <p class="text-label-sm text-on-surface-variant">When &gt;50% of party funding comes from one source · auto-flagged when scraper goes live</p>
+        </div>
+        <span class="px-2 py-1 bg-error-container text-on-error-container rounded text-label-sm font-bold">Pending data</span>
+      </div>
+      <div class="bg-white p-stack-md rounded-xl border border-outline-variant flex items-center gap-stack-md">
+        <span class="material-symbols-outlined text-secondary bg-secondary-fixed p-3 rounded-full">help</span>
+        <div class="flex-1">
+          <p class="font-bold text-on-surface">Undisclosed corporate donors</p>
+          <p class="text-label-sm text-on-surface-variant">Donations without clear corporate identification · will surface here once scraped</p>
+        </div>
+        <span class="px-2 py-1 bg-secondary-fixed text-on-secondary-fixed rounded text-label-sm font-bold">Pending data</span>
+      </div>
+      <div class="bg-white p-stack-md rounded-xl border border-outline-variant flex items-center gap-stack-md">
+        <span class="material-symbols-outlined text-on-tertiary-container bg-tertiary-fixed p-3 rounded-full">verified</span>
+        <div class="flex-1">
+          <p class="font-bold text-on-surface">High-transparency donors</p>
+          <p class="text-label-sm text-on-surface-variant">Donors with full public disclosure of source · positive recognition</p>
+        </div>
+        <span class="px-2 py-1 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded text-label-sm font-bold">Pending data</span>
+      </div>
+    </div>
+  </section>
+
+  <p class="text-center text-label-sm text-on-surface-variant italic">
+    Funding-flow data: <a href="https://myneta.info/electoral_bonds" target="_blank" class="text-primary hover:underline">ADR Electoral Bonds Analysis</a>
+    · Originally from State Bank of India disclosure (March 2024).
+  </p>
+
+</main>
+
+{% endblock %}

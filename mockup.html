@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PoliTrack India — Transparency for MPs & MLAs</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --primary: #0a3d62;
+    --accent: #ff6b35;
+    --success: #27ae60;
+    --warning: #f39c12;
+    --danger: #c0392b;
+    --bg: #f5f7fa;
+    --card: #ffffff;
+    --text: #2c3e50;
+    --muted: #7f8c8d;
+    --border: #e1e8ed;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  /* Navigation */
+  nav {
+    background: var(--primary);
+    color: white;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo { font-size: 22px; font-weight: 700; cursor: pointer; }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 24px; }
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active { background: rgba(255,255,255,0.15); }
+  .github-badge {
+    background: var(--accent);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  /* Page container */
+  .page { display: none; padding: 32px; max-width: 1200px; margin: 0 auto; }
+  .page.active { display: block; }
+
+  /* Hero / Homepage */
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, #1e5f8e 100%);
+    color: white;
+    padding: 56px 32px;
+    border-radius: 12px;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+  .hero h1 { font-size: 38px; margin-bottom: 12px; }
+  .hero p { font-size: 17px; opacity: 0.95; margin-bottom: 24px; }
+  .search-bar {
+    background: white;
+    border-radius: 50px;
+    padding: 6px;
+    display: flex;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+  .search-bar input {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    border-radius: 50px;
+  }
+  .search-bar button {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  /* Stats strip */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .stat-card {
+    background: var(--card);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .stat-card .num { font-size: 28px; font-weight: 700; color: var(--primary); }
+  .stat-card .label { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  /* Filters */
+  .filters {
+    background: var(--card);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .filters label { font-size: 13px; font-weight: 600; color: var(--muted); }
+  .filters select, .filters input {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    background: white;
+  }
+
+  /* Cards grid */
+  h2.section { font-size: 22px; margin-bottom: 16px; color: var(--primary); }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 18px;
+  }
+  .card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border-left: 4px solid var(--primary);
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.1); }
+  .card-header { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+  .avatar {
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: 700; font-size: 18px;
+    flex-shrink: 0;
+  }
+  .card h3 { font-size: 16px; margin-bottom: 2px; }
+  .card .meta { font-size: 12px; color: var(--muted); }
+  .card-row { display: flex; justify-content: space-between; padding: 8px 0; border-top: 1px solid var(--border); font-size: 13px; }
+  .card-row .val { font-weight: 600; }
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .badge-clean { background: #d4edda; color: var(--success); }
+  .badge-warn { background: #fff3cd; color: var(--warning); }
+  .badge-danger { background: #f8d7da; color: var(--danger); }
+
+  /* Detail page */
+  .detail-header {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .detail-header .avatar { width: 100px; height: 100px; font-size: 32px; }
+  .detail-header h1 { font-size: 28px; margin-bottom: 6px; }
+  .detail-header .info { color: var(--muted); margin-bottom: 12px; }
+  .tag {
+    display: inline-block;
+    background: #eef2f5;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    margin-right: 6px;
+    color: var(--text);
+  }
+  .compare-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-left: auto;
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  .panel {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .panel h3 { font-size: 18px; margin-bottom: 16px; color: var(--primary); }
+  .chart-container { position: relative; height: 240px; }
+
+  /* Cases list */
+  .case-item {
+    padding: 14px;
+    border-left: 3px solid var(--danger);
+    background: #fdf2f2;
+    border-radius: 6px;
+    margin-bottom: 10px;
+  }
+  .case-item .title { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+  .case-item .desc { font-size: 12px; color: var(--muted); }
+  .case-tag { display: inline-block; background: var(--danger); color: white; padding: 2px 8px; border-radius: 4px; font-size: 10px; margin-right: 6px; }
+
+  /* Comparison */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr 1fr 1fr;
+    gap: 0;
+    background: var(--card);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .compare-cell {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+  .compare-cell:last-child { border-right: none; }
+  .compare-cell.header {
+    background: var(--primary);
+    color: white;
+    font-weight: 600;
+    text-align: center;
+  }
+  .compare-cell.label {
+    background: #f8fafb;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .compare-cell .big { font-size: 18px; font-weight: 700; color: var(--primary); }
+
+  /* Asset bar */
+  .asset-bar { display: flex; height: 24px; border-radius: 4px; overflow: hidden; margin: 8px 0; }
+  .asset-bar > div { display: flex; align-items: center; justify-content: center; color: white; font-size: 11px; font-weight: 600; }
+
+  footer {
+    text-align: center;
+    padding: 32px;
+    color: var(--muted);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+    margin-top: 48px;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  @media (max-width: 768px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .detail-grid { grid-template-columns: 1fr; }
+    .compare-grid { grid-template-columns: 120px 1fr 1fr; }
+    .compare-grid .col-3 { display: none; }
+    .hero h1 { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo" onclick="showPage('home')">PoliTrack<span>.in</span></div>
+  <div class="nav-links">
+    <a onclick="showPage('home')" id="nav-home" class="active">Home</a>
+    <a onclick="showPage('search')" id="nav-search">Browse</a>
+    <a onclick="showPage('compare')" id="nav-compare">Compare</a>
+    <a onclick="showPage('detail')" id="nav-detail">Sample Profile</a>
+  </div>
+  <div class="github-badge">Open Source</div>
+</nav>
+
+<!-- HOMEPAGE -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <h1>Transparency for India's Elected Representatives</h1>
+    <p>Search net worth, criminal cases, education, and voting records of MPs &amp; MLAs.</p>
+    <div class="search-bar">
+      <input type="text" placeholder="Search by name, constituency, or party..." onkeypress="if(event.key==='Enter') showPage('search')">
+      <button onclick="showPage('search')">Search</button>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card"><div class="num">543</div><div class="label">Lok Sabha MPs</div></div>
+    <div class="stat-card"><div class="num">245</div><div class="label">Rajya Sabha MPs</div></div>
+    <div class="stat-card"><div class="num">4,123</div><div class="label">MLAs (28 States)</div></div>
+    <div class="stat-card"><div class="num">1,847</div><div class="label">With Criminal Cases</div></div>
+  </div>
+
+  <h2 class="section">Featured Profiles</h2>
+  <div class="grid">
+    <div class="card" onclick="showPage('detail')">
+      <div class="card-header">
+        <div class="avatar">RK</div>
+        <div>
+          <h3>Rajesh Kumar</h3>
+          <div class="meta">MP — Lok Sabha · BJP</div>
+        </div>
+      </div>
+      <div class="card-row"><span>Constituency</span><span class="val">Varanasi</span></div>
+      <div class="card-row"><span>Net Worth</span><span class="val">Rs 12.4 Cr</span></div>
+      <div class="card-row"><span>Cases</span><span class="badge badge-warn">3 Pending</span></div>
+    </div>
+
+    <div class="card" onclick="showPage('detail')">
+      <div class="card-header">
+        <div class="avatar" style="background:linear-gradient(135deg,#11998e,#38ef7d)">PS</div>
+        <div>
+          <h3>Priya Sharma</h3>
+          <div class="meta">MLA · INC</div>
+        </div>
+      </div>
+      <div class="card-row"><span>Constituency</span><span class="val">Mumbai North</span></div>
+      <div class="card-row"><span>Net Worth</span><span class="val">Rs 5.8 Cr</span></div>
+      <div class="card-row"><span>Cases</span><span class="badge badge-clean">No Cases</span></div>
+    </div>
+
+    <div class="card" onclick="showPage('detail')">
+      <div class="card-header">
+        <div class="avatar" style="background:linear-gradient(135deg,#fc4a1a,#f7b733)">AS</div>
+        <div>
+          <h3>Arvind Singh</h3>
+          <div class="meta">MP — Rajya Sabha · AAP</div>
+        </div>
+      </div>
+      <div class="card-row"><span>State</span><span class="val">Punjab</span></div>
+      <div class="card-row"><span>Net Worth</span><span class="val">Rs 28.1 Cr</span></div>
+      <div class="card-row"><span>Cases</span><span class="badge badge-danger">7 Pending</span></div>
+    </div>
+
+    <div class="card" onclick="showPage('detail')">
+      <div class="card-header">
+        <div class="avatar" style="background:linear-gradient(135deg,#8e2de2,#4a00e0)">MV</div>
+        <div>
+          <h3>Meera Venkatesh</h3>
+          <div class="meta">MLA · DMK</div>
+        </div>
+      </div>
+      <div class="card-row"><span>Constituency</span><span class="val">Chennai South</span></div>
+      <div class="card-row"><span>Net Worth</span><span class="val">Rs 3.2 Cr</span></div>
+      <div class="card-row"><span>Cases</span><span class="badge badge-clean">No Cases</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SEARCH / BROWSE PAGE -->
+<div class="page" id="page-search">
+  <h2 class="section">Browse Politicians</h2>
+  <div class="filters">
+    <label>State</label>
+    <select><option>All States</option><option>Uttar Pradesh</option><option>Maharashtra</option><option>Tamil Nadu</option><option>Karnataka</option><option>West Bengal</option></select>
+    <label>Party</label>
+    <select><option>All Parties</option><option>BJP</option><option>INC</option><option>AAP</option><option>DMK</option><option>TMC</option></select>
+    <label>House</label>
+    <select><option>All</option><option>Lok Sabha</option><option>Rajya Sabha</option><option>MLA</option></select>
+    <label>Net Worth</label>
+    <select><option>Any</option><option>Under Rs 1 Cr</option><option>Rs 1-10 Cr</option><option>Rs 10-50 Cr</option><option>Above Rs 50 Cr</option></select>
+    <label>Cases</label>
+    <select><option>Any</option><option>No Cases</option><option>1-2 Cases</option><option>3+ Cases</option><option>Serious Charges</option></select>
+    <label>Sort</label>
+    <select><option>Name (A-Z)</option><option>Net Worth (High to Low)</option><option>Cases (Most)</option><option>Most Recent</option></select>
+  </div>
+
+  <div class="grid">
+    <div class="card" onclick="showPage('detail')">
+      <div class="card-header"><div class="avatar">RK</div><div><h3>Rajesh Kumar</h3><div class="meta">MP · BJP · Varanasi</div></div></div>
+      <div class="card-row"><span>Net Worth</span><span class="val">Rs 12.4 Cr</span></div>
+      <div class="card-row"><span>Cases</span><span class="badge badge-warn">3 Pending</span></div>
+    </div>
+    <div class="card" onclick="showPage('detail')">
+      <div class="card-header"><div class="avatar" style="background:linear-gradient(135deg,#11998e,#38ef7d)">PS</div><div><h3>Priya Sharma</h3><div class="meta">MLA · INC · Mumbai North</div></div></div>
+      <div class="card-row"><span>Net Worth</span><span class="val">Rs 5.8 Cr</span></div>
+      <div class="card-row"><span>Cases</span><span class="badge badge-clean">No Cases</span></div>
+    </div>
+    <div class="card" onclick="showPage('detail')">
+      <div class="card-header"><div class="avatar" style="background:linear-gradient(135deg,#fc4a1a,#f7b733)">AS</div><div><h3>Arvind Singh</h3><div class="meta">RS · AAP · Punjab</div></div></div>
+      <div class="card-row"><span>Net Worth</span><span class="val">Rs 28.1 Cr</span></div>
+      <div class="card-row"><span>Cases</span><span class="badge badge-danger">7 Pending</span></div>
+    </div>
+    <div class="card" onclick="showPage('detail')">
+      <div class="card-header"><div class="avatar" style="background:linear-gradient(135deg,#8e2de2,#4a00e0)">MV</div><div><h3>Meera Venkatesh</h3><div class="meta">MLA · DMK · Chennai S</div></div></div>
+      <div class="card-row"><span>Net Worth</span><span class="val">Rs 3.2 Cr</span></div>
+      <div class="card-row"><span>Cases</span><span class="badge badge-clean">No Cases</span></div>
+    </div>
+    <div class="card" onclick="showPage('detail')">
+      <div class="card-header"><div class="avatar" style="background:linear-gradient(135deg,#ee0979,#ff6a00)">BD</div><div><h3>Bhaskar Das</h3><div class="meta">MP · TMC · Kolkata N</div></div></div>
+      <div class="card-row"><span>Net Worth</span><span class="val">Rs 9.7 Cr</span></div>
+      <div class="card-row"><span>Cases</span><span class="badge badge-warn">2 Pending</span></div>
+    </div>
+    <div class="card" onclick="showPage('detail')">
+      <div class="card-header"><div class="avatar" style="background:linear-gradient(135deg,#36d1dc,#5b86e5)">NG</div><div><h3>Nikhil Gowda</h3><div class="meta">MLA · JDS · Mysore</div></div></div>
+      <div class="card-row"><span>Net Worth</span><span class="val">Rs 45.2 Cr</span></div>
+      <div class="card-row"><span>Cases</span><span class="badge badge-danger">5 Pending</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- DETAIL PAGE -->
+<div class="page" id="page-detail">
+  <div class="detail-header">
+    <div class="avatar">RK</div>
+    <div style="flex:1">
+      <h1>Rajesh Kumar</h1>
+      <div class="info">Member of Parliament · Lok Sabha · 17th &amp; 18th Term</div>
+      <div>
+        <span class="tag">BJP</span>
+        <span class="tag">Varanasi, UP</span>
+        <span class="tag">Age 58</span>
+        <span class="tag">Graduate</span>
+      </div>
+    </div>
+    <button class="compare-btn" onclick="showPage('compare')">+ Add to Compare</button>
+  </div>
+
+  <div class="detail-grid">
+    <div class="panel">
+      <h3>Net Worth Breakdown</h3>
+      <div style="display:flex; justify-content:space-between; margin-bottom:12px;">
+        <div><div style="font-size:12px;color:var(--muted)">Total Assets</div><div style="font-size:22px;font-weight:700;color:var(--success)">Rs 12.4 Cr</div></div>
+        <div><div style="font-size:12px;color:var(--muted)">Total Liabilities</div><div style="font-size:22px;font-weight:700;color:var(--danger)">Rs 1.8 Cr</div></div>
+      </div>
+      <div class="chart-container"><canvas id="assetChart"></canvas></div>
+    </div>
+
+    <div class="panel">
+      <h3>Wealth Growth (Election Affidavits)</h3>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;">From declared assets across election cycles</div>
+      <div class="chart-container"><canvas id="growthChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:24px;">
+    <h3>Criminal Cases (3 Pending)</h3>
+    <div class="case-item">
+      <div class="title"><span class="case-tag">IPC 420</span>Cheating &amp; Dishonest Inducement</div>
+      <div class="desc">FIR filed 2019 · Allahabad High Court · Status: Pending trial · Charges framed</div>
+    </div>
+    <div class="case-item">
+      <div class="title"><span class="case-tag">IPC 188</span>Disobedience to Public Order</div>
+      <div class="desc">FIR filed 2021 · Varanasi District Court · Status: Pending</div>
+    </div>
+    <div class="case-item">
+      <div class="title"><span class="case-tag">RPA 1951</span>Election Code Violation</div>
+      <div class="desc">Complaint filed 2024 · Election Commission · Status: Under inquiry</div>
+    </div>
+  </div>
+
+  <div class="detail-grid">
+    <div class="panel">
+      <h3>Profile</h3>
+      <div class="card-row"><span>Education</span><span class="val">B.A., Banaras Hindu University</span></div>
+      <div class="card-row"><span>Profession</span><span class="val">Politician, Social Worker</span></div>
+      <div class="card-row"><span>Terms Served</span><span class="val">2 (2019, 2024)</span></div>
+      <div class="card-row"><span>Attendance</span><span class="val">87% in Lok Sabha</span></div>
+      <div class="card-row"><span>Debates</span><span class="val">42 participations</span></div>
+      <div class="card-row"><span>Questions Asked</span><span class="val">156</span></div>
+    </div>
+    <div class="panel">
+      <h3>Income Sources (Declared)</h3>
+      <div class="chart-container"><canvas id="incomeChart"></canvas></div>
+    </div>
+  </div>
+
+  <div style="text-align:center; margin-top:16px; font-size:12px; color:var(--muted)">
+    Source: Election Commission of India affidavits · Last updated: Mar 2024
+  </div>
+</div>
+
+<!-- COMPARE PAGE -->
+<div class="page" id="page-compare">
+  <h2 class="section">Compare Politicians</h2>
+  <p style="margin-bottom:20px; color:var(--muted)">Side-by-side comparison of declared assets, cases, and parliamentary performance.</p>
+
+  <div class="compare-grid">
+    <div class="compare-cell label"></div>
+    <div class="compare-cell header">
+      <div class="avatar" style="margin:0 auto 8px;">RK</div>
+      Rajesh Kumar
+      <div style="font-size:12px; opacity:0.8; font-weight:400">BJP · MP</div>
+    </div>
+    <div class="compare-cell header">
+      <div class="avatar" style="margin:0 auto 8px; background:linear-gradient(135deg,#11998e,#38ef7d)">PS</div>
+      Priya Sharma
+      <div style="font-size:12px; opacity:0.8; font-weight:400">INC · MLA</div>
+    </div>
+    <div class="compare-cell header col-3">
+      <div class="avatar" style="margin:0 auto 8px; background:linear-gradient(135deg,#fc4a1a,#f7b733)">AS</div>
+      Arvind Singh
+      <div style="font-size:12px; opacity:0.8; font-weight:400">AAP · RS</div>
+    </div>
+
+    <div class="compare-cell label">Constituency</div>
+    <div class="compare-cell">Varanasi, UP</div>
+    <div class="compare-cell">Mumbai North, MH</div>
+    <div class="compare-cell col-3">Punjab</div>
+
+    <div class="compare-cell label">Net Worth</div>
+    <div class="compare-cell"><span class="big">Rs 12.4 Cr</span></div>
+    <div class="compare-cell"><span class="big">Rs 5.8 Cr</span></div>
+    <div class="compare-cell col-3"><span class="big">Rs 28.1 Cr</span></div>
+
+    <div class="compare-cell label">Liabilities</div>
+    <div class="compare-cell">Rs 1.8 Cr</div>
+    <div class="compare-cell">Rs 0.4 Cr</div>
+    <div class="compare-cell col-3">Rs 5.2 Cr</div>
+
+    <div class="compare-cell label">Criminal Cases</div>
+    <div class="compare-cell"><span class="badge badge-warn">3 Pending</span></div>
+    <div class="compare-cell"><span class="badge badge-clean">No Cases</span></div>
+    <div class="compare-cell col-3"><span class="badge badge-danger">7 Pending</span></div>
+
+    <div class="compare-cell label">Education</div>
+    <div class="compare-cell">Graduate</div>
+    <div class="compare-cell">Post-Graduate</div>
+    <div class="compare-cell col-3">Doctorate</div>
+
+    <div class="compare-cell label">Age</div>
+    <div class="compare-cell">58</div>
+    <div class="compare-cell">46</div>
+    <div class="compare-cell col-3">62</div>
+
+    <div class="compare-cell label">Terms</div>
+    <div class="compare-cell">2</div>
+    <div class="compare-cell">1</div>
+    <div class="compare-cell col-3">3</div>
+
+    <div class="compare-cell label">Attendance</div>
+    <div class="compare-cell">87%</div>
+    <div class="compare-cell">94%</div>
+    <div class="compare-cell col-3">71%</div>
+
+    <div class="compare-cell label">Questions Asked</div>
+    <div class="compare-cell">156</div>
+    <div class="compare-cell">203</div>
+    <div class="compare-cell col-3">89</div>
+  </div>
+
+  <div style="margin-top: 24px; padding: 16px; background: #fff3cd; border-radius: 8px; font-size: 13px;">
+    <strong>Note:</strong> All data sourced from Election Commission of India affidavits and Parliament records.
+    This is a transparency tool — figures are self-declared by candidates and may be subject to verification.
+  </div>
+</div>
+
+<footer>
+  PoliTrack.in — An open source transparency initiative ·
+  <a href="#">GitHub</a> · <a href="#">Data Sources</a> · <a href="#">Contribute</a> · <a href="#">API Docs</a>
+  <br><br>
+  Primary data source: <a href="https://myneta.info/" target="_blank">myneta.info</a> (ADR) · Election Commission of India · Parliament of India · Wikidata
+</footer>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    const nav = document.getElementById('nav-' + id);
+    if (nav) nav.classList.add('active');
+    window.scrollTo(0,0);
+    if (id === 'detail') renderCharts();
+  }
+
+  let chartsRendered = false;
+  function renderCharts() {
+    if (chartsRendered) return;
+    chartsRendered = true;
+
+    new Chart(document.getElementById('assetChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Immovable (Land/Property)', 'Movable (Cash/Bank)', 'Vehicles', 'Jewelry', 'Investments'],
+        datasets: [{
+          data: [620, 280, 85, 120, 135],
+          backgroundColor: ['#0a3d62','#27ae60','#f39c12','#ff6b35','#8e44ad']
+        }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { font: { size: 11 } } } } }
+    });
+
+    new Chart(document.getElementById('growthChart'), {
+      type: 'line',
+      data: {
+        labels: ['2009', '2014', '2019', '2024'],
+        datasets: [{
+          label: 'Declared Net Worth (Rs Cr)',
+          data: [2.1, 4.8, 8.3, 12.4],
+          borderColor: '#0a3d62',
+          backgroundColor: 'rgba(10,61,98,0.1)',
+          fill: true,
+          tension: 0.3
+        }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+    });
+
+    new Chart(document.getElementById('incomeChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Salary (MP)', 'Agriculture', 'Business', 'Rental', 'Other'],
+        datasets: [{
+          label: 'Annual (Rs Lakh)',
+          data: [12, 8, 24, 6, 3],
+          backgroundColor: '#0a3d62'
+        }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+    });
+  }
+</script>
+
+</body>
+</html>

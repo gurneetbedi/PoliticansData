@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}PolitiTrack India | Transparency for elected representatives{% endblock %}</title>
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+<!-- Leaflet for the time-machine map -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "background": "#f8f9ff",
+          "on-secondary": "#ffffff",
+          "on-primary-fixed": "#131b2e",
+          "tertiary-fixed": "#a6f4b5",
+          "surface-container-low": "#eff4ff",
+          "on-primary-container": "#7c839b",
+          "inverse-surface": "#213145",
+          "secondary-fixed": "#ffdbca",
+          "inverse-on-surface": "#eaf1ff",
+          "on-surface-variant": "#45464d",
+          "primary-fixed": "#dae2fd",
+          "on-tertiary-container": "#49935c",
+          "on-secondary-fixed": "#341100",
+          "primary-fixed-dim": "#bec6e0",
+          "on-tertiary": "#ffffff",
+          "surface-tint": "#565e74",
+          "on-secondary-fixed-variant": "#783200",
+          "on-primary-fixed-variant": "#3f465c",
+          "inverse-primary": "#bec6e0",
+          "on-surface": "#0b1c30",
+          "secondary-container": "#fd761a",
+          "on-primary": "#ffffff",
+          "on-tertiary-fixed-variant": "#005226",
+          "on-error": "#ffffff",
+          "error-container": "#ffdad6",
+          "surface-dim": "#cbdbf5",
+          "on-error-container": "#93000a",
+          "secondary": "#9d4300",
+          "surface-container-high": "#dce9ff",
+          "tertiary-container": "#00210b",
+          "error": "#ba1a1a",
+          "on-tertiary-fixed": "#00210b",
+          "on-secondary-container": "#5c2400",
+          "outline-variant": "#c6c6cd",
+          "surface-container-highest": "#d3e4fe",
+          "surface": "#f8f9ff",
+          "primary-container": "#131b2e",
+          "primary": "#000000",
+          "outline": "#76777d",
+          "surface-container-lowest": "#ffffff",
+          "surface-bright": "#f8f9ff",
+          "tertiary": "#000000",
+          "secondary-fixed-dim": "#ffb690",
+          "tertiary-fixed-dim": "#8bd79b",
+          "on-background": "#0b1c30",
+          "surface-variant": "#d3e4fe",
+          "surface-container": "#e5eeff"
+        },
+        borderRadius: {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        spacing: {
+          "stack-sm": "8px",
+          "margin-mobile": "16px",
+          "base": "4px",
+          "gutter": "24px",
+          "margin-desktop": "32px",
+          "stack-lg": "32px",
+          "container-max": "1280px",
+          "stack-md": "16px"
+        },
+        fontFamily: {
+          "headline-md": ["Inter"], "body-md": ["Inter"], "headline-lg": ["Inter"],
+          "display-lg": ["Inter"], "display-lg-mobile": ["Inter"], "label-sm": ["Inter"],
+          "body-lg": ["Inter"], "label-lg": ["Inter"]
+        },
+        fontSize: {
+          "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+          "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+          "headline-lg": ["30px", {"lineHeight": "38px", "fontWeight": "600"}],
+          "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+          "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+          "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+          "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+          "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}]
+        }
+      },
+    },
+  }
+</script>
+<style>
+  body { font-family: 'Inter', sans-serif; }
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle;
+  }
+  .hero-gradient { background: radial-gradient(circle at top right, rgba(239, 244, 255, 1) 0%, rgba(248, 249, 255, 1) 100%); }
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col">
+
+<!-- Top Nav -->
+<header class="sticky top-0 w-full z-50 bg-surface-container-lowest border-b border-outline-variant shadow-sm">
+  <div class="max-w-container-max mx-auto h-16 flex justify-between items-center px-margin-mobile md:px-margin-desktop">
+    <a href="/" class="text-headline-md font-headline-md font-bold text-on-surface">PolitiTrack India</a>
+    <nav class="hidden md:flex items-center gap-stack-md lg:gap-stack-lg">
+      <a class="text-label-lg font-label-lg {% if request.url.path == '/' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/">Dashboard</a>
+      <a class="text-label-lg font-label-lg {% if request.url.path == '/browse' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/browse">Rankings</a>
+      <a class="text-label-lg font-label-lg {% if request.url.path == '/heatmap' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/heatmap">Heatmap</a>
+      <a class="text-label-lg font-label-lg {% if request.url.path == '/anomalies' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/anomalies">Anomalies</a>
+      <a class="text-label-lg font-label-lg {% if request.url.path == '/funding' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/funding">Funding</a>
+    </nav>
+    <div class="flex items-center gap-stack-md">
+      <button class="hidden lg:flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-xl text-label-lg font-label-lg hover:opacity-80 transition-opacity">
+        <span class="material-symbols-outlined" style="font-size:18px;">location_on</span>
+        Punjab
+        <span class="material-symbols-outlined" style="font-size:18px;">expand_more</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+{% block content %}{% endblock %}
+
+<!-- Footer -->
+<footer class="bg-inverse-surface text-inverse-on-surface mt-auto">
+  <div class="max-w-container-max mx-auto py-stack-lg px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-start md:items-center gap-stack-md">
+    <div>
+      <p class="text-label-lg font-label-lg font-bold text-on-primary-fixed">PolitiTrack India</p>
+      <p class="text-body-md font-body-md opacity-70 mt-1">Open-source transparency for elected representatives.</p>
+      <p class="text-label-sm font-label-sm opacity-60 mt-3 max-w-xl italic">
+        Data is self-declared in affidavits filed with the Election Commission of India.
+        Cases listed are pending; candidates are presumed innocent until proven guilty.
+      </p>
+    </div>
+    <div class="flex flex-wrap gap-x-stack-lg gap-y-2">
+      <a class="text-label-sm font-label-sm opacity-80 hover:text-white transition-colors" href="https://myneta.info/" target="_blank">Data source · ADR myneta</a>
+      <a class="text-label-sm font-label-sm opacity-80 hover:text-white transition-colors" href="https://adrindia.org/content/about-myneta" target="_blank">Methodology</a>
+      <a class="text-label-sm font-label-sm opacity-80 hover:text-white transition-colors" href="https://github.com" target="_blank">GitHub</a>
+      <a class="text-label-sm font-label-sm opacity-80 hover:text-white transition-colors" href="mailto:gurneetbedi@gmail.com?subject=PolitiTrack%20issue">Report an issue</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Mobile bottom nav -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container-low border-t border-outline-variant flex justify-around p-2 z-[60]">
+  <a href="/" class="flex flex-col items-center {% if request.url.path == '/' %}text-primary font-bold{% else %}text-on-surface-variant{% endif %}">
+    <span class="material-symbols-outlined">home</span><span class="text-[10px]">Home</span>
+  </a>
+  <a href="/browse" class="flex flex-col items-center {% if request.url.path == '/browse' %}text-primary font-bold{% else %}text-on-surface-variant{% endif %}">
+    <span class="material-symbols-outlined">leaderboard</span><span class="text-[10px]">Rankings</span>
+  </a>
+  <a href="/heatmap" class="flex flex-col items-center {% if request.url.path == '/heatmap' %}text-primary font-bold{% else %}text-on-surface-variant{% endif %}">
+    <span class="material-symbols-outlined">map</span><span class="text-[10px]">Heatmap</span>
+  </a>
+  <a href="/anomalies" class="flex flex-col items-center {% if request.url.path == '/anomalies' %}text-primary font-bold{% else %}text-on-surface-variant{% endif %}">
+    <span class="material-symbols-outlined">warning</span><span class="text-[10px]">Anomalies</span>
+  </a>
+  <a href="/funding" class="flex flex-col items-center {% if request.url.path == '/funding' %}text-primary font-bold{% else %}text-on-surface-variant{% endif %}">
+    <span class="material-symbols-outlined">account_tree</span><span class="text-[10px]">Funding</span>
+  </a>
+</nav>
+
+</body>
+</html>

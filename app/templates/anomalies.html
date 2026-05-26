@@ -1,0 +1,214 @@
+{% extends "base.html" %}
+{% block title %}Data Pattern Analysis | PolitiTrack India{% endblock %}
+{% block content %}
+
+{% set party_colors = {'AAP':'#019cdf','INC':'#19aaed','BJP':'#ff9933','SAD':'#1a3399','BSP':'#22336d','IND':'#7f8c8d'} %}
+
+<div class="flex min-h-[calc(100vh-64px)] max-w-container-max mx-auto">
+
+  <!-- SIDEBAR -->
+  <aside class="hidden lg:flex flex-col py-stack-md px-base bg-surface border-r border-outline-variant w-64 sticky top-16 h-[calc(100vh-64px)]">
+    <div class="px-4 mb-stack-lg">
+      <h2 class="font-headline-md text-headline-md font-semibold text-on-surface">Transparency Portal</h2>
+      <p class="text-on-surface-variant font-label-sm text-label-sm opacity-70">Anomaly intelligence</p>
+    </div>
+    <nav class="flex flex-col gap-1 px-2">
+      <a href="/" class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm rounded-lg transition-all">
+        <span class="material-symbols-outlined">home</span> Home
+      </a>
+      <a href="/browse" class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm rounded-lg transition-all">
+        <span class="material-symbols-outlined">leaderboard</span> Rankings
+      </a>
+      <a href="/anomalies" class="flex items-center gap-3 p-3 bg-secondary-container text-on-secondary-container font-bold rounded-lg">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span> Anomalies
+      </a>
+      <a href="/heatmap" class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm rounded-lg transition-all">
+        <span class="material-symbols-outlined">map</span> States
+      </a>
+      <a href="/funding" class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm rounded-lg transition-all">
+        <span class="material-symbols-outlined">account_tree</span> Funding
+      </a>
+    </nav>
+    <div class="mt-auto px-4 pt-stack-lg border-t border-outline-variant">
+      <div class="bg-error-container text-on-error-container p-4 rounded-xl mb-stack-md">
+        <div class="flex items-center justify-between mb-2">
+          <span class="font-label-lg text-label-lg font-bold">{{ anomalies|length }} patterns flagged</span>
+          <span class="material-symbols-outlined text-error">campaign</span>
+        </div>
+        <p class="text-[10px] leading-tight">Politicians with significant statistical variance in declared assets.</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="flex-1 w-full px-margin-mobile md:px-margin-desktop py-stack-lg">
+
+    <!-- HEADER -->
+    <section class="mb-stack-lg">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-stack-md">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="material-symbols-outlined text-secondary-container">auto_graph</span>
+            <span class="text-label-sm font-label-sm uppercase tracking-widest text-on-surface-variant">Reports · Anomaly Detection</span>
+          </div>
+          <h1 class="font-display-lg text-display-lg-mobile md:text-headline-lg text-on-surface mb-2">Data pattern analysis</h1>
+          <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+            Statistical-variance flagging on declared assets across election cycles. Politicians whose declared wealth
+            jumped sharply between cycles are surfaced for inspection — innocence presumed; this is a starting point, not a verdict.
+          </p>
+        </div>
+        <div class="flex gap-stack-sm overflow-x-auto pb-2">
+          <span class="bg-primary text-on-primary px-6 py-2 rounded-full font-label-lg text-label-lg whitespace-nowrap flex items-center gap-2">
+            <span class="material-symbols-outlined text-sm">auto_graph</span> Predictive Anomaly
+          </span>
+          <a href="/browse" class="bg-surface-container-highest px-4 py-2 rounded-full font-label-lg text-label-lg whitespace-nowrap text-on-surface-variant hover:bg-surface-container transition-colors">
+            ← Back to Rankings
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="grid grid-cols-1 xl:grid-cols-4 gap-gutter">
+
+      <!-- FILTERS -->
+      <aside class="xl:col-span-1 space-y-stack-md">
+        <div class="bg-surface-container-lowest p-stack-md rounded-xl border border-outline-variant shadow-sm">
+          <h3 class="font-label-lg text-label-lg mb-stack-md flex items-center justify-between">
+            Transparency score
+            <span class="material-symbols-outlined text-outline" title="0 = highest risk · 100 = clean">info</span>
+          </h3>
+          <div class="space-y-3" id="riskFilters">
+            <label class="flex items-center gap-3 cursor-pointer group">
+              <input type="checkbox" checked data-risk="critical" class="risk-toggle rounded border-outline-variant text-primary focus:ring-primary">
+              <span class="font-label-sm text-label-sm group-hover:text-primary transition-colors">Critical risk (&lt; 30)</span>
+              <span class="ml-auto text-error font-bold font-label-sm">{{ buckets.critical }}</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer group">
+              <input type="checkbox" checked data-risk="suspicious" class="risk-toggle rounded border-outline-variant text-primary focus:ring-primary">
+              <span class="font-label-sm text-label-sm group-hover:text-primary transition-colors">Suspicious (30-60)</span>
+              <span class="ml-auto text-secondary font-bold font-label-sm">{{ buckets.suspicious }}</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer group">
+              <input type="checkbox" checked data-risk="standard" class="risk-toggle rounded border-outline-variant text-primary focus:ring-primary">
+              <span class="font-label-sm text-label-sm group-hover:text-primary transition-colors">Standard (&gt; 60)</span>
+              <span class="ml-auto text-on-tertiary-container font-bold font-label-sm">{{ buckets.standard }}</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="bg-surface-container-lowest p-stack-md rounded-xl border border-outline-variant shadow-sm">
+          <h3 class="font-label-lg text-label-lg mb-stack-md">Data category</h3>
+          <div class="flex flex-wrap gap-2">
+            <button class="px-3 py-1 bg-primary text-on-primary rounded-lg text-label-sm font-medium border border-primary">Asset Surge</button>
+            <button class="px-3 py-1 bg-surface-container rounded-lg text-label-sm font-medium border border-outline-variant text-on-surface-variant" disabled>Disclosure Gaps</button>
+            <button class="px-3 py-1 bg-surface-container rounded-lg text-label-sm font-medium border border-outline-variant text-on-surface-variant" disabled>Voting Irregularity</button>
+            <button class="px-3 py-1 bg-surface-container rounded-lg text-label-sm font-medium border border-outline-variant text-on-surface-variant" disabled>Shell Proximity</button>
+          </div>
+          <p class="text-label-sm text-on-surface-variant mt-3 italic">Only "Asset Surge" is wired today. Other categories need additional scrapers.</p>
+        </div>
+
+        <div class="bg-inverse-surface text-inverse-on-surface p-stack-md rounded-xl">
+          <span class="text-label-sm opacity-70 uppercase tracking-widest">Methodology</span>
+          <h4 class="font-label-lg text-label-lg mt-1 mb-2">How risk is scored</h4>
+          <p class="text-label-sm opacity-90 leading-relaxed">
+            Score = 100 − min(100, log(declared wealth growth %) × 25).
+            A 100% growth scores ~75; 10,000% scores ~0.
+            Pending criminal cases dock additional points.
+          </p>
+        </div>
+      </aside>
+
+      <!-- TABLE -->
+      <div class="xl:col-span-3">
+        <div class="bg-white rounded-xl border border-outline-variant shadow-sm overflow-hidden">
+
+          <!-- Table header -->
+          <div class="grid grid-cols-12 bg-surface-container-low p-4 font-label-lg text-label-lg border-b border-outline-variant text-on-surface-variant">
+            <div class="col-span-1 text-center">Rank</div>
+            <div class="col-span-4 pl-4">Candidate &amp; profile</div>
+            <div class="col-span-3 text-center">Data markers</div>
+            <div class="col-span-2 text-center">Growth</div>
+            <div class="col-span-2 text-right pr-4">Integrity index</div>
+          </div>
+
+          <div class="divide-y divide-outline-variant">
+            {% for a in anomalies %}
+              {% set party_name = (a.latest.party.short_name if a.latest.party else 'IND') %}
+              {% set color = party_colors.get(party_name, '#7f8c8d') %}
+              {% set risk = 'critical' if a.score < 30 else 'suspicious' if a.score < 60 else 'standard' %}
+              <a href="/politician/{{ a.politician.slug or a.politician.id }}" data-risk="{{ risk }}" class="anomaly-row grid grid-cols-12 p-4 items-center hover:bg-surface-container-lowest transition-colors group {% if risk == 'critical' %}bg-error-container/10{% endif %}">
+
+                <div class="col-span-1 text-center">
+                  <span class="w-9 h-9 inline-flex items-center justify-center font-bold rounded-full
+                    {% if loop.index <= 3 %}bg-secondary-fixed text-on-secondary-fixed{% else %}text-on-surface-variant{% endif %}">
+                    {{ loop.index }}
+                  </span>
+                </div>
+
+                <div class="col-span-4 pl-4 flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm" style="background:{{ color }}">{{ a.politician.display_name[:2]|upper }}</div>
+                  <div class="min-w-0">
+                    <p class="font-bold text-on-surface group-hover:text-secondary-container transition-colors truncate">{{ a.politician.display_name }}</p>
+                    <p class="text-label-sm text-on-surface-variant">{{ party_name }}{% if a.latest.constituency %} · {{ a.latest.constituency.name }}{% endif %}</p>
+                  </div>
+                </div>
+
+                <div class="col-span-3 text-center flex flex-wrap gap-1 justify-center">
+                  {% if a.pct >= 1000 %}
+                    <span class="px-2 py-0.5 bg-error/10 text-error rounded text-[10px] font-bold uppercase">Asset Surge</span>
+                  {% endif %}
+                  {% if a.latest.criminal_cases_count and a.latest.criminal_cases_count > 0 %}
+                    <span class="px-2 py-0.5 bg-error/10 text-error rounded text-[10px] font-bold uppercase">{{ a.latest.criminal_cases_count }} Cases</span>
+                  {% endif %}
+                  {% if a.pct >= 500 and a.pct < 1000 %}
+                    <span class="px-2 py-0.5 bg-secondary/10 text-secondary rounded text-[10px] font-bold uppercase">Rapid Growth</span>
+                  {% endif %}
+                  {% if a.first_year %}
+                    <span class="px-2 py-0.5 bg-surface-container rounded text-[10px] font-bold uppercase text-on-surface-variant">{{ a.first_year }}→{{ a.last_year }}</span>
+                  {% endif %}
+                </div>
+
+                <div class="col-span-2 text-center">
+                  <p class="font-bold text-on-surface">{{ "{:,.0f}".format(a.pct) }}%</p>
+                  <p class="text-label-sm text-on-surface-variant">₹{{ a.from_cr }} → ₹{{ a.to_cr }} Cr</p>
+                </div>
+
+                <div class="col-span-2 text-right pr-4">
+                  <p class="font-bold text-2xl
+                    {% if risk == 'critical' %}text-error{% elif risk == 'suspicious' %}text-secondary{% else %}text-on-tertiary-container{% endif %}">
+                    {{ a.score|int }}
+                  </p>
+                  <p class="text-label-sm text-on-surface-variant uppercase tracking-wider">
+                    {% if risk == 'critical' %}Critical{% elif risk == 'suspicious' %}Suspicious{% else %}Standard{% endif %}
+                  </p>
+                </div>
+              </a>
+            {% else %}
+              <p class="p-stack-lg text-center text-on-surface-variant">No anomalies flagged. Run <code>python -m app.ingest punjab</code> to ensure multiple cycles are loaded.</p>
+            {% endfor %}
+          </div>
+        </div>
+
+        <p class="text-label-sm text-on-surface-variant italic mt-stack-md text-center max-w-3xl mx-auto">
+          Statistical flags surface patterns worth examining — they are not evidence of wrongdoing. All candidates are presumed
+          innocent until proven guilty. Wealth growth can reflect legitimate professional success.
+        </p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+// Transparency Score filter — toggle rows by risk bucket
+function applyRiskFilter() {
+  const active = new Set(
+    Array.from(document.querySelectorAll('.risk-toggle:checked')).map(c => c.dataset.risk)
+  );
+  document.querySelectorAll('.anomaly-row').forEach(row => {
+    row.style.display = active.has(row.dataset.risk) ? '' : 'none';
+  });
+}
+document.querySelectorAll('.risk-toggle').forEach(cb => cb.addEventListener('change', applyRiskFilter));
+</script>
+
+{% endblock %}

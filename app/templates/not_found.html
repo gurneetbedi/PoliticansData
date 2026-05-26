@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Not found | PolitiTrack India{% endblock %}
+{% block content %}
+<main class="flex-grow max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
+  <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-stack-lg md:p-16 text-center shadow-sm mt-stack-lg">
+    <span class="material-symbols-outlined text-secondary-container" style="font-size: 64px;">person_search</span>
+    <h1 class="text-display-lg-mobile font-display-lg text-on-surface mt-stack-md mb-stack-sm">Politician not found</h1>
+    <p class="text-body-lg text-on-surface-variant mb-stack-lg">
+      We could not find a politician matching
+      <code class="bg-surface-container px-3 py-1 rounded-lg">{{ slug }}</code>.
+      {% if total %}There are {{ total }} politicians in the database.{% endif %}
+    </p>
+
+    <form action="/browse" method="get" class="max-w-md mx-auto mb-stack-lg">
+      <div class="relative">
+        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+        <input type="text" name="q" placeholder="Search by name..." class="w-full pl-10 pr-4 py-3 bg-surface-container border border-outline-variant rounded-full text-body-md focus:ring-2 focus:ring-primary outline-none">
+      </div>
+    </form>
+
+    {% if similar %}
+      <h3 class="text-headline-md font-headline-md text-on-surface mb-stack-md">Did you mean…</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter text-left max-w-3xl mx-auto">
+        {% for p in similar %}
+          <a href="/politician/{{ p.slug or p.id }}" class="bg-surface-container-low border border-outline-variant rounded-xl p-4 hover:shadow-md transition-all flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-primary-fixed-dim text-on-primary-fixed flex items-center justify-center font-bold text-sm">{{ p.display_name[:2]|upper }}</div>
+            <div>
+              <p class="font-bold text-on-surface">{{ p.display_name }}</p>
+              <p class="text-label-sm text-on-surface-variant">{{ p.slug }}</p>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</main>
+{% endblock %}

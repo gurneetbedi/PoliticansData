@@ -1,0 +1,7 @@
+{
+  "_comment": "Runner-up data per constituency (latest cycle). Maintained manually until the runner-up scraper is complete. The map tooltip reads this file. Keys are uppercase, (SC)/(ST) stripped.",
+  "_format": "{ 'CONSTITUENCY_NAME': { 'name': str, 'party': str, 'vote_share_pct': float, 'votes_received': int, 'year': int } }",
+  "ABOHAR": null,
+  "ADAMPUR": null,
+  "AJNALA": null
+}

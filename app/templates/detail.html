@@ -1,0 +1,408 @@
+{% extends "base.html" %}
+{% block title %}{{ politician.display_name }} | PolitiTrack India{% endblock %}
+{% block content %}
+
+{% set latest_app = appearances[0] if appearances else None %}
+{% set latest_party = latest_app.party.short_name if latest_app and latest_app.party else 'IND' %}
+{% set party_colors = {'AAP':'#019cdf','INC':'#19aaed','BJP':'#ff9933','SAD':'#1a3399','BSP':'#22336d','IND':'#7f8c8d'} %}
+{% set party_clr = party_colors.get(latest_party, '#7f8c8d') %}
+
+<main class="flex-1 max-w-container-max w-full mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
+
+  <!-- PROFILE HEADER -->
+  <section class="mb-stack-lg">
+    <div class="relative overflow-hidden bg-surface-container-lowest border border-outline-variant rounded-3xl p-stack-md md:p-stack-lg flex flex-col md:flex-row gap-stack-lg items-center md:items-start shadow-sm">
+      <div class="flex-shrink-0 relative">
+        <div class="w-40 h-40 md:w-48 md:h-48 rounded-full flex items-center justify-center text-white text-5xl font-bold border-4 border-surface-container-high shadow-md"
+             style="background: linear-gradient(135deg, {{ party_clr }}, {{ party_clr }}aa);">
+          {{ politician.display_name[:2]|upper }}
+        </div>
+        {% if latest_app and (latest_app.criminal_cases_count or 0) == 0 %}
+          <div class="absolute bottom-3 right-3 bg-tertiary-fixed text-on-tertiary-fixed-variant w-12 h-12 rounded-full flex items-center justify-center shadow-lg">
+            <span class="material-symbols-outlined">verified</span>
+          </div>
+        {% endif %}
+      </div>
+      <div class="flex-1 text-center md:text-left mt-4 md:mt-0">
+        <div class="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-4 mb-2">
+          <h1 class="text-display-lg-mobile md:text-headline-lg font-display-lg text-on-surface">{{ politician.display_name }}</h1>
+          {% if politician.myneta_candidate_id %}
+            <span class="px-3 py-1 bg-surface-container-high text-on-surface-variant rounded-full text-label-sm font-label-sm">ID {{ politician.myneta_candidate_id }}</span>
+          {% endif %}
+        </div>
+        <div class="flex flex-wrap justify-center md:justify-start gap-4 mb-6">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">flag</span>
+            <span class="text-body-lg font-body-lg font-semibold">{{ latest_party }}</span>
+          </div>
+          {% if latest_app and latest_app.constituency %}
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary">location_on</span>
+              <span class="text-body-lg font-body-lg">{{ latest_app.constituency.name }}{% if latest_app.election %}, {{ latest_app.election.house }} {{ latest_app.election.year }}{% endif %}</span>
+            </div>
+          {% endif %}
+        </div>
+        {% if politician.profession or politician.age %}
+          <p class="text-headline-md font-headline-md text-secondary mb-6">
+            {% if politician.profession %}{{ politician.profession[:60] }}{% endif %}
+            {% if politician.age %} · Age {{ politician.age }}{% endif %}
+          </p>
+        {% endif %}
+        <div class="flex flex-wrap justify-center md:justify-start gap-3">
+          <a href="/browse" class="bg-primary text-on-primary px-6 py-2.5 rounded-xl font-bold flex items-center gap-2 hover:opacity-90 transition-all">
+            <span class="material-symbols-outlined">leaderboard</span> Back to Rankings
+          </a>
+          <a href="/random" class="border border-outline text-on-surface px-6 py-2.5 rounded-xl font-bold flex items-center gap-2 hover:bg-surface-container-low transition-all">
+            <span class="material-symbols-outlined">shuffle</span> Random Profile
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPI BENTO GRID -->
+  {% if latest_app %}
+  <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-stack-lg">
+    <div class="bg-surface-container-lowest border border-outline-variant p-stack-md rounded-xl shadow-sm">
+      <div class="flex justify-between items-start mb-4">
+        <span class="text-label-lg font-label-lg text-on-surface-variant uppercase tracking-tighter">Net Worth</span>
+        <span class="material-symbols-outlined text-on-tertiary-container bg-tertiary-fixed p-2 rounded-lg">payments</span>
+      </div>
+      <p class="text-headline-md font-headline-md text-on-surface">₹{{ "{:,.2f}".format((latest_app.total_assets_inr or 0) / 10000000) }} Cr</p>
+      <p class="text-label-sm font-label-sm text-on-surface-variant mt-1">Declared in {{ latest_app.election.year if latest_app.election else '' }} affidavit</p>
+    </div>
+
+    <div class="bg-surface-container-lowest border border-outline-variant p-stack-md rounded-xl shadow-sm">
+      <div class="flex justify-between items-start mb-4">
+        <span class="text-label-lg font-label-lg text-on-surface-variant uppercase tracking-tighter">Pending Cases</span>
+        {% if (latest_app.criminal_cases_count or 0) > 0 %}
+          <span class="material-symbols-outlined text-on-error-container bg-error-container p-2 rounded-lg">gavel</span>
+        {% else %}
+          <span class="material-symbols-outlined text-on-tertiary-container bg-tertiary-fixed p-2 rounded-lg">verified</span>
+        {% endif %}
+      </div>
+      <p class="text-headline-md font-headline-md text-on-surface">{{ latest_app.criminal_cases_count or 0 }} {{ 'pending' if (latest_app.criminal_cases_count or 0) > 0 else 'declared' }}</p>
+      <p class="text-label-sm font-label-sm {% if (latest_app.criminal_cases_count or 0) > 0 %}text-error{% else %}text-on-tertiary-container{% endif %} mt-1">
+        {{ 'Presumption of innocence applies' if (latest_app.criminal_cases_count or 0) > 0 else 'Clean declared record' }}
+      </p>
+    </div>
+
+    <div class="bg-surface-container-lowest border border-outline-variant p-stack-md rounded-xl shadow-sm">
+      <div class="flex justify-between items-start mb-4">
+        <span class="text-label-lg font-label-lg text-on-surface-variant uppercase tracking-tighter">Cycles Served</span>
+        <span class="material-symbols-outlined text-primary bg-primary-fixed p-2 rounded-lg">calendar_month</span>
+      </div>
+      <p class="text-headline-md font-headline-md text-on-surface">{{ appearances|length }}</p>
+      <p class="text-label-sm font-label-sm text-on-surface-variant mt-1">
+        {{ appearances[-1].election.year if appearances and appearances[-1].election else '' }}
+        – {{ appearances[0].election.year if appearances and appearances[0].election else '' }}
+      </p>
+    </div>
+
+    <div class="bg-surface-container-lowest border border-outline-variant p-stack-md rounded-xl shadow-sm">
+      <div class="flex justify-between items-start mb-4">
+        <span class="text-label-lg font-label-lg text-on-surface-variant uppercase tracking-tighter">Education</span>
+        <span class="material-symbols-outlined text-secondary bg-secondary-fixed p-2 rounded-lg">school</span>
+      </div>
+      <p class="text-headline-md font-headline-md text-on-surface">{{ latest_app.education or 'Not declared' }}</p>
+      <p class="text-label-sm font-label-sm text-on-surface-variant mt-1">As per latest affidavit</p>
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- PARTY HISTORY (only shown when politician has > 1 party) -->
+  {% set unique_parties = appearances|map(attribute='party')|select|map(attribute='short_name')|unique|list %}
+  {% if unique_parties|length > 1 %}
+  <section class="bg-secondary-fixed/40 border-2 border-secondary-container rounded-xl p-stack-md mb-stack-lg">
+    <div class="flex items-start gap-stack-md">
+      <span class="material-symbols-outlined text-secondary-container text-2xl">swap_horiz</span>
+      <div class="flex-1">
+        <h3 class="font-headline-md text-headline-md text-on-secondary-fixed mb-2">Party switcher</h3>
+        <p class="text-body-md text-on-secondary-fixed-variant mb-stack-md">
+          This politician has contested under <strong>{{ unique_parties|length }} different parties</strong> across their {{ appearances|length }} election appearances.
+        </p>
+        <div class="flex items-center gap-2 flex-wrap">
+          {% for a in appearances|reverse %}
+            {% if a.party and a.election %}
+              {% set pclr = party_colors.get(a.party.short_name, '#7f8c8d') %}
+              <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded text-white font-bold" style="background:{{ pclr }}" title="{{ a.constituency.name if a.constituency else '' }}">
+                {{ a.party.short_name }}
+                <span class="text-[11px] opacity-90">· {{ a.election.year }}</span>
+              </span>
+              {% if not loop.last %}
+                <span class="material-symbols-outlined text-on-secondary-fixed">arrow_forward</span>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </div>
+        <p class="text-label-sm text-on-secondary-fixed-variant italic mt-stack-md">
+          Switching parties between elections is legal. The Anti-Defection Law (10th Schedule) restricts only mid-term defections.
+        </p>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- ASYMMETRIC: ASSETS GROWTH + LEGAL DISCLOSURE -->
+  <section class="grid grid-cols-1 lg:grid-cols-3 gap-gutter mb-stack-lg">
+    <!-- Financial assets growth (2/3) -->
+    <div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-headline-md font-headline-md text-on-surface">Financial assets across cycles</h3>
+        <span class="flex items-center gap-1 text-label-sm font-label-sm text-on-surface-variant">
+          <span class="w-3 h-3 rounded-full" style="background: {{ party_clr }}"></span> Declared net worth
+        </span>
+      </div>
+      <div class="relative h-64"><canvas id="growthChart"></canvas></div>
+
+      <!-- Sub-asset breakdown -->
+      <div class="mt-stack-lg grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="p-4 border border-outline-variant rounded-lg">
+          <p class="text-label-sm text-on-surface-variant mb-1">Movable</p>
+          <p class="text-body-lg font-bold">₹{{ "{:,.2f}".format((latest_app.movable_assets_inr or 0) / 10000000) if latest_app else '0' }} Cr</p>
+        </div>
+        <div class="p-4 border border-outline-variant rounded-lg">
+          <p class="text-label-sm text-on-surface-variant mb-1">Immovable</p>
+          <p class="text-body-lg font-bold">₹{{ "{:,.2f}".format((latest_app.immovable_assets_inr or 0) / 10000000) if latest_app else '0' }} Cr</p>
+        </div>
+        <div class="p-4 border border-outline-variant rounded-lg">
+          <p class="text-label-sm text-on-surface-variant mb-1">Liabilities</p>
+          <p class="text-body-lg font-bold text-error">₹{{ "{:,.2f}".format((latest_app.total_liabilities_inr or 0) / 10000000) if latest_app else '0' }} Cr</p>
+        </div>
+        <div class="p-4 border border-outline-variant rounded-lg">
+          <p class="text-label-sm text-on-surface-variant mb-1">Source</p>
+          <p class="text-label-sm font-bold text-primary">{% if latest_app and latest_app.source_url %}<a href="{{ latest_app.source_url }}" target="_blank">ADR · myneta ↗</a>{% else %}ADR / ECI{% endif %}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Legal Disclosure (1/3) -->
+    <div class="lg:col-span-1 bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-headline-md font-headline-md text-on-surface">Legal disclosure</h3>
+        {% if latest_app and (latest_app.criminal_cases_count or 0) > 0 %}
+          <span class="material-symbols-outlined text-error">warning</span>
+        {% else %}
+          <span class="material-symbols-outlined text-on-tertiary-container">verified</span>
+        {% endif %}
+      </div>
+      <div class="space-y-stack-md">
+        {% set lat_cases = (latest_app.cases if latest_app else []) | reject_empty_cases | list %}
+        {% if lat_cases %}
+          {% for c in lat_cases %}
+          {% set clean = c.description | clean_case_desc %}
+          <div class="p-4 bg-error-container/20 border-l-4 border-error rounded-r-lg">
+            <div class="flex justify-between items-start mb-2">
+              <span class="text-label-sm font-bold text-error uppercase">Case {{ loop.index }}</span>
+              <span class="px-2 py-0.5 bg-error text-on-error text-[10px] rounded uppercase font-bold">Pending</span>
+            </div>
+            {% if c.ipc_sections %}
+              <div class="flex flex-wrap gap-1 mb-2">
+                {% for section in c.ipc_sections.split(',') %}
+                  <span class="px-2 py-1 bg-error text-on-error text-[10px] rounded font-bold uppercase tracking-wide">{{ section.strip() }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+            {% if clean %}
+              <p class="text-body-md text-on-surface mb-1">{{ clean }}</p>
+            {% endif %}
+            <div class="text-label-sm font-medium text-on-surface-variant border-t border-error/20 pt-2 mt-2 flex justify-between">
+              <span>Status: {{ c.status or 'Pending' }}</span>
+              {% if c.court %}<span>{{ c.court }}</span>{% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        {% elif latest_app and (latest_app.criminal_cases_count or 0) > 0 %}
+          <div class="p-4 bg-error-container/20 border-l-4 border-error rounded-r-lg">
+            <p class="text-body-md font-bold mb-1">{{ latest_app.criminal_cases_count }} pending case(s) declared</p>
+            <p class="text-label-sm text-on-surface-variant mb-2">Detailed case information not yet scraped.</p>
+            <code class="text-[10px] bg-surface-container px-2 py-1 rounded">python -m app.ingest punjab_detail</code>
+          </div>
+        {% else %}
+          <div class="p-4 bg-tertiary-fixed/30 border-l-4 border-on-tertiary-fixed-variant rounded-r-lg">
+            <p class="text-body-md font-bold mb-1">No pending criminal cases declared</p>
+            <p class="text-label-sm text-on-surface-variant">As per latest affidavit filing.</p>
+          </div>
+        {% endif %}
+      </div>
+      <p class="text-label-sm text-on-surface-variant italic mt-stack-md pt-stack-md border-t border-outline-variant">
+        Cases listed are pending. Candidates presumed innocent until proven guilty.
+      </p>
+    </div>
+  </section>
+
+  <!-- INCOME SOURCES + TREND (moved below Financial Assets, with trend chart) -->
+  {% set lat_assets = latest_app.assets if latest_app else [] %}
+  {% if lat_assets %}
+  <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm mb-stack-lg">
+
+    <!-- TREND CHART (multi-line, term-over-term) -->
+    {% if asset_trend_series|length and asset_trend_years|length >= 2 %}
+    <div class="mb-stack-lg">
+      <div class="flex justify-between items-center mb-stack-md">
+        <h3 class="text-headline-md font-headline-md text-on-surface">Asset categories over time</h3>
+        <span class="text-label-sm font-label-sm text-on-surface-variant">{{ asset_trend_years[0] }} – {{ asset_trend_years[-1] }} · top {{ asset_trend_series|length }} categories</span>
+      </div>
+      <div class="relative h-72"><canvas id="assetTrendChart"></canvas></div>
+      <p class="text-label-sm text-on-surface-variant italic mt-stack-sm text-center">
+        Each line is one asset category. Values are in ₹ Lakh. Hover for exact figures.
+      </p>
+    </div>
+    {% endif %}
+
+    <!-- LATEST CATEGORIES (grid) -->
+    <div class="{% if asset_trend_series|length and asset_trend_years|length >= 2 %}border-t border-outline-variant pt-stack-md{% endif %}">
+      <h3 class="text-headline-md font-headline-md text-on-surface mb-stack-md">Sources of income &amp; assets <span class="text-label-sm font-normal text-on-surface-variant">— latest affidavit</span></h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+        {% for asset in lat_assets %}
+        <div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-lg">
+          <span class="material-symbols-outlined text-secondary-container">
+            {% if 'cash' in asset.subcategory.lower() %}payments
+            {% elif 'bank' in asset.subcategory.lower() or 'deposit' in asset.subcategory.lower() %}savings
+            {% elif 'land' in asset.subcategory.lower() %}terrain
+            {% elif 'building' in asset.subcategory.lower() or 'house' in asset.subcategory.lower() %}home
+            {% elif 'vehicle' in asset.subcategory.lower() or 'car' in asset.subcategory.lower() %}directions_car
+            {% elif 'jewel' in asset.subcategory.lower() or 'gold' in asset.subcategory.lower() %}diamond
+            {% elif 'invest' in asset.subcategory.lower() or 'bond' in asset.subcategory.lower() or 'share' in asset.subcategory.lower() %}trending_up
+            {% else %}category
+            {% endif %}
+          </span>
+          <div class="flex-1 min-w-0">
+            <p class="font-bold text-on-surface truncate">{{ asset.subcategory }}</p>
+            <p class="text-label-sm text-on-surface-variant">{{ asset.category|capitalize }}</p>
+          </div>
+          <p class="font-bold text-on-surface">₹{{ "{:,.2f}".format((asset.value_inr or 0) / 10000000) }} Cr</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  {% else %}
+  <section class="bg-secondary-fixed border border-outline-variant rounded-xl p-stack-md mb-stack-lg">
+    <div class="flex items-start gap-stack-md">
+      <span class="material-symbols-outlined text-secondary-container text-2xl">payments</span>
+      <div>
+        <h3 class="font-headline-md text-headline-md text-on-secondary-fixed mb-1">Asset breakdown not yet scraped</h3>
+        <p class="text-body-md text-on-secondary-fixed-variant">Run <code class="bg-white px-2 py-1 rounded">python -m app.ingest punjab_detail</code> to populate per-category assets and the term-over-term trend chart.</p>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- ELECTION HISTORY -->
+  <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm">
+    <h3 class="text-headline-md font-headline-md text-on-surface mb-6">Election performance history</h3>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="border-b border-outline-variant">
+            <th class="py-4 px-4 text-label-lg font-label-lg text-on-surface-variant uppercase">Year</th>
+            <th class="py-4 px-4 text-label-lg font-label-lg text-on-surface-variant uppercase">House</th>
+            <th class="py-4 px-4 text-label-lg font-label-lg text-on-surface-variant uppercase">Constituency</th>
+            <th class="py-4 px-4 text-label-lg font-label-lg text-on-surface-variant uppercase">Party</th>
+            <th class="py-4 px-4 text-label-lg font-label-lg text-on-surface-variant uppercase">Net Worth</th>
+            <th class="py-4 px-4 text-label-lg font-label-lg text-on-surface-variant uppercase">Change</th>
+            <th class="py-4 px-4 text-label-lg font-label-lg text-on-surface-variant uppercase">Cases</th>
+            <th class="py-4 px-4 text-label-lg font-label-lg text-on-surface-variant uppercase">Result</th>
+            <th class="py-4 px-4 text-label-lg font-label-lg text-on-surface-variant uppercase">Source</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for a in appearances %}
+          {% set color = party_colors.get(a.party.short_name if a.party else 'IND', '#7f8c8d') %}
+          <tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+            <td class="py-4 px-4 font-bold">{{ a.election.year if a.election else '' }}</td>
+            <td class="py-4 px-4">{{ a.election.house if a.election else '' }}</td>
+            <td class="py-4 px-4">{{ a.constituency.name if a.constituency else '' }}</td>
+            <td class="py-4 px-4">{% if a.party %}<span class="px-2 py-1 rounded text-label-sm font-bold text-white" style="background:{{ color }}">{{ a.party.short_name }}</span>{% endif %}</td>
+            <td class="py-4 px-4 font-medium">₹{{ "{:,.1f}".format((a.total_assets_inr or 0) / 10000000) }} Cr</td>
+            <td class="py-4 px-4">
+              {% set d = deltas.get(a.id) %}
+              {% if d %}
+                {% if d.delta >= 0 %}
+                  <span class="text-on-tertiary-container font-bold">+₹{{ "{:,.1f}".format(d.delta / 10000000) }} Cr</span>
+                  <div class="text-label-sm text-on-surface-variant">+{{ "{:+.0f}".format(d.pct) }}% from {{ d.from_year }}</div>
+                {% else %}
+                  <span class="text-error font-bold">₹{{ "{:,.1f}".format(d.delta / 10000000) }} Cr</span>
+                  <div class="text-label-sm text-on-surface-variant">{{ "{:+.0f}".format(d.pct) }}% from {{ d.from_year }}</div>
+                {% endif %}
+              {% else %}
+                <span class="text-on-surface-variant">—</span>
+                <div class="text-label-sm text-on-surface-variant">first appearance</div>
+              {% endif %}
+            </td>
+            <td class="py-4 px-4">{{ a.criminal_cases_count or 0 }}</td>
+            <td class="py-4 px-4">
+              {% if a.won %}
+                <span class="px-2 py-1 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded text-label-sm font-bold uppercase">Won</span>
+              {% else %}
+                <span class="px-2 py-1 bg-error-container text-on-error-container rounded text-label-sm font-bold uppercase">Lost</span>
+              {% endif %}
+            </td>
+            <td class="py-4 px-4">{% if a.source_url %}<a href="{{ a.source_url }}" target="_blank" class="text-primary text-label-sm hover:underline">myneta ↗</a>{% endif %}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <p class="text-center text-label-sm text-on-surface-variant mt-stack-md">
+    Source: <a href="https://myneta.info/" target="_blank" class="text-primary hover:underline">myneta.info</a> (ADR) · Originally from Election Commission of India affidavits.
+  </p>
+</main>
+
+<script>
+const years = [{% for a in appearances|reverse %}{{ a.election.year if a.election else 0 }}{% if not loop.last %},{% endif %}{% endfor %}];
+const assets = [{% for a in appearances|reverse %}{{ (a.total_assets_inr or 0) / 10000000 }}{% if not loop.last %},{% endif %}{% endfor %}];
+new Chart(document.getElementById('growthChart'), {
+  type: 'line',
+  data: { labels: years, datasets: [{
+    label: 'Net worth (₹ Cr)', data: assets,
+    borderColor: '{{ party_clr }}', backgroundColor: '{{ party_clr }}22',
+    fill: true, tension: 0.3, pointRadius: 6, pointHoverRadius: 8, borderWidth: 2.5
+  }] },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => '₹' + c.parsed.y.toFixed(1) + ' Cr' } } }
+  }
+});
+
+{% if asset_trend_series and asset_trend_years|length >= 2 %}
+// Asset categories trend — multi-line chart
+const trendYears  = {{ asset_trend_years|tojson }};
+const trendSeries = {{ asset_trend_series|tojson }};
+// Distinct, accessible color palette so adjacent lines are easy to tell apart
+const TREND_PALETTE = ['#1b5670','#d9714f','#2d9b67','#d4a017','#7d8c69','#22336d','#b14545','#5a6878'];
+const trendDatasets = trendSeries.map((s, i) => ({
+  label: s.label,
+  data: s.data,
+  borderColor: TREND_PALETTE[i % TREND_PALETTE.length],
+  backgroundColor: TREND_PALETTE[i % TREND_PALETTE.length] + '15',
+  fill: false,
+  tension: 0.25,
+  pointRadius: 4,
+  pointHoverRadius: 6,
+  borderWidth: 2,
+  borderDash: s.category === 'immovable' ? [6, 4] : []  // dashed for immovable
+}));
+new Chart(document.getElementById('assetTrendChart'), {
+  type: 'line',
+  data: { labels: trendYears, datasets: trendDatasets },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 14 } },
+      tooltip: { callbacks: { label: c => `${c.dataset.label}: ₹${c.parsed.y.toFixed(2)} Lakh` } }
+    },
+    scales: {
+      y: { title: { display: true, text: '₹ Lakh' }, ticks: { font: { size: 11 } } },
+      x: { ticks: { font: { size: 11 } } }
+    }
+  }
+});
+{% endif %}
+</script>
+
+{% endblock %}

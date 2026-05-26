@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% block title %}Rankings | PolitiTrack India{% endblock %}
+{% block content %}
+
+{% set party_colors = {'AAP':'#019cdf','INC':'#19aaed','BJP':'#ff9933','SAD':'#1a3399','BSP':'#22336d','IND':'#7f8c8d'} %}
+
+<div class="flex min-h-[calc(100vh-64px)] max-w-container-max mx-auto relative">
+
+  <!-- MAIN (no duplicate sidebar nav — top nav handles navigation) -->
+  <main class="flex-1 p-margin-mobile md:p-margin-desktop overflow-x-hidden pb-32 w-full">
+    <div class="mb-stack-lg">
+      <h1 class="text-display-lg-mobile md:text-headline-lg font-display-lg text-on-surface mb-2">Transparency rankings</h1>
+      <p class="text-body-md text-on-surface-variant max-w-2xl">
+        {{ politicians|length }} politicians listed. Filter by party or year; sort by any column. Data is updated when the scraper runs.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 xl:grid-cols-4 gap-gutter">
+
+      <!-- FILTERS -->
+      <aside class="xl:col-span-1 space-y-gutter">
+        <form method="get" class="bg-surface-container-lowest p-stack-md rounded-xl border border-outline-variant shadow-sm">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-label-lg font-label-lg text-on-surface flex items-center gap-2">
+              <span class="material-symbols-outlined text-[20px]">filter_alt</span> Filters
+            </h3>
+            <a href="/browse" class="text-label-sm font-label-sm text-secondary hover:underline">Clear All</a>
+          </div>
+
+          <div class="space-y-stack-md">
+            <div>
+              <label class="block text-label-sm font-label-sm text-on-surface-variant mb-1">Search</label>
+              <input type="text" name="q" value="{{ q or '' }}" placeholder="Name..."
+                     class="w-full bg-surface border border-outline-variant rounded-lg p-2 text-body-md focus:ring-2 focus:ring-secondary outline-none">
+            </div>
+
+            <div>
+              <label class="block text-label-sm font-label-sm text-on-surface-variant mb-1">Party</label>
+              <select name="party" class="w-full bg-surface border border-outline-variant rounded-lg p-2 text-body-md focus:ring-2 focus:ring-secondary outline-none">
+                <option value="">All Parties</option>
+                {% for p in parties %}
+                  <option value="{{ p.short_name }}" {% if selected_party == p.short_name %}selected{% endif %}>{{ p.short_name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-label-sm font-label-sm text-on-surface-variant mb-1">Election Year</label>
+              <select name="year" class="w-full bg-surface border border-outline-variant rounded-lg p-2 text-body-md focus:ring-2 focus:ring-secondary outline-none">
+                <option value="">All Years</option>
+                {% for y in years %}
+                  <option value="{{ y }}" {% if selected_year == y %}selected{% endif %}>{{ y }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <button type="submit" class="w-full py-2 bg-primary text-on-primary rounded-lg font-bold">Apply Filters</button>
+          </div>
+        </form>
+
+        <div class="bg-primary-container p-stack-md rounded-xl text-on-primary">
+          <h4 class="text-label-lg font-label-lg mb-3">Politicians indexed</h4>
+          <p class="text-display-lg-mobile font-display-lg leading-none mb-1">{{ politicians|length }}</p>
+          <p class="text-label-sm font-label-sm text-primary-fixed-dim">Updated when scraper runs</p>
+          <div class="mt-4 pt-4 border-t border-on-primary-fixed-variant flex justify-between text-label-sm">
+            <span>Sources: ADR · ECI</span>
+            <span>Auto-refresh: scrape</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- DATA TABLE -->
+      <div class="xl:col-span-3">
+        <div class="bg-white rounded-2xl border border-outline-variant overflow-hidden shadow-sm">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-surface-container-low border-b border-outline-variant">
+                  <th class="px-6 py-4 text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">#</th>
+                  <th class="px-6 py-4 text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Politician</th>
+                  <th class="px-6 py-4 text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Constituency</th>
+                  <th class="px-6 py-4 text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Net Worth</th>
+                  <th class="px-6 py-4 text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Terms</th>
+                  <th class="px-6 py-4 text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Cases</th>
+                  <th class="px-6 py-4 text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-outline-variant">
+                {% for p in politicians %}
+                  {% set a = latest(p) %}
+                  {% set partyname = (a.party.short_name if a and a.party else 'IND') %}
+                  {% set color = party_colors.get(partyname, '#7f8c8d') %}
+                  <tr class="hover:bg-surface-container-low transition-colors group {% if a and (a.criminal_cases_count or 0) > 2 %}bg-error-container/10{% endif %}">
+                    <td class="px-6 py-4">
+                      <span class="w-8 h-8 flex items-center justify-center {% if loop.index <= 3 %}bg-secondary-fixed text-on-secondary-fixed{% else %}text-on-surface-variant{% endif %} font-bold rounded-full">{{ loop.index }}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                      <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0" style="background:{{ color }}">{{ p.display_name[:2]|upper }}</div>
+                        <div>
+                          <p class="font-bold text-on-surface group-hover:text-secondary-container transition-colors">{{ p.display_name }}</p>
+                          <p class="text-label-sm text-on-surface-variant">{{ partyname }}{% if p.age %} · {{ p.age }} yrs{% endif %}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="px-6 py-4 text-body-md">
+                      {% if a and a.constituency %}{{ a.constituency.name }}{% endif %}
+                      {% if a and a.election %}<div class="text-label-sm text-on-surface-variant">{{ a.election.year }}</div>{% endif %}
+                    </td>
+                    <td class="px-6 py-4">
+                      <span class="font-bold text-on-surface">{% if a %}₹{{ "{:,.1f}".format((a.total_assets_inr or 0) / 10000000) }} Cr{% endif %}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                      {% set terms = p.appearances | selectattr('won') | list | length %}
+                      <span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed rounded-full text-label-sm font-bold">{{ terms }} {{ 'term' if terms == 1 else 'terms' }}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                      {% if a and (a.criminal_cases_count or 0) > 0 %}
+                        <span class="px-3 py-1 bg-error/10 text-error rounded-full text-label-sm font-bold">{{ a.criminal_cases_count }} pending</span>
+                      {% else %}
+                        <span class="px-3 py-1 bg-tertiary-fixed/40 text-on-tertiary-fixed-variant rounded-full text-label-sm font-bold">Clean</span>
+                      {% endif %}
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                      <a href="/politician/{{ p.slug or p.id }}" class="inline-block px-3 py-1.5 border border-outline text-label-sm font-label-sm rounded-lg hover:bg-primary hover:text-on-primary transition-all">Details</a>
+                    </td>
+                  </tr>
+                {% else %}
+                  <tr><td colspan="7" class="px-6 py-16 text-center text-on-surface-variant">No politicians match your filters.</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="px-6 py-4 flex items-center justify-between border-t border-outline-variant bg-surface-container-lowest">
+            <span class="text-label-sm text-on-surface-variant">Showing {{ politicians|length }} results</span>
+            <a href="/random" class="px-4 py-2 border border-outline-variant rounded-lg text-label-sm hover:bg-surface-container-low flex items-center gap-2">
+              <span class="material-symbols-outlined text-[16px]">shuffle</span> Surprise me
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+{% endblock %}
