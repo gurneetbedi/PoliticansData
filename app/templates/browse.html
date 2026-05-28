@@ -74,14 +74,26 @@
         <div class="bg-white rounded-2xl border border-outline-variant overflow-hidden shadow-sm">
           <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">
+              {# Helper: each sortable header toggles asc/desc when clicked. #}
+              {% macro sort_header(label, key, align='left') -%}
+                {% set is_active = (sort == key) %}
+                {% set next_order = 'asc' if (is_active and order == 'desc') else 'desc' %}
+                {% set arrow = '↓' if (is_active and order == 'desc') else ('↑' if is_active else '↕') %}
+                <a href="?q={{ q or '' }}&party={{ selected_party or '' }}&year={{ selected_year or '' }}&sort={{ key }}&order={{ next_order }}"
+                   class="inline-flex items-center gap-1 {% if is_active %}text-primary font-bold{% else %}text-on-surface-variant{% endif %} hover:text-primary transition-colors">
+                  {{ label }}
+                  <span class="text-[10px] opacity-70">{{ arrow }}</span>
+                </a>
+              {%- endmacro %}
+
               <thead>
                 <tr class="bg-surface-container-low border-b border-outline-variant">
                   <th class="px-6 py-4 text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">#</th>
-                  <th class="px-6 py-4 text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Politician</th>
+                  <th class="px-6 py-4 text-label-sm font-label-sm uppercase tracking-wider">{{ sort_header('Politician', 'name') }}</th>
                   <th class="px-6 py-4 text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Constituency</th>
-                  <th class="px-6 py-4 text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Net Worth</th>
-                  <th class="px-6 py-4 text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Terms</th>
-                  <th class="px-6 py-4 text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Cases</th>
+                  <th class="px-6 py-4 text-label-sm font-label-sm uppercase tracking-wider">{{ sort_header('Net Worth', 'wealth') }}</th>
+                  <th class="px-6 py-4 text-label-sm font-label-sm uppercase tracking-wider">{{ sort_header('Terms', 'terms') }}</th>
+                  <th class="px-6 py-4 text-label-sm font-label-sm uppercase tracking-wider">{{ sort_header('Cases', 'cases') }}</th>
                   <th class="px-6 py-4 text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider text-right">Action</th>
                 </tr>
               </thead>
@@ -107,18 +119,29 @@
                       {% if a and a.constituency %}{{ a.constituency.name }}{% endif %}
                       {% if a and a.election %}<div class="text-label-sm text-on-surface-variant">{{ a.election.year }}</div>{% endif %}
                     </td>
-                    <td class="px-6 py-4">
-                      <span class="font-bold text-on-surface">{% if a %}₹{{ "{:,.1f}".format((a.total_assets_inr or 0) / 10000000) }} Cr{% endif %}</span>
+                    <td class="px-6 py-4 font-bold text-on-surface tabular-nums whitespace-nowrap">
+                      {% if a %}₹{{ "{:,.2f}".format((a.total_assets_inr or 0) / 10000000) }} Cr{% else %}—{% endif %}
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-6 py-4 whitespace-nowrap">
                       {% set terms = p.appearances | selectattr('won') | list | length %}
-                      <span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed rounded-full text-label-sm font-bold">{{ terms }} {{ 'term' if terms == 1 else 'terms' }}</span>
+                      <div class="inline-flex items-center gap-2">
+                        <span class="material-symbols-outlined text-on-surface-variant text-[18px]">how_to_vote</span>
+                        <span class="font-bold text-on-surface tabular-nums">{{ terms }}</span>
+                        <span class="text-on-surface-variant text-label-sm">{{ 'win' if terms == 1 else 'wins' }}</span>
+                      </div>
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-6 py-4 whitespace-nowrap">
                       {% if a and (a.criminal_cases_count or 0) > 0 %}
-                        <span class="px-3 py-1 bg-error/10 text-error rounded-full text-label-sm font-bold">{{ a.criminal_cases_count }} pending</span>
+                        <div class="inline-flex items-center gap-2">
+                          <span class="material-symbols-outlined text-error text-[18px]">gavel</span>
+                          <span class="font-bold text-error tabular-nums">{{ a.criminal_cases_count }}</span>
+                          <span class="text-error text-label-sm">pending</span>
+                        </div>
                       {% else %}
-                        <span class="px-3 py-1 bg-tertiary-fixed/40 text-on-tertiary-fixed-variant rounded-full text-label-sm font-bold">Clean</span>
+                        <div class="inline-flex items-center gap-2 text-on-tertiary-container">
+                          <span class="material-symbols-outlined text-[18px]">verified</span>
+                          <span class="font-bold text-label-sm">Clean</span>
+                        </div>
                       {% endif %}
                     </td>
                     <td class="px-6 py-4 text-right">

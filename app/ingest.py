@@ -11,15 +11,19 @@ based on (politician.myneta_candidate_id, election.id).
 import logging
 import sys
 from slugify import slugify
+# from sqlalchemy.orm import joinedload
+
 
 from app.database import Base, SessionLocal, engine
 from app.models import (
     State, Party, Constituency, Election, Politician, ElectionAppearance
 )
 from app.scrapers.punjab import (
-    scrape_all_punjab, scrape_candidate_detail, PUNJAB_CYCLES, WinnerRow,
+    scrape_all_punjab, scrape_all_punjab_candidates,
+    scrape_candidate_detail, PUNJAB_CYCLES, WinnerRow,
 )
 from app.scrapers.punjab_ls import scrape_all_punjab_ls, LS_CYCLES, LSWinnerRow
+from app.scrapers.bihar import scrape_all_bihar, scrape_all_bihar_candidates, BIHAR_CYCLES
 from app.models import Asset, CriminalCase
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
@@ -76,44 +80,36 @@ def ingest_punjab():
         session.close()
 
 
-def _ingest_one(session, row: WinnerRow, state, election):
-    # Party
+def _ingest_one(session, row: WinnerRow, state, election, won: bool = True):
+    """Insert/update one ElectionAppearance row. `won` indicates whether
+    the candidate won this particular election (True for the winners list,
+    False for losers from the all-candidates scrape)."""
     party, _ = get_or_create(session, Party, short_name=row.party)
-
-    # Constituency (unique per state+house+name)
     constituency, _ = get_or_create(
         session, Constituency,
         name=row.constituency, state_id=state.id, house="Assembly",
     )
 
-    # Politician — keyed on myneta_candidate_id so re-contesters merge
     politician = session.query(Politician).filter_by(
         myneta_candidate_id=row.candidate_id
     ).first()
     if not politician:
-        # Generate a unique slug
         base_slug = slugify(row.name)[:200]
         slug = base_slug
         n = 1
         while session.query(Politician).filter_by(slug=slug).first():
             n += 1
             slug = f"{base_slug}-{n}"
-        politician = Politician(
-            name=row.name,
-            slug=slug,
-            myneta_candidate_id=row.candidate_id,
-        )
+        politician = Politician(name=row.name, slug=slug, myneta_candidate_id=row.candidate_id)
         session.add(politician)
         session.flush()
 
-    # ElectionAppearance — one per (politician, election)
     appearance = session.query(ElectionAppearance).filter_by(
         politician_id=politician.id, election_id=election.id
     ).first()
     if not appearance:
         appearance = ElectionAppearance(
-            politician_id=politician.id,
-            election_id=election.id,
+            politician_id=politician.id, election_id=election.id,
         )
         session.add(appearance)
 
@@ -123,7 +119,9 @@ def _ingest_one(session, row: WinnerRow, state, election):
     appearance.total_assets_inr = row.total_assets_inr
     appearance.total_liabilities_inr = row.total_liabilities_inr
     appearance.criminal_cases_count = row.criminal_cases
-    appearance.won = True   # winners list only
+    # Don't downgrade an existing winner to a loser when this is the all-candidates pass
+    if not appearance.won:
+        appearance.won = won
     appearance.source_url = row.detail_url
 
 
@@ -204,14 +202,19 @@ def _ingest_ls_one(session, row: LSWinnerRow, state, election):
     appearance.source_url = row.detail_url
 
 
-def ingest_punjab_detail():
+def ingest_detail(state_name: str | None = None, winners_only: bool = False,
+                  force: bool = False):
     """
-    Enrich each politician with details from their candidate page on myneta:
-    age, profession, individual cases, asset breakdown by sub-category.
+    Enrich politicians with per-candidate detail from myneta — age, profession,
+    individual cases, asset breakdown.
 
-    This is the slow scrape — one fetch per politician per cycle they appeared
-    in. With ~300 politicians × 2s rate limit ≈ 10 minutes for Punjab.
-    Idempotent — re-running updates existing rows.
+    state_name    — only process politicians from this state (default: all states)
+    winners_only  — skip losing candidates (huge speedup; default False)
+    force         — re-fetch even if appearance already has Asset rows (default False)
+
+    By default, appearances that already have asset data are skipped. This makes
+    resuming after Ctrl+C effectively instant — only the unprocessed appearances
+    get fetched. Pass `force=True` to re-scrape everything (e.g. after a parser fix).
     """
     Base.metadata.create_all(bind=engine)
     session = SessionLocal()
@@ -231,11 +234,36 @@ def ingest_punjab_detail():
         return v if 0 <= v <= SAFE_CAP else None
 
     try:
-        appearances = session.query(ElectionAppearance).all()
-        log.info("Enriching detail for %d election appearances", len(appearances))
+        # Scope to a single state when requested so `bihar_detail` doesn't
+        # also re-scrape every Punjab politician.
+        q = session.query(ElectionAppearance)
+        if state_name:
+            q = (q.join(Election, ElectionAppearance.election_id == Election.id)
+                  .join(State, Election.state_id == State.id)
+                  .filter(State.name == state_name))
+        if winners_only:
+            q = q.filter(ElectionAppearance.won.is_(True))
+        appearances = q.all()
+
+        # Skip appearances that already have asset data unless force=True.
+        # This makes resuming after Ctrl+C essentially free.
+        already_done: set[int] = set()
+        if not force:
+            already_done = {
+                aid for (aid,) in session.query(Asset.appearance_id).distinct().all()
+            }
+        target = [a for a in appearances if force or a.id not in already_done]
+
+        log.info(
+            "Enriching %d/%d appearances%s%s — skipping %d already enriched",
+            len(target), len(appearances),
+            f" in {state_name}" if state_name else "",
+            " (winners only)" if winners_only else "",
+            len(appearances) - len(target),
+        )
 
         skipped_oversize = 0
-        for i, app in enumerate(appearances, 1):
+        for i, app in enumerate(target, 1):
             if not app.source_url:
                 continue
             try:
@@ -289,7 +317,7 @@ def ingest_punjab_detail():
             if i % 25 == 0:
                 try:
                     session.commit()
-                    log.info("  ...%d/%d processed", i, len(appearances))
+                    log.info("  ...%d/%d processed", i, len(target))
                 except Exception as e:
                     session.rollback()
                     log.warning("  batch %d-%d failed (%s) — rolled back and continuing", i-25, i, e)
@@ -304,23 +332,182 @@ def ingest_punjab_detail():
         session.close()
 
 
+def ingest_punjab_all():
+    """Scrape EVERY candidate (winner + loser) across Punjab cycles."""
+    Base.metadata.create_all(bind=engine)
+    session = SessionLocal()
+    try:
+        state, _ = get_or_create(session, State, name="Punjab", defaults={"code": "PB"})
+        cycle_to_election = {}
+        for cycle in PUNJAB_CYCLES:
+            election, _ = get_or_create(
+                session, Election,
+                year=cycle["year"], house="Assembly", state_id=state.id,
+                defaults={"myneta_slug": cycle["slug"]},
+            )
+            cycle_to_election[cycle["year"]] = election
+
+        # First pass: ensure winners are marked won=True
+        winners_by_cycle = scrape_all_punjab()
+        winning_ids_by_cycle: dict[int, set[int]] = {}
+        for year, winners in winners_by_cycle.items():
+            winning_ids_by_cycle[year] = {w.candidate_id for w in winners}
+            for row in winners:
+                _ingest_one(session, row, state, cycle_to_election[year], won=True)
+        session.commit()
+        log.info("Winners pass complete.")
+
+        # Second pass: scrape all candidates, mark won based on winner set
+        all_by_cycle = scrape_all_punjab_candidates()
+        total = 0
+        for year, all_rows in all_by_cycle.items():
+            winners_set = winning_ids_by_cycle.get(year, set())
+            log.info("Ingesting %d total candidates for Punjab %d (%d winners + %d losers)",
+                     len(all_rows), year, len(winners_set), len(all_rows) - len(winners_set))
+            for i, row in enumerate(all_rows, 1):
+                _ingest_one(session, row, state, cycle_to_election[year],
+                            won=(row.candidate_id in winners_set))
+                total += 1
+                if i % 100 == 0:
+                    session.commit()
+                    log.info("  ...%d/%d processed for %d", i, len(all_rows), year)
+            session.commit()
+
+        log.info("Done. Total Punjab candidate appearances ingested: %d", total)
+    except Exception:
+        session.rollback()
+        raise
+    finally:
+        session.close()
+
+
+def ingest_bihar():
+    """Scrape Bihar Assembly winners across all available cycles."""
+    Base.metadata.create_all(bind=engine)
+    session = SessionLocal()
+    try:
+        state, _ = get_or_create(session, State, name="Bihar", defaults={"code": "BR"})
+        cycle_to_election = {}
+        for cycle in BIHAR_CYCLES:
+            election, _ = get_or_create(
+                session, Election,
+                year=cycle["year"], house="Assembly", state_id=state.id,
+                defaults={"myneta_slug": cycle["slug"]},
+            )
+            cycle_to_election[cycle["year"]] = election
+
+        scraped = scrape_all_bihar()
+        total = 0
+        for year, winners in scraped.items():
+            election = cycle_to_election[year]
+            log.info("Ingesting %d Bihar winners for %d", len(winners), year)
+            for row in winners:
+                _ingest_one(session, row, state, election, won=True)
+                total += 1
+        session.commit()
+        log.info("Done. Total Bihar winner appearances ingested: %d", total)
+    except Exception:
+        session.rollback()
+        raise
+    finally:
+        session.close()
+
+
+def ingest_bihar_all():
+    """Scrape EVERY candidate (winner + loser) across Bihar cycles."""
+    Base.metadata.create_all(bind=engine)
+    session = SessionLocal()
+    try:
+        state, _ = get_or_create(session, State, name="Bihar", defaults={"code": "BR"})
+        cycle_to_election = {}
+        for cycle in BIHAR_CYCLES:
+            election, _ = get_or_create(
+                session, Election,
+                year=cycle["year"], house="Assembly", state_id=state.id,
+                defaults={"myneta_slug": cycle["slug"]},
+            )
+            cycle_to_election[cycle["year"]] = election
+
+        # Winners pass
+        winners_by_cycle = scrape_all_bihar()
+        winning_ids_by_cycle: dict[int, set[int]] = {}
+        for year, winners in winners_by_cycle.items():
+            winning_ids_by_cycle[year] = {w.candidate_id for w in winners}
+            for row in winners:
+                _ingest_one(session, row, state, cycle_to_election[year], won=True)
+        session.commit()
+        log.info("Bihar winners pass complete.")
+
+        # All-candidates pass
+        all_by_cycle = scrape_all_bihar_candidates()
+        total = 0
+        for year, all_rows in all_by_cycle.items():
+            winners_set = winning_ids_by_cycle.get(year, set())
+            log.info("Ingesting %d total candidates for Bihar %d (%d winners + %d losers)",
+                     len(all_rows), year, len(winners_set), len(all_rows) - len(winners_set))
+            for i, row in enumerate(all_rows, 1):
+                _ingest_one(session, row, state, cycle_to_election[year],
+                            won=(row.candidate_id in winners_set))
+                total += 1
+                if i % 100 == 0:
+                    session.commit()
+                    log.info("  ...%d/%d processed for %d", i, len(all_rows), year)
+            session.commit()
+        log.info("Done. Total Bihar candidate appearances ingested: %d", total)
+    except Exception:
+        session.rollback()
+        raise
+    finally:
+        session.close()
+
+
+def ingest_punjab_detail():
+    """Winners-only detail enrichment for Punjab — fast (~10 min)."""
+    ingest_detail(state_name="Punjab", winners_only=True)
+
+
+def ingest_punjab_detail_all():
+    """All-candidates detail enrichment for Punjab — slow (~hours)."""
+    ingest_detail(state_name="Punjab", winners_only=False)
+
+
+def ingest_bihar_detail():
+    """Winners-only detail enrichment for Bihar — fast (~15 min)."""
+    ingest_detail(state_name="Bihar", winners_only=True)
+
+
+def ingest_bihar_detail_all():
+    """All-candidates detail enrichment for Bihar — slow (~hours)."""
+    ingest_detail(state_name="Bihar", winners_only=False)
+
+
 def main():
     if len(sys.argv) < 2:
         print("Usage:")
-        print("  python -m app.ingest punjab          # Punjab MLAs (winners list)")
-        print("  python -m app.ingest punjab_ls       # Punjab Lok Sabha MPs")
-        print("  python -m app.ingest punjab_detail   # Enrich each politician's profile")
+        print("  python -m app.ingest punjab           # Punjab MLAs (winners only — fast)")
+        print("  python -m app.ingest punjab_all       # Punjab MLAs (all candidates inc. losers)")
+        print("  python -m app.ingest punjab_ls        # Punjab Lok Sabha MPs")
+        print("  python -m app.ingest punjab_detail    # Enrich Punjab politicians (assets, cases)")
+        print("  python -m app.ingest bihar            # Bihar MLAs (winners only)")
+        print("  python -m app.ingest bihar_all        # Bihar MLAs (all candidates)")
+        print("  python -m app.ingest bihar_detail     # Enrich Bihar politicians (assets, cases)")
         sys.exit(1)
     target = sys.argv[1]
-    if target == "punjab":
-        ingest_punjab()
-    elif target == "punjab_ls":
-        ingest_punjab_ls()
-    elif target == "punjab_detail":
-        ingest_punjab_detail()
-    else:
+    fn = {
+        "punjab":            ingest_punjab,
+        "punjab_all":        ingest_punjab_all,
+        "punjab_ls":         ingest_punjab_ls,
+        "punjab_detail":     ingest_punjab_detail,          # winners-only (fast)
+        "punjab_detail_all": ingest_punjab_detail_all,      # all candidates (slow)
+        "bihar":             ingest_bihar,
+        "bihar_all":         ingest_bihar_all,
+        "bihar_detail":      ingest_bihar_detail,           # winners-only (fast)
+        "bihar_detail_all":  ingest_bihar_detail_all,       # all candidates (slow)
+    }.get(target)
+    if not fn:
         print(f"Unknown target: {target}")
         sys.exit(1)
+    fn()
 
 
 if __name__ == "__main__":

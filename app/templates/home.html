@@ -59,23 +59,41 @@
     </div>
   </section>
 
-  <!-- VIEW TOGGLE (which body) + SCOPE TOGGLE (current vs all-time) -->
+  <!-- STATE SELECTOR + VIEW TOGGLE + SCOPE TOGGLE -->
   <section class="py-stack-lg bg-surface px-margin-mobile md:px-margin-desktop">
     <div class="max-w-container-max mx-auto space-y-stack-md">
 
+      <!-- State selector — Punjab / Bihar (extensible) -->
+      <div class="flex items-center gap-stack-md flex-wrap">
+        <span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">State:</span>
+        <div class="inline-flex bg-surface-container-low rounded-full p-1 gap-1">
+          <a href="/?state=Punjab&view={{ view }}&scope={{ scope }}"
+             class="px-5 py-2 rounded-full text-label-lg font-label-lg transition-all {% if state == 'Punjab' %}bg-primary text-on-primary{% else %}text-on-surface-variant hover:text-on-surface{% endif %}">
+            <span class="material-symbols-outlined text-[16px] mr-1">location_on</span> Punjab
+          </a>
+          <a href="/?state=Bihar&view={{ view }}&scope={{ scope }}"
+             class="px-5 py-2 rounded-full text-label-lg font-label-lg transition-all {% if state == 'Bihar' %}bg-primary text-on-primary{% else %}text-on-surface-variant hover:text-on-surface{% endif %}">
+            <span class="material-symbols-outlined text-[16px] mr-1">location_on</span> Bihar
+          </a>
+        </div>
+        <span class="text-label-sm font-label-sm text-on-surface-variant italic">
+          {% if state == 'Bihar' %}Bihar Assembly — ADR flags this state as having the highest share of MLAs with declared criminal cases.{% else %}Punjab Assembly — fully tracked across 4 cycles.{% endif %}
+        </span>
+      </div>
+
       <!-- View toggle: which legislative body -->
       <div class="bg-surface-container-low rounded-2xl p-1 flex flex-wrap gap-1">
-        <a href="/?view=mla&scope={{ scope }}" class="flex-1 text-center py-3 px-4 rounded-xl {% if view == 'mla' %}bg-surface-container-lowest text-on-surface font-bold shadow-sm border-2 border-secondary-container{% else %}text-on-surface-variant hover:bg-white/50{% endif %} text-label-lg font-label-lg transition-all">
+        <a href="/?state={{ state }}&view=mla&scope={{ scope }}" class="flex-1 text-center py-3 px-4 rounded-xl {% if view == 'mla' %}bg-surface-container-lowest text-on-surface font-bold shadow-sm border-2 border-secondary-container{% else %}text-on-surface-variant hover:bg-white/50{% endif %} text-label-lg font-label-lg transition-all">
           <span class="material-symbols-outlined text-[18px]">how_to_vote</span>
           MLAs
         </a>
-        <a href="/?view=mp&scope={{ scope }}" class="flex-1 text-center py-3 px-4 rounded-xl {% if view == 'mp' %}bg-surface-container-lowest text-on-surface font-bold shadow-sm border-2 border-secondary-container{% else %}text-on-surface-variant hover:bg-white/50{% endif %} text-label-lg font-label-lg transition-all">
+        <a href="/?state={{ state }}&view=mp&scope={{ scope }}" class="flex-1 text-center py-3 px-4 rounded-xl {% if view == 'mp' %}bg-surface-container-lowest text-on-surface font-bold shadow-sm border-2 border-secondary-container{% else %}text-on-surface-variant hover:bg-white/50{% endif %} text-label-lg font-label-lg transition-all">
           <span class="material-symbols-outlined text-[18px]">account_balance</span>
           MPs
         </a>
-        <a href="/?view=rs&scope={{ scope }}" class="flex-1 text-center py-3 px-4 rounded-xl {% if view == 'rs' %}bg-surface-container-lowest text-on-surface font-bold shadow-sm border-2 border-secondary-container{% else %}text-on-surface-variant hover:bg-white/50{% endif %} text-label-lg font-label-lg transition-all">
+        <a href="/?state={{ state }}&view=rs&scope={{ scope }}" class="flex-1 text-center py-3 px-4 rounded-xl {% if view == 'rs' %}bg-surface-container-lowest text-on-surface font-bold shadow-sm border-2 border-secondary-container{% else %}text-on-surface-variant hover:bg-white/50{% endif %} text-label-lg font-label-lg transition-all">
           <span class="material-symbols-outlined text-[18px]">gavel</span>
-          Rajya Sabha <span class="opacity-60 ml-1">· {{ rs_members|length }}</span>
+          Rajya Sabha {% if state == 'Punjab' %}<span class="opacity-60 ml-1">· {{ rs_members|length }}</span>{% endif %}
         </a>
       </div>
 
@@ -84,11 +102,11 @@
       <div class="flex items-center gap-stack-md flex-wrap">
         <span class="text-label-sm font-label-sm text-on-surface-variant">Showing:</span>
         <div class="inline-flex bg-surface-container-low rounded-full p-1 gap-1">
-          <a href="/?view={{ view }}&scope=current"
+          <a href="/?state={{ state }}&view={{ view }}&scope=current"
              class="px-4 py-1.5 rounded-full text-label-sm font-label-lg transition-all {% if scope == 'current' %}bg-primary text-on-primary{% else %}text-on-surface-variant hover:text-on-surface{% endif %}">
             Current sitting <span class="opacity-70 ml-1">· {{ current_count }}</span>
           </a>
-          <a href="/?view={{ view }}&scope=all"
+          <a href="/?state={{ state }}&view={{ view }}&scope=all"
              class="px-4 py-1.5 rounded-full text-label-sm font-label-lg transition-all {% if scope == 'all' %}bg-primary text-on-primary{% else %}text-on-surface-variant hover:text-on-surface{% endif %}">
             All cycles <span class="opacity-70 ml-1">· {{ all_count }}</span>
           </a>

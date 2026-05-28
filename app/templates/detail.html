@@ -191,11 +191,22 @@
         {% if lat_cases %}
           {% for c in lat_cases %}
           {% set clean = c.description | clean_case_desc %}
+          {% set case_types_list = c.ipc_sections | all_case_types %}
           <div class="p-4 bg-error-container/20 border-l-4 border-error rounded-r-lg">
             <div class="flex justify-between items-start mb-2">
               <span class="text-label-sm font-bold text-error uppercase">Case {{ loop.index }}</span>
               <span class="px-2 py-0.5 bg-error text-on-error text-[10px] rounded uppercase font-bold">Pending</span>
             </div>
+
+            {# Human-readable case type — the primary "what kind of case is this?" answer #}
+            {% if case_types_list %}
+              <div class="mb-2">
+                <span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Case type:</span>
+                <span class="font-bold text-on-surface ml-1">{{ case_types_list | join(' · ') }}</span>
+              </div>
+            {% endif %}
+
+            {# Raw IPC section badges, kept for legal precision #}
             {% if c.ipc_sections %}
               <div class="flex flex-wrap gap-1 mb-2">
                 {% for section in c.ipc_sections.split(',') %}
@@ -203,6 +214,7 @@
                 {% endfor %}
               </div>
             {% endif %}
+
             {% if clean %}
               <p class="text-body-md text-on-surface mb-1">{{ clean }}</p>
             {% endif %}
@@ -216,7 +228,7 @@
           <div class="p-4 bg-error-container/20 border-l-4 border-error rounded-r-lg">
             <p class="text-body-md font-bold mb-1">{{ latest_app.criminal_cases_count }} pending case(s) declared</p>
             <p class="text-label-sm text-on-surface-variant mb-2">Detailed case information not yet scraped.</p>
-            <code class="text-[10px] bg-surface-container px-2 py-1 rounded">python -m app.ingest punjab_detail</code>
+            <code class="text-[10px] bg-surface-container px-2 py-1 rounded">python -m app.ingest {{ ingest_target | default('punjab_detail') }}</code>
           </div>
         {% else %}
           <div class="p-4 bg-tertiary-fixed/30 border-l-4 border-on-tertiary-fixed-variant rounded-r-lg">
@@ -283,7 +295,7 @@
       <span class="material-symbols-outlined text-secondary-container text-2xl">payments</span>
       <div>
         <h3 class="font-headline-md text-headline-md text-on-secondary-fixed mb-1">Asset breakdown not yet scraped</h3>
-        <p class="text-body-md text-on-secondary-fixed-variant">Run <code class="bg-white px-2 py-1 rounded">python -m app.ingest punjab_detail</code> to populate per-category assets and the term-over-term trend chart.</p>
+        <p class="text-body-md text-on-secondary-fixed-variant">Run <code class="bg-white px-2 py-1 rounded">python -m app.ingest {{ ingest_target | default('punjab_detail') }}</code> to populate per-category assets and the term-over-term trend chart.</p>
       </div>
     </div>
   </section>

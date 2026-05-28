@@ -11,7 +11,7 @@ from sqlalchemy import func, distinct
 from sqlalchemy.orm import Session, joinedload
 
 from app.models import (
-    Politician, ElectionAppearance, Election, Party, Constituency,
+    Politician, ElectionAppearance, Election, Party, Constituency, State,
 )
 
 
@@ -58,19 +58,27 @@ def _latest_appearances(
     db: Session,
     house: Optional[str] = None,
     scope: str = "all",
+    state_name: Optional[str] = None,
 ) -> list[ElectionAppearance]:
     """
     Return one ElectionAppearance per politician — their most recent one.
-    If `house` is given, only considers appearances in that house.
 
-    scope='all'      — every politician who ever won (most recent appearance per person)
+    house        — only consider appearances in this house (Assembly/LokSabha/RS)
+    scope='all'      — every politician who ever won
     scope='current'  — only politicians who won in the latest cycle for this house
+    state_name   — only consider appearances in the given state (e.g. "Punjab", "Bihar")
     """
+    def add_state_filter(q):
+        if state_name:
+            q = q.join(State, Election.state_id == State.id).filter(State.name == state_name)
+        return q
+
     if scope == "current":
-        # Find the max year for this house
         max_year_q = db.query(func.max(Election.year))
         if house:
             max_year_q = max_year_q.filter(Election.house == house)
+        if state_name:
+            max_year_q = max_year_q.join(State, Election.state_id == State.id).filter(State.name == state_name)
         max_year = max_year_q.scalar()
         if not max_year:
             return []
@@ -88,9 +96,9 @@ def _latest_appearances(
         )
         if house:
             q = q.filter(Election.house == house)
+        q = add_state_filter(q)
         return q.all()
 
-    # scope == 'all' (default existing behavior)
     sub = _latest_appearance_subquery(db, house=house)
     q = (
         db.query(ElectionAppearance)
@@ -106,17 +114,18 @@ def _latest_appearances(
     )
     if house:
         q = q.filter(Election.house == house)
+    q = add_state_filter(q)
     return q.all()
 
 
-def top_by_wealth(db: Session, limit: int = 10, house: str = "Assembly", scope: str = "all") -> list[ElectionAppearance]:
-    apps = _latest_appearances(db, house=house, scope=scope)
+def top_by_wealth(db: Session, limit: int = 10, house: str = "Assembly", scope: str = "all", state_name: Optional[str] = None) -> list[ElectionAppearance]:
+    apps = _latest_appearances(db, house=house, scope=scope, state_name=state_name)
     apps = [a for a in apps if a.total_assets_inr]
     return sorted(apps, key=lambda a: a.total_assets_inr or 0, reverse=True)[:limit]
 
 
-def top_by_cases(db: Session, limit: int = 10, house: str = "Assembly", scope: str = "all") -> list[ElectionAppearance]:
-    apps = _latest_appearances(db, house=house, scope=scope)
+def top_by_cases(db: Session, limit: int = 10, house: str = "Assembly", scope: str = "all", state_name: Optional[str] = None) -> list[ElectionAppearance]:
+    apps = _latest_appearances(db, house=house, scope=scope, state_name=state_name)
     apps = [a for a in apps if a.criminal_cases_count and a.criminal_cases_count > 0]
     return sorted(apps, key=lambda a: a.criminal_cases_count or 0, reverse=True)[:limit]
 
@@ -476,9 +485,9 @@ def party_seats_by_year(db: Session, house: str = "Assembly") -> dict:
 
 # ---------------- Citizen-focused KPIs ---------------------------------------
 
-def hero_kpis(db: Session, house: str = "Assembly", scope: str = "all") -> dict:
-    """Four headline numbers for the hero strip. Anchored to a specific house and scope."""
-    apps = _latest_appearances(db, house=house, scope=scope)
+def hero_kpis(db: Session, house: str = "Assembly", scope: str = "all", state_name: Optional[str] = None) -> dict:
+    """Four headline numbers for the hero strip. Anchored to house / scope / state."""
+    apps = _latest_appearances(db, house=house, scope=scope, state_name=state_name)
     if not apps:
         return {"count": 0, "total_wealth_cr": 0, "avg_wealth_cr": 0,
                 "pct_with_cases": 0, "pct_crorepati": 0, "house": house}
@@ -694,9 +703,10 @@ def long_servers(db: Session, limit: int = 10, house: str = "Assembly") -> list[
 
 
 def clean_and_wealthy(db: Session, limit: int = 10, house: str = "Assembly",
-                       min_wealth_cr: float = 5.0, scope: str = "all") -> list[dict]:
+                       min_wealth_cr: float = 5.0, scope: str = "all",
+                       state_name: Optional[str] = None) -> list[dict]:
     """Politicians with wealth >= threshold AND zero pending criminal cases."""
-    apps = _latest_appearances(db, house=house, scope=scope)
+    apps = _latest_appearances(db, house=house, scope=scope, state_name=state_name)
     rows = []
     for a in apps:
         if (a.total_assets_inr or 0) < min_wealth_cr * CRORE:

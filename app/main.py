@@ -98,6 +98,10 @@ def clean_case_desc(desc):
 templates.env.filters["reject_empty_cases"] = reject_empty_cases
 templates.env.filters["clean_case_desc"]    = clean_case_desc
 
+from app.case_types import case_type_for_ipc, all_case_types
+templates.env.filters["case_type"]      = case_type_for_ipc
+templates.env.filters["all_case_types"] = all_case_types
+
 
 def latest_appearance(politician: Politician) -> ElectionAppearance | None:
     """The most recent ElectionAppearance for a politician, by election year."""
@@ -114,6 +118,7 @@ def home(
     db: Session = Depends(get_db),
     view: str = Query("mla", regex="^(mla|mp|rs)$"),
     scope: str = Query("current", regex="^(current|all)$"),
+    state: str = Query("Punjab", regex="^(Punjab|Bihar)$"),
 ):
     """
     The view toggle selects which legislative body to focus the page on:
@@ -138,16 +143,17 @@ def home(
     # the page badges them clearly. When the user toggles to MP, the leaderboards
     # show MP data. RS is a curated list shown as cards (no leaderboards).
     house_for_kpis = HOUSE if HOUSE in ("Assembly", "LokSabha") else "Assembly"
-    kpis = services.hero_kpis(db, house=house_for_kpis, scope=scope)
+    kpis = services.hero_kpis(db, house=house_for_kpis, scope=scope, state_name=state)
 
     # Counts for the toggle badge labels — so users see "(117)" vs "(280)"
-    current_count = services.hero_kpis(db, house=house_for_kpis, scope="current")["count"]
-    all_count     = services.hero_kpis(db, house=house_for_kpis, scope="all")["count"]
+    current_count = services.hero_kpis(db, house=house_for_kpis, scope="current", state_name=state)["count"]
+    all_count     = services.hero_kpis(db, house=house_for_kpis, scope="all", state_name=state)["count"]
 
     return templates.TemplateResponse("home.html", {
         "request": request,
         "view": view,
         "scope": scope,
+        "state": state,
         "house": HOUSE,
         "cycles": cycles,
         "unique_constituencies": unique_constituencies,
@@ -157,14 +163,14 @@ def home(
         "current_count": current_count,
         "all_count": all_count,
 
-        # Citizen-focused leaderboards — respect the scope toggle
-        "top_wealth":          services.top_by_wealth(db, 10, house=house_for_kpis, scope=scope),
-        "top_cases":           services.top_by_cases(db, 10, house=house_for_kpis, scope=scope),
-        # These inherently require multi-cycle data, so they always use 'all'
+        # Citizen-focused leaderboards — respect scope + state filters
+        "top_wealth":          services.top_by_wealth(db, 10, house=house_for_kpis, scope=scope, state_name=state),
+        "top_cases":           services.top_by_cases(db, 10, house=house_for_kpis, scope=scope, state_name=state),
+        # These inherently require multi-cycle data, so they always use 'all' scope
         "wealth_multipliers":  services.wealth_multipliers(db, 10, house=house_for_kpis),
         "crorepati_newcomers": services.crorepati_newcomers(db, 10, house=house_for_kpis),
         "long_servers":        services.long_servers(db, 10, house=house_for_kpis),
-        "clean_wealthy":       services.clean_and_wealthy(db, 10, house=house_for_kpis, scope=scope),
+        "clean_wealthy":       services.clean_and_wealthy(db, 10, house=house_for_kpis, scope=scope, state_name=state),
         "switchers":           services.party_switchers(db, 10),
 
         # Visualizations
@@ -190,6 +196,8 @@ def browse(
     party: str | None = None,
     year: int | None = None,
     q: str | None = None,
+    sort: str = Query("name", regex="^(name|wealth|terms|cases)$"),
+    order: str = Query("desc", regex="^(asc|desc)$"),
 ):
     query = (
         db.query(Politician)
@@ -202,9 +210,8 @@ def browse(
     if q:
         query = query.filter(Politician.name.ilike(f"%{q}%"))
 
-    politicians = query.order_by(Politician.name).limit(200).all()
+    politicians = query.order_by(Politician.name).limit(500).all()
 
-    # Apply party/year filter in Python (small dataset). Move to SQL when scaling.
     if party:
         politicians = [
             p for p in politicians
@@ -216,6 +223,27 @@ def browse(
             if any(a.election and a.election.year == year for a in p.appearances)
         ]
 
+    # Sort. Default to name asc; everything else defaults to desc.
+    reverse = (order == "desc")
+    def latest_wealth(p):
+        a = latest_appearance(p)
+        return (a.total_assets_inr or 0) if a else 0
+    def latest_cases(p):
+        a = latest_appearance(p)
+        return (a.criminal_cases_count or 0) if a else 0
+    def term_count(p):
+        return sum(1 for a in p.appearances if a.won)
+    sort_keys = {
+        "name":   (lambda p: (p.display_name or "").lower(), False),  # name defaults asc
+        "wealth": (latest_wealth, True),
+        "terms":  (term_count, True),
+        "cases":  (latest_cases, True),
+    }
+    key_fn, default_desc = sort_keys[sort]
+    if order not in ("asc", "desc"):
+        reverse = default_desc
+    politicians.sort(key=key_fn, reverse=reverse)
+
     parties = db.query(Party).order_by(Party.short_name).all()
     years = [e.year for e in db.query(Election).order_by(Election.year.desc()).all()]
 
@@ -223,6 +251,7 @@ def browse(
         "request": request, "politicians": politicians, "latest": latest_appearance,
         "parties": parties, "years": years,
         "selected_party": party, "selected_year": year, "q": q,
+        "sort": sort, "order": order,
     })
 
 
@@ -363,12 +392,23 @@ def politician_detail(slug: str, request: Request, db: Session = Depends(get_db)
     trend_series.sort(key=lambda s: s["peak"], reverse=True)
     trend_series = trend_series[:8]
 
+    # Derive politician's state so the "Asset breakdown not yet scraped" hint
+    # can suggest the right ingest command (e.g. bihar_detail vs punjab_detail).
+    state_name = "punjab"
+    for a in appearances_sorted:
+        if a.election and a.election.state_id:
+            state_row = db.query(State).filter(State.id == a.election.state_id).first()
+            if state_row:
+                state_name = state_row.name.lower()
+                break
+
     return templates.TemplateResponse("detail.html", {
         "request": request, "politician": politician,
         "appearances": appearances_sorted,
         "deltas": deltas,
         "asset_trend_years": asset_trend_years,
         "asset_trend_series": trend_series,
+        "ingest_target": f"{state_name}_detail",
     })
 
 

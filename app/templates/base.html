@@ -127,12 +127,27 @@
       <a class="text-label-lg font-label-lg {% if request.url.path == '/anomalies' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/anomalies">Anomalies</a>
       <a class="text-label-lg font-label-lg {% if request.url.path == '/funding' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/funding">Funding</a>
     </nav>
-    <div class="flex items-center gap-stack-md">
-      <button class="hidden lg:flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-xl text-label-lg font-label-lg hover:opacity-80 transition-opacity">
-        <span class="material-symbols-outlined" style="font-size:18px;">location_on</span>
-        Punjab
-        <span class="material-symbols-outlined" style="font-size:18px;">expand_more</span>
-      </button>
+    <div class="flex items-center gap-stack-md relative">
+      {# State dropdown — reads current state from the ?state= query param. #}
+      {% set current_state = request.query_params.get('state', 'Punjab') %}
+      <div class="hidden lg:block relative" id="stateDropdown">
+        <button id="stateDropdownBtn"
+                class="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-xl text-label-lg font-label-lg hover:opacity-80 transition-opacity"
+                onclick="document.getElementById('stateDropdownMenu').classList.toggle('hidden')">
+          <span class="material-symbols-outlined" style="font-size:18px;">location_on</span>
+          {{ current_state }}
+          <span class="material-symbols-outlined" style="font-size:18px;">expand_more</span>
+        </button>
+        <div id="stateDropdownMenu" class="hidden absolute right-0 mt-2 w-44 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-2xl overflow-hidden z-[60]">
+          <a href="/?state=Punjab" class="block px-4 py-3 text-label-lg font-label-lg {% if current_state == 'Punjab' %}bg-secondary-container/20 text-on-surface font-bold{% else %}text-on-surface-variant hover:bg-surface-container-low{% endif %}">
+            <span class="material-symbols-outlined text-[16px] mr-1 align-middle">location_on</span> Punjab
+          </a>
+          <a href="/?state=Bihar" class="block px-4 py-3 text-label-lg font-label-lg {% if current_state == 'Bihar' %}bg-secondary-container/20 text-on-surface font-bold{% else %}text-on-surface-variant hover:bg-surface-container-low{% endif %}">
+            <span class="material-symbols-outlined text-[16px] mr-1 align-middle">location_on</span> Bihar
+          </a>
+          <div class="border-t border-outline-variant px-4 py-2 text-label-sm text-on-surface-variant italic">More states soon…</div>
+        </div>
+      </div>
     </div>
   </div>
 </header>
@@ -178,5 +193,15 @@
   </a>
 </nav>
 
+<script>
+  // Close the state dropdown on any click outside it
+  document.addEventListener('click', (e) => {
+    const dd = document.getElementById('stateDropdown');
+    const menu = document.getElementById('stateDropdownMenu');
+    if (dd && menu && !dd.contains(e.target)) {
+      menu.classList.add('hidden');
+    }
+  });
+</script>
 </body>
 </html>

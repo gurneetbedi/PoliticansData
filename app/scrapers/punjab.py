@@ -79,6 +79,55 @@ def extract_candidate_id(href: str) -> Optional[int]:
     return int(m.group(1)) if m else None
 
 
+def _parse_candidate_table_row(cells, election_slug: str, is_bye_section: bool = False) -> Optional[WinnerRow]:
+    """Parse one <tr>'s cells into a WinnerRow. Shared by show_winners
+    and the all-candidates (summary) page since they have the same column layout."""
+    if len(cells) < 8:
+        return None
+    candidate_links = [
+        a for a in cells[1].find_all("a")
+        if "candidate_id=" in (a.get("href", "") or "")
+    ]
+    if not candidate_links:
+        return None
+    name_link = next(
+        (a for a in candidate_links if a.get_text(strip=True)),
+        candidate_links[0],
+    )
+    name = name_link.get_text(strip=True)
+    cand_id = extract_candidate_id(name_link.get("href", ""))
+    if not cand_id:
+        return None
+    if not name:
+        name = cells[1].get_text(" ", strip=True)
+    if not name:
+        return None
+
+    constituency_text = cells[2].get_text(strip=True)
+    bye_date = None
+    is_bye = is_bye_section or ":" in constituency_text
+    if is_bye and ":" in constituency_text:
+        parts = constituency_text.split(":", 1)
+        constituency_text = parts[0].strip()
+        m = re.search(r"(\d{2}-\d{2}-\d{4})", parts[1])
+        bye_date = m.group(1) if m else None
+
+    return WinnerRow(
+        candidate_id=cand_id,
+        name=name,
+        constituency=constituency_text,
+        party=cells[3].get_text(strip=True),
+        criminal_cases=parse_cases(cells[4].get_text(strip=True)),
+        education=cells[5].get_text(strip=True),
+        total_assets_inr=parse_inr(cells[6].get_text(" ", strip=True)),
+        total_liabilities_inr=parse_inr(cells[7].get_text(" ", strip=True)),
+        election_slug=election_slug,
+        detail_url=f"{BASE}/{election_slug}/candidate.php?candidate_id={cand_id}",
+        is_bye_election=is_bye,
+        bye_election_date=bye_date,
+    )
+
+
 def scrape_winners(election_slug: str) -> list[WinnerRow]:
     """Fetch the winners list for one Punjab election cycle and parse all rows."""
     url = f"{BASE}/{election_slug}/index.php?action=show_winners&sort=default"
@@ -86,82 +135,76 @@ def scrape_winners(election_slug: str) -> list[WinnerRow]:
     soup = BeautifulSoup(html, "lxml")
 
     winners: list[WinnerRow] = []
-    is_bye_section = False
-
-    # myneta has two tables on this page: main winners list, then bye-election winners.
-    # We iterate tables and parse rows that match the expected 8-column structure.
     for table in soup.find_all("table"):
         rows = table.find_all("tr")
         if not rows:
             continue
-        # Identify by header
         header = rows[0].get_text(" ", strip=True).lower()
         if "candidate" not in header or "constituency" not in header:
             continue
-
-        # Detect "Bye-Elections" section by looking at the preceding heading
         prev = table.find_previous(string=re.compile(r"Bye[- ]?Election", re.I))
         is_bye_section = bool(prev)
-
         for tr in rows[1:]:
-            cells = tr.find_all("td")
-            if len(cells) < 8:
-                continue
             try:
-                # myneta wraps the candidate cell in two anchors: an empty
-                # image wrapper followed by the real name link. We must pick
-                # the one with non-empty text — picking the first gets an
-                # empty name. (Bug fix for missing-name issue.)
-                candidate_links = [
-                    a for a in cells[1].find_all("a")
-                    if "candidate_id=" in (a.get("href", "") or "")
-                ]
-                if not candidate_links:
-                    continue
-                name_link = next(
-                    (a for a in candidate_links if a.get_text(strip=True)),
-                    candidate_links[0],
-                )
-                name = name_link.get_text(strip=True)
-                cand_id = extract_candidate_id(name_link.get("href", ""))
-                if not cand_id:
-                    continue
-                if not name:
-                    # Last-ditch: take any non-empty text in the cell
-                    name = cells[1].get_text(" ", strip=True)
-                if not name:
-                    continue  # truly nothing to use
-
-                constituency_text = cells[2].get_text(strip=True)
-                bye_date = None
-                is_bye = is_bye_section or ":" in constituency_text
-                if is_bye and ":" in constituency_text:
-                    parts = constituency_text.split(":", 1)
-                    constituency_text = parts[0].strip()
-                    # "BYE ELECTION ON 13-11-2024"
-                    m = re.search(r"(\d{2}-\d{2}-\d{4})", parts[1])
-                    bye_date = m.group(1) if m else None
-
-                winners.append(WinnerRow(
-                    candidate_id=cand_id,
-                    name=name,
-                    constituency=constituency_text,
-                    party=cells[3].get_text(strip=True),
-                    criminal_cases=parse_cases(cells[4].get_text(strip=True)),
-                    education=cells[5].get_text(strip=True),
-                    total_assets_inr=parse_inr(cells[6].get_text(" ", strip=True)),
-                    total_liabilities_inr=parse_inr(cells[7].get_text(" ", strip=True)),
-                    election_slug=election_slug,
-                    detail_url=f"{BASE}/{election_slug}/candidate.php?candidate_id={cand_id}",
-                    is_bye_election=is_bye,
-                    bye_election_date=bye_date,
-                ))
+                row = _parse_candidate_table_row(tr.find_all("td"), election_slug, is_bye_section)
+                if row:
+                    winners.append(row)
             except Exception as e:
                 log.warning("Skipping row in %s: %s", election_slug, e)
-                continue
 
     log.info("Parsed %d winners from %s", len(winners), election_slug)
     return winners
+
+
+def scrape_all_candidates(election_slug: str, max_pages: int = 80) -> list[WinnerRow]:
+    """
+    Fetch *every* candidate (winner + loser) from one cycle by paginating
+    the all-candidates summary URL on myneta.
+    URL: index.php?action=summary&subAction=candidates_analyzed&sort=candidate&page=N
+    Returns one WinnerRow per candidate. The `won` flag must be set
+    downstream by checking against the winners list.
+    """
+    rows: list[WinnerRow] = []
+    seen_ids: set[int] = set()
+    for page in range(1, max_pages + 1):
+        url = (f"{BASE}/{election_slug}/index.php"
+               f"?action=summary&subAction=candidates_analyzed"
+               f"&sort=candidate&page={page}")
+        html = fetch(url)
+        soup = BeautifulSoup(html, "lxml")
+
+        page_rows_before = len(rows)
+        for table in soup.find_all("table"):
+            tr_rows = table.find_all("tr")
+            if not tr_rows:
+                continue
+            header = tr_rows[0].get_text(" ", strip=True).lower()
+            if "candidate" not in header or "constituency" not in header:
+                continue
+            for tr in tr_rows[1:]:
+                try:
+                    parsed = _parse_candidate_table_row(tr.find_all("td"), election_slug)
+                    if parsed and parsed.candidate_id not in seen_ids:
+                        rows.append(parsed)
+                        seen_ids.add(parsed.candidate_id)
+                except Exception as e:
+                    log.warning("Skipping row in %s page %d: %s", election_slug, page, e)
+
+        # Stop when a page returned no new candidates (= past the last page)
+        if len(rows) == page_rows_before:
+            log.info("No new candidates on page %d — stopping pagination", page)
+            break
+
+    log.info("Parsed %d total candidates from %s across %d pages", len(rows), election_slug, page)
+    return rows
+
+
+def scrape_all_punjab_candidates() -> dict[int, list[WinnerRow]]:
+    """Scrape every candidate (winners + losers) from every Punjab cycle."""
+    return {
+        cycle["year"]: scrape_all_candidates(cycle["slug"])
+        for cycle in PUNJAB_CYCLES
+    }
 
 
 def scrape_all_punjab() -> dict[int, list[WinnerRow]]:
@@ -201,10 +244,19 @@ def scrape_candidate_detail(detail_url: str, candidate_id: int) -> CandidateDeta
     detail = CandidateDetail(candidate_id=candidate_id)
     text = soup.get_text(" ", strip=True)
 
+    def _safe_int(s: str) -> int | None:
+        """int() that returns None instead of crashing on empty / non-numeric input."""
+        if not s:
+            return None
+        digits = re.sub(r"\D", "", s)
+        return int(digits) if digits else None
+
     # ---- Age / Profession --------------------------------------------------
     m = re.search(r"(?:Self\s+)?Age\s*:?\s*(\d+)", text)
     if m:
-        detail.age = int(m.group(1))
+        age = _safe_int(m.group(1))
+        if age and 18 <= age <= 110:    # sanity check
+            detail.age = age
 
     m = re.search(r"(?:Self\s+)?Profession[s]?\s*:?\s*([^|\n]{2,200}?)(?:Self|Spouse|$)", text)
     if m:
@@ -215,7 +267,9 @@ def scrape_candidate_detail(detail_url: str, candidate_id: int) -> CandidateDeta
     # ---- Serious cases count ----------------------------------------------
     m = re.search(r"(\d+)\s*Number of Serious IPC", text, re.I)
     if m:
-        detail.serious_cases = int(m.group(1))
+        sc = _safe_int(m.group(1))
+        if sc is not None:
+            detail.serious_cases = sc
 
     # ---- Asset / Liability totals ----------------------------------------
     # Same overflow guard as pick_value: any number above ₹10,000 Cr is
@@ -223,10 +277,18 @@ def scrape_candidate_detail(detail_url: str, candidate_id: int) -> CandidateDeta
     SAFE_TOTAL_CAP = 10_000_000_000_000
 
     def _parse_total(pattern: str) -> int:
+        """
+        Defensive — the regex `[\d,]+` can match a lone "," with no digits
+        (e.g. when the affidavit cell is empty or malformed), which used to
+        crash `int('')`. Strip non-digits and check before converting.
+        """
         m = re.search(pattern, text)
         if not m:
             return 0
-        v = int(m.group(1).replace(",", ""))
+        raw = re.sub(r"\D", "", m.group(1) or "")
+        if not raw:
+            return 0
+        v = int(raw)
         return v if v <= SAFE_TOTAL_CAP else 0
 
     detail.movable_total_inr   = _parse_total(r"Total Movable Assets.*?Rs\s*([\d,]+)")
