@@ -4,43 +4,9 @@
 
 {% set party_colors = {'AAP':'#019cdf','INC':'#19aaed','BJP':'#ff9933','SAD':'#1a3399','BSP':'#22336d','IND':'#7f8c8d'} %}
 
-<div class="flex min-h-[calc(100vh-64px)] max-w-container-max mx-auto">
+<div class="max-w-container-max mx-auto">
 
-  <!-- SIDEBAR -->
-  <aside class="hidden lg:flex flex-col py-stack-md px-base bg-surface border-r border-outline-variant w-64 sticky top-16 h-[calc(100vh-64px)]">
-    <div class="px-4 mb-stack-lg">
-      <h2 class="font-headline-md text-headline-md font-semibold text-on-surface">Transparency Portal</h2>
-      <p class="text-on-surface-variant font-label-sm text-label-sm opacity-70">Anomaly intelligence</p>
-    </div>
-    <nav class="flex flex-col gap-1 px-2">
-      <a href="/" class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm rounded-lg transition-all">
-        <span class="material-symbols-outlined">home</span> Home
-      </a>
-      <a href="/browse" class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm rounded-lg transition-all">
-        <span class="material-symbols-outlined">leaderboard</span> Rankings
-      </a>
-      <a href="/anomalies" class="flex items-center gap-3 p-3 bg-secondary-container text-on-secondary-container font-bold rounded-lg">
-        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span> Anomalies
-      </a>
-      <a href="/heatmap" class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm rounded-lg transition-all">
-        <span class="material-symbols-outlined">map</span> States
-      </a>
-      <a href="/funding" class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm rounded-lg transition-all">
-        <span class="material-symbols-outlined">account_tree</span> Funding
-      </a>
-    </nav>
-    <div class="mt-auto px-4 pt-stack-lg border-t border-outline-variant">
-      <div class="bg-error-container text-on-error-container p-4 rounded-xl mb-stack-md">
-        <div class="flex items-center justify-between mb-2">
-          <span class="font-label-lg text-label-lg font-bold">{{ anomalies|length }} patterns flagged</span>
-          <span class="material-symbols-outlined text-error">campaign</span>
-        </div>
-        <p class="text-[10px] leading-tight">Politicians with significant statistical variance in declared assets.</p>
-      </div>
-    </div>
-  </aside>
-
-  <!-- MAIN -->
+  <!-- MAIN (no left-nav — top nav handles routing; filters live in the right-side sidebar) -->
   <main class="flex-1 w-full px-margin-mobile md:px-margin-desktop py-stack-lg">
 
     <!-- HEADER -->

@@ -59,9 +59,25 @@ BIHAR = StateConfig(
     },
 )
 
+GOA = StateConfig(
+    key="goa",
+    name="Goa",
+    code="GA",
+    # myneta uses these slugs for Goa assembly cycles
+    assembly_cycles=[
+        {"year": 2022, "slug": "Goa2022"},
+        {"year": 2017, "slug": "goa2017"},
+        {"year": 2012, "slug": "goa2012"},
+        {"year": 2007, "slug": "goa2007"},
+    ],
+    ls_pcs={"NORTH GOA", "SOUTH GOA"},
+)
+
+
 ALL_STATES: dict[str, StateConfig] = {
     "punjab": PUNJAB,
     "bihar":  BIHAR,
+    "goa":    GOA,
 }
 
 

@@ -118,7 +118,7 @@ def home(
     db: Session = Depends(get_db),
     view: str = Query("mla", regex="^(mla|mp|rs)$"),
     scope: str = Query("current", regex="^(current|all)$"),
-    state: str = Query("Punjab", regex="^(Punjab|Bihar)$"),
+    state: str = Query("Punjab", regex="^(Punjab|Bihar|Goa)$"),
 ):
     """
     The view toggle selects which legislative body to focus the page on:
@@ -163,24 +163,33 @@ def home(
         "current_count": current_count,
         "all_count": all_count,
 
-        # Citizen-focused leaderboards — respect scope + state filters
+        # Every section is now state-scoped — Bihar page shows only Bihar data, etc.
         "top_wealth":          services.top_by_wealth(db, 10, house=house_for_kpis, scope=scope, state_name=state),
         "top_cases":           services.top_by_cases(db, 10, house=house_for_kpis, scope=scope, state_name=state),
-        # These inherently require multi-cycle data, so they always use 'all' scope
-        "wealth_multipliers":  services.wealth_multipliers(db, 10, house=house_for_kpis),
-        "crorepati_newcomers": services.crorepati_newcomers(db, 10, house=house_for_kpis),
-        "long_servers":        services.long_servers(db, 10, house=house_for_kpis),
+        "wealth_multipliers":  services.wealth_multipliers(db, 10, house=house_for_kpis, state_name=state),
+        "crorepati_newcomers": services.crorepati_newcomers(db, 10, house=house_for_kpis, state_name=state),
+        "long_servers":        services.long_servers(db, 10, house=house_for_kpis, state_name=state),
         "clean_wealthy":       services.clean_and_wealthy(db, 10, house=house_for_kpis, scope=scope, state_name=state),
-        "switchers":           services.party_switchers(db, 10),
+        "switchers":           services.party_switchers(db, 10, state_name=state),
 
-        # Visualizations
-        "trends":   services.trends_by_cycle(db),
-        "parties":  services.party_stats(db),
-        "scatter":  services.scatter_points(db),
-        "tiles":    services.constituency_tiles(db),
-        "dots_by_year":     services.dots_by_year(db, house="Assembly"),
-        "party_seats":      services.party_seats_by_year(db, house="Assembly"),
-        "facts":    services.did_you_know(db),
+        # Visualizations — also state-scoped
+        "trends":   services.trends_by_cycle(db, state_name=state),
+        "parties":  services.party_stats(db, state_name=state),
+        "scatter":  services.scatter_points(db, state_name=state),
+        "tiles":    services.constituency_tiles(db, state_name=state),
+        "dots_by_year":     services.dots_by_year(db, house="Assembly", state_name=state),
+        "party_seats":      services.party_seats_by_year(db, house="Assembly", state_name=state),
+        "party_wealth_cycles": services.party_wealth_by_cycle(db, house="Assembly", state_name=state),
+        "facts":    services.did_you_know(db, state_name=state),
+
+        # India-wide stats for the choropleth (one row per state)
+        "india_states": [
+            {
+                "name": s_name,
+                "kpi": services.hero_kpis(db, house="Assembly", scope="current", state_name=s_name),
+            }
+            for s_name in ("Punjab", "Bihar")
+        ],
 
         # Helpers
         "party_color": services.party_color,
@@ -198,9 +207,20 @@ def browse(
     q: str | None = None,
     sort: str = Query("name", regex="^(name|wealth|terms|cases)$"),
     order: str = Query("desc", regex="^(asc|desc)$"),
+    state: str = Query("Punjab", regex="^(Punjab|Bihar|Goa)$"),
 ):
+    # Scope the politician query to ones with at least one appearance in this state
+    state_politician_ids = (
+        db.query(ElectionAppearance.politician_id)
+        .join(Election, ElectionAppearance.election_id == Election.id)
+        .join(State, Election.state_id == State.id)
+        .filter(State.name == state)
+        .distinct()
+    )
+
     query = (
         db.query(Politician)
+        .filter(Politician.id.in_(state_politician_ids))
         .options(
             joinedload(Politician.appearances).joinedload(ElectionAppearance.election),
             joinedload(Politician.appearances).joinedload(ElectionAppearance.party),
@@ -210,8 +230,9 @@ def browse(
     if q:
         query = query.filter(Politician.name.ilike(f"%{q}%"))
 
-    politicians = query.order_by(Politician.name).limit(500).all()
+    politicians = query.order_by(Politician.name).limit(1500).all()
 
+    # Filter by party / year (in Python because the relationship traversal is cheap once loaded)
     if party:
         politicians = [
             p for p in politicians
@@ -223,35 +244,50 @@ def browse(
             if any(a.election and a.election.year == year for a in p.appearances)
         ]
 
-    # Sort. Default to name asc; everything else defaults to desc.
-    reverse = (order == "desc")
+    # Defensive sort — every key returns an int/str, never None.
+    def safe_name(p):
+        return (p.display_name or "").lower()
     def latest_wealth(p):
         a = latest_appearance(p)
-        return (a.total_assets_inr or 0) if a else 0
+        return int(a.total_assets_inr or 0) if a else 0
     def latest_cases(p):
         a = latest_appearance(p)
-        return (a.criminal_cases_count or 0) if a else 0
+        return int(a.criminal_cases_count or 0) if a else 0
     def term_count(p):
-        return sum(1 for a in p.appearances if a.won)
+        return int(sum(1 for a in (p.appearances or []) if a.won))
+
     sort_keys = {
-        "name":   (lambda p: (p.display_name or "").lower(), False),  # name defaults asc
-        "wealth": (latest_wealth, True),
-        "terms":  (term_count, True),
-        "cases":  (latest_cases, True),
+        "name":   safe_name,
+        "wealth": latest_wealth,
+        "terms":  term_count,
+        "cases":  latest_cases,
     }
-    key_fn, default_desc = sort_keys[sort]
-    if order not in ("asc", "desc"):
-        reverse = default_desc
-    politicians.sort(key=key_fn, reverse=reverse)
+    reverse = (order == "desc")
+    try:
+        politicians.sort(key=sort_keys[sort], reverse=reverse)
+    except Exception:
+        # Fall back to name sort if anything goes wrong (e.g. mixed type comparison)
+        politicians.sort(key=safe_name)
 
     parties = db.query(Party).order_by(Party.short_name).all()
-    years = [e.year for e in db.query(Election).order_by(Election.year.desc()).all()]
+
+    # Year dropdown: only election years for the selected state, descending
+    years = [
+        y for (y,) in (
+            db.query(Election.year)
+            .join(State, Election.state_id == State.id)
+            .filter(State.name == state)
+            .distinct()
+            .order_by(Election.year.desc())
+            .all()
+        )
+    ]
 
     return templates.TemplateResponse("browse.html", {
         "request": request, "politicians": politicians, "latest": latest_appearance,
         "parties": parties, "years": years,
         "selected_party": party, "selected_year": year, "q": q,
-        "sort": sort, "order": order,
+        "sort": sort, "order": order, "state": state,
     })
 
 
@@ -263,18 +299,36 @@ def politician_empty():
 
 
 @app.get("/heatmap", response_class=HTMLResponse)
-def heatmap(request: Request, db: Session = Depends(get_db)):
-    """State-wise Transparency Heatmap — India SVG with state risk legend."""
-    return templates.TemplateResponse("heatmap.html", {"request": request})
+def heatmap(
+    request: Request,
+    db: Session = Depends(get_db),
+    state: str = Query("Punjab", regex="^(Punjab|Bihar|Goa)$"),
+):
+    """State-wise Transparency Heatmap — India choropleth + selected-state constituency grid."""
+    return templates.TemplateResponse("heatmap.html", {
+        "request": request,
+        "state":   state,
+        "tiles":   services.constituency_tiles(db, state_name=state),
+        "kpis":    services.hero_kpis(db, house="Assembly", scope="current", state_name=state),
+        "india_states": [
+            {"name": s_name, "kpi": services.hero_kpis(db, house="Assembly", scope="current", state_name=s_name)}
+            for s_name in ("Punjab", "Bihar")
+        ],
+    })
 
 
 @app.get("/anomalies", response_class=HTMLResponse)
-def anomalies(request: Request, db: Session = Depends(get_db)):
+def anomalies(
+    request: Request,
+    db: Session = Depends(get_db),
+    state: str = Query("Punjab", regex="^(Punjab|Bihar|Goa)$"),
+):
     """Data Pattern Analysis — flag candidates with unusual wealth growth."""
     return templates.TemplateResponse("anomalies.html", {
         "request": request,
-        "anomalies": services.anomaly_candidates(db, limit=20),
-        "buckets":   services.anomaly_buckets(db),
+        "anomalies": services.anomaly_candidates(db, limit=20, state_name=state),
+        "buckets":   services.anomaly_buckets(db, state_name=state),
+        "state":     state,
     })
 
 

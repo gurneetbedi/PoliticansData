@@ -24,6 +24,7 @@ from app.scrapers.punjab import (
 )
 from app.scrapers.punjab_ls import scrape_all_punjab_ls, LS_CYCLES, LSWinnerRow
 from app.scrapers.bihar import scrape_all_bihar, scrape_all_bihar_candidates, BIHAR_CYCLES
+from app.scrapers.goa   import scrape_all_goa,   scrape_all_goa_candidates,   GOA_CYCLES
 from app.models import Asset, CriminalCase
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
@@ -481,6 +482,91 @@ def ingest_bihar_detail_all():
     ingest_detail(state_name="Bihar", winners_only=False)
 
 
+def ingest_goa():
+    """Scrape Goa Assembly winners across all available cycles."""
+    Base.metadata.create_all(bind=engine)
+    session = SessionLocal()
+    try:
+        state, _ = get_or_create(session, State, name="Goa", defaults={"code": "GA"})
+        cycle_to_election = {}
+        for cycle in GOA_CYCLES:
+            election, _ = get_or_create(
+                session, Election,
+                year=cycle["year"], house="Assembly", state_id=state.id,
+                defaults={"myneta_slug": cycle["slug"]},
+            )
+            cycle_to_election[cycle["year"]] = election
+        scraped = scrape_all_goa()
+        total = 0
+        for year, winners in scraped.items():
+            election = cycle_to_election[year]
+            log.info("Ingesting %d Goa winners for %d", len(winners), year)
+            for row in winners:
+                _ingest_one(session, row, state, election, won=True)
+                total += 1
+        session.commit()
+        log.info("Done. Total Goa winner appearances ingested: %d", total)
+    except Exception:
+        session.rollback()
+        raise
+    finally:
+        session.close()
+
+
+def ingest_goa_all():
+    """Scrape EVERY Goa candidate (winners + losers) across all cycles."""
+    Base.metadata.create_all(bind=engine)
+    session = SessionLocal()
+    try:
+        state, _ = get_or_create(session, State, name="Goa", defaults={"code": "GA"})
+        cycle_to_election = {}
+        for cycle in GOA_CYCLES:
+            election, _ = get_or_create(
+                session, Election,
+                year=cycle["year"], house="Assembly", state_id=state.id,
+                defaults={"myneta_slug": cycle["slug"]},
+            )
+            cycle_to_election[cycle["year"]] = election
+        winners_by_cycle = scrape_all_goa()
+        winning_ids_by_cycle: dict[int, set[int]] = {}
+        for year, winners in winners_by_cycle.items():
+            winning_ids_by_cycle[year] = {w.candidate_id for w in winners}
+            for row in winners:
+                _ingest_one(session, row, state, cycle_to_election[year], won=True)
+        session.commit()
+        log.info("Goa winners pass complete.")
+        all_by_cycle = scrape_all_goa_candidates()
+        total = 0
+        for year, all_rows in all_by_cycle.items():
+            winners_set = winning_ids_by_cycle.get(year, set())
+            log.info("Ingesting %d total candidates for Goa %d (%d winners + %d losers)",
+                     len(all_rows), year, len(winners_set), len(all_rows) - len(winners_set))
+            for i, row in enumerate(all_rows, 1):
+                _ingest_one(session, row, state, cycle_to_election[year],
+                            won=(row.candidate_id in winners_set))
+                total += 1
+                if i % 100 == 0:
+                    session.commit()
+                    log.info("  ...%d/%d processed for %d", i, len(all_rows), year)
+            session.commit()
+        log.info("Done. Total Goa candidate appearances ingested: %d", total)
+    except Exception:
+        session.rollback()
+        raise
+    finally:
+        session.close()
+
+
+def ingest_goa_detail():
+    """Winners-only detail enrichment for Goa — very fast (~3 min)."""
+    ingest_detail(state_name="Goa", winners_only=True)
+
+
+def ingest_goa_detail_all():
+    """All-candidates detail enrichment for Goa."""
+    ingest_detail(state_name="Goa", winners_only=False)
+
+
 def main():
     if len(sys.argv) < 2:
         print("Usage:")
@@ -503,6 +589,10 @@ def main():
         "bihar_all":         ingest_bihar_all,
         "bihar_detail":      ingest_bihar_detail,           # winners-only (fast)
         "bihar_detail_all":  ingest_bihar_detail_all,       # all candidates (slow)
+        "goa":               ingest_goa,
+        "goa_all":           ingest_goa_all,
+        "goa_detail":        ingest_goa_detail,
+        "goa_detail_all":    ingest_goa_detail_all,
     }.get(target)
     if not fn:
         print(f"Unknown target: {target}")

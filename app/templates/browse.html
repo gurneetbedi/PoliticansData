@@ -20,6 +20,7 @@
       <!-- FILTERS -->
       <aside class="xl:col-span-1 space-y-gutter">
         <form method="get" class="bg-surface-container-lowest p-stack-md rounded-xl border border-outline-variant shadow-sm">
+          <input type="hidden" name="state" value="{{ state }}">
           <div class="flex items-center justify-between mb-4">
             <h3 class="text-label-lg font-label-lg text-on-surface flex items-center gap-2">
               <span class="material-symbols-outlined text-[20px]">filter_alt</span> Filters
@@ -74,12 +75,12 @@
         <div class="bg-white rounded-2xl border border-outline-variant overflow-hidden shadow-sm">
           <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">
-              {# Helper: each sortable header toggles asc/desc when clicked. #}
-              {% macro sort_header(label, key, align='left') -%}
+              {# Helper: each sortable header toggles asc/desc when clicked. Preserves state. #}
+              {% macro sort_header(label, key) -%}
                 {% set is_active = (sort == key) %}
                 {% set next_order = 'asc' if (is_active and order == 'desc') else 'desc' %}
                 {% set arrow = '↓' if (is_active and order == 'desc') else ('↑' if is_active else '↕') %}
-                <a href="?q={{ q or '' }}&party={{ selected_party or '' }}&year={{ selected_year or '' }}&sort={{ key }}&order={{ next_order }}"
+                <a href="?state={{ state }}&q={{ q or '' }}&party={{ selected_party or '' }}&year={{ selected_year or '' }}&sort={{ key }}&order={{ next_order }}"
                    class="inline-flex items-center gap-1 {% if is_active %}text-primary font-bold{% else %}text-on-surface-variant{% endif %} hover:text-primary transition-colors">
                   {{ label }}
                   <span class="text-[10px] opacity-70">{{ arrow }}</span>

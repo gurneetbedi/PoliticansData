@@ -4,227 +4,272 @@
 
 <main class="flex-1 max-w-container-max w-full mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
 
-  <header class="mb-stack-lg">
-    <div class="flex items-center gap-2 mb-2">
-      <span class="material-symbols-outlined text-secondary-container">map</span>
-      <span class="text-label-sm font-label-sm uppercase tracking-widest text-on-surface-variant">Reports · State-wise</span>
-    </div>
-    <h1 class="text-display-lg-mobile md:text-headline-lg font-display-lg text-on-surface mb-2">State-wise transparency heatmap</h1>
-    <p class="text-body-lg font-body-lg text-on-surface-variant max-w-2xl">
-      Legislative health monitoring across the Indian Union. Currently Punjab is the only fully-tracked state;
-      remaining states are on the roadmap and will populate as their scrapers come online.
-    </p>
-  </header>
-
-  <div class="grid grid-cols-12 gap-gutter">
-
-    <!-- MAP CANVAS -->
-    <div class="col-span-12 xl:col-span-8 bg-surface-container-lowest rounded-xl border border-outline-variant p-stack-lg shadow-sm">
-      <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-stack-md mb-stack-md">
-        <div class="flex items-center gap-stack-sm">
-          <span class="w-3 h-3 rounded-full bg-on-tertiary-container"></span>
-          <span class="font-label-lg text-label-lg text-on-surface">Coverage Index — 1 of 28 states</span>
-        </div>
-        <div class="flex gap-2">
-          <button class="mode-btn px-3 py-1 bg-surface-container-high rounded text-label-sm font-semibold border border-outline-variant" data-mode="assets">Assets</button>
-          <button class="mode-btn active px-3 py-1 bg-primary text-white rounded text-label-sm font-semibold" data-mode="coverage">Coverage</button>
-          <button class="mode-btn px-3 py-1 bg-surface-container-high rounded text-label-sm font-semibold border border-outline-variant" data-mode="cases">Cases</button>
-        </div>
+  <!-- HEADER -->
+  <header class="mb-stack-lg flex items-end justify-between gap-stack-md flex-wrap">
+    <div>
+      <div class="flex items-center gap-2 mb-2">
+        <span class="material-symbols-outlined text-secondary-container">map</span>
+        <span class="text-label-sm font-label-sm uppercase tracking-widest text-on-surface-variant">Reports · Heatmap</span>
       </div>
-
-      <!-- India map (inline SVG, no external GeoJSON needed) -->
-      <div class="relative w-full bg-surface-container rounded-lg overflow-hidden" style="aspect-ratio: 4/3;">
-        <div id="indiaMap" class="absolute inset-0"></div>
-
-        <!-- Legend -->
-        <div class="absolute bottom-4 left-4 p-3 bg-white/95 backdrop-blur rounded-lg shadow-lg border border-outline-variant">
-          <h4 class="font-label-lg text-label-lg mb-2 flex items-center gap-2">
-            <span class="material-symbols-outlined text-[16px] text-secondary-container">label</span>
-            Risk Legend
-          </h4>
-          <div class="flex flex-col gap-1.5">
-            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded bg-[#1b5670]"></span><span class="text-label-sm">Tracked (high transparency)</span></div>
-            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded bg-[#d9714f]"></span><span class="text-label-sm">Coming soon</span></div>
-            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded bg-[#c6c6cd]"></span><span class="text-label-sm">Not scheduled</span></div>
-          </div>
-        </div>
-
-        <!-- Status badge -->
-        <div class="absolute top-4 right-4 px-3 py-1.5 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded-lg text-label-sm font-bold flex items-center gap-1.5 shadow-sm">
-          <span class="material-symbols-outlined text-[14px]">fiber_manual_record</span>
-          LIVE — Punjab
-        </div>
-      </div>
-
-      <p class="text-label-sm text-on-surface-variant text-center mt-stack-md italic">
-        Click any tracked state to drill into its rankings. Coming-soon states will activate as scrapers go live.
+      <h1 class="text-display-lg-mobile md:text-headline-lg font-display-lg text-on-surface mb-2">State-wise Transparency Heatmap</h1>
+      <p class="text-body-lg font-body-lg text-on-surface-variant max-w-2xl">
+        Currently viewing <strong class="text-primary">{{ state }}</strong> · {{ kpis.count or 0 }} MLAs · {{ kpis.pct_with_cases|int }}% with declared criminal cases. Use the State Selector in the top-right to switch.
       </p>
     </div>
+    <a href="/?state={{ state }}" class="inline-flex items-center gap-2 px-4 py-2 border border-outline-variant rounded-xl text-label-lg font-label-lg hover:bg-surface-container-low transition-colors">
+      <span class="material-symbols-outlined text-[18px]">arrow_back</span> Back to Dashboard
+    </a>
+  </header>
 
-    <!-- STATE RANKINGS PANEL -->
-    <div class="col-span-12 xl:col-span-4 space-y-stack-md">
+  <div class="grid grid-cols-1 xl:grid-cols-3 gap-gutter">
+
+    <!-- LEFT: India Map (full-width) -->
+    <div class="xl:col-span-2 bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden">
+      <div class="p-stack-md border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+        <h3 class="font-label-lg text-label-lg uppercase tracking-widest text-on-surface-variant">National Integrity Map</h3>
+        <div class="flex items-center gap-1 text-[10px] text-on-surface-variant">
+          <span class="w-3 h-3 rounded-sm bg-[#e6ebf1] border border-outline-variant"></span> Data not available
+        </div>
+      </div>
+      <div class="relative" style="height: 480px;">
+        <div id="indiaMap" class="absolute inset-0"></div>
+        <!-- Legend -->
+        <div class="absolute top-stack-md left-stack-md bg-surface-container-lowest rounded-xl border border-outline-variant px-3 py-2 shadow-sm" style="z-index: 400;">
+          <p class="text-label-sm font-label-sm uppercase tracking-wider text-on-surface-variant mb-1">Case intensity</p>
+          <div class="h-2 w-32 rounded-full" style="background: linear-gradient(90deg, #2d9b67, #d4a017, #d9714f, #b14545);"></div>
+          <div class="flex justify-between text-[10px] text-on-surface-variant mt-1">
+            <span>Low</span><span>High</span>
+          </div>
+        </div>
+        <!-- Hover tooltip -->
+        <div id="indiaMapTooltip" class="absolute bg-surface-container-lowest border border-outline-variant rounded-xl shadow-lg px-3 py-2 pointer-events-none hidden" style="z-index: 500;">
+          <div class="font-bold text-on-surface" id="imtName">—</div>
+          <div class="text-label-sm" id="imtData">—</div>
+        </div>
+        <!-- Missing-file fallback -->
+        <div id="indiaMapMissing" class="absolute inset-0 hidden flex-col items-center justify-center text-center p-stack-lg">
+          <span class="material-symbols-outlined text-secondary-container text-4xl">map</span>
+          <h3 class="text-headline-md font-headline-md text-on-surface mt-2">India map data missing</h3>
+          <p class="text-body-md text-on-surface-variant mt-1 max-w-md">Run <code class="bg-surface-container px-2 py-1 rounded">python scripts/download_india_geojson.py</code> to enable.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Tracked states + roadmap -->
+    <div class="space-y-stack-md">
       <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-stack-md shadow-sm">
         <h3 class="font-label-lg text-label-lg uppercase tracking-widest text-on-surface-variant mb-stack-md">Tracked states</h3>
-        <a href="/?view=mla" class="block p-3 bg-surface-container-low rounded-lg hover:shadow-md transition-all border border-secondary-container">
-          <div class="flex items-center justify-between mb-2">
-            <div class="flex items-center gap-2">
-              <span class="w-3 h-3 rounded-full bg-tertiary-fixed-dim"></span>
-              <span class="font-bold text-on-surface">Punjab</span>
-            </div>
-            <span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded text-label-sm font-bold">LIVE</span>
-          </div>
-          <div class="grid grid-cols-3 gap-2 text-center">
-            <div>
-              <p class="text-label-sm text-on-surface-variant">MLAs</p>
-              <p class="font-bold text-on-surface" id="pbMlas">117</p>
-            </div>
-            <div>
-              <p class="text-label-sm text-on-surface-variant">MPs</p>
-              <p class="font-bold text-on-surface">13</p>
-            </div>
-            <div>
-              <p class="text-label-sm text-on-surface-variant">RS</p>
-              <p class="font-bold text-on-surface">7</p>
-            </div>
-          </div>
-        </a>
+        <div class="space-y-stack-sm">
+          {% for s in india_states %}
+            {% set is_selected = (s.name == state) %}
+            <a href="/heatmap?state={{ s.name }}" class="block p-3 rounded-lg hover:shadow-md transition-all border {% if is_selected %}border-secondary-container bg-surface-container-low{% else %}border-outline-variant{% endif %}">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2">
+                  <span class="w-3 h-3 rounded-full {% if s.kpi.pct_with_cases > 50 %}bg-[#b14545]{% elif s.kpi.pct_with_cases > 30 %}bg-[#d9714f]{% else %}bg-[#2d9b67]{% endif %}"></span>
+                  <span class="font-bold text-on-surface">{{ s.name }}</span>
+                </div>
+                {% if is_selected %}
+                  <span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded text-[10px] font-bold uppercase">Viewing</span>
+                {% else %}
+                  <span class="text-label-sm text-on-surface-variant">{{ s.kpi.pct_with_cases|int }}% cases →</span>
+                {% endif %}
+              </div>
+              <div class="grid grid-cols-3 gap-2 text-center text-label-sm">
+                <div>
+                  <p class="text-on-surface-variant text-[10px] uppercase tracking-wider">MLAs</p>
+                  <p class="font-bold text-on-surface">{{ s.kpi.count }}</p>
+                </div>
+                <div>
+                  <p class="text-on-surface-variant text-[10px] uppercase tracking-wider">Crorepati</p>
+                  <p class="font-bold text-on-surface">{{ s.kpi.pct_crorepati|int }}%</p>
+                </div>
+                <div>
+                  <p class="text-on-surface-variant text-[10px] uppercase tracking-wider">Avg ₹Cr</p>
+                  <p class="font-bold text-on-surface">{{ s.kpi.avg_wealth_cr }}</p>
+                </div>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
       </div>
 
       <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-stack-md shadow-sm">
         <h3 class="font-label-lg text-label-lg uppercase tracking-widest text-on-surface-variant mb-stack-md">On the roadmap</h3>
         <div class="space-y-2 text-label-sm">
           <div class="flex items-center justify-between p-2 rounded hover:bg-surface-container-low">
-            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-secondary-container"></span> Delhi</span>
-            <span class="text-on-surface-variant">70 MLAs · queued</span>
-          </div>
-          <div class="flex items-center justify-between p-2 rounded hover:bg-surface-container-low">
-            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-secondary-container"></span> Haryana</span>
-            <span class="text-on-surface-variant">90 MLAs · queued</span>
-          </div>
-          <div class="flex items-center justify-between p-2 rounded hover:bg-surface-container-low">
             <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-secondary-container"></span> Goa</span>
-            <span class="text-on-surface-variant">40 MLAs · queued</span>
+            <span class="text-on-surface-variant">40 MLAs · queued next</span>
           </div>
-          <div class="flex items-center justify-between p-2 rounded hover:bg-surface-container-low">
+          <div class="flex items-center justify-between p-2 rounded">
             <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-outline-variant"></span> All others</span>
             <span class="text-on-surface-variant">Not scheduled</span>
           </div>
         </div>
       </div>
-
-      <div class="bg-primary-container text-on-primary p-stack-md rounded-xl shadow-sm">
-        <h4 class="font-label-lg text-label-lg mb-2">Want a state added?</h4>
-        <p class="text-label-sm opacity-80 mb-3">Scraping is open-source. Adding a new state takes ~50 lines of Python.</p>
-        <a href="https://github.com" target="_blank" class="block w-full text-center py-2 bg-secondary-container text-on-secondary-container rounded-lg font-bold text-label-sm hover:opacity-90">Contribute on GitHub ↗</a>
-      </div>
     </div>
   </div>
 
-  <!-- Methodology note -->
-  <div class="mt-stack-lg p-stack-md bg-surface-container-low rounded-xl border border-outline-variant">
-    <h3 class="font-label-lg text-label-lg uppercase tracking-widest text-on-surface-variant mb-2">How this is computed</h3>
-    <p class="text-body-md text-on-surface-variant max-w-3xl">
-      "Tracked" means we have at least one full election cycle of MLA affidavit data ingested from
-      <a href="https://myneta.info" target="_blank" class="text-primary hover:underline">ADR's myneta</a>.
-      States marked "Coming soon" have scraper code prototyped but no data yet ingested.
-      As scrapers come online, the map automatically picks them up — no design change needed.
-    </p>
-  </div>
-
+  <!-- CONSTITUENCY GRID for selected state -->
+  <section class="mt-stack-lg bg-surface-container-lowest border border-outline-variant rounded-2xl p-stack-md shadow-sm">
+    <div class="flex justify-between items-end mb-stack-md flex-wrap gap-stack-sm">
+      <div>
+        <h2 class="text-headline-md font-headline-md text-on-surface">{{ state }} constituencies</h2>
+        <p class="text-body-md text-on-surface-variant">{{ tiles|length }} constituencies, color-coded. Click any tile for that MLA's profile.</p>
+      </div>
+      <div class="flex gap-2">
+        <button class="ct-mode active px-3 py-1 bg-primary text-on-primary rounded-full text-label-sm font-bold" data-mode="party">Party</button>
+        <button class="ct-mode px-3 py-1 bg-surface-container-high rounded-full text-label-sm" data-mode="wealth">Wealth</button>
+        <button class="ct-mode px-3 py-1 bg-surface-container-high rounded-full text-label-sm" data-mode="cases">Cases</button>
+      </div>
+    </div>
+    <div id="constituencyGrid" class="grid gap-1" style="grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));"></div>
+  </section>
 </main>
 
+<!-- Data payloads -->
+<script id="india-states" type="application/json">{{ india_states|tojson }}</script>
+<script id="tiles-data" type="application/json">{{ tiles|tojson }}</script>
+
 <script>
-// Stylised India tile-map (no external GeoJSON). Each state is positioned on a
-// rough 11-column grid that approximates India's geography. Punjab is the only
-// "covered" state; others are colored by status.
-// Punjab summary data (from our DB - hardcoded for now since we only have Punjab)
-const PUNJAB_STATS = { avg_wealth_cr: 12.4, pct_with_cases: 50, total: 117 };
+const CURRENT_STATE = {{ state|tojson }};
 
-const STATES = [
-  // [code, name, row, col, status]
-  ['JK','J&K',1,4,'none'], ['LD','Ladakh',1,5,'none'],
-  ['HP','HP',2,4,'none'], ['UK','UK',2,5,'none'], ['AR','AR',2,9,'none'],
-  ['PB','Punjab',3,3,'covered'], ['HR','Haryana',3,4,'soon'], ['DL','Delhi',3,5,'soon'], ['UP','UP',3,6,'none'], ['BR','Bihar',3,7,'none'], ['SK','SK',3,8,'none'], ['AS','Assam',3,9,'none'], ['NL','NL',3,10,'none'],
-  ['RJ','Rajasthan',4,3,'none'], ['MP','MP',4,5,'none'], ['JH','JH',4,6,'none'], ['WB','WB',4,7,'none'], ['ML','ML',4,8,'none'], ['MN','MN',4,9,'none'],
-  ['GJ','Gujarat',5,3,'none'], ['MH','Maharashtra',5,4,'none'], ['CG','CG',5,5,'none'], ['OD','Odisha',5,6,'none'], ['TR','TR',5,8,'none'], ['MZ','MZ',5,9,'none'],
-  ['TG','TG',6,4,'none'], ['AP','AP',6,5,'none'],
-  ['GA','Goa',7,3,'soon'], ['KA','KA',7,4,'none'], ['PY','PY',7,5,'none'],
-  ['KL','Kerala',8,3,'none'], ['TN','TN',8,4,'none'], ['AN','AN',8,10,'none'],
-];
+// ============================================================
+// INDIA MAP via Leaflet + GeoJSON (mirrors landing page)
+// ============================================================
+const STATE_DATA = JSON.parse(document.getElementById('india-states').textContent);
+const STATE_KPI = {};
+STATE_DATA.forEach(s => { STATE_KPI[s.name] = s.kpi; });
 
-// Three color modes — each maps a state to a fill color & tooltip metric
-const MODE_COLORS = {
-  coverage: { covered: '#1b5670', soon: '#d9714f', none: '#c6c6cd' },
-  assets:   { covered: '#1b5670', soon: '#dce9ff', none: '#eff4ff' },
-  cases:    { covered: '#d9714f', soon: '#dce9ff', none: '#eff4ff' },
-};
-
-let currentMode = 'coverage';
-
-function statusOf(code) {
-  const s = STATES.find(s => s[0] === code);
-  return s ? s[4] : 'none';
+function colorForPct(pct) {
+  if (pct == null) return '#e6ebf1';
+  if (pct < 20)  return '#2d9b67';
+  if (pct < 40)  return '#7d8c69';
+  if (pct < 60)  return '#d4a017';
+  if (pct < 80)  return '#d9714f';
+  return '#b14545';
+}
+function normalizeStateName(n) {
+  return (n || '').replace(/&/g, 'and').replace(/\s+/g, ' ').trim();
+}
+function findKpiForState(geoName) {
+  if (!geoName) return null;
+  const n = normalizeStateName(geoName).toLowerCase();
+  for (const key of Object.keys(STATE_KPI)) {
+    if (normalizeStateName(key).toLowerCase() === n) return STATE_KPI[key];
+  }
+  return null;
 }
 
-function tooltipFor(code, name, status) {
-  if (status === 'covered' && currentMode === 'assets') return `${name} — Avg net worth ₹${PUNJAB_STATS.avg_wealth_cr} Cr`;
-  if (status === 'covered' && currentMode === 'cases')  return `${name} — ${PUNJAB_STATS.pct_with_cases}% with pending cases`;
-  if (status === 'covered') return `${name} — fully tracked (${PUNJAB_STATS.total} MLAs)`;
-  if (status === 'soon')    return `${name} — coming soon (data not yet tracked)`;
-  return `${name} — not scheduled (data not yet tracked)`;
+const indiaMapEl = document.getElementById('indiaMap');
+const indiaMapMissing = document.getElementById('indiaMapMissing');
+const imTooltip = document.getElementById('indiaMapTooltip');
+const imtName = document.getElementById('imtName');
+const imtData = document.getElementById('imtData');
+
+const indiaMap = L.map('indiaMap', {
+  zoomControl: false, attributionControl: false, scrollWheelZoom: false,
+  dragging: true, doubleClickZoom: false, boxZoom: false, keyboard: false,
+}).setView([22.5, 80], 5);
+indiaMap.getContainer().style.background = '#eff4ff';
+
+let indiaLayer = null;
+function styleFeature(feature) {
+  const props = feature.properties || {};
+  const name = props.NAME_1 || props.ST_NM || props.name || props.STATE || props.State || props.st_nm || '';
+  const kpi = findKpiForState(name);
+  const isSelected = (normalizeStateName(name).toLowerCase() === normalizeStateName(CURRENT_STATE).toLowerCase());
+  return {
+    fillColor: kpi ? colorForPct(kpi.pct_with_cases) : '#e6ebf1',
+    weight: isSelected ? 2.5 : 0.75,
+    color: isSelected ? '#131b2e' : '#ffffff',
+    fillOpacity: kpi ? 0.92 : 0.6,
+  };
+}
+function onEachFeature(feature, layer) {
+  const props = feature.properties || {};
+  const name = props.NAME_1 || props.ST_NM || props.name || props.STATE || props.State || props.st_nm || 'Unknown';
+  const kpi = findKpiForState(name);
+  layer.on({
+    mousemove: (e) => {
+      layer.setStyle({ weight: 2, color: '#131b2e' });
+      imTooltip.classList.remove('hidden');
+      imtName.textContent = name;
+      imtData.innerHTML = kpi
+        ? `<span class="text-on-surface-variant">${kpi.pct_with_cases}% with cases · ${kpi.count} MLAs</span>`
+        : `<span class="text-on-surface-variant italic">Data Not Available</span>`;
+      const rect = indiaMapEl.getBoundingClientRect();
+      imTooltip.style.left = (e.originalEvent.clientX - rect.left + 12) + 'px';
+      imTooltip.style.top  = (e.originalEvent.clientY - rect.top  + 12) + 'px';
+    },
+    mouseout: () => { imTooltip.classList.add('hidden'); indiaLayer.resetStyle(layer); },
+    click: () => { if (kpi) window.location.href = '/heatmap?state=' + encodeURIComponent(name); },
+  });
 }
 
-const mapEl = document.getElementById('indiaMap');
-mapEl.style.display = 'grid';
-mapEl.style.gridTemplateColumns = 'repeat(11, 1fr)';
-mapEl.style.gridAutoRows = '1fr';
-mapEl.style.gap = '4px';
-mapEl.style.padding = '24px';
+fetch('/static/india_states.geojson')
+  .then(r => { if (!r.ok) throw new Error('no geojson'); return r.json(); })
+  .then(geo => {
+    indiaLayer = L.geoJSON(geo, { style: styleFeature, onEachFeature }).addTo(indiaMap);
+    try { indiaMap.fitBounds(indiaLayer.getBounds(), { padding: [12, 12] }); } catch(e) {}
+  })
+  .catch(() => {
+    indiaMapEl.style.display = 'none';
+    indiaMapMissing.classList.remove('hidden');
+    indiaMapMissing.style.display = 'flex';
+  });
 
-function renderTiles() {
-  mapEl.innerHTML = '';
-  const colors = MODE_COLORS[currentMode];
-  STATES.forEach(([code, name, row, col, status]) => {
-    const tile = document.createElement('div');
-    tile.style.gridRow = row;
-    tile.style.gridColumn = col;
-    tile.style.background = colors[status];
+// ============================================================
+// CONSTITUENCY GRID
+// ============================================================
+const TILES = JSON.parse(document.getElementById('tiles-data').textContent);
+const ctGrid = document.getElementById('constituencyGrid');
+let ctMode = 'party';
+const maxWealth = Math.max(...TILES.map(t => t.wealth_cr || 0), 1);
+const maxCases  = Math.max(...TILES.map(t => t.cases || 0), 1);
+
+function tileBg(t, mode) {
+  if (mode === 'party')  return t.color || '#7f8c8d';
+  if (mode === 'wealth') {
+    const pct = Math.min(1, (t.wealth_cr || 0) / maxWealth);
+    return `rgb(${Math.round(252-35*pct)}, ${Math.round(238-130*pct)}, ${Math.round(231-152*pct)})`;
+  }
+  if (mode === 'cases') {
+    const pct = Math.min(1, (t.cases || 0) / maxCases);
+    return `rgb(${Math.round(250-70*pct)}, ${Math.round(232-165*pct)}, ${Math.round(232-165*pct)})`;
+  }
+}
+function renderCt() {
+  ctGrid.innerHTML = '';
+  TILES.forEach(t => {
+    const tile = document.createElement('a');
+    tile.href = '/politician/' + t.slug;
+    tile.style.background = tileBg(t, ctMode);
     tile.style.borderRadius = '6px';
+    tile.style.padding = '10px 12px';
+    tile.style.color = 'white';
+    tile.style.fontSize = '11px';
+    tile.style.textShadow = '0 1px 2px rgba(0,0,0,0.3)';
+    tile.style.minHeight = '56px';
     tile.style.display = 'flex';
     tile.style.flexDirection = 'column';
-    tile.style.alignItems = 'center';
     tile.style.justifyContent = 'center';
-    tile.style.padding = '4px';
-    tile.style.cursor = status === 'covered' ? 'pointer' : 'not-allowed';
-    tile.style.transition = 'transform 0.15s, box-shadow 0.15s';
-    tile.style.color = status === 'covered' ? 'white' : '#666';
-    tile.style.fontSize = '10px';
-    tile.style.fontWeight = '600';
-    tile.title = tooltipFor(code, name, status);
-    tile.innerHTML = `<div style="font-size:11px;font-weight:700;">${code}</div>`;
-    if (status === 'covered') {
-      tile.onmouseover = () => { tile.style.transform = 'scale(1.08)'; tile.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)'; };
-      tile.onmouseout  = () => { tile.style.transform = 'scale(1)'; tile.style.boxShadow = 'none'; };
-      tile.onclick = () => { window.location.href = '/'; };
-    }
-    mapEl.appendChild(tile);
+    tile.title = `${t.constituency} · ${t.mla} (${t.party}) · ₹${t.wealth_cr} Cr · ${t.cases} cases`;
+    tile.innerHTML = `<div style="font-weight:700;">${t.constituency}</div><div style="opacity:0.92;">${t.mla}</div>`;
+    ctGrid.appendChild(tile);
   });
 }
-
-document.querySelectorAll('.mode-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    currentMode = btn.dataset.mode;
-    document.querySelectorAll('.mode-btn').forEach(b => {
-      b.classList.remove('bg-primary', 'text-white');
-      b.classList.add('bg-surface-container-high', 'border', 'border-outline-variant');
+renderCt();
+document.querySelectorAll('.ct-mode').forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll('.ct-mode').forEach(b => {
+      b.classList.remove('bg-primary', 'text-on-primary', 'active');
+      b.classList.add('bg-surface-container-high');
     });
-    btn.classList.add('bg-primary', 'text-white');
-    btn.classList.remove('bg-surface-container-high', 'border', 'border-outline-variant');
-    renderTiles();
-  });
+    btn.classList.add('bg-primary', 'text-on-primary', 'active');
+    btn.classList.remove('bg-surface-container-high');
+    ctMode = btn.dataset.mode;
+    renderCt();
+  };
 });
-
-renderTiles();
 </script>
-
 {% endblock %}

@@ -3,280 +3,271 @@
 
 <main class="flex-grow">
 
-  <!-- HERO -->
-  <section class="hero-gradient pt-24 pb-32 px-margin-mobile md:px-margin-desktop">
-    <div class="max-w-container-max mx-auto text-center">
-      <span class="inline-block px-3 py-1 bg-surface-container text-on-surface-variant text-label-sm font-label-sm rounded-full mb-stack-md">
-        Punjab · Verified affidavit data
-      </span>
-      <h1 class="text-display-lg-mobile md:text-display-lg font-display-lg text-on-surface mb-stack-lg">
-        Accountability starts with information.
-      </h1>
-
-      <!-- Massive Search Bar with autocomplete -->
-      <div class="max-w-3xl mx-auto relative group">
-        <div class="absolute inset-y-0 left-6 flex items-center pointer-events-none text-outline">
-          <span class="material-symbols-outlined">search</span>
-        </div>
-        <form action="/browse" method="get" autocomplete="off">
-          <input id="hero-search" name="q" type="text"
-            placeholder="Search MLA / MP by name or constituency..."
-            class="w-full h-20 pl-16 pr-32 bg-surface-container-lowest border border-outline-variant rounded-full text-body-lg font-body-lg focus:ring-4 focus:ring-primary/5 focus:border-primary transition-all shadow-lg outline-none">
-          <button type="submit"
-            class="absolute right-4 top-1/2 -translate-y-1/2 bg-primary text-on-primary px-8 h-12 rounded-full text-label-lg font-label-lg hover:opacity-90 transition-all">
-            Search
-          </button>
-        </form>
-        <div id="autocomplete-results" class="absolute top-full left-0 right-0 mt-2 bg-white border border-outline-variant rounded-xl shadow-2xl overflow-hidden max-h-80 overflow-y-auto z-50 hidden text-left"></div>
-      </div>
-
-      <div class="mt-stack-lg flex flex-wrap justify-center gap-stack-md items-center">
-        <span class="text-label-sm font-label-sm text-outline">Top searches:</span>
-        {% for a in top_wealth[:3] %}
-          <a class="text-label-sm font-label-sm text-primary hover:underline" href="/politician/{{ a.politician.slug or a.politician.id }}">{{ a.politician.display_name }}</a>
-        {% endfor %}
-      </div>
-    </div>
-  </section>
-
-  <!-- DATA AT A GLANCE -->
-  <section class="py-stack-lg bg-surface px-margin-mobile md:px-margin-desktop">
+  <!-- ============================================================ -->
+  <!-- HERO — "Visualizing Political Integrity"                    -->
+  <!-- ============================================================ -->
+  <section class="px-margin-mobile md:px-margin-desktop pt-stack-lg pb-stack-md relative" style="z-index: 1000;">
     <div class="max-w-container-max mx-auto">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
-        <div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-outline-variant shadow-sm flex flex-col items-center text-center">
-          <span class="text-display-lg font-display-lg text-primary mb-2">{{ kpis.count }}</span>
-          <span class="text-label-lg font-label-lg text-on-surface-variant uppercase tracking-wider">Total tracked representatives</span>
+      <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-stack-md">
+        <div class="max-w-2xl">
+          <h1 class="text-display-lg-mobile md:text-display-lg font-display-lg text-on-surface mb-stack-md">
+            Visualizing Political Integrity
+          </h1>
+          <p class="text-body-md font-body-md text-on-surface-variant">
+            Interactive intelligence mapping the criminal cases and legislative records across India. Discover the data behind governance.
+          </p>
         </div>
-        <div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-outline-variant shadow-sm flex flex-col items-center text-center">
-          <span class="text-display-lg font-display-lg text-error mb-2">{{ kpis.pct_with_cases|int }}%</span>
-          <span class="text-label-lg font-label-lg text-on-surface-variant uppercase tracking-wider">With declared criminal cases</span>
-        </div>
-        <div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-outline-variant shadow-sm flex flex-col items-center text-center">
-          <span class="text-display-lg font-display-lg text-secondary-container mb-2">₹{{ kpis.avg_wealth_cr }} Cr</span>
-          <span class="text-label-lg font-label-lg text-on-surface-variant uppercase tracking-wider">Average declared net worth</span>
+
+        <!-- Hero-right: Election-type toggle only (State Selector lives in the global nav now) -->
+        <div class="bg-surface-container-low rounded-xl p-1 flex gap-1 self-start">
+          <a href="/?state={{ state }}&view=mla&scope={{ scope }}"
+             class="px-4 py-2 rounded-lg text-label-lg font-label-lg {% if view == 'mla' %}bg-surface-container-lowest text-on-surface font-bold shadow-sm border border-outline-variant{% else %}text-on-surface-variant hover:text-on-surface{% endif %} transition-all">
+            State Election
+          </a>
+          <a href="/?state={{ state }}&view=mp&scope={{ scope }}"
+             class="px-4 py-2 rounded-lg text-label-lg font-label-lg {% if view == 'mp' %}bg-surface-container-lowest text-on-surface font-bold shadow-sm border border-outline-variant{% else %}text-on-surface-variant hover:text-on-surface{% endif %} transition-all">
+            Central Election
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- STATE SELECTOR + VIEW TOGGLE + SCOPE TOGGLE -->
-  <section class="py-stack-lg bg-surface px-margin-mobile md:px-margin-desktop">
-    <div class="max-w-container-max mx-auto space-y-stack-md">
-
-      <!-- State selector — Punjab / Bihar (extensible) -->
-      <div class="flex items-center gap-stack-md flex-wrap">
-        <span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">State:</span>
-        <div class="inline-flex bg-surface-container-low rounded-full p-1 gap-1">
-          <a href="/?state=Punjab&view={{ view }}&scope={{ scope }}"
-             class="px-5 py-2 rounded-full text-label-lg font-label-lg transition-all {% if state == 'Punjab' %}bg-primary text-on-primary{% else %}text-on-surface-variant hover:text-on-surface{% endif %}">
-            <span class="material-symbols-outlined text-[16px] mr-1">location_on</span> Punjab
-          </a>
-          <a href="/?state=Bihar&view={{ view }}&scope={{ scope }}"
-             class="px-5 py-2 rounded-full text-label-lg font-label-lg transition-all {% if state == 'Bihar' %}bg-primary text-on-primary{% else %}text-on-surface-variant hover:text-on-surface{% endif %}">
-            <span class="material-symbols-outlined text-[16px] mr-1">location_on</span> Bihar
-          </a>
-        </div>
-        <span class="text-label-sm font-label-sm text-on-surface-variant italic">
-          {% if state == 'Bihar' %}Bihar Assembly — ADR flags this state as having the highest share of MLAs with declared criminal cases.{% else %}Punjab Assembly — fully tracked across 4 cycles.{% endif %}
-        </span>
-      </div>
-
-      <!-- View toggle: which legislative body -->
-      <div class="bg-surface-container-low rounded-2xl p-1 flex flex-wrap gap-1">
-        <a href="/?state={{ state }}&view=mla&scope={{ scope }}" class="flex-1 text-center py-3 px-4 rounded-xl {% if view == 'mla' %}bg-surface-container-lowest text-on-surface font-bold shadow-sm border-2 border-secondary-container{% else %}text-on-surface-variant hover:bg-white/50{% endif %} text-label-lg font-label-lg transition-all">
-          <span class="material-symbols-outlined text-[18px]">how_to_vote</span>
-          MLAs
-        </a>
-        <a href="/?state={{ state }}&view=mp&scope={{ scope }}" class="flex-1 text-center py-3 px-4 rounded-xl {% if view == 'mp' %}bg-surface-container-lowest text-on-surface font-bold shadow-sm border-2 border-secondary-container{% else %}text-on-surface-variant hover:bg-white/50{% endif %} text-label-lg font-label-lg transition-all">
-          <span class="material-symbols-outlined text-[18px]">account_balance</span>
-          MPs
-        </a>
-        <a href="/?state={{ state }}&view=rs&scope={{ scope }}" class="flex-1 text-center py-3 px-4 rounded-xl {% if view == 'rs' %}bg-surface-container-lowest text-on-surface font-bold shadow-sm border-2 border-secondary-container{% else %}text-on-surface-variant hover:bg-white/50{% endif %} text-label-lg font-label-lg transition-all">
-          <span class="material-symbols-outlined text-[18px]">gavel</span>
-          Rajya Sabha {% if state == 'Punjab' %}<span class="opacity-60 ml-1">· {{ rs_members|length }}</span>{% endif %}
-        </a>
-      </div>
-
-      <!-- Scope toggle: only available for MLA / MP (RS has no historical data) -->
-      {% if view != 'rs' %}
-      <div class="flex items-center gap-stack-md flex-wrap">
-        <span class="text-label-sm font-label-sm text-on-surface-variant">Showing:</span>
-        <div class="inline-flex bg-surface-container-low rounded-full p-1 gap-1">
-          <a href="/?state={{ state }}&view={{ view }}&scope=current"
-             class="px-4 py-1.5 rounded-full text-label-sm font-label-lg transition-all {% if scope == 'current' %}bg-primary text-on-primary{% else %}text-on-surface-variant hover:text-on-surface{% endif %}">
-            Current sitting <span class="opacity-70 ml-1">· {{ current_count }}</span>
-          </a>
-          <a href="/?state={{ state }}&view={{ view }}&scope=all"
-             class="px-4 py-1.5 rounded-full text-label-sm font-label-lg transition-all {% if scope == 'all' %}bg-primary text-on-primary{% else %}text-on-surface-variant hover:text-on-surface{% endif %}">
-            All cycles <span class="opacity-70 ml-1">· {{ all_count }}</span>
-          </a>
-        </div>
-        <span class="text-label-sm font-label-sm text-on-surface-variant italic">
-          {% if scope == 'current' %}
-            Just the politicians who won in the latest cycle.
-          {% else %}
-            Every politician who ever won — historical comparisons enabled.
-          {% endif %}
-        </span>
-      </div>
-      {% endif %}
-    </div>
-  </section>
-
-  <!-- FEATURED PROFILES -->
-  <section class="py-stack-lg px-margin-mobile md:px-margin-desktop">
+  <!-- ============================================================ -->
+  <!-- REAL INDIA MAP (Leaflet + GeoJSON) — Political Integrity     -->
+  <!-- ============================================================ -->
+  <section class="px-margin-mobile md:px-margin-desktop">
     <div class="max-w-container-max mx-auto">
-      <div class="flex justify-between items-end mb-stack-lg">
-        <div>
-          <h2 class="text-headline-lg font-headline-lg text-on-surface">Featured profiles</h2>
+      <div class="relative bg-surface-container-low rounded-2xl border border-outline-variant overflow-hidden" style="height: 560px;">
+        <!-- Map canvas -->
+        <div id="indiaMap" class="absolute inset-0"></div>
+
+        <!-- Case Intensity legend (top left) -->
+        <div class="absolute top-stack-md left-stack-md bg-surface-container-lowest rounded-xl border border-outline-variant px-3 py-2 shadow-sm z-[400]">
+          <p class="text-label-sm font-label-sm uppercase tracking-wider text-on-surface-variant mb-1">Case intensity</p>
+          <div class="flex items-center gap-2">
+            <div class="h-2 w-32 rounded-full" style="background: linear-gradient(90deg, #2d9b67, #d4a017, #d9714f, #b14545);"></div>
+          </div>
+          <div class="flex justify-between text-[10px] text-on-surface-variant mt-1">
+            <span>Low</span>
+            <span>High</span>
+          </div>
+          <div class="flex items-center gap-1 mt-2 pt-2 border-t border-outline-variant">
+            <span class="w-3 h-3 rounded-sm bg-[#e6ebf1] border border-outline-variant"></span>
+            <span class="text-[10px] text-on-surface-variant">Data not available</span>
+          </div>
         </div>
-        <a href="/browse" class="text-primary font-label-lg flex items-center gap-2 hover:underline">
-          View all <span class="material-symbols-outlined text-sm">arrow_forward</span>
-        </a>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
-        {% if view == 'rs' %}
-          {% for m in rs_members[:8] %}
-            {% set partycolor = party_color(m.party) %}
-            <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-lg transition-all group block">
-              <div class="h-48 flex items-center justify-center" style="background: linear-gradient(135deg, {{ partycolor }}, {{ partycolor }}cc);">
-                <div class="w-24 h-24 rounded-full bg-white/20 backdrop-blur flex items-center justify-center text-white text-3xl font-bold border-4 border-white/40">{{ m.name[:1]|upper }}</div>
-              </div>
-              <div class="p-stack-md">
-                <h3 class="text-headline-md font-headline-md mb-1">{{ m.name }}</h3>
-                <p class="text-label-lg font-label-lg text-secondary mb-3">{{ m.party }} · Rajya Sabha</p>
-                <div class="flex justify-between items-center pt-3 border-t border-outline-variant">
-                  <div>
-                    <p class="text-label-sm font-label-sm text-outline">Elected</p>
-                    <p class="text-label-lg font-label-lg text-on-surface">{{ m.elected }}</p>
-                  </div>
-                  <div class="text-right">
-                    <p class="text-label-sm font-label-sm text-outline">Term ends</p>
-                    <p class="text-label-lg font-label-lg text-on-surface">{{ m.term_end }}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          {% endfor %}
-        {% else %}
-          {% for a in top_wealth[:4] %}
-            {% set partycolor = party_color(a.party.short_name if a.party else None) %}
-            <a href="/politician/{{ a.politician.slug or a.politician.id }}" class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-lg transition-all group cursor-pointer block">
-              <div class="h-48 flex items-center justify-center" style="background: linear-gradient(135deg, {{ partycolor }}, {{ partycolor }}cc);">
-                <div class="w-24 h-24 rounded-full bg-white/20 backdrop-blur flex items-center justify-center text-white text-3xl font-bold border-4 border-white/40">{{ a.politician.display_name[:2]|upper }}</div>
-              </div>
-              <div class="p-stack-md">
-                <h3 class="text-headline-md font-headline-md mb-1 group-hover:text-secondary-container transition-colors">{{ a.politician.display_name }}</h3>
-                <p class="text-label-lg font-label-lg text-secondary mb-3">{{ a.party.short_name if a.party else 'IND' }} · {{ a.constituency.name if a.constituency else '' }}</p>
-                {% set terms = a.politician.appearances | selectattr('won') | list | length %}
-                <div class="grid grid-cols-3 gap-2 pt-3 border-t border-outline-variant">
-                  <div>
-                    <p class="text-label-sm font-label-sm text-outline">Net worth</p>
-                    <p class="text-label-lg font-label-lg text-on-surface">₹{{ "{:,.1f}".format((a.total_assets_inr or 0) / 10000000) }} Cr</p>
-                  </div>
-                  <div class="text-center">
-                    <p class="text-label-sm font-label-sm text-outline">Terms</p>
-                    <p class="text-label-lg font-label-lg text-on-surface">{{ terms }}</p>
-                  </div>
-                  <div class="text-right">
-                    <p class="text-label-sm font-label-sm text-outline">Cases</p>
-                    {% if (a.criminal_cases_count or 0) == 0 %}
-                      <p class="text-label-lg font-label-lg text-on-tertiary-container">Clean</p>
-                    {% else %}
-                      <p class="text-label-lg font-label-lg text-error">{{ a.criminal_cases_count }}</p>
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
-            </a>
-          {% endfor %}
-        {% endif %}
+
+        <!-- Title -->
+        <div class="absolute top-stack-md right-stack-md text-label-sm font-label-sm uppercase tracking-widest text-on-surface-variant/70 z-[400] bg-surface-container-lowest/80 backdrop-blur px-2 py-1 rounded">
+          National Integrity Map · India
+        </div>
+
+        <!-- Hover tooltip -->
+        <div id="indiaMapTooltip" class="absolute bg-surface-container-lowest border border-outline-variant rounded-xl shadow-lg px-3 py-2 z-[500] pointer-events-none hidden">
+          <div class="font-bold text-on-surface" id="imtName">—</div>
+          <div class="text-label-sm" id="imtData">—</div>
+        </div>
+
+        <!-- Friendly setup message if geojson missing -->
+        <div id="indiaMapMissing" class="absolute inset-0 hidden flex-col items-center justify-center text-center p-stack-lg">
+          <span class="material-symbols-outlined text-secondary-container text-4xl">map</span>
+          <h3 class="text-headline-md font-headline-md text-on-surface mt-2">India map data missing</h3>
+          <p class="text-body-md text-on-surface-variant mt-1 max-w-md">Run <code class="bg-surface-container px-2 py-1 rounded">python scripts/download_india_geojson.py</code> to enable the National Integrity Map.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- PARTY SWITCHERS -->
-  {% if switchers %}
-  <section class="py-stack-lg px-margin-mobile md:px-margin-desktop">
-    <div class="max-w-container-max mx-auto">
-      <div class="flex justify-between items-end mb-stack-lg">
-        <div>
-          <h2 class="text-headline-lg font-headline-lg text-on-surface">Party switchers</h2>
-          <p class="text-body-md font-body-md text-on-surface-variant">Politicians who contested under different party banners across cycles.</p>
-        </div>
-        <span class="text-label-sm font-label-sm text-on-surface-variant bg-secondary-fixed px-3 py-1 rounded-full">
-          {{ switchers|length }} flagged
-        </span>
+  <!-- ============================================================ -->
+  <!-- STAT STRIP — three big numbers                              -->
+  <!-- ============================================================ -->
+  <section class="px-margin-mobile md:px-margin-desktop mt-stack-md">
+    <div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-3 gap-gutter">
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-stack-lg text-center">
+        <p class="text-label-sm font-label-sm uppercase tracking-widest text-on-surface-variant">Total tracked assets</p>
+        <p class="text-display-lg-mobile md:text-display-lg font-display-lg text-on-surface mt-2">₹{{ "{:,.1f}".format(kpis.total_wealth_cr / 100) if kpis.total_wealth_cr else '0' }}K Cr</p>
       </div>
-      <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
-        <div class="divide-y divide-outline-variant">
-          {% for s in switchers %}
-          <a href="/politician/{{ s.politician.slug or s.politician.id }}" class="grid grid-cols-12 gap-4 p-stack-md hover:bg-surface-container-low transition-colors items-center">
-            <!-- # rank -->
-            <div class="col-span-1 text-center">
-              <span class="w-8 h-8 inline-flex items-center justify-center bg-secondary-fixed text-on-secondary-fixed font-bold rounded-full text-label-sm">{{ loop.index }}</span>
-            </div>
-            <!-- Name -->
-            <div class="col-span-4 flex items-center gap-3 min-w-0">
-              <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0" style="background:{{ s.history[-1].color }}">{{ s.politician.display_name[:2]|upper }}</div>
-              <div class="min-w-0">
-                <p class="font-bold text-on-surface truncate">{{ s.politician.display_name }}</p>
-                <p class="text-label-sm text-on-surface-variant">{{ s.first_year }} – {{ s.last_year }} · {{ s.history|length }} appearance{{ 's' if s.history|length != 1 else '' }}</p>
-              </div>
-            </div>
-            <!-- Party journey arrows -->
-            <div class="col-span-6 flex items-center gap-2 flex-wrap">
-              {% for h in s.history %}
-                <span class="inline-flex items-center gap-1 px-2 py-1 rounded text-white text-label-sm font-bold" style="background:{{ h.color }}" title="{{ h.year }} · {{ h.constituency }}">
-                  {{ h.party }}
-                  <span class="text-[10px] opacity-90">{{ h.year }}</span>
-                </span>
-                {% if not loop.last %}
-                  <span class="material-symbols-outlined text-on-surface-variant text-[18px]">arrow_forward</span>
-                {% endif %}
-              {% endfor %}
-            </div>
-            <!-- Switch count -->
-            <div class="col-span-1 text-right">
-              <span class="px-2 py-1 bg-error/10 text-error rounded-full text-label-sm font-bold">{{ s.switches }} switch{{ 'es' if s.switches != 1 else '' }}</span>
-            </div>
-          </a>
-          {% endfor %}
-        </div>
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-stack-lg text-center">
+        <p class="text-label-sm font-label-sm uppercase tracking-widest text-on-surface-variant">With criminal cases</p>
+        <p class="text-display-lg-mobile md:text-display-lg font-display-lg text-on-surface mt-2">{{ kpis.pct_with_cases|int }}%</p>
       </div>
-      <p class="text-label-sm text-on-surface-variant italic mt-stack-md text-center">
-        Switching parties between elections is legal. The Anti-Defection Law (10th Schedule) only restricts mid-term defection.
-      </p>
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-stack-lg text-center">
+        <p class="text-label-sm font-label-sm uppercase tracking-widest text-on-surface-variant">Verified records</p>
+        <p class="text-display-lg-mobile md:text-display-lg font-display-lg text-on-surface mt-2">{{ "{:,}".format(kpis.count or 0) }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SCOPE TOGGLE (current sitting vs all cycles)                -->
+  <!-- ============================================================ -->
+  {% if view != 'rs' %}
+  <section class="px-margin-mobile md:px-margin-desktop mt-stack-md">
+    <div class="max-w-container-max mx-auto flex items-center justify-center gap-stack-md flex-wrap">
+      <span class="text-label-sm font-label-sm text-on-surface-variant">Showing:</span>
+      <div class="inline-flex bg-surface-container-low rounded-full p-1 gap-1">
+        <a href="/?state={{ state }}&view={{ view }}&scope=current"
+           class="px-4 py-1.5 rounded-full text-label-sm font-label-lg transition-all {% if scope == 'current' %}bg-primary text-on-primary{% else %}text-on-surface-variant hover:text-on-surface{% endif %}">
+          Current sitting <span class="opacity-70 ml-1">· {{ current_count }}</span>
+        </a>
+        <a href="/?state={{ state }}&view={{ view }}&scope=all"
+           class="px-4 py-1.5 rounded-full text-label-sm font-label-lg transition-all {% if scope == 'all' %}bg-primary text-on-primary{% else %}text-on-surface-variant hover:text-on-surface{% endif %}">
+          All cycles <span class="opacity-70 ml-1">· {{ all_count }}</span>
+        </a>
+      </div>
     </div>
   </section>
   {% endif %}
 
-  <!-- LATEST INSIGHTS — race chart + did you know feed -->
-  <section class="py-stack-lg bg-surface-container-low px-margin-mobile md:px-margin-desktop">
-    <div class="max-w-container-max mx-auto">
-      <div class="mb-stack-lg">
-        <h2 class="text-headline-lg font-headline-lg text-on-surface">The political turnover</h2>
-        <p class="text-body-md font-body-md text-on-surface-variant">How party seats shifted across {{ party_seats.years|length }} cycles in Punjab.</p>
-      </div>
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
-        <!-- Race chart -->
-        <div class="lg:col-span-2 bg-surface-container-lowest p-stack-lg rounded-xl border border-outline-variant flex flex-col">
-          <div class="flex justify-between items-center mb-stack-lg">
-            <h3 class="text-headline-md font-headline-md">Seats by party</h3>
-            <div class="flex gap-3">
-              {% for y in party_seats.years %}
-                <span class="text-label-sm font-label-sm text-outline">{{ y }}</span>
-              {% endfor %}
-            </div>
-          </div>
-          <div class="flex-grow space-y-stack-md" id="raceList"></div>
+  <!-- ============================================================ -->
+  <!-- CONSTITUENCY DEEP-DIVE (left)  +  INTERACTIVE HEATMAP (right) -->
+  <!-- ============================================================ -->
+  <section class="px-margin-mobile md:px-margin-desktop mt-stack-lg">
+    <div class="max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+
+      <!-- LEFT: Deep-Dive -->
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-stack-md">
+        <h2 class="text-headline-md font-headline-md text-on-surface mb-stack-sm">Constituency Deep-Dive</h2>
+        <p class="text-body-md text-on-surface-variant mb-stack-md">
+          Explore regional integrity metrics. Select a state to dive into local constituency performance and candidate profiles.
+        </p>
+        <div class="space-y-stack-sm">
+          {% set zones = [('Punjab','#fd761a'), ('Bihar','#d9714f')] %}
+          {% for zname, zcolor in zones %}
+            {% set is_active = (state == zname) %}
+            <a href="/?state={{ zname }}&view={{ view }}&scope={{ scope }}"
+               class="flex items-center justify-between px-stack-md py-stack-sm rounded-xl border {% if is_active %}border-primary bg-surface-container-low{% else %}border-outline-variant bg-surface-container-lowest hover:bg-surface-container-low{% endif %} transition-colors">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full" style="background: {{ zcolor }};"></span>
+                <span class="font-bold text-on-surface">{{ zname }}</span>
+              </div>
+              <span class="text-label-sm text-on-surface-variant">
+                {% if zname == state %}{{ "{:.0f}".format(100 - (kpis.pct_with_cases or 0)) }}% Clean record{% else %}View →{% endif %}
+              </span>
+            </a>
+          {% endfor %}
         </div>
-        <!-- Did you know feed -->
-        <div class="flex flex-col gap-stack-md">
-          {% for f in facts[:4] %}
-          <div class="bg-surface-container-lowest p-stack-md rounded-xl border border-outline-variant">
-            <span class="text-label-sm font-label-sm text-secondary-container font-bold uppercase tracking-wider">Insight</span>
-            <p class="text-body-md mt-1">{{ f }}</p>
+      </div>
+
+      <!-- RIGHT: Real Heatmap visualization (constituency grid) -->
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-stack-md">
+        <div class="flex justify-between items-start mb-stack-sm">
+          <div>
+            <h3 class="text-headline-md font-headline-md text-on-surface">Interactive Heatmap</h3>
+            <p class="text-label-sm text-on-surface-variant">Each tile = one constituency. Click to view the MLA.</p>
+          </div>
+          <div class="flex gap-1">
+            <button class="ct-mode active px-2 py-1 bg-primary text-on-primary rounded text-[10px] font-bold uppercase" data-mode="party">Party</button>
+            <button class="ct-mode px-2 py-1 bg-surface-container-high rounded text-[10px] font-bold uppercase" data-mode="wealth">Wealth</button>
+            <button class="ct-mode px-2 py-1 bg-surface-container-high rounded text-[10px] font-bold uppercase" data-mode="cases">Cases</button>
+          </div>
+        </div>
+        <div id="constituencyGrid" class="grid gap-[3px]" style="grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); max-height: 320px; overflow-y: auto;"></div>
+        <a href="/heatmap" class="inline-flex items-center gap-1 text-label-sm text-primary mt-stack-sm hover:underline">
+          Open the full heatmap <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TRENDING INTELLIGENCE                                        -->
+  <!-- ============================================================ -->
+  <section class="px-margin-mobile md:px-margin-desktop mt-stack-lg">
+    <div class="max-w-container-max mx-auto">
+      <div class="flex justify-between items-end mb-stack-md">
+        <div>
+          <h2 class="text-headline-md font-headline-md text-on-surface">Trending Intelligence</h2>
+          <p class="text-body-md text-on-surface-variant">Automated patterns identified across {{ kpis.count or 0 }}+ legislative records.</p>
+        </div>
+        <a href="/anomalies" class="text-primary font-label-lg flex items-center gap-1 hover:underline whitespace-nowrap">
+          Explore Patterns <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+        <!-- Card 1: Highest Asset Growth -->
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md">
+          <div class="flex items-center gap-2 mb-stack-sm">
+            <span class="material-symbols-outlined text-on-tertiary-container bg-tertiary-fixed/40 p-1 rounded">trending_up</span>
+            <h3 class="font-label-lg text-label-lg font-bold">Highest Asset Growth</h3>
+          </div>
+          <p class="text-label-sm text-on-surface-variant mb-stack-sm">Politicians showing the most significant increase in declared assets over the last 5+ years.</p>
+          <div class="space-y-2">
+            {% for m in wealth_multipliers[:3] %}
+            <a href="/politician/{{ m.politician.slug or m.politician.id }}" class="flex items-center justify-between text-label-sm hover:text-primary transition-colors">
+              <span class="truncate flex-1">{{ m.politician.display_name }}</span>
+              <span class="font-bold text-error ml-2">+{{ "{:,.0f}".format(m.pct) }}%</span>
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- Card 2: Integrity Leaders (clean & wealthy) -->
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md">
+          <div class="flex items-center gap-2 mb-stack-sm">
+            <span class="material-symbols-outlined text-on-tertiary-container bg-tertiary-fixed/40 p-1 rounded">verified</span>
+            <h3 class="font-label-lg text-label-lg font-bold">Integrity Leaders</h3>
+          </div>
+          <p class="text-label-sm text-on-surface-variant mb-stack-sm">Representatives with verified clean criminal records and full disclosures.</p>
+          <div class="space-y-2">
+            {% for r in clean_wealthy[:3] %}
+            <a href="/politician/{{ r.politician.slug or r.politician.id }}" class="flex items-center gap-2 text-label-sm hover:text-primary transition-colors">
+              <span class="w-5 h-5 rounded-full bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold flex items-center justify-center">{{ loop.index }}</span>
+              <span class="flex-1 truncate">{{ r.politician.display_name }}</span>
+              <span class="text-label-sm text-on-surface-variant">{{ r.appearance.constituency.name if r.appearance.constituency else '' }}</span>
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- Card 3: Long Servers (participation) -->
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md">
+          <div class="flex items-center gap-2 mb-stack-sm">
+            <span class="material-symbols-outlined text-on-tertiary-container bg-tertiary-fixed/40 p-1 rounded">groups</span>
+            <h3 class="font-label-lg text-label-lg font-bold">Participation Trends</h3>
+          </div>
+          <p class="text-label-sm text-on-surface-variant mb-stack-sm">Longest-serving politicians by number of election cycles won in this state.</p>
+          <div>
+            {% if long_servers %}
+              <p class="text-display-lg-mobile font-display-lg text-on-surface">{{ long_servers[0].wins }}<span class="text-label-lg font-label-lg text-on-surface-variant ml-1">cycles</span></p>
+              <p class="text-label-sm text-on-surface-variant">{{ long_servers[0].politician.display_name }} — {{ long_servers[0].first_year }}–{{ long_servers[0].last_year }}</p>
+            {% else %}
+              <p class="text-label-sm text-on-surface-variant italic">Need at least 2 cycles of data.</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- {{ state }} ASSET LANDSCAPE — Term-by-Term breakdown          -->
+  <!-- ============================================================ -->
+  <section class="px-margin-mobile md:px-margin-desktop mt-stack-lg">
+    <div class="max-w-container-max mx-auto">
+      <h2 class="text-headline-md font-headline-md text-on-surface">{{ state }} Asset Landscape</h2>
+      <p class="text-body-md text-on-surface-variant mb-stack-md">How average declared wealth has evolved across election cycles.</p>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+        <!-- Term-by-term grouped bar chart -->
+        <div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-2xl p-stack-md">
+          <div class="flex justify-between items-start mb-stack-md">
+            <h3 class="text-label-lg font-label-lg text-on-surface">Average wealth per cycle, by party (top 5)</h3>
+          </div>
+          <div class="h-72"><canvas id="termBreakdownChart"></canvas></div>
+          <p class="text-label-sm text-on-surface-variant italic mt-2 text-center">
+            Each colored group of bars is one election cycle. Bar height = average declared wealth for that party's winners in that cycle.
+          </p>
+        </div>
+
+        <!-- Insight cards -->
+        <div class="space-y-stack-md">
+          {% for f in facts[:3] %}
+          <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md">
+            <p class="text-label-sm font-label-sm text-secondary-container uppercase tracking-wider mb-1">Insight</p>
+            <p class="text-body-md text-on-surface">{{ f }}</p>
           </div>
           {% endfor %}
         </div>
@@ -284,21 +275,21 @@
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="py-32 px-margin-mobile md:px-margin-desktop bg-primary text-on-primary">
+  <!-- ============================================================ -->
+  <!-- BLACK CTA — "Who is your representative?"                    -->
+  <!-- ============================================================ -->
+  <section class="mt-stack-lg bg-primary-container text-on-primary py-stack-lg px-margin-mobile md:px-margin-desktop">
     <div class="max-w-container-max mx-auto text-center">
       <h2 class="text-display-lg-mobile md:text-display-lg font-display-lg mb-stack-md">Who is your representative?</h2>
-      <p class="text-body-lg font-body-lg mb-stack-lg max-w-xl mx-auto opacity-80">
-        Your vote matters. Make it an informed one. Find your MLA, MP, or RS member and see what they've declared.
+      <p class="text-body-lg font-body-lg mb-stack-md max-w-2xl mx-auto opacity-80">
+        Your vote matters. Make it an informed one. Get a comprehensive report of your constituency's candidates.
       </p>
       <div class="flex flex-col sm:flex-row justify-center gap-stack-md">
-        <a href="/browse" class="bg-secondary-container text-on-secondary-container px-10 py-4 rounded-xl text-label-lg font-label-lg font-bold hover:scale-105 duration-200 inline-flex items-center justify-center gap-2">
-          <span class="material-symbols-outlined">search</span>
-          Find your representative
+        <a href="/browse" class="bg-secondary-container text-on-secondary-container px-8 py-3 rounded-xl text-label-lg font-bold inline-flex items-center justify-center gap-2 hover:opacity-90">
+          Find my representative
         </a>
-        <a href="/random" class="border border-on-primary text-on-primary px-10 py-4 rounded-xl text-label-lg font-label-lg font-bold hover:bg-on-primary/10 transition-colors inline-flex items-center justify-center gap-2">
-          <span class="material-symbols-outlined">shuffle</span>
-          Explore a random profile
+        <a href="/browse" class="border border-on-primary text-on-primary px-8 py-3 rounded-xl text-label-lg font-bold inline-flex items-center justify-center gap-2 hover:bg-on-primary/10 transition-colors">
+          Search Archive
         </a>
       </div>
     </div>
@@ -307,61 +298,211 @@
 </main>
 
 <!-- Data payloads -->
-<script id="party-seats" type="application/json">{{ party_seats|tojson }}</script>
+<script id="india-states" type="application/json">{{ india_states|tojson }}</script>
+<script id="party-wealth-cycles" type="application/json">{{ party_wealth_cycles|tojson }}</script>
+<script id="tiles-data" type="application/json">{{ tiles|tojson }}</script>
 
 <script>
-// ---- Autocomplete ----
-const acInput = document.getElementById('hero-search');
-const acResults = document.getElementById('autocomplete-results');
-let acTimer;
-acInput.addEventListener('input', () => {
-  clearTimeout(acTimer);
-  const q = acInput.value.trim();
-  if (q.length < 2) { acResults.innerHTML = ''; acResults.classList.add('hidden'); return; }
-  acTimer = setTimeout(async () => {
-    const resp = await fetch('/api/autocomplete?q=' + encodeURIComponent(q));
-    const items = await resp.json();
-    if (!items.length) { acResults.classList.add('hidden'); return; }
-    acResults.classList.remove('hidden');
-    acResults.innerHTML = items.map(it => `
-      <a class="flex items-center gap-3 px-4 py-3 hover:bg-surface-container-low border-b border-outline-variant last:border-0" href="/politician/${it.slug}">
-        <span class="px-2 py-1 rounded text-label-sm font-bold text-white" style="background:${it.color}">${it.party || 'IND'}</span>
-        <span class="flex-1 font-medium">${it.name}</span>
-        <span class="text-label-sm text-on-surface-variant">${it.constituency || ''}</span>
-      </a>`).join('');
-  }, 160);
-});
-document.addEventListener('click', (e) => {
-  if (!e.target.closest('#hero-search') && !e.target.closest('#autocomplete-results')) {
-    acResults.classList.add('hidden');
+const CURRENT_STATE = {{ state|tojson }};
+
+// (Hero state selector moved to the global nav in base.html)
+
+// ============================================================
+// REAL INDIA MAP via Leaflet + GeoJSON
+// ============================================================
+const STATE_DATA = JSON.parse(document.getElementById('india-states').textContent);
+const STATE_KPI = {};
+STATE_DATA.forEach(s => { STATE_KPI[s.name] = s.kpi; });
+
+function colorForPct(pct) {
+  if (pct == null) return '#e6ebf1';   // light grey — no data
+  if (pct < 20)  return '#2d9b67';
+  if (pct < 40)  return '#7d8c69';
+  if (pct < 60)  return '#d4a017';
+  if (pct < 80)  return '#d9714f';
+  return '#b14545';
+}
+
+// Common variants of state names that may differ between our DB and the GeoJSON
+function normalizeStateName(n) {
+  if (!n) return '';
+  return n.replace(/&/g, 'and')
+          .replace(/\s+/g, ' ')
+          .trim();
+}
+
+function findKpiForState(geoName) {
+  if (!geoName) return null;
+  const n = normalizeStateName(geoName).toLowerCase();
+  for (const key of Object.keys(STATE_KPI)) {
+    if (normalizeStateName(key).toLowerCase() === n) return STATE_KPI[key];
   }
+  return null;
+}
+
+const indiaMapEl = document.getElementById('indiaMap');
+const indiaMapMissing = document.getElementById('indiaMapMissing');
+const imTooltip = document.getElementById('indiaMapTooltip');
+const imtName = document.getElementById('imtName');
+const imtData = document.getElementById('imtData');
+
+const indiaMap = L.map('indiaMap', {
+  zoomControl: false,
+  attributionControl: false,
+  scrollWheelZoom: false,
+  dragging: true,
+  doubleClickZoom: false,
+  boxZoom: false,
+  keyboard: false,
+}).setView([22.5, 80], 5);
+
+// Plain background — no tile layer (keeps the map clean and on-brand)
+indiaMap.getContainer().style.background = '#eff4ff';
+
+let indiaLayer = null;
+function styleFeature(feature) {
+  // GeoJSON property name varies — try common ones
+  const props = feature.properties || {};
+  const name = props.NAME_1 || props.ST_NM || props.name || props.STATE || props.State || props.st_nm || '';
+  const kpi = findKpiForState(name);
+  const hasData = !!kpi;
+  const isSelected = (normalizeStateName(name).toLowerCase() === normalizeStateName(CURRENT_STATE).toLowerCase());
+  return {
+    fillColor: hasData ? colorForPct(kpi.pct_with_cases) : '#e6ebf1',
+    weight: isSelected ? 2.5 : 0.75,
+    color: isSelected ? '#131b2e' : '#ffffff',
+    fillOpacity: hasData ? 0.92 : 0.6,
+  };
+}
+
+function onEachFeature(feature, layer) {
+  const props = feature.properties || {};
+  const name = props.NAME_1 || props.ST_NM || props.name || props.STATE || props.State || props.st_nm || 'Unknown';
+  const kpi = findKpiForState(name);
+  layer.on({
+    mousemove: (e) => {
+      layer.setStyle({ weight: 2, color: '#131b2e' });
+      imTooltip.classList.remove('hidden');
+      imtName.textContent = name;
+      imtData.innerHTML = kpi
+        ? `<span class="text-on-surface-variant">${kpi.pct_with_cases}% with cases · ${kpi.count} MLAs</span>`
+        : `<span class="text-on-surface-variant italic">Data Not Available</span>`;
+      const rect = indiaMapEl.getBoundingClientRect();
+      imTooltip.style.left = (e.originalEvent.clientX - rect.left + 12) + 'px';
+      imTooltip.style.top  = (e.originalEvent.clientY - rect.top  + 12) + 'px';
+    },
+    mouseout: () => {
+      imTooltip.classList.add('hidden');
+      indiaLayer.resetStyle(layer);
+    },
+    click: () => {
+      if (kpi) window.location.href = '/?state=' + encodeURIComponent(name);
+    },
+  });
+}
+
+fetch('/static/india_states.geojson')
+  .then(r => { if (!r.ok) throw new Error('no geojson'); return r.json(); })
+  .then(geo => {
+    indiaLayer = L.geoJSON(geo, { style: styleFeature, onEachFeature }).addTo(indiaMap);
+    try { indiaMap.fitBounds(indiaLayer.getBounds(), { padding: [12, 12] }); } catch(e) {}
+  })
+  .catch(() => {
+    indiaMapEl.style.display = 'none';
+    indiaMapMissing.classList.remove('hidden');
+    indiaMapMissing.style.display = 'flex';
+  });
+
+// ============================================================
+// CONSTITUENCY GRID — interactive heatmap embedded on home
+// ============================================================
+const TILES = JSON.parse(document.getElementById('tiles-data').textContent);
+const ctGrid = document.getElementById('constituencyGrid');
+let ctMode = 'party';
+const maxWealth = Math.max(...TILES.map(t => t.wealth_cr || 0), 1);
+const maxCases  = Math.max(...TILES.map(t => t.cases || 0), 1);
+
+function tileBg(t, mode) {
+  if (mode === 'party')  return t.color || '#7f8c8d';
+  if (mode === 'wealth') {
+    const pct = Math.min(1, (t.wealth_cr || 0) / maxWealth);
+    const r = Math.round(252 - 35 * pct);
+    const g = Math.round(238 - 130 * pct);
+    const b = Math.round(231 - 152 * pct);
+    return `rgb(${r}, ${g}, ${b})`;
+  }
+  if (mode === 'cases') {
+    const pct = Math.min(1, (t.cases || 0) / maxCases);
+    return `rgb(${Math.round(250 - 70 * pct)}, ${Math.round(232 - 165 * pct)}, ${Math.round(232 - 165 * pct)})`;
+  }
+}
+
+function renderCt() {
+  if (!ctGrid) return;
+  ctGrid.innerHTML = '';
+  TILES.forEach(t => {
+    const tile = document.createElement('a');
+    tile.href = '/politician/' + t.slug;
+    tile.style.background = tileBg(t, ctMode);
+    tile.style.borderRadius = '6px';
+    tile.style.padding = '10px 12px';
+    tile.style.color = 'white';
+    tile.style.fontSize = '11px';
+    tile.style.textShadow = '0 1px 2px rgba(0,0,0,0.3)';
+    tile.style.minHeight = '56px';
+    tile.style.display = 'flex';
+    tile.style.flexDirection = 'column';
+    tile.style.justifyContent = 'center';
+    tile.style.transition = 'transform 0.1s';
+    tile.title = `${t.constituency} · ${t.mla} (${t.party}) · ₹${t.wealth_cr} Cr · ${t.cases} cases`;
+    tile.innerHTML = `<div style="font-weight:700;">${t.constituency}</div><div style="opacity:0.92;">${t.mla}</div>`;
+    tile.onmouseover = () => { tile.style.transform = 'scale(1.03)'; tile.style.zIndex = '1'; };
+    tile.onmouseout  = () => { tile.style.transform = ''; tile.style.zIndex = ''; };
+    ctGrid.appendChild(tile);
+  });
+}
+renderCt();
+document.querySelectorAll('.ct-mode').forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll('.ct-mode').forEach(b => {
+      b.classList.remove('bg-primary', 'text-on-primary', 'active');
+      b.classList.add('bg-surface-container-high');
+    });
+    btn.classList.add('bg-primary', 'text-on-primary', 'active');
+    btn.classList.remove('bg-surface-container-high');
+    ctMode = btn.dataset.mode;
+    renderCt();
+  };
 });
 
-// ---- Race chart (horizontal bars) ----
-const partySeats = JSON.parse(document.getElementById('party-seats').textContent);
-const raceList = document.getElementById('raceList');
-if (partySeats && partySeats.parties && raceList) {
-  const maxSeats = Math.max(...partySeats.parties.flatMap(p => p.seats), 1);
-  partySeats.parties.forEach(p => {
-    const row = document.createElement('div');
-    row.innerHTML = `
-      <div class="flex items-center gap-3 mb-2">
-        <span class="px-2 py-1 rounded text-label-sm font-bold text-white w-14 text-center" style="background:${p.color}">${p.party}</span>
-        <span class="text-label-sm text-on-surface-variant font-medium">Max ${Math.max(...p.seats)} seats</span>
-      </div>
-      <div class="grid gap-1" style="grid-template-columns: repeat(${p.seats.length}, 1fr);">
-        ${p.seats.map((s, i) => `
-          <div class="text-center">
-            <div class="bg-surface-container rounded-md relative h-12 overflow-hidden">
-              <div class="absolute bottom-0 left-0 right-0 rounded-md transition-all" style="background:${p.color}; height:${(s / maxSeats) * 100}%;"></div>
-              <div class="absolute inset-0 flex items-center justify-center font-bold text-on-surface text-label-sm">${s}</div>
-            </div>
-            <div class="text-[10px] text-on-surface-variant mt-1">${partySeats.years[i]}</div>
-          </div>
-        `).join('')}
-      </div>
-    `;
-    raceList.appendChild(row);
+// ============================================================
+// TERM-BY-TERM ASSET LANDSCAPE — grouped bars per cycle
+// ============================================================
+const partyWealthCycles = JSON.parse(document.getElementById('party-wealth-cycles').textContent);
+if (partyWealthCycles && partyWealthCycles.years && partyWealthCycles.years.length) {
+  new Chart(document.getElementById('termBreakdownChart'), {
+    type: 'bar',
+    data: {
+      labels: partyWealthCycles.years,
+      datasets: partyWealthCycles.parties.map(p => ({
+        label: p.party,
+        data: p.data,
+        backgroundColor: p.color,
+        borderColor: p.color,
+        borderWidth: 1,
+      })),
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { size: 11 } } },
+        tooltip: { callbacks: { label: c => `${c.dataset.label}: ₹${c.parsed.y.toFixed(2)} Cr avg` } }
+      },
+      scales: {
+        x: { title: { display: true, text: 'Election cycle' }, ticks: { font: { size: 11 } } },
+        y: { beginAtZero: true, title: { display: true, text: 'Average wealth (₹ Cr)' }, ticks: { font: { size: 11 } } }
+      }
+    }
   });
 }
 </script>

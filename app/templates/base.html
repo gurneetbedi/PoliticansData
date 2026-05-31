@@ -119,34 +119,52 @@
 <!-- Top Nav -->
 <header class="sticky top-0 w-full z-50 bg-surface-container-lowest border-b border-outline-variant shadow-sm">
   <div class="max-w-container-max mx-auto h-16 flex justify-between items-center px-margin-mobile md:px-margin-desktop">
-    <a href="/" class="text-headline-md font-headline-md font-bold text-on-surface">PolitiTrack India</a>
+    {# Preserve the current ?state= when navigating across pages, so the State Selector
+       picked on the landing page sticks across the whole site. #}
+    {% set _q = '?state=' ~ current_state %}
+    <a href="/{{ _q }}" class="text-headline-md font-headline-md font-bold text-on-surface">PolitiTrack India</a>
     <nav class="hidden md:flex items-center gap-stack-md lg:gap-stack-lg">
-      <a class="text-label-lg font-label-lg {% if request.url.path == '/' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/">Dashboard</a>
-      <a class="text-label-lg font-label-lg {% if request.url.path == '/browse' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/browse">Rankings</a>
-      <a class="text-label-lg font-label-lg {% if request.url.path == '/heatmap' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/heatmap">Heatmap</a>
-      <a class="text-label-lg font-label-lg {% if request.url.path == '/anomalies' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/anomalies">Anomalies</a>
-      <a class="text-label-lg font-label-lg {% if request.url.path == '/funding' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/funding">Funding</a>
+      <a class="text-label-lg font-label-lg {% if request.url.path == '/' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/{{ _q }}">Dashboard</a>
+      <a class="text-label-lg font-label-lg {% if request.url.path == '/browse' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/browse{{ _q }}">Rankings</a>
+      <a class="text-label-lg font-label-lg {% if request.url.path == '/heatmap' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/heatmap{{ _q }}">Heatmap</a>
+      <a class="text-label-lg font-label-lg {% if request.url.path == '/anomalies' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/anomalies{{ _q }}">Anomalies</a>
+      <a class="text-label-lg font-label-lg {% if request.url.path == '/funding' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/funding{{ _q }}">Funding</a>
     </nav>
-    <div class="flex items-center gap-stack-md relative">
-      {# State dropdown — reads current state from the ?state= query param. #}
-      {% set current_state = request.query_params.get('state', 'Punjab') %}
-      <div class="hidden lg:block relative" id="stateDropdown">
-        <button id="stateDropdownBtn"
-                class="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-xl text-label-lg font-label-lg hover:opacity-80 transition-opacity"
-                onclick="document.getElementById('stateDropdownMenu').classList.toggle('hidden')">
-          <span class="material-symbols-outlined" style="font-size:18px;">location_on</span>
-          {{ current_state }}
-          <span class="material-symbols-outlined" style="font-size:18px;">expand_more</span>
-        </button>
-        <div id="stateDropdownMenu" class="hidden absolute right-0 mt-2 w-44 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-2xl overflow-hidden z-[60]">
-          <a href="/?state=Punjab" class="block px-4 py-3 text-label-lg font-label-lg {% if current_state == 'Punjab' %}bg-secondary-container/20 text-on-surface font-bold{% else %}text-on-surface-variant hover:bg-surface-container-low{% endif %}">
-            <span class="material-symbols-outlined text-[16px] mr-1 align-middle">location_on</span> Punjab
-          </a>
-          <a href="/?state=Bihar" class="block px-4 py-3 text-label-lg font-label-lg {% if current_state == 'Bihar' %}bg-secondary-container/20 text-on-surface font-bold{% else %}text-on-surface-variant hover:bg-surface-container-low{% endif %}">
-            <span class="material-symbols-outlined text-[16px] mr-1 align-middle">location_on</span> Bihar
-          </a>
-          <div class="border-t border-outline-variant px-4 py-2 text-label-sm text-on-surface-variant italic">More states soon…</div>
-        </div>
+    {% set current_state = request.query_params.get('state', 'Punjab') %}
+
+    {# Global State Selector — visible on every page, shows the currently selected state. #}
+    <div class="relative hidden md:block" id="globalStateSelector" style="z-index: 9999;">
+      <button type="button"
+              onclick="document.getElementById('globalStateMenu').classList.toggle('hidden')"
+              class="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-xl text-label-lg font-label-lg hover:opacity-90 transition-opacity">
+        <span class="material-symbols-outlined" style="font-size:18px;">location_on</span>
+        <span>{{ current_state }}</span>
+        <span class="material-symbols-outlined" style="font-size:18px;">expand_more</span>
+      </button>
+      <div id="globalStateMenu" class="hidden absolute right-0 mt-2 w-48 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-2xl overflow-hidden" style="z-index: 9999;">
+        {% set available_states = [('Punjab', True), ('Bihar', True), ('Goa', True)] %}
+        {% for sname, has_data in available_states %}
+          {% if has_data %}
+            <a href="{{ request.url.path }}?state={{ sname }}"
+               class="flex items-center justify-between px-4 py-3 text-label-lg font-label-lg {% if current_state == sname %}bg-secondary-container/20 text-on-surface font-bold{% else %}text-on-surface-variant hover:bg-surface-container-low{% endif %}">
+              <span class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[16px]">location_on</span>
+                {{ sname }}
+              </span>
+              {% if current_state == sname %}
+                <span class="material-symbols-outlined text-[16px] text-primary">check</span>
+              {% endif %}
+            </a>
+          {% else %}
+            <div class="flex items-center justify-between px-4 py-3 text-label-sm text-on-surface-variant italic cursor-not-allowed">
+              <span class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[16px]">location_on</span>
+                {{ sname }}
+              </span>
+              <span class="text-[10px] uppercase tracking-wider">Coming soon</span>
+            </div>
+          {% endif %}
+        {% endfor %}
       </div>
     </div>
   </div>
@@ -176,28 +194,28 @@
 
 <!-- Mobile bottom nav -->
 <nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container-low border-t border-outline-variant flex justify-around p-2 z-[60]">
-  <a href="/" class="flex flex-col items-center {% if request.url.path == '/' %}text-primary font-bold{% else %}text-on-surface-variant{% endif %}">
+  <a href="/{{ _q }}" class="flex flex-col items-center {% if request.url.path == '/' %}text-primary font-bold{% else %}text-on-surface-variant{% endif %}">
     <span class="material-symbols-outlined">home</span><span class="text-[10px]">Home</span>
   </a>
-  <a href="/browse" class="flex flex-col items-center {% if request.url.path == '/browse' %}text-primary font-bold{% else %}text-on-surface-variant{% endif %}">
+  <a href="/browse{{ _q }}" class="flex flex-col items-center {% if request.url.path == '/browse' %}text-primary font-bold{% else %}text-on-surface-variant{% endif %}">
     <span class="material-symbols-outlined">leaderboard</span><span class="text-[10px]">Rankings</span>
   </a>
-  <a href="/heatmap" class="flex flex-col items-center {% if request.url.path == '/heatmap' %}text-primary font-bold{% else %}text-on-surface-variant{% endif %}">
+  <a href="/heatmap{{ _q }}" class="flex flex-col items-center {% if request.url.path == '/heatmap' %}text-primary font-bold{% else %}text-on-surface-variant{% endif %}">
     <span class="material-symbols-outlined">map</span><span class="text-[10px]">Heatmap</span>
   </a>
-  <a href="/anomalies" class="flex flex-col items-center {% if request.url.path == '/anomalies' %}text-primary font-bold{% else %}text-on-surface-variant{% endif %}">
+  <a href="/anomalies{{ _q }}" class="flex flex-col items-center {% if request.url.path == '/anomalies' %}text-primary font-bold{% else %}text-on-surface-variant{% endif %}">
     <span class="material-symbols-outlined">warning</span><span class="text-[10px]">Anomalies</span>
   </a>
-  <a href="/funding" class="flex flex-col items-center {% if request.url.path == '/funding' %}text-primary font-bold{% else %}text-on-surface-variant{% endif %}">
+  <a href="/funding{{ _q }}" class="flex flex-col items-center {% if request.url.path == '/funding' %}text-primary font-bold{% else %}text-on-surface-variant{% endif %}">
     <span class="material-symbols-outlined">account_tree</span><span class="text-[10px]">Funding</span>
   </a>
 </nav>
 
 <script>
-  // Close the state dropdown on any click outside it
+  // Close the global state dropdown on any click outside it
   document.addEventListener('click', (e) => {
-    const dd = document.getElementById('stateDropdown');
-    const menu = document.getElementById('stateDropdownMenu');
+    const dd = document.getElementById('globalStateSelector');
+    const menu = document.getElementById('globalStateMenu');
     if (dd && menu && !dd.contains(e.target)) {
       menu.classList.add('hidden');
     }

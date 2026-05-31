@@ -174,9 +174,13 @@ def biggest_wealth_movers(db: Session, limit: int = 10, direction: str = "gain")
 
 # ---------------- Trends ------------------------------------------------------
 
-def trends_by_cycle(db: Session) -> list[dict]:
-    """Per-cycle aggregates: # of winners, avg wealth, crorepati count, % with cases."""
-    elections = db.query(Election).order_by(Election.year).all()
+def trends_by_cycle(db: Session, state_name: Optional[str] = None) -> list[dict]:
+    """Per-cycle aggregates: # of winners, avg wealth, crorepati count, % with cases.
+    If state_name is provided, restricts to that state's elections."""
+    q = db.query(Election)
+    if state_name:
+        q = q.join(State, Election.state_id == State.id).filter(State.name == state_name)
+    elections = q.order_by(Election.year).all()
     out = []
     for e in elections:
         apps = (
@@ -206,17 +210,19 @@ def trends_by_cycle(db: Session) -> list[dict]:
 
 # ---------------- Party comparison -------------------------------------------
 
-def party_stats(db: Session, election_year: Optional[int] = None) -> list[dict]:
-    """Aggregate stats per party, optionally restricted to one election year."""
+def party_stats(db: Session, election_year: Optional[int] = None, state_name: Optional[str] = None) -> list[dict]:
+    """Aggregate stats per party, optionally restricted to one election year/state."""
     q = (
         db.query(ElectionAppearance)
         .join(Party, ElectionAppearance.party_id == Party.id)
+        .join(Election, ElectionAppearance.election_id == Election.id)
         .filter(ElectionAppearance.won.is_(True))
         .options(joinedload(ElectionAppearance.party))
     )
     if election_year:
-        q = q.join(Election, ElectionAppearance.election_id == Election.id) \
-             .filter(Election.year == election_year)
+        q = q.filter(Election.year == election_year)
+    if state_name:
+        q = q.join(State, Election.state_id == State.id).filter(State.name == state_name)
     apps = q.all()
 
     by_party: dict[str, list[ElectionAppearance]] = {}
@@ -244,9 +250,9 @@ def party_stats(db: Session, election_year: Optional[int] = None) -> list[dict]:
 
 # ---------------- Scatter & constituency map ---------------------------------
 
-def scatter_points(db: Session) -> list[dict]:
+def scatter_points(db: Session, state_name: Optional[str] = None) -> list[dict]:
     """Every politician's latest appearance as a (wealth, cases, party, slug) tuple."""
-    apps = _latest_appearances(db)
+    apps = _latest_appearances(db, state_name=state_name)
     return [
         {
             "name": a.politician.display_name,
@@ -262,7 +268,7 @@ def scatter_points(db: Session) -> list[dict]:
     ]
 
 
-def constituency_tiles(db: Session, year: Optional[int] = None) -> list[dict]:
+def constituency_tiles(db: Session, year: Optional[int] = None, state_name: Optional[str] = None) -> list[dict]:
     """
     Per-constituency latest data for the map. For every AC we look up the
     containing Lok Sabha PC and attach the current MP, so the homepage hover
@@ -305,7 +311,7 @@ def constituency_tiles(db: Session, year: Optional[int] = None) -> list[dict]:
             }
 
     # ---- Per-constituency MLA snapshots --------------------------------------
-    apps = _latest_appearances(db, house="Assembly")
+    apps = _latest_appearances(db, house="Assembly", state_name=state_name)
     if year:
         apps = [a for a in apps if a.election and a.election.year == year]
 
@@ -338,10 +344,10 @@ def constituency_tiles(db: Session, year: Optional[int] = None) -> list[dict]:
 
 # ---------------- Did You Know -----------------------------------------------
 
-def did_you_know(db: Session) -> list[str]:
+def did_you_know(db: Session, state_name: Optional[str] = None) -> list[str]:
     """Auto-generated factoids computed live from the DB."""
     facts = []
-    apps = _latest_appearances(db)
+    apps = _latest_appearances(db, state_name=state_name)
     if not apps:
         return ["Run the scraper to populate the database."]
 
@@ -401,13 +407,13 @@ def did_you_know(db: Session) -> list[str]:
 
 # ---------------- Time-machine: multi-cycle data -----------------------------
 
-def dots_by_year(db: Session, house: str = "Assembly") -> dict:
+def dots_by_year(db: Session, house: str = "Assembly", state_name: Optional[str] = None) -> dict:
     """
     Per-cycle constituency winners, structured for the time-slider map.
     Returns {year: [{constituency, mla, party, color, wealth_cr, cases, slug}, ...]}.
     Used by the frontend to swap which dots are shown when the user drags the slider.
     """
-    apps = (
+    q = (
         db.query(ElectionAppearance)
         .join(Election, ElectionAppearance.election_id == Election.id)
         .filter(Election.house == house)
@@ -418,8 +424,10 @@ def dots_by_year(db: Session, house: str = "Assembly") -> dict:
             joinedload(ElectionAppearance.constituency),
             joinedload(ElectionAppearance.election),
         )
-        .all()
     )
+    if state_name:
+        q = q.join(State, Election.state_id == State.id).filter(State.name == state_name)
+    apps = q.all()
     out: dict[int, list[dict]] = {}
     for a in apps:
         if not (a.constituency and a.election):
@@ -436,7 +444,55 @@ def dots_by_year(db: Session, house: str = "Assembly") -> dict:
     return dict(sorted(out.items()))
 
 
-def party_seats_by_year(db: Session, house: str = "Assembly") -> dict:
+def party_wealth_by_cycle(db: Session, house: str = "Assembly", state_name: Optional[str] = None) -> dict:
+    """
+    Per-cycle average wealth per party (winning candidates only). Powers the
+    term-by-term asset landscape chart on the homepage.
+    Returns: {"years":[2007,2012,...], "parties":[{"party":"AAP","color":"#019cdf","data":[0.0, 0.0, 12.4, 8.7]}, ...]}
+    """
+    q = (
+        db.query(ElectionAppearance)
+        .join(Election, ElectionAppearance.election_id == Election.id)
+        .filter(Election.house == house)
+        .filter(ElectionAppearance.won.is_(True))
+        .options(
+            joinedload(ElectionAppearance.party),
+            joinedload(ElectionAppearance.election),
+        )
+    )
+    if state_name:
+        q = q.join(State, Election.state_id == State.id).filter(State.name == state_name)
+    apps = q.all()
+
+    years = sorted({a.election.year for a in apps if a.election})
+    by_party_year: dict[str, dict[int, list[int]]] = {}
+    for a in apps:
+        if not a.election or not a.party:
+            continue
+        p = a.party.short_name
+        by_party_year.setdefault(p, {}).setdefault(a.election.year, []).append(a.total_assets_inr or 0)
+
+    # Pick top 5 parties by total wealth across all cycles
+    party_totals = {p: sum(sum(yr) for yr in years_data.values()) for p, years_data in by_party_year.items()}
+    top_parties = sorted(party_totals, key=party_totals.get, reverse=True)[:5]
+
+    return {
+        "years": years,
+        "parties": [
+            {
+                "party": p,
+                "color": party_color(p),
+                "data": [
+                    round(sum(by_party_year[p].get(y, [0])) / max(len(by_party_year[p].get(y, [0])), 1) / CRORE, 2)
+                    for y in years
+                ],
+            }
+            for p in top_parties
+        ],
+    }
+
+
+def party_seats_by_year(db: Session, house: str = "Assembly", state_name: Optional[str] = None) -> dict:
     """
     Party-vs-year seat counts. Returns {
         "years": [2007, 2012, 2017, 2022],
@@ -447,7 +503,7 @@ def party_seats_by_year(db: Session, house: str = "Assembly") -> dict:
     }
     Used for the race chart.
     """
-    apps = (
+    q = (
         db.query(ElectionAppearance)
         .join(Election, ElectionAppearance.election_id == Election.id)
         .filter(Election.house == house)
@@ -456,8 +512,10 @@ def party_seats_by_year(db: Session, house: str = "Assembly") -> dict:
             joinedload(ElectionAppearance.party),
             joinedload(ElectionAppearance.election),
         )
-        .all()
     )
+    if state_name:
+        q = q.join(State, Election.state_id == State.id).filter(State.name == state_name)
+    apps = q.all()
 
     years = sorted({a.election.year for a in apps if a.election})
     counts: dict[str, dict[int, int]] = {}
@@ -506,30 +564,55 @@ def hero_kpis(db: Session, house: str = "Assembly", scope: str = "all", state_na
     }
 
 
-def wealth_multipliers(db: Session, limit: int = 10, house: str = "Assembly") -> list[dict]:
-    """
-    Politicians with the biggest *percentage* wealth growth between any
-    two of their appearances. Much more compelling than absolute rupee gains.
-    """
-    politicians = (
+def _politicians_in_state(db: Session, state_name: Optional[str] = None):
+    """Helper — base politician query scoped to a state by election history."""
+    q = (
         db.query(Politician)
         .options(
             joinedload(Politician.appearances).joinedload(ElectionAppearance.election),
             joinedload(Politician.appearances).joinedload(ElectionAppearance.party),
             joinedload(Politician.appearances).joinedload(ElectionAppearance.constituency),
         )
-        .all()
     )
+    if state_name:
+        # Only include politicians who have at least one appearance in this state
+        state_politician_ids = (
+            db.query(ElectionAppearance.politician_id)
+            .join(Election, ElectionAppearance.election_id == Election.id)
+            .join(State, Election.state_id == State.id)
+            .filter(State.name == state_name)
+            .distinct()
+        )
+        q = q.filter(Politician.id.in_(state_politician_ids))
+    return q
+
+
+def _filter_state_appearances(appearances, state_name: Optional[str]):
+    """Filter a politician's appearances to those in a specific state."""
+    if not state_name:
+        return appearances
+    return [a for a in appearances
+            if a.election and a.election.state
+            and a.election.state.name == state_name]
+
+
+def wealth_multipliers(db: Session, limit: int = 10, house: str = "Assembly", state_name: Optional[str] = None) -> list[dict]:
+    """
+    Politicians with the biggest *percentage* wealth growth between any
+    two of their appearances. Much more compelling than absolute rupee gains.
+    """
+    politicians = _politicians_in_state(db, state_name).all()
     rows = []
     for p in politicians:
-        valid = [a for a in p.appearances
+        # Filter to appearances in this state only when state filter is on
+        state_apps = _filter_state_appearances(p.appearances, state_name)
+        valid = [a for a in state_apps
                  if a.election and a.election.house == house
                  and a.total_assets_inr is not None]
         if len(valid) < 2:
             continue
         valid.sort(key=lambda a: a.election.year)
         first, last = valid[0], valid[-1]
-        # Skip noisy edge cases (zero or tiny first declaration distorts %)
         if not first.total_assets_inr or first.total_assets_inr < 100_000:
             continue
         pct = ((last.total_assets_inr or 0) - first.total_assets_inr) / first.total_assets_inr * 100
@@ -548,23 +631,16 @@ def wealth_multipliers(db: Session, limit: int = 10, house: str = "Assembly") ->
     return rows[:limit]
 
 
-def crorepati_newcomers(db: Session, limit: int = 10, house: str = "Assembly") -> list[dict]:
+def crorepati_newcomers(db: Session, limit: int = 10, house: str = "Assembly", state_name: Optional[str] = None) -> list[dict]:
     """
     Politicians who were sub-crore in their first declared affidavit and
     are crorepati now — the "not rich before politics" story.
     """
-    politicians = (
-        db.query(Politician)
-        .options(
-            joinedload(Politician.appearances).joinedload(ElectionAppearance.election),
-            joinedload(Politician.appearances).joinedload(ElectionAppearance.party),
-            joinedload(Politician.appearances).joinedload(ElectionAppearance.constituency),
-        )
-        .all()
-    )
+    politicians = _politicians_in_state(db, state_name).all()
     rows = []
     for p in politicians:
-        valid = [a for a in p.appearances
+        state_apps = _filter_state_appearances(p.appearances, state_name)
+        valid = [a for a in state_apps
                  if a.election and a.election.house == house
                  and a.total_assets_inr is not None]
         if len(valid) < 2:
@@ -591,7 +667,7 @@ def crorepati_newcomers(db: Session, limit: int = 10, house: str = "Assembly") -
     return rows[:limit]
 
 
-def anomaly_candidates(db: Session, limit: int = 50, house: str = "Assembly") -> list[dict]:
+def anomaly_candidates(db: Session, limit: int = 50, house: str = "Assembly", state_name: Optional[str] = None) -> list[dict]:
     """
     Surface politicians with statistically unusual asset growth as 'anomalies'.
     Reuses wealth_multipliers and attaches an integrity-index score:
@@ -599,7 +675,7 @@ def anomaly_candidates(db: Session, limit: int = 50, house: str = "Assembly") ->
     A 100% growth ≈ 75 (standard). 10,000% ≈ 0 (critical). Cases reduce the score.
     """
     import math
-    rows = wealth_multipliers(db, limit=limit * 3, house=house)
+    rows = wealth_multipliers(db, limit=limit * 3, house=house, state_name=state_name)
     out = []
     for r in rows:
         if r["pct"] <= 50:  # tiny growth — not interesting
@@ -612,9 +688,9 @@ def anomaly_candidates(db: Session, limit: int = 50, house: str = "Assembly") ->
     return out[:limit]
 
 
-def anomaly_buckets(db: Session, house: str = "Assembly") -> dict:
+def anomaly_buckets(db: Session, house: str = "Assembly", state_name: Optional[str] = None) -> dict:
     """Return counts of candidates in each risk bucket (critical/suspicious/standard)."""
-    candidates = anomaly_candidates(db, limit=500, house=house)
+    candidates = anomaly_candidates(db, limit=500, house=house, state_name=state_name)
     return {
         "critical":    sum(1 for r in candidates if r["score"] < 30),
         "suspicious":  sum(1 for r in candidates if 30 <= r["score"] < 60),
@@ -622,7 +698,7 @@ def anomaly_buckets(db: Session, house: str = "Assembly") -> dict:
     }
 
 
-def party_switchers(db: Session, limit: int = 20) -> list[dict]:
+def party_switchers(db: Session, limit: int = 20, state_name: Optional[str] = None) -> list[dict]:
     """
     Find politicians who appeared with more than one party across their
     election appearances — the "Aaya Ram Gaya Ram" phenomenon.
@@ -630,20 +706,14 @@ def party_switchers(db: Session, limit: int = 20) -> list[dict]:
     Returns rows with the politician's full party journey, sorted by
     number of switches (most-switches first).
     """
-    politicians = (
-        db.query(Politician)
-        .options(
-            joinedload(Politician.appearances).joinedload(ElectionAppearance.election),
-            joinedload(Politician.appearances).joinedload(ElectionAppearance.party),
-            joinedload(Politician.appearances).joinedload(ElectionAppearance.constituency),
-        )
-        .all()
-    )
+    politicians = _politicians_in_state(db, state_name).all()
     rows = []
     for p in politicians:
-        # Build a chronological list of (year, party_name) skipping rows without party
+        # Build a chronological list of (year, party_name) skipping rows without party,
+        # filtered to the state we care about when state_name is set.
+        state_apps = _filter_state_appearances(p.appearances, state_name)
         history = []
-        for a in sorted(p.appearances, key=lambda a: a.election.year if a.election else 0):
+        for a in sorted(state_apps, key=lambda a: a.election.year if a.election else 0):
             if a.party and a.election:
                 history.append({
                     "year": a.election.year,
@@ -672,20 +742,13 @@ def party_switchers(db: Session, limit: int = 20) -> list[dict]:
     return rows[:limit]
 
 
-def long_servers(db: Session, limit: int = 10, house: str = "Assembly") -> list[dict]:
+def long_servers(db: Session, limit: int = 10, house: str = "Assembly", state_name: Optional[str] = None) -> list[dict]:
     """Politicians who've won in the most election cycles in this house."""
-    politicians = (
-        db.query(Politician)
-        .options(
-            joinedload(Politician.appearances).joinedload(ElectionAppearance.election),
-            joinedload(Politician.appearances).joinedload(ElectionAppearance.party),
-            joinedload(Politician.appearances).joinedload(ElectionAppearance.constituency),
-        )
-        .all()
-    )
+    politicians = _politicians_in_state(db, state_name).all()
     rows = []
     for p in politicians:
-        wins = [a for a in p.appearances
+        state_apps = _filter_state_appearances(p.appearances, state_name)
+        wins = [a for a in state_apps
                 if a.election and a.election.house == house and a.won]
         if len(wins) < 2:
             continue
