@@ -1,0 +1,28 @@
+# Render.com deployment config — declarative one-click setup.
+# See https://render.com/docs/blueprint-spec
+#
+# After connecting this repo to Render, Render reads this file and provisions
+# the web service. You'll be prompted once to set DATABASE_URL (paste the Neon
+# Postgres connection string). Everything else is automatic.
+
+services:
+  - type: web
+    name: politrack-india
+    runtime: python
+    plan: free                       # free tier; flip to "starter" ($7/mo) to remove cold starts
+    region: singapore                # closest to India in Render's regions
+    branch: main
+    autoDeploy: true                 # redeploy on every push to main
+
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn -w 2 -k uvicorn.workers.UvicornWorker app.main:app --bind 0.0.0.0:$PORT --timeout 120
+
+    envVars:
+      - key: DATABASE_URL
+        sync: false                  # you'll paste the Neon URL into the Render dashboard once
+      - key: PYTHON_VERSION
+        value: "3.11"
+      - key: PYTHONUNBUFFERED
+        value: "1"
+
+    healthCheckPath: /
