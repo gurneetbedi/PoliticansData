@@ -22,3 +22,10 @@ data/cache/
 .idea/
 *.swp
 .DS_Store
+
+# Personal / draft outreach (kept local, not for public repo)
+ADR_EMAIL_DRAFT.md
+
+# Logs
+*.log
+logs/

@@ -1,8 +1,16 @@
-# PoliTrack.in
+# PolitiTrack India
 
-An open source transparency platform showing details of Indian MPs and MLAs — their declared net worth, criminal cases, education, and election history. Data is sourced from [myneta.info](https://myneta.info/) (ADR), which structures Election Commission of India affidavits.
+An open-source transparency platform that surfaces declared net worth, criminal cases, education, and term-over-term history for Indian elected representatives — MLAs, Lok Sabha MPs, and Rajya Sabha members. All data is sourced from [myneta.info](https://myneta.info/) (ADR), which structures Election Commission of India affidavits.
 
-**Current scope:** Punjab MLAs across all four available assembly cycles (2007, 2012, 2017, 2022). Designed to scale to other states and to Lok Sabha / Rajya Sabha next.
+**Current coverage (assembly):**
+
+- **Punjab** — 2007, 2012, 2017, 2022 (117 seats each cycle)
+- **Bihar** — 2005, 2010, 2015, 2020, 2025 (243 seats each cycle)
+- **Goa** — 2007, 2012, 2017, 2022 (40 seats each cycle)
+
+Lok Sabha and Rajya Sabha coverage for Punjab is also included. The architecture is state-agnostic — adding a new state means writing a small scraper module and adding an entry to `app/states.py`.
+
+> **Status:** research-preview. Things will move. Issues and PRs welcome.
 
 ## Tech Stack
 
@@ -24,13 +32,20 @@ Politicians Project/
     ingest.py            CLI: scrape + load data into the DB
     scrapers/
       myneta_client.py   Polite HTTP client with caching + rate limiting
-      punjab.py          Punjab winners parser, all four cycles
-    templates/           Jinja2 HTML (home, browse, detail)
-    static/              CSS
+      generic_state.py   Shared list/detail parsers
+      punjab.py          Punjab winners + LS + runner-ups
+      bihar.py           Bihar winners + detail enrichment
+      goa.py             Goa winners + detail enrichment
+    states.py            Registry of supported states + cycles
+    services.py          State-scoped DB queries powering every page
+    templates/           Jinja2 HTML (home, browse, detail, heatmap, anomalies, funding)
+    static/              CSS + GeoJSON + constituency coords
   data/
     cache/myneta/        Cached HTML responses (gitignored)
+  scripts/               One-off geocoding / GeoJSON download helpers
   mockup.html            Standalone design mockup
   PROJECT_PLAN.md        Full architecture and roadmap
+  LEGAL.md               Notes on data provenance and disclaimers
   requirements.txt
   README.md
 ```
@@ -46,8 +61,13 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-# Scrape myneta and populate the DB (takes ~10 minutes due to rate limiting)
-python -m app.ingest punjab
+# Scrape myneta and populate the DB. Each state takes ~10 min for winners-only,
+# longer with the detail enricher. Targets are state-scoped:
+python -m app.ingest punjab          # Punjab MLAs (winners across all cycles)
+python -m app.ingest bihar           # Bihar MLAs
+python -m app.ingest goa             # Goa MLAs
+# Append `_all` to also pull runner-ups, or `_detail` for per-affidavit enrichment.
+# See `python -m app.ingest --help` for the full list of targets.
 
 # Download Punjab constituency boundaries for the interactive map
 python scripts/download_geojson.py
@@ -171,4 +191,4 @@ All data comes from public Election Commission of India affidavits via ADR. Figu
 
 ## License
 
-To be decided. Recommend MIT for adoption or AGPL to keep derivatives open.
+[MIT](./LICENSE). The license covers the code in this repository. The underlying affidavit data is collected and structured by [ADR](https://adrindia.org/) and published on myneta.info — please review their terms before redistributing the data independently of this codebase.

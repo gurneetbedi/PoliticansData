@@ -1,8 +1,19 @@
 {% extends "base.html" %}
-{% block title %}Political Funding Flows | PolitiTrack India{% endblock %}
+{% block title %}Political Funding Flows · National Data | PolitiTrack India{% endblock %}
 {% block content %}
 
 <main class="flex-1 max-w-container-max w-full mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg space-y-stack-lg">
+
+  <!-- NATIONAL-DATA BANNER -->
+  <section class="bg-secondary-fixed border-l-4 border-secondary-container rounded-r-xl px-stack-md py-stack-sm flex items-start gap-stack-sm">
+    <span class="material-symbols-outlined text-secondary-container mt-0.5">public</span>
+    <div class="flex-1">
+      <p class="font-bold text-on-secondary-fixed">National-level data only</p>
+      <p class="text-label-sm text-on-secondary-fixed-variant mt-0.5">
+        Electoral-bond funding flows are aggregated at the national level — they don't change when you switch state. Per-state breakdowns require scraping per-MLA election-expense affidavits, which is on the roadmap.
+      </p>
+    </div>
+  </section>
 
   <!-- HEADER -->
   <section>
@@ -14,9 +25,8 @@
       <div>
         <h1 class="font-display-lg text-display-lg-mobile md:text-headline-lg text-primary">Political funding flows</h1>
         <p class="font-body-lg text-body-lg text-on-surface-variant mt-2 max-w-2xl">
-          Tracking electoral bond donations and ECI-disclosed funding to political parties.
-          The dataset is in active development — preview metrics are derived from the
-          March 2024 SBI Electoral Bonds disclosure as published by ADR.
+          National-level analysis of electoral-bond donations and party-disclosed funding across India.
+          Derived from the March 2024 SBI Electoral Bonds disclosure as published by ADR.
         </p>
       </div>
       <div class="flex gap-stack-sm">

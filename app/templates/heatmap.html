@@ -62,18 +62,22 @@
         <div class="space-y-stack-sm">
           {% for s in india_states %}
             {% set is_selected = (s.name == state) %}
-            <a href="/heatmap?state={{ s.name }}" class="block p-3 rounded-lg hover:shadow-md transition-all border {% if is_selected %}border-secondary-container bg-surface-container-low{% else %}border-outline-variant{% endif %}">
+            {% set has_data = (s.kpi.count or 0) > 0 %}
+            <a href="/heatmap?state={{ s.name }}" class="block p-3 rounded-lg hover:shadow-md transition-all border {% if is_selected %}border-secondary-container bg-surface-container-low{% else %}border-outline-variant{% endif %} {% if not has_data %}opacity-60{% endif %}">
               <div class="flex items-center justify-between mb-2">
                 <div class="flex items-center gap-2">
-                  <span class="w-3 h-3 rounded-full {% if s.kpi.pct_with_cases > 50 %}bg-[#b14545]{% elif s.kpi.pct_with_cases > 30 %}bg-[#d9714f]{% else %}bg-[#2d9b67]{% endif %}"></span>
+                  <span class="w-3 h-3 rounded-full {% if not has_data %}bg-outline-variant{% elif s.kpi.pct_with_cases > 50 %}bg-[#b14545]{% elif s.kpi.pct_with_cases > 30 %}bg-[#d9714f]{% else %}bg-[#2d9b67]{% endif %}"></span>
                   <span class="font-bold text-on-surface">{{ s.name }}</span>
                 </div>
                 {% if is_selected %}
                   <span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded text-[10px] font-bold uppercase">Viewing</span>
+                {% elif not has_data %}
+                  <span class="text-label-sm text-on-surface-variant italic">Data coming soon</span>
                 {% else %}
                   <span class="text-label-sm text-on-surface-variant">{{ s.kpi.pct_with_cases|int }}% cases →</span>
                 {% endif %}
               </div>
+              {% if has_data %}
               <div class="grid grid-cols-3 gap-2 text-center text-label-sm">
                 <div>
                   <p class="text-on-surface-variant text-[10px] uppercase tracking-wider">MLAs</p>
@@ -88,20 +92,17 @@
                   <p class="font-bold text-on-surface">{{ s.kpi.avg_wealth_cr }}</p>
                 </div>
               </div>
+              {% endif %}
             </a>
           {% endfor %}
         </div>
       </div>
 
       <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-stack-md shadow-sm">
-        <h3 class="font-label-lg text-label-lg uppercase tracking-widest text-on-surface-variant mb-stack-md">On the roadmap</h3>
+        <h3 class="font-label-lg text-label-lg uppercase tracking-widest text-on-surface-variant mb-stack-md">Roadmap</h3>
         <div class="space-y-2 text-label-sm">
-          <div class="flex items-center justify-between p-2 rounded hover:bg-surface-container-low">
-            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-secondary-container"></span> Goa</span>
-            <span class="text-on-surface-variant">40 MLAs · queued next</span>
-          </div>
           <div class="flex items-center justify-between p-2 rounded">
-            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-outline-variant"></span> All others</span>
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-outline-variant"></span> Other states</span>
             <span class="text-on-surface-variant">Not scheduled</span>
           </div>
         </div>

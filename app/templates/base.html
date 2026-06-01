@@ -119,6 +119,12 @@
 <!-- Top Nav -->
 <header class="sticky top-0 w-full z-50 bg-surface-container-lowest border-b border-outline-variant shadow-sm">
   <div class="max-w-container-max mx-auto h-16 flex justify-between items-center px-margin-mobile md:px-margin-desktop">
+    {# Resolve the current state BEFORE building the nav query string.
+       `.get('state', 'Punjab')` returns "" when the param exists but is empty, so we
+       chain `or 'Punjab'` to guarantee a real value. Without this `_q` becomes
+       "?state=" and every nav link points to "/?state=" (empty), which trips the
+       home-page state filter. #}
+    {% set current_state = request.query_params.get('state') or 'Punjab' %}
     {# Preserve the current ?state= when navigating across pages, so the State Selector
        picked on the landing page sticks across the whole site. #}
     {% set _q = '?state=' ~ current_state %}
@@ -130,8 +136,6 @@
       <a class="text-label-lg font-label-lg {% if request.url.path == '/anomalies' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/anomalies{{ _q }}">Anomalies</a>
       <a class="text-label-lg font-label-lg {% if request.url.path == '/funding' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/funding{{ _q }}">Funding</a>
     </nav>
-    {% set current_state = request.query_params.get('state', 'Punjab') %}
-
     {# Global State Selector — visible on every page, shows the currently selected state. #}
     <div class="relative hidden md:block" id="globalStateSelector" style="z-index: 9999;">
       <button type="button"

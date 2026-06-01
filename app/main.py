@@ -103,6 +103,40 @@ templates.env.filters["case_type"]      = case_type_for_ipc
 templates.env.filters["all_case_types"] = all_case_types
 
 
+# ---- Permissive state parser ------------------------------------------------
+# FastAPI's strict regex validator returns a 422 when ?state= is empty or unknown,
+# which breaks navigation when a link accidentally drops the value (e.g. browser
+# back, copy-paste, manually typed URL). Replace with a coercing dependency.
+
+KNOWN_STATES = {"punjab", "bihar", "goa"}
+
+def resolve_state(state: str | None = None) -> str:
+    """Return a canonical state name. Falls back to 'Punjab' for empty/unknown."""
+    if not state:
+        return "Punjab"
+    s = state.strip().lower()
+    if s not in KNOWN_STATES:
+        return "Punjab"
+    return s.capitalize()
+
+
+def resolve_year(year: str | None = None) -> int | None:
+    """
+    Permissive year parser. FastAPI's `int | None` would 422 on an empty string
+    submitted by a <select> with a blank "All years" option. Treat empty / non-numeric
+    values as None instead of crashing.
+    """
+    if year is None:
+        return None
+    s = str(year).strip()
+    if not s:
+        return None
+    try:
+        return int(s)
+    except (TypeError, ValueError):
+        return None
+
+
 def latest_appearance(politician: Politician) -> ElectionAppearance | None:
     """The most recent ElectionAppearance for a politician, by election year."""
     if not politician.appearances:
@@ -118,7 +152,7 @@ def home(
     db: Session = Depends(get_db),
     view: str = Query("mla", regex="^(mla|mp|rs)$"),
     scope: str = Query("current", regex="^(current|all)$"),
-    state: str = Query("Punjab", regex="^(Punjab|Bihar|Goa)$"),
+    state: str = Depends(resolve_state),
 ):
     """
     The view toggle selects which legislative body to focus the page on:
@@ -182,13 +216,14 @@ def home(
         "party_wealth_cycles": services.party_wealth_by_cycle(db, house="Assembly", state_name=state),
         "facts":    services.did_you_know(db, state_name=state),
 
-        # India-wide stats for the choropleth (one row per state)
+        # India-wide stats for the choropleth (one row per tracked state).
+        # Goa is included so once ingested it auto-appears on the map.
         "india_states": [
             {
                 "name": s_name,
                 "kpi": services.hero_kpis(db, house="Assembly", scope="current", state_name=s_name),
             }
-            for s_name in ("Punjab", "Bihar")
+            for s_name in ("Punjab", "Bihar", "Goa")
         ],
 
         # Helpers
@@ -203,11 +238,11 @@ def browse(
     request: Request,
     db: Session = Depends(get_db),
     party: str | None = None,
-    year: int | None = None,
+    year: int | None = Depends(resolve_year),
     q: str | None = None,
     sort: str = Query("name", regex="^(name|wealth|terms|cases)$"),
     order: str = Query("desc", regex="^(asc|desc)$"),
-    state: str = Query("Punjab", regex="^(Punjab|Bihar|Goa)$"),
+    state: str = Depends(resolve_state),
 ):
     # Scope the politician query to ones with at least one appearance in this state
     state_politician_ids = (
@@ -302,7 +337,7 @@ def politician_empty():
 def heatmap(
     request: Request,
     db: Session = Depends(get_db),
-    state: str = Query("Punjab", regex="^(Punjab|Bihar|Goa)$"),
+    state: str = Depends(resolve_state),
 ):
     """State-wise Transparency Heatmap — India choropleth + selected-state constituency grid."""
     return templates.TemplateResponse("heatmap.html", {
@@ -312,7 +347,7 @@ def heatmap(
         "kpis":    services.hero_kpis(db, house="Assembly", scope="current", state_name=state),
         "india_states": [
             {"name": s_name, "kpi": services.hero_kpis(db, house="Assembly", scope="current", state_name=s_name)}
-            for s_name in ("Punjab", "Bihar")
+            for s_name in ("Punjab", "Bihar", "Goa")
         ],
     })
 
@@ -321,7 +356,7 @@ def heatmap(
 def anomalies(
     request: Request,
     db: Session = Depends(get_db),
-    state: str = Query("Punjab", regex="^(Punjab|Bihar|Goa)$"),
+    state: str = Depends(resolve_state),
 ):
     """Data Pattern Analysis — flag candidates with unusual wealth growth."""
     return templates.TemplateResponse("anomalies.html", {
@@ -334,7 +369,11 @@ def anomalies(
 
 @app.get("/funding", response_class=HTMLResponse)
 def funding(request: Request):
-    """Political Funding Flows dashboard — currently a designed-but-placeholder page."""
+    """
+    Political Funding Flows dashboard.
+    Funding data is national-level (electoral bonds aggregated by party, not by state),
+    so this page intentionally does NOT take a state parameter.
+    """
     return templates.TemplateResponse("funding.html", {"request": request})
 
 
@@ -570,7 +609,7 @@ def api_trends(db: Session = Depends(get_db)):
 
 
 @app.get("/api/parties/stats")
-def api_parties_stats(db: Session = Depends(get_db), year: int | None = None):
+def api_parties_stats(db: Session = Depends(get_db), year: int | None = Depends(resolve_year)):
     return services.party_stats(db, year)
 
 

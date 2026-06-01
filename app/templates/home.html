@@ -8,18 +8,20 @@
   <!-- ============================================================ -->
   <section class="px-margin-mobile md:px-margin-desktop pt-stack-lg pb-stack-md relative" style="z-index: 1000;">
     <div class="max-w-container-max mx-auto">
-      <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-stack-md">
-        <div class="max-w-2xl">
-          <h1 class="text-display-lg-mobile md:text-display-lg font-display-lg text-on-surface mb-stack-md">
-            Visualizing Political Integrity
-          </h1>
-          <p class="text-body-md font-body-md text-on-surface-variant">
-            Interactive intelligence mapping the criminal cases and legislative records across India. Discover the data behind governance.
-          </p>
-        </div>
+      {# Hero text spans the full row; the Election-type toggle moves to its own
+         row below so the global State Selector dropdown does not overlap it. #}
+      <div class="max-w-2xl">
+        <h1 class="text-display-lg-mobile md:text-display-lg font-display-lg text-on-surface mb-stack-md">
+          Visualizing Political Integrity
+        </h1>
+        <p class="text-body-md font-body-md text-on-surface-variant">
+          Interactive intelligence mapping the criminal cases and legislative records across India. Discover the data behind governance.
+        </p>
+      </div>
 
-        <!-- Hero-right: Election-type toggle only (State Selector lives in the global nav now) -->
-        <div class="bg-surface-container-low rounded-xl p-1 flex gap-1 self-start">
+      <!-- Election-type toggle on its own row, right-aligned and clear of the State Selector dropzone -->
+      <div class="flex justify-end mt-stack-md">
+        <div class="bg-surface-container-low rounded-xl p-1 flex gap-1">
           <a href="/?state={{ state }}&view=mla&scope={{ scope }}"
              class="px-4 py-2 rounded-lg text-label-lg font-label-lg {% if view == 'mla' %}bg-surface-container-lowest text-on-surface font-bold shadow-sm border border-outline-variant{% else %}text-on-surface-variant hover:text-on-surface{% endif %} transition-all">
             State Election
@@ -133,9 +135,12 @@
           Explore regional integrity metrics. Select a state to dive into local constituency performance and candidate profiles.
         </p>
         <div class="space-y-stack-sm">
-          {% set zones = [('Punjab','#fd761a'), ('Bihar','#d9714f')] %}
+          {% set zones = [('Punjab','#fd761a'), ('Bihar','#d9714f'), ('Goa','#2d9b67')] %}
           {% for zname, zcolor in zones %}
             {% set is_active = (state == zname) %}
+            {# Find the matching KPI block from india_states for this zone #}
+            {% set zone_kpi = (india_states | selectattr('name','equalto',zname) | list | first) %}
+            {% set has_data = zone_kpi and zone_kpi.kpi and (zone_kpi.kpi.count or 0) > 0 %}
             <a href="/?state={{ zname }}&view={{ view }}&scope={{ scope }}"
                class="flex items-center justify-between px-stack-md py-stack-sm rounded-xl border {% if is_active %}border-primary bg-surface-container-low{% else %}border-outline-variant bg-surface-container-lowest hover:bg-surface-container-low{% endif %} transition-colors">
               <div class="flex items-center gap-2">
@@ -143,7 +148,13 @@
                 <span class="font-bold text-on-surface">{{ zname }}</span>
               </div>
               <span class="text-label-sm text-on-surface-variant">
-                {% if zname == state %}{{ "{:.0f}".format(100 - (kpis.pct_with_cases or 0)) }}% Clean record{% else %}View →{% endif %}
+                {% if not has_data %}
+                  Data coming soon
+                {% elif zname == state %}
+                  {{ "{:.0f}".format(100 - (kpis.pct_with_cases or 0)) }}% Clean record
+                {% else %}
+                  View →
+                {% endif %}
               </span>
             </a>
           {% endfor %}
@@ -164,7 +175,7 @@
           </div>
         </div>
         <div id="constituencyGrid" class="grid gap-[3px]" style="grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); max-height: 320px; overflow-y: auto;"></div>
-        <a href="/heatmap" class="inline-flex items-center gap-1 text-label-sm text-primary mt-stack-sm hover:underline">
+        <a href="/heatmap?state={{ state }}" class="inline-flex items-center gap-1 text-label-sm text-primary mt-stack-sm hover:underline">
           Open the full heatmap <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
         </a>
       </div>
@@ -181,7 +192,7 @@
           <h2 class="text-headline-md font-headline-md text-on-surface">Trending Intelligence</h2>
           <p class="text-body-md text-on-surface-variant">Automated patterns identified across {{ kpis.count or 0 }}+ legislative records.</p>
         </div>
-        <a href="/anomalies" class="text-primary font-label-lg flex items-center gap-1 hover:underline whitespace-nowrap">
+        <a href="/anomalies?state={{ state }}" class="text-primary font-label-lg flex items-center gap-1 hover:underline whitespace-nowrap">
           Explore Patterns <span class="material-symbols-outlined text-sm">arrow_forward</span>
         </a>
       </div>
@@ -285,10 +296,10 @@
         Your vote matters. Make it an informed one. Get a comprehensive report of your constituency's candidates.
       </p>
       <div class="flex flex-col sm:flex-row justify-center gap-stack-md">
-        <a href="/browse" class="bg-secondary-container text-on-secondary-container px-8 py-3 rounded-xl text-label-lg font-bold inline-flex items-center justify-center gap-2 hover:opacity-90">
+        <a href="/browse?state={{ state }}" class="bg-secondary-container text-on-secondary-container px-8 py-3 rounded-xl text-label-lg font-bold inline-flex items-center justify-center gap-2 hover:opacity-90">
           Find my representative
         </a>
-        <a href="/browse" class="border border-on-primary text-on-primary px-8 py-3 rounded-xl text-label-lg font-bold inline-flex items-center justify-center gap-2 hover:bg-on-primary/10 transition-colors">
+        <a href="/browse?state={{ state }}" class="border border-on-primary text-on-primary px-8 py-3 rounded-xl text-label-lg font-bold inline-flex items-center justify-center gap-2 hover:bg-on-primary/10 transition-colors">
           Search Archive
         </a>
       </div>
