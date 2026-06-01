@@ -22,7 +22,7 @@ CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
 USER_AGENT = os.getenv(
     "MYNETA_USER_AGENT",
-    "PoliTrack/0.1 (open-source transparency project; contact: gurneetbedi@gmail.com)"
+    "PoliTrack/0.1 (open-source transparency project; contact: gurneet.bedi@me.com)"
 )
 
 RATE_LIMIT_SECONDS = float(os.getenv("MYNETA_RATE_LIMIT", "2.0"))

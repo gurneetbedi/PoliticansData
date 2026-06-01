@@ -29,14 +29,17 @@ class State(Base):
 class Party(Base):
     __tablename__ = "parties"
     id = Column(Integer, primary_key=True)
-    short_name = Column(String(32), unique=True, nullable=False)  # "AAP", "BJP", "INC"
-    full_name = Column(String(255))
+    # "short_name" is misleadingly named — myneta sometimes uses a 40-char descriptive
+    # party label (e.g. "SAD (Amritsar)(Simranjit Singh Mann)") where a real short
+    # code doesn't exist. Use unconstrained String so we never truncation-error.
+    short_name = Column(String, unique=True, nullable=False)
+    full_name = Column(String)
 
 
 class Constituency(Base):
     __tablename__ = "constituencies"
     id = Column(Integer, primary_key=True)
-    name = Column(String(128), nullable=False)
+    name = Column(String, nullable=False)
     state_id = Column(Integer, ForeignKey("states.id"), nullable=False)
     house = Column(String(16), nullable=False)  # "Assembly" | "LokSabha" | "RajyaSabha"
     reserved_for = Column(String(8))            # "SC" | "ST" | None
@@ -56,7 +59,7 @@ class Election(Base):
     state_id = Column(Integer, ForeignKey("states.id"))  # null for national LS/RS
 
     # myneta URL slug for this election cycle, e.g. "punjab2022", "pb2012", "LokSabha2024"
-    myneta_slug = Column(String(64), unique=True, nullable=False)
+    myneta_slug = Column(String, unique=True, nullable=False)
 
     state = relationship("State")
 
@@ -68,16 +71,16 @@ class Election(Base):
 class Politician(Base):
     __tablename__ = "politicians"
     id = Column(Integer, primary_key=True)
-    name = Column(String(255), nullable=False)
-    slug = Column(String(255), unique=True, nullable=False)  # url-safe identifier
+    name = Column(String, nullable=False)
+    slug = Column(String, unique=True, nullable=False)  # url-safe identifier
     myneta_candidate_id = Column(Integer, unique=True, index=True)  # stable across cycles
-    photo_url = Column(String(512))
+    photo_url = Column(String)
     dob = Column(String(32))     # store as text since myneta data is often partial
     gender = Column(String(16))
 
     # Optional richer profile fields populated by the per-candidate detail scraper
     age = Column(Integer)
-    profession = Column(String(255))
+    profession = Column(String)
 
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -106,8 +109,8 @@ class ElectionAppearance(Base):
     party_id = Column(Integer, ForeignKey("parties.id"))
 
     age = Column(Integer)
-    education = Column(String(128))   # "Graduate", "Post Graduate", "10th Pass", etc.
-    profession = Column(String(255))
+    education = Column(String)        # "Graduate", "Post Graduate", "10th Pass", etc.
+    profession = Column(String)
     won = Column(Boolean, default=False)
     votes_received = Column(Integer)
     vote_share_pct = Column(Float)
@@ -122,7 +125,7 @@ class ElectionAppearance(Base):
     criminal_cases_count = Column(Integer, default=0)
     serious_cases_count = Column(Integer, default=0)
 
-    source_url = Column(String(512))   # link back to myneta candidate page
+    source_url = Column(String)        # link back to myneta candidate page
     scraped_at = Column(DateTime, default=datetime.utcnow)
 
     politician = relationship("Politician", back_populates="appearances")
@@ -143,7 +146,7 @@ class Asset(Base):
     id = Column(Integer, primary_key=True)
     appearance_id = Column(Integer, ForeignKey("election_appearances.id"), nullable=False)
     category = Column(String(64))      # "movable" | "immovable"
-    subcategory = Column(String(128))  # "Cash", "Bank Deposits", "Land", "Buildings", etc.
+    subcategory = Column(String)       # "Cash", "Bank Deposits", "Land", "Buildings", etc.
     description = Column(Text)
     value_inr = Column(BigInteger)
 
@@ -154,7 +157,7 @@ class Liability(Base):
     __tablename__ = "liabilities"
     id = Column(Integer, primary_key=True)
     appearance_id = Column(Integer, ForeignKey("election_appearances.id"), nullable=False)
-    creditor = Column(String(255))
+    creditor = Column(String)
     description = Column(Text)
     amount_inr = Column(BigInteger)
 
@@ -165,10 +168,10 @@ class CriminalCase(Base):
     __tablename__ = "criminal_cases"
     id = Column(Integer, primary_key=True)
     appearance_id = Column(Integer, ForeignKey("election_appearances.id"), nullable=False)
-    ipc_sections = Column(String(255))    # "IPC 420, 467, 471"
+    ipc_sections = Column(String)         # "IPC 420, 467, 471" — can be very long
     description = Column(Text)
-    case_number = Column(String(128))
-    court = Column(String(255))
+    case_number = Column(String)
+    court = Column(String)
     charges_framed = Column(Boolean, default=False)
     is_serious = Column(Boolean, default=False)
     status = Column(String(64))           # "pending" | "convicted" | "acquitted"

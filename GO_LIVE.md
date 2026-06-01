@@ -34,7 +34,7 @@ Your scraped data is currently in `politrack.db` on your laptop. Push it once
 to Neon so the live site has data on day one.
 
 ```bash
-cd "/Users/gurneetbedi/Desktop/Claude/Project 1/Politicians Project"
+cd /path/to/PoliticansData
 
 # Activate your local venv (or create one if you haven't)
 source .venv/bin/activate

@@ -10,6 +10,8 @@ Endpoints:
   GET  /api/politicians/{slug}    JSON profile
   GET  /api/stats                 aggregate counts
 """
+from pathlib import Path
+
 from fastapi import FastAPI, Depends, Request, HTTPException, Query
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
@@ -26,9 +28,15 @@ from app.data.punjab_rs import PUNJAB_RS_MEMBERS
 
 Base.metadata.create_all(bind=engine)
 
+# Absolute paths resolved from this file so static/templates work regardless
+# of the cwd gunicorn happens to start in (Render/Heroku/etc. may differ).
+APP_DIR = Path(__file__).resolve().parent
+STATIC_DIR = APP_DIR / "static"
+TEMPLATES_DIR = APP_DIR / "templates"
+
 app = FastAPI(title="PoliTrack India", version="0.1.0")
-app.mount("/static", StaticFiles(directory="app/static"), name="static")
-templates = Jinja2Templates(directory="app/templates")
+app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
+templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
 
 
 # ---------------- Jinja filters for case-description cleanup ----------------

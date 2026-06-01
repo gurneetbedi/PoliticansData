@@ -5,7 +5,7 @@ a stale `.git/index.lock` is blocking writes on the mounted folder. Run these
 five commands from your Mac Terminal, then flip the repo to public on GitHub.
 
 ```bash
-cd "/Users/gurneetbedi/Desktop/Claude/Project 1/Politicians Project"
+cd /path/to/PoliticansData
 
 # 1. Clear the stale lock (safe — no other git process is running)
 rm -f .git/index.lock

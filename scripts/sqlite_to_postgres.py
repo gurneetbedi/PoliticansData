@@ -22,10 +22,19 @@ Re-running is safe — it will not duplicate existing rows.
 """
 import os
 import sys
+from pathlib import Path
+
+# Make the project root importable so `from app.models import Base` works
+# regardless of where the user ran the script from (root, scripts/, anywhere).
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
+
 from sqlalchemy import create_engine, MetaData, text
+from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.orm import sessionmaker
 
-SQLITE_PATH = os.getenv("SQLITE_PATH", "./politrack.db")
+# Default SQLite path is relative to the project root, not the cwd.
+SQLITE_PATH = os.getenv("SQLITE_PATH", str(PROJECT_ROOT / "politrack.db"))
 PG_URL      = os.getenv("DATABASE_URL")
 
 if not PG_URL:
@@ -35,14 +44,24 @@ if not PG_URL:
 if PG_URL.startswith("postgres://"):
     PG_URL = PG_URL.replace("postgres://", "postgresql://", 1)
 
+RESET = "--reset" in sys.argv
+
 print(f"Source SQLite: {SQLITE_PATH}")
 print(f"Target Postgres: {PG_URL.split('@')[-1]}")  # don't print credentials
+if RESET:
+    print("RESET MODE: existing tables will be dropped before reload.")
 
 src_engine = create_engine(f"sqlite:///{SQLITE_PATH}")
 dst_engine = create_engine(PG_URL)
 
-# 1. Create the schema on the destination
+# 1. (Optional) wipe the existing schema. Use this after model changes so the new
+#    column types take effect — create_all() does NOT alter existing tables.
 from app.models import Base  # noqa: E402  (import after engine setup)
+if RESET:
+    Base.metadata.drop_all(dst_engine)
+    print("Dropped existing tables on Postgres.")
+
+# 2. Create (or recreate) the schema on the destination
 Base.metadata.create_all(dst_engine)
 print("Schema created on Postgres.")
 
@@ -59,27 +78,49 @@ src = SrcSession()
 dst = DstSession()
 
 CHUNK = 500
+import time
+
+# We resolve target-side Table objects from the destination Postgres schema so
+# pg_insert() emits the correct dialect SQL. The source-reflected tables only
+# give us column *names*; we need the real Postgres Table objects for the
+# .on_conflict_do_nothing() clause to work.
+dst_meta = MetaData()
+dst_meta.reflect(bind=dst_engine)
+
 for table in table_order:
     name = table.name
     rows = src.execute(table.select()).mappings().all()
     if not rows:
-        print(f"  {name}: empty, skipped")
+        print(f"  {name:<25} empty, skipped")
         continue
 
-    # Insert with ON CONFLICT DO NOTHING so re-runs don't crash on duplicate PKs.
-    cols = ", ".join(rows[0].keys())
-    placeholders = ", ".join(f":{k}" for k in rows[0].keys())
-    sql = text(
-        f"INSERT INTO {name} ({cols}) VALUES ({placeholders}) "
-        f"ON CONFLICT DO NOTHING"
-    )
+    dst_table = dst_meta.tables.get(name)
+    if dst_table is None:
+        print(f"  {name:<25} MISSING on destination, skipped")
+        continue
+
+    # Print the table name + leave the line open so we can append progress dots.
+    # `flush=True` forces the terminal to show output immediately instead of
+    # waiting for a newline (otherwise the dots wouldn't appear in real time).
+    total_batches = (len(rows) + CHUNK - 1) // CHUNK
+    print(f"  {name:<25} ", end="", flush=True)
+
     inserted = 0
+    t0 = time.time()
     for i in range(0, len(rows), CHUNK):
         batch = [dict(r) for r in rows[i:i+CHUNK]]
-        dst.execute(sql, batch)
+        # pg_insert(...).values([dict, dict, ...]) generates a SINGLE INSERT
+        # with all rows in one VALUES clause — one network round-trip per batch
+        # instead of one per row. ~50–100x faster against a remote DB.
+        stmt = pg_insert(dst_table).values(batch).on_conflict_do_nothing()
+        dst.execute(stmt)
         dst.commit()
         inserted += len(batch)
-    print(f"  {name}: {inserted} rows")
+        print(".", end="", flush=True)  # one dot per 500-row batch
+
+    # Pad short table names so the row counts line up; show elapsed seconds too.
+    pad = " " * max(0, 50 - total_batches)
+    print(f"{pad} {inserted:>6,} rows  ({time.time() - t0:.1f}s)")
 
 # 3. Reset Postgres sequences so future INSERTs don't try to reuse IDs.
 print("Resetting sequences...")

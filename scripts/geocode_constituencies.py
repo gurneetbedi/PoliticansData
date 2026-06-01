@@ -34,7 +34,7 @@ from app.models import Constituency, State
 OUT = ROOT / "app" / "static" / "constituency_coords.json"
 
 NOMINATIM = "https://nominatim.openstreetmap.org/search"
-USER_AGENT = "PoliTrack/0.1 (open-source transparency project; contact: gurneetbedi@gmail.com)"
+USER_AGENT = "PoliTrack/0.1 (open-source transparency project; contact: gurneet.bedi@me.com)"
 RATE_LIMIT = 1.1  # seconds between calls (Nominatim free tier policy)
 
 
