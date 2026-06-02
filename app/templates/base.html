@@ -117,7 +117,11 @@
 <body class="bg-background text-on-surface min-h-screen flex flex-col">
 
 <!-- Top Nav -->
-<header class="sticky top-0 w-full z-50 bg-surface-container-lowest border-b border-outline-variant shadow-sm">
+<!-- Header sits ABOVE every section's own stacking context (the hero on the
+     homepage uses z-index:1000 to keep itself above the India map). Use an
+     inline z-index that beats 1000 so the State Selector dropdown menu
+     remains clickable when it visually overlaps the hero. -->
+<header class="sticky top-0 w-full bg-surface-container-lowest border-b border-outline-variant shadow-sm" style="z-index: 5000;">
   <div class="max-w-container-max mx-auto h-16 flex justify-between items-center px-margin-mobile md:px-margin-desktop">
     {# Resolve the current state BEFORE building the nav query string.
        `.get('state', 'Punjab')` returns "" when the param exists but is empty, so we
@@ -159,7 +163,13 @@
         {% set available_states = [('Punjab', True), ('Bihar', True), ('Goa', True)] %}
         {% for sname, has_data in available_states %}
           {% if has_data %}
+            {# href is the canonical destination — works without JS / right-click / cmd-click.
+               onclick forces navigation directly so any click handler that might run on the
+               bubbling phase (outside-click closers, Leaflet capture handlers, etc.) can't
+               swallow it. window.location.assign is more reliable than href= reassignment
+               in some browsers when a parent calls .stopPropagation() on the same tick. #}
             <a href="{{ request.url.path }}?state={{ sname }}{% if _preserve_str %}&{{ _preserve_str }}{% endif %}"
+               onclick="window.location.assign(this.href); return false;"
                class="flex items-center justify-between px-4 py-3 text-label-lg font-label-lg {% if current_state == sname %}bg-secondary-container/20 text-on-surface font-bold{% else %}text-on-surface-variant hover:bg-surface-container-low{% endif %}">
               <span class="flex items-center gap-2">
                 <span class="material-symbols-outlined text-[16px]">location_on</span>
