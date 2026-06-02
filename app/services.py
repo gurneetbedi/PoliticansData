@@ -548,10 +548,13 @@ def hero_kpis(db: Session, house: str = "Assembly", scope: str = "all", state_na
     apps = _latest_appearances(db, house=house, scope=scope, state_name=state_name)
     if not apps:
         return {"count": 0, "total_wealth_cr": 0, "avg_wealth_cr": 0,
-                "pct_with_cases": 0, "pct_crorepati": 0, "house": house}
+                "pct_with_cases": 0, "pct_crorepati": 0,
+                "total_cases": 0, "avg_cases_per_mla": 0,
+                "house": house}
 
     wealths = [a.total_assets_inr or 0 for a in apps]
     with_cases = sum(1 for a in apps if (a.criminal_cases_count or 0) > 0)
+    total_cases = sum((a.criminal_cases_count or 0) for a in apps)
     crorepati = sum(1 for w in wealths if w >= CRORE)
 
     return {
@@ -561,6 +564,10 @@ def hero_kpis(db: Session, house: str = "Assembly", scope: str = "all", state_na
         "avg_wealth_cr":   round(sum(wealths) / len(apps) / CRORE, 1) if apps else 0,
         "pct_with_cases":  round(100 * with_cases / len(apps), 0),
         "pct_crorepati":   round(100 * crorepati / len(apps), 0),
+        # New: map-coloring metric. Average pending criminal cases per sitting MLA.
+        # 1 decimal so a 0.8 doesn't round down to 0 and disappear from the bucketing.
+        "total_cases":       total_cases,
+        "avg_cases_per_mla": round(total_cases / len(apps), 1),
     }
 
 
@@ -669,22 +676,53 @@ def crorepati_newcomers(db: Session, limit: int = 10, house: str = "Assembly", s
 
 def anomaly_candidates(db: Session, limit: int = 50, house: str = "Assembly", state_name: Optional[str] = None) -> list[dict]:
     """
-    Surface politicians with statistically unusual asset growth as 'anomalies'.
-    Reuses wealth_multipliers and attaches an integrity-index score:
-        score = max(0, 100 - log10(pct + 1) * 25) - 5 * pending_cases
-    A 100% growth ≈ 75 (standard). 10,000% ≈ 0 (critical). Cases reduce the score.
+    Surface "stand-out" politicians within a single election cycle.
+
+    History: this used to compare wealth across cycles via wealth_multipliers().
+    After the candidate_id-collision cleanup (scripts/split_merged_politicians.py)
+    every politician has exactly one ElectionAppearance, so cross-cycle comparison
+    isn't possible until we add a name-based re-linking pass.
+
+    Until then, the score is a single-cycle outlier index:
+        - heavy penalty for pending criminal cases (×8 per case)
+        - moderate penalty for wealth far above the state's median
+            (uses log of (wealth / state_median) so a 100x outlier ≈ -33 pts)
+
+    Score is clamped to [0, 100]; 0 = critical risk, 100 = squeaky-clean.
     """
     import math
-    rows = wealth_multipliers(db, limit=limit * 3, house=house, state_name=state_name)
+    apps = _latest_appearances(db, house=house, scope="all", state_name=state_name)
+    if not apps:
+        return []
+
+    wealths = sorted(a.total_assets_inr or 0 for a in apps)
+    n = len(wealths)
+    state_median = wealths[n // 2] or 1   # avoid div-by-zero on degenerate data
+
     out = []
-    for r in rows:
-        if r["pct"] <= 50:  # tiny growth — not interesting
+    for a in apps:
+        if not a.politician:
             continue
-        cases = r["latest"].criminal_cases_count or 0
-        score = max(0, 100 - math.log10(r["pct"] + 1) * 25) - 5 * cases
-        score = max(0, min(100, score))
-        out.append({**r, "score": score})
-    out.sort(key=lambda r: r["score"])  # lowest score first = highest risk
+        cases = a.criminal_cases_count or 0
+        wealth = a.total_assets_inr or 0
+        wealth_ratio = max(1.0, wealth / state_median)
+        wealth_pen = math.log10(wealth_ratio + 1) * 15
+        score = max(0, min(100, 100 - (cases * 8) - wealth_pen))
+
+        # Skip uninteresting middle-of-the-road rows
+        if cases == 0 and wealth_ratio < 3:
+            continue
+
+        out.append({
+            "politician": a.politician,
+            "latest":     a,
+            "score":      score,
+            "cases":      cases,
+            "wealth_cr":  round(wealth / CRORE, 2),
+            "wealth_x_median": round(wealth_ratio, 1),
+        })
+
+    out.sort(key=lambda r: r["score"])   # lowest score first = highest risk
     return out[:limit]
 
 

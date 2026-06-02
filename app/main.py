@@ -248,16 +248,28 @@ def browse(
     party: str | None = None,
     year: int | None = Depends(resolve_year),
     q: str | None = None,
+    house: str = Query("all", regex="^(all|state|central)$"),
     sort: str = Query("name", regex="^(name|wealth|terms|cases)$"),
     order: str = Query("desc", regex="^(asc|desc)$"),
     state: str = Depends(resolve_state),
 ):
-    # Scope the politician query to ones with at least one appearance in this state
+    # Decide which legislatures the user wants. "state" = Assembly (MLAs).
+    # "central" = LokSabha + RajyaSabha (MPs). "all" leaves it open.
+    HOUSE_FILTERS = {
+        "state":   ["Assembly"],
+        "central": ["LokSabha", "RajyaSabha"],
+        "all":     ["Assembly", "LokSabha", "RajyaSabha"],
+    }
+    allowed_houses = HOUSE_FILTERS[house]
+
+    # Scope the politician query to ones with at least one appearance in this
+    # state AND the requested legislative body.
     state_politician_ids = (
         db.query(ElectionAppearance.politician_id)
         .join(Election, ElectionAppearance.election_id == Election.id)
         .join(State, Election.state_id == State.id)
         .filter(State.name == state)
+        .filter(Election.house.in_(allowed_houses))
         .distinct()
     )
 
@@ -330,6 +342,7 @@ def browse(
         "request": request, "politicians": politicians, "latest": latest_appearance,
         "parties": parties, "years": years,
         "selected_party": party, "selected_year": year, "q": q,
+        "selected_house": house,
         "sort": sort, "order": order, "state": state,
     })
 

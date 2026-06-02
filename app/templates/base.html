@@ -146,10 +146,20 @@
         <span class="material-symbols-outlined" style="font-size:18px;">expand_more</span>
       </button>
       <div id="globalStateMenu" class="hidden absolute right-0 mt-2 w-48 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-2xl overflow-hidden" style="z-index: 9999;">
+        {# Preserve all existing query params (party, year, sort, view, scope, etc.)
+           when switching state. Without this, the dropdown silently wipes any
+           filters the user has already set, which feels like "the filter isn't
+           working" because every other selection disappears. #}
+        {% set _preserve = [] %}
+        {% for k, v in request.query_params.multi_items() %}
+          {% if k != 'state' and v %}{{ _preserve.append(k ~ '=' ~ v) or '' }}{% endif %}
+        {% endfor %}
+        {% set _preserve_str = _preserve | join('&') %}
+
         {% set available_states = [('Punjab', True), ('Bihar', True), ('Goa', True)] %}
         {% for sname, has_data in available_states %}
           {% if has_data %}
-            <a href="{{ request.url.path }}?state={{ sname }}"
+            <a href="{{ request.url.path }}?state={{ sname }}{% if _preserve_str %}&{{ _preserve_str }}{% endif %}"
                class="flex items-center justify-between px-4 py-3 text-label-lg font-label-lg {% if current_state == sname %}bg-secondary-container/20 text-on-surface font-bold{% else %}text-on-surface-variant hover:bg-surface-container-low{% endif %}">
               <span class="flex items-center gap-2">
                 <span class="material-symbols-outlined text-[16px]">location_on</span>

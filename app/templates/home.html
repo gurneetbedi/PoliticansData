@@ -44,17 +44,32 @@
         <!-- Map canvas -->
         <div id="indiaMap" class="absolute inset-0"></div>
 
-        <!-- Case Intensity legend (top left) -->
+        <!-- Case Intensity legend (top left) — discrete buckets by avg cases per MLA -->
         <div class="absolute top-stack-md left-stack-md bg-surface-container-lowest rounded-xl border border-outline-variant px-3 py-2 shadow-sm z-[400]">
-          <p class="text-label-sm font-label-sm uppercase tracking-wider text-on-surface-variant mb-1">Case intensity</p>
-          <div class="flex items-center gap-2">
-            <div class="h-2 w-32 rounded-full" style="background: linear-gradient(90deg, #2d9b67, #d4a017, #d9714f, #b14545);"></div>
+          <p class="text-label-sm font-label-sm uppercase tracking-wider text-on-surface-variant mb-2">Avg cases per MLA</p>
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-sm" style="background:#2d9b67;"></span>
+              <span class="text-[10px] text-on-surface-variant">&lt; 1 &nbsp;· Clean</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-sm" style="background:#7d8c69;"></span>
+              <span class="text-[10px] text-on-surface-variant">1 – 2 &nbsp;· Low</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-sm" style="background:#d4a017;"></span>
+              <span class="text-[10px] text-on-surface-variant">2 – 4 &nbsp;· Moderate</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-sm" style="background:#d9714f;"></span>
+              <span class="text-[10px] text-on-surface-variant">4 – 6 &nbsp;· High</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-sm" style="background:#b14545;"></span>
+              <span class="text-[10px] text-on-surface-variant">6+ &nbsp;· Severe</span>
+            </div>
           </div>
-          <div class="flex justify-between text-[10px] text-on-surface-variant mt-1">
-            <span>Low</span>
-            <span>High</span>
-          </div>
-          <div class="flex items-center gap-1 mt-2 pt-2 border-t border-outline-variant">
+          <div class="flex items-center gap-2 mt-2 pt-2 border-t border-outline-variant">
             <span class="w-3 h-3 rounded-sm bg-[#e6ebf1] border border-outline-variant"></span>
             <span class="text-[10px] text-on-surface-variant">Data not available</span>
           </div>
@@ -325,13 +340,17 @@ const STATE_DATA = JSON.parse(document.getElementById('india-states').textConten
 const STATE_KPI = {};
 STATE_DATA.forEach(s => { STATE_KPI[s.name] = s.kpi; });
 
-function colorForPct(pct) {
-  if (pct == null) return '#e6ebf1';   // light grey — no data
-  if (pct < 20)  return '#2d9b67';
-  if (pct < 40)  return '#7d8c69';
-  if (pct < 60)  return '#d4a017';
-  if (pct < 80)  return '#d9714f';
-  return '#b14545';
+// Map color buckets are now driven by avg pending criminal cases per MLA.
+// Thresholds were chosen to spread the three current states (Punjab, Bihar, Goa)
+// across visibly different buckets while leaving headroom at the top end for
+// future states with worse averages.
+function bucketForAvgCases(avg) {
+  if (avg == null) return { color: '#e6ebf1', label: 'Data not available' };
+  if (avg < 1)  return { color: '#2d9b67', label: 'Clean' };
+  if (avg < 2)  return { color: '#7d8c69', label: 'Low' };
+  if (avg < 4)  return { color: '#d4a017', label: 'Moderate' };
+  if (avg < 6)  return { color: '#d9714f', label: 'High' };
+  return            { color: '#b14545', label: 'Severe' };
 }
 
 // Common variants of state names that may differ between our DB and the GeoJSON
@@ -378,8 +397,9 @@ function styleFeature(feature) {
   const kpi = findKpiForState(name);
   const hasData = !!kpi;
   const isSelected = (normalizeStateName(name).toLowerCase() === normalizeStateName(CURRENT_STATE).toLowerCase());
+  const bucket = hasData ? bucketForAvgCases(kpi.avg_cases_per_mla) : { color: '#e6ebf1' };
   return {
-    fillColor: hasData ? colorForPct(kpi.pct_with_cases) : '#e6ebf1',
+    fillColor: bucket.color,
     weight: isSelected ? 2.5 : 0.75,
     color: isSelected ? '#131b2e' : '#ffffff',
     fillOpacity: hasData ? 0.92 : 0.6,
@@ -395,9 +415,12 @@ function onEachFeature(feature, layer) {
       layer.setStyle({ weight: 2, color: '#131b2e' });
       imTooltip.classList.remove('hidden');
       imtName.textContent = name;
-      imtData.innerHTML = kpi
-        ? `<span class="text-on-surface-variant">${kpi.pct_with_cases}% with cases · ${kpi.count} MLAs</span>`
-        : `<span class="text-on-surface-variant italic">Data Not Available</span>`;
+      if (kpi) {
+        const b = bucketForAvgCases(kpi.avg_cases_per_mla);
+        imtData.innerHTML = `<span class="text-on-surface-variant"><strong style="color:${b.color}">${b.label}</strong> · ${kpi.avg_cases_per_mla} cases / MLA · ${kpi.count} MLAs</span>`;
+      } else {
+        imtData.innerHTML = `<span class="text-on-surface-variant italic">Data Not Available</span>`;
+      }
       const rect = indiaMapEl.getBoundingClientRect();
       imTooltip.style.left = (e.originalEvent.clientX - rect.left + 12) + 'px';
       imTooltip.style.top  = (e.originalEvent.clientY - rect.top  + 12) + 'px';

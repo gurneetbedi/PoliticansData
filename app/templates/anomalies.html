@@ -93,7 +93,7 @@
             <div class="col-span-1 text-center">Rank</div>
             <div class="col-span-4 pl-4">Candidate &amp; profile</div>
             <div class="col-span-3 text-center">Data markers</div>
-            <div class="col-span-2 text-center">Growth</div>
+            <div class="col-span-2 text-center">Wealth vs state median</div>
             <div class="col-span-2 text-right pr-4">Integrity index</div>
           </div>
 
@@ -120,23 +120,22 @@
                 </div>
 
                 <div class="col-span-3 text-center flex flex-wrap gap-1 justify-center">
-                  {% if a.pct >= 1000 %}
-                    <span class="px-2 py-0.5 bg-error/10 text-error rounded text-[10px] font-bold uppercase">Asset Surge</span>
+                  {% if a.cases and a.cases > 0 %}
+                    <span class="px-2 py-0.5 bg-error/10 text-error rounded text-[10px] font-bold uppercase">{{ a.cases }} Cases</span>
                   {% endif %}
-                  {% if a.latest.criminal_cases_count and a.latest.criminal_cases_count > 0 %}
-                    <span class="px-2 py-0.5 bg-error/10 text-error rounded text-[10px] font-bold uppercase">{{ a.latest.criminal_cases_count }} Cases</span>
+                  {% if a.wealth_x_median and a.wealth_x_median >= 10 %}
+                    <span class="px-2 py-0.5 bg-error/10 text-error rounded text-[10px] font-bold uppercase">Wealth Outlier</span>
+                  {% elif a.wealth_x_median and a.wealth_x_median >= 3 %}
+                    <span class="px-2 py-0.5 bg-secondary/10 text-secondary rounded text-[10px] font-bold uppercase">High Wealth</span>
                   {% endif %}
-                  {% if a.pct >= 500 and a.pct < 1000 %}
-                    <span class="px-2 py-0.5 bg-secondary/10 text-secondary rounded text-[10px] font-bold uppercase">Rapid Growth</span>
-                  {% endif %}
-                  {% if a.first_year %}
-                    <span class="px-2 py-0.5 bg-surface-container rounded text-[10px] font-bold uppercase text-on-surface-variant">{{ a.first_year }}→{{ a.last_year }}</span>
+                  {% if a.latest.election %}
+                    <span class="px-2 py-0.5 bg-surface-container rounded text-[10px] font-bold uppercase text-on-surface-variant">{{ a.latest.election.year }}</span>
                   {% endif %}
                 </div>
 
                 <div class="col-span-2 text-center">
-                  <p class="font-bold text-on-surface">{{ "{:,.0f}".format(a.pct) }}%</p>
-                  <p class="text-label-sm text-on-surface-variant">₹{{ a.from_cr }} → ₹{{ a.to_cr }} Cr</p>
+                  <p class="font-bold text-on-surface">{{ a.wealth_x_median }}×</p>
+                  <p class="text-label-sm text-on-surface-variant">₹{{ "{:,.1f}".format(a.wealth_cr) }} Cr</p>
                 </div>
 
                 <div class="col-span-2 text-right pr-4">
@@ -150,7 +149,7 @@
                 </div>
               </a>
             {% else %}
-              <p class="p-stack-lg text-center text-on-surface-variant">No anomalies flagged. Run <code>python -m app.ingest punjab</code> to ensure multiple cycles are loaded.</p>
+              <p class="p-stack-lg text-center text-on-surface-variant">No anomalies flagged for the current state &amp; filters. Try widening the risk-score buckets in the sidebar, or switch state from the top-right selector.</p>
             {% endfor %}
           </div>
         </div>

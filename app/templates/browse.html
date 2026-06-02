@@ -35,6 +35,16 @@
                      class="w-full bg-surface border border-outline-variant rounded-lg p-2 text-body-md focus:ring-2 focus:ring-secondary outline-none">
             </div>
 
+            {# Election type: State (MLAs) vs Central (MPs, including Rajya Sabha). #}
+            <div>
+              <label class="block text-label-sm font-label-sm text-on-surface-variant mb-1">Election type</label>
+              <select name="house" class="w-full bg-surface border border-outline-variant rounded-lg p-2 text-body-md focus:ring-2 focus:ring-secondary outline-none">
+                <option value="all"     {% if selected_house == 'all'     %}selected{% endif %}>All elections</option>
+                <option value="state"   {% if selected_house == 'state'   %}selected{% endif %}>State election (MLAs)</option>
+                <option value="central" {% if selected_house == 'central' %}selected{% endif %}>Central election (MPs)</option>
+              </select>
+            </div>
+
             <div>
               <label class="block text-label-sm font-label-sm text-on-surface-variant mb-1">Party</label>
               <select name="party" class="w-full bg-surface border border-outline-variant rounded-lg p-2 text-body-md focus:ring-2 focus:ring-secondary outline-none">
@@ -80,7 +90,7 @@
                 {% set is_active = (sort == key) %}
                 {% set next_order = 'asc' if (is_active and order == 'desc') else 'desc' %}
                 {% set arrow = '↓' if (is_active and order == 'desc') else ('↑' if is_active else '↕') %}
-                <a href="?state={{ state }}&q={{ q or '' }}&party={{ selected_party or '' }}&year={{ selected_year or '' }}&sort={{ key }}&order={{ next_order }}"
+                <a href="?state={{ state }}&q={{ q or '' }}&party={{ selected_party or '' }}&year={{ selected_year or '' }}&house={{ selected_house }}&sort={{ key }}&order={{ next_order }}"
                    class="inline-flex items-center gap-1 {% if is_active %}text-primary font-bold{% else %}text-on-surface-variant{% endif %} hover:text-primary transition-colors">
                   {{ label }}
                   <span class="text-[10px] opacity-70">{{ arrow }}</span>
