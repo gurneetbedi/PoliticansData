@@ -73,7 +73,12 @@ class Politician(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     slug = Column(String, unique=True, nullable=False)  # url-safe identifier
-    myneta_candidate_id = Column(Integer, unique=True, index=True)  # stable across cycles
+    # NOTE: NOT globally unique. myneta re-numbers candidates per election, so
+    # candidate_id=2 in punjab2022 and candidate_id=2 in goa2022 are different
+    # people. The cleanup script (scripts/split_merged_politicians.py) created
+    # one Politician per (election_slug, candidate_id). Future ingest must dedup
+    # on that compound key, not on candidate_id alone.
+    myneta_candidate_id = Column(Integer, index=True)
     photo_url = Column(String)
     dob = Column(String(32))     # store as text since myneta data is often partial
     gender = Column(String(16))

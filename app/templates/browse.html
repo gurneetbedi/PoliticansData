@@ -103,7 +103,12 @@
                   {% set a = latest(p) %}
                   {% set partyname = (a.party.short_name if a and a.party else 'IND') %}
                   {% set color = party_colors.get(partyname, '#7f8c8d') %}
-                  <tr class="hover:bg-surface-container-low transition-colors group {% if a and (a.criminal_cases_count or 0) > 2 %}bg-error-container/10{% endif %}">
+                  {# The whole row navigates to the profile. The "Details" button at
+                     the right still exists for users who expect a CTA, but the row-level
+                     onclick means clicking the name (or anywhere) opens the profile. #}
+                  {% set profile_url = '/politician/' ~ (p.slug or p.id) %}
+                  <tr onclick="window.location='{{ profile_url }}'"
+                      class="cursor-pointer hover:bg-surface-container-low transition-colors group {% if a and (a.criminal_cases_count or 0) > 2 %}bg-error-container/10{% endif %}">
                     <td class="px-6 py-4">
                       <span class="w-8 h-8 flex items-center justify-center {% if loop.index <= 3 %}bg-secondary-fixed text-on-secondary-fixed{% else %}text-on-surface-variant{% endif %} font-bold rounded-full">{{ loop.index }}</span>
                     </td>
@@ -111,7 +116,7 @@
                       <div class="flex items-center gap-3">
                         <div class="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0" style="background:{{ color }}">{{ p.display_name[:2]|upper }}</div>
                         <div>
-                          <p class="font-bold text-on-surface group-hover:text-secondary-container transition-colors">{{ p.display_name }}</p>
+                          <a href="{{ profile_url }}" class="font-bold text-on-surface group-hover:text-secondary-container hover:underline transition-colors">{{ p.display_name }}</a>
                           <p class="text-label-sm text-on-surface-variant">{{ partyname }}{% if p.age %} · {{ p.age }} yrs{% endif %}</p>
                         </div>
                       </div>
