@@ -160,7 +160,10 @@
         {% endfor %}
         {% set _preserve_str = _preserve | join('&') %}
 
-        {% set available_states = [('Punjab', True), ('Bihar', True), ('Goa', True)] %}
+        {% set available_states = [
+            ('Punjab', True), ('Bihar', True), ('Goa', True),
+            ('Sikkim', True), ('Delhi', True),
+        ] %}
         {% for sname, has_data in available_states %}
           {% if has_data %}
             {# href is the canonical destination — works without JS / right-click / cmd-click.

@@ -116,7 +116,7 @@ templates.env.filters["all_case_types"] = all_case_types
 # which breaks navigation when a link accidentally drops the value (e.g. browser
 # back, copy-paste, manually typed URL). Replace with a coercing dependency.
 
-KNOWN_STATES = {"punjab", "bihar", "goa"}
+KNOWN_STATES = {"punjab", "bihar", "goa", "sikkim", "delhi"}
 
 def resolve_state(state: str | None = None) -> str:
     """Return a canonical state name. Falls back to 'Punjab' for empty/unknown."""
@@ -231,7 +231,7 @@ def home(
                 "name": s_name,
                 "kpi": services.hero_kpis(db, house="Assembly", scope="current", state_name=s_name),
             }
-            for s_name in ("Punjab", "Bihar", "Goa")
+            for s_name in ("Punjab", "Bihar", "Goa", "Sikkim", "Delhi")
         ],
 
         # Helpers
@@ -368,7 +368,7 @@ def heatmap(
         "kpis":    services.hero_kpis(db, house="Assembly", scope="current", state_name=state),
         "india_states": [
             {"name": s_name, "kpi": services.hero_kpis(db, house="Assembly", scope="current", state_name=s_name)}
-            for s_name in ("Punjab", "Bihar", "Goa")
+            for s_name in ("Punjab", "Bihar", "Goa", "Sikkim", "Delhi")
         ],
     })
 

@@ -73,11 +73,48 @@ GOA = StateConfig(
     ls_pcs={"NORTH GOA", "SOUTH GOA"},
 )
 
+# Sikkim — 32 assembly seats, 1 Lok Sabha seat.
+# Slugs are best-guess; verify with scripts/verify_state_slugs.py before
+# committing to a full scrape (myneta's casing is inconsistent across years).
+SIKKIM = StateConfig(
+    key="sikkim",
+    name="Sikkim",
+    code="SK",
+    assembly_cycles=[
+        {"year": 2024, "slug": "Sikkim2024"},
+        {"year": 2019, "slug": "sikkim2019"},
+        {"year": 2014, "slug": "sikkim2014"},
+        {"year": 2009, "slug": "sikkim2009"},
+    ],
+    ls_pcs={"SIKKIM"},
+)
+
+# Delhi (NCT) — 70 assembly seats, 7 Lok Sabha seats.
+# Includes the recently-concluded Feb 2025 cycle.
+DELHI = StateConfig(
+    key="delhi",
+    name="Delhi",
+    code="DL",
+    assembly_cycles=[
+        {"year": 2025, "slug": "Delhi2025"},
+        {"year": 2020, "slug": "delhi2020"},
+        {"year": 2015, "slug": "delhi2015"},
+        {"year": 2013, "slug": "delhi2013"},
+        {"year": 2008, "slug": "delhi2008"},
+    ],
+    ls_pcs={
+        "CHANDNI CHOWK", "NORTH EAST DELHI", "EAST DELHI",
+        "NEW DELHI", "NORTH WEST DELHI", "WEST DELHI", "SOUTH DELHI",
+    },
+)
+
 
 ALL_STATES: dict[str, StateConfig] = {
     "punjab": PUNJAB,
     "bihar":  BIHAR,
     "goa":    GOA,
+    "sikkim": SIKKIM,
+    "delhi":  DELHI,
 }
 
 

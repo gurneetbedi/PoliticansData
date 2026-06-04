@@ -150,7 +150,10 @@
           Explore regional integrity metrics. Select a state to dive into local constituency performance and candidate profiles.
         </p>
         <div class="space-y-stack-sm">
-          {% set zones = [('Punjab','#fd761a'), ('Bihar','#d9714f'), ('Goa','#2d9b67')] %}
+          {% set zones = [
+              ('Punjab','#fd761a'), ('Bihar','#d9714f'), ('Goa','#2d9b67'),
+              ('Sikkim','#7d8c69'), ('Delhi','#19aaed')
+          ] %}
           {% for zname, zcolor in zones %}
             {% set is_active = (state == zname) %}
             {# Find the matching KPI block from india_states for this zone #}

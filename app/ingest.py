@@ -7,11 +7,46 @@ Run with:
 
 This is idempotent — re-running merges new data and updates existing records
 based on (politician.myneta_candidate_id, election.id).
+
+IMPORTANT: ingest writes thousands of rows interspersed with 2-second sleeps
+for politeness with myneta. Against a remote Postgres (e.g. Neon free tier)
+the connection gets dropped during the long fetch gaps. Always scrape into
+local SQLite, then push to Neon with scripts/sqlite_to_postgres.py once
+done. To override the guard (rarely needed), set ALLOW_REMOTE_INGEST=1.
 """
 import logging
+import os
 import sys
 from slugify import slugify
 # from sqlalchemy.orm import joinedload
+
+
+# ----- Safety guard ----------------------------------------------------------
+# If the user has DATABASE_URL pointing at a remote Postgres host, refuse to
+# run unless they explicitly opt in. This prevents the foot-gun where a
+# previously-exported DATABASE_URL from a loader/migration session leaks into
+# a subsequent multi-hour scrape and tries to hammer the production DB.
+_DB_URL_NOW = os.getenv("DATABASE_URL", "")
+if (
+    _DB_URL_NOW.startswith(("postgres://", "postgresql://"))
+    and os.getenv("ALLOW_REMOTE_INGEST") != "1"
+):
+    print(
+        "\nERROR: DATABASE_URL is pointing at a remote Postgres database:\n"
+        f"  {_DB_URL_NOW.split('@')[-1]}\n"
+        "\nIngest is meant to run against local SQLite (./politrack.db). Scraping\n"
+        "into a remote DB is slow and crashes on idle-connection drops.\n"
+        "\nFix:\n"
+        "  1.  unset DATABASE_URL\n"
+        "  2.  python -m app.ingest <target>       # writes to local SQLite\n"
+        "  3.  When the scrape finishes, push to Neon with:\n"
+        '       export DATABASE_URL="postgresql://...neon.tech/...?sslmode=require"\n'
+        "       python scripts/sqlite_to_postgres.py --reset\n"
+        "\nTo override this guard anyway (NOT recommended), set:\n"
+        "  export ALLOW_REMOTE_INGEST=1\n",
+        file=sys.stderr,
+    )
+    sys.exit(2)
 
 
 from app.database import Base, SessionLocal, engine
@@ -24,7 +59,9 @@ from app.scrapers.punjab import (
 )
 from app.scrapers.punjab_ls import scrape_all_punjab_ls, LS_CYCLES, LSWinnerRow
 from app.scrapers.bihar import scrape_all_bihar, scrape_all_bihar_candidates, BIHAR_CYCLES
-from app.scrapers.goa   import scrape_all_goa,   scrape_all_goa_candidates,   GOA_CYCLES
+from app.scrapers.goa    import scrape_all_goa,    scrape_all_goa_candidates,    GOA_CYCLES
+from app.scrapers.sikkim import scrape_all_sikkim, scrape_all_sikkim_candidates, SIKKIM_CYCLES
+from app.scrapers.delhi  import scrape_all_delhi,  scrape_all_delhi_candidates,  DELHI_CYCLES
 from app.models import Asset, CriminalCase
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
@@ -567,6 +604,132 @@ def ingest_goa_detail_all():
     ingest_detail(state_name="Goa", winners_only=False)
 
 
+# ============================================================================
+# Sikkim
+# ============================================================================
+def _ingest_state_winners(state_name: str, state_code: str, cycles, scrape_fn):
+    """Generic winners-only ingest used by both new states."""
+    Base.metadata.create_all(bind=engine)
+    session = SessionLocal()
+    try:
+        state, _ = get_or_create(session, State, name=state_name,
+                                 defaults={"code": state_code})
+        cycle_to_election = {}
+        for cycle in cycles:
+            election, _ = get_or_create(
+                session, Election,
+                year=cycle["year"], house="Assembly", state_id=state.id,
+                defaults={"myneta_slug": cycle["slug"]},
+            )
+            cycle_to_election[cycle["year"]] = election
+        scraped = scrape_fn()
+        total = 0
+        for year, winners in scraped.items():
+            log.info("Ingesting %d %s winners for %d", len(winners), state_name, year)
+            for row in winners:
+                _ingest_one(session, row, state, cycle_to_election[year], won=True)
+                total += 1
+        session.commit()
+        log.info("Done. Total %s winner appearances ingested: %d", state_name, total)
+    except Exception:
+        session.rollback()
+        raise
+    finally:
+        session.close()
+
+
+def _ingest_state_all_candidates(state_name: str, state_code: str, cycles,
+                                  winners_fn, all_fn):
+    """Generic winners + losers ingest used by both new states."""
+    Base.metadata.create_all(bind=engine)
+    session = SessionLocal()
+    try:
+        state, _ = get_or_create(session, State, name=state_name,
+                                 defaults={"code": state_code})
+        cycle_to_election = {}
+        for cycle in cycles:
+            election, _ = get_or_create(
+                session, Election,
+                year=cycle["year"], house="Assembly", state_id=state.id,
+                defaults={"myneta_slug": cycle["slug"]},
+            )
+            cycle_to_election[cycle["year"]] = election
+        winners_by_cycle = winners_fn()
+        winning_ids_by_cycle: dict[int, set[int]] = {}
+        for year, winners in winners_by_cycle.items():
+            winning_ids_by_cycle[year] = {w.candidate_id for w in winners}
+            for row in winners:
+                _ingest_one(session, row, state, cycle_to_election[year], won=True)
+        session.commit()
+        log.info("%s winners pass complete.", state_name)
+        all_by_cycle = all_fn()
+        total = 0
+        for year, all_rows in all_by_cycle.items():
+            winners_set = winning_ids_by_cycle.get(year, set())
+            log.info("Ingesting %d total candidates for %s %d (%d winners + %d losers)",
+                     len(all_rows), state_name, year, len(winners_set),
+                     len(all_rows) - len(winners_set))
+            for i, row in enumerate(all_rows, 1):
+                _ingest_one(session, row, state, cycle_to_election[year],
+                            won=(row.candidate_id in winners_set))
+                total += 1
+                if i % 100 == 0:
+                    session.commit()
+                    log.info("  ...%d/%d processed for %d", i, len(all_rows), year)
+            session.commit()
+        log.info("Done. Total %s candidate appearances ingested: %d", state_name, total)
+    except Exception:
+        session.rollback()
+        raise
+    finally:
+        session.close()
+
+
+def ingest_sikkim():
+    """Scrape Sikkim Assembly winners across all cycles (~5 minutes at 2s rate)."""
+    _ingest_state_winners("Sikkim", "SK", SIKKIM_CYCLES, scrape_all_sikkim)
+
+
+def ingest_sikkim_all():
+    """Scrape EVERY Sikkim candidate across all cycles (~30 min)."""
+    _ingest_state_all_candidates("Sikkim", "SK", SIKKIM_CYCLES,
+                                  scrape_all_sikkim, scrape_all_sikkim_candidates)
+
+
+def ingest_sikkim_detail():
+    """Winners-only detail enrichment for Sikkim — very fast (~2 min)."""
+    ingest_detail(state_name="Sikkim", winners_only=True)
+
+
+def ingest_sikkim_detail_all():
+    """All-candidates detail enrichment for Sikkim (~20 min)."""
+    ingest_detail(state_name="Sikkim", winners_only=False)
+
+
+# ============================================================================
+# Delhi (NCT)
+# ============================================================================
+def ingest_delhi():
+    """Scrape Delhi Assembly winners across all cycles (~12 minutes)."""
+    _ingest_state_winners("Delhi", "DL", DELHI_CYCLES, scrape_all_delhi)
+
+
+def ingest_delhi_all():
+    """Scrape EVERY Delhi candidate across all cycles (~3 hours)."""
+    _ingest_state_all_candidates("Delhi", "DL", DELHI_CYCLES,
+                                  scrape_all_delhi, scrape_all_delhi_candidates)
+
+
+def ingest_delhi_detail():
+    """Winners-only detail enrichment for Delhi (~12 min)."""
+    ingest_detail(state_name="Delhi", winners_only=True)
+
+
+def ingest_delhi_detail_all():
+    """All-candidates detail enrichment for Delhi (~2 hours)."""
+    ingest_detail(state_name="Delhi", winners_only=False)
+
+
 def main():
     if len(sys.argv) < 2:
         print("Usage:")
@@ -593,6 +756,14 @@ def main():
         "goa_all":           ingest_goa_all,
         "goa_detail":        ingest_goa_detail,
         "goa_detail_all":    ingest_goa_detail_all,
+        "sikkim":            ingest_sikkim,
+        "sikkim_all":        ingest_sikkim_all,
+        "sikkim_detail":     ingest_sikkim_detail,
+        "sikkim_detail_all": ingest_sikkim_detail_all,
+        "delhi":             ingest_delhi,
+        "delhi_all":         ingest_delhi_all,
+        "delhi_detail":      ingest_delhi_detail,
+        "delhi_detail_all":  ingest_delhi_detail_all,
     }.get(target)
     if not fn:
         print(f"Unknown target: {target}")
