@@ -674,9 +674,16 @@ def crorepati_newcomers(db: Session, limit: int = 10, house: str = "Assembly", s
     return rows[:limit]
 
 
-def anomaly_candidates(db: Session, limit: int = 50, house: str = "Assembly", state_name: Optional[str] = None) -> list[dict]:
+def anomaly_candidates(db: Session, limit: int = 50, house: str = "Assembly",
+                       state_name: Optional[str] = None,
+                       scope: str = "current") -> list[dict]:
     """
     Surface "stand-out" politicians within a single election cycle.
+
+    `scope` controls the population we search:
+        "current" — only currently-sitting MLAs (winners of the latest cycle).
+        "all"     — every appearance ever scraped in this state (winners + losers,
+                    every cycle). Useful for historical analyses.
 
     History: this used to compare wealth across cycles via wealth_multipliers().
     After the candidate_id-collision cleanup (scripts/split_merged_politicians.py)
@@ -691,7 +698,7 @@ def anomaly_candidates(db: Session, limit: int = 50, house: str = "Assembly", st
     Score is clamped to [0, 100]; 0 = critical risk, 100 = squeaky-clean.
     """
     import math
-    apps = _latest_appearances(db, house=house, scope="all", state_name=state_name)
+    apps = _latest_appearances(db, house=house, scope=scope, state_name=state_name)
     if not apps:
         return []
 
@@ -726,9 +733,13 @@ def anomaly_candidates(db: Session, limit: int = 50, house: str = "Assembly", st
     return out[:limit]
 
 
-def anomaly_buckets(db: Session, house: str = "Assembly", state_name: Optional[str] = None) -> dict:
-    """Return counts of candidates in each risk bucket (critical/suspicious/standard)."""
-    candidates = anomaly_candidates(db, limit=500, house=house, state_name=state_name)
+def anomaly_buckets(db: Session, house: str = "Assembly",
+                    state_name: Optional[str] = None,
+                    scope: str = "current") -> dict:
+    """Return counts of candidates in each risk bucket (critical/suspicious/standard).
+    `scope` matches anomaly_candidates: "current" = sitting MLAs only, "all" = every
+    appearance scraped for this state across all cycles."""
+    candidates = anomaly_candidates(db, limit=500, house=house, state_name=state_name, scope=scope)
     return {
         "critical":    sum(1 for r in candidates if r["score"] < 30),
         "suspicious":  sum(1 for r in candidates if 30 <= r["score"] < 60),

@@ -6,7 +6,12 @@ Run with:
   python -m app.ingest punjab_ls    # Punjab Lok Sabha MPs
 
 This is idempotent — re-running merges new data and updates existing records
-based on (politician.myneta_candidate_id, election.id).
+based on (politician.myneta_candidate_id, election.id). The election scope on
+the dedup key is critical: myneta numbers candidates per-election (cand_id=2
+in punjab2022 is a different person from cand_id=2 in Delhi2025). Without the
+election scope, ingesting a new state silently merges its candidates into
+existing politician rows from other states. See scripts/split_merged_politicians.py
+for the cleanup that fixes already-polluted data.
 
 IMPORTANT: ingest writes thousands of rows interspersed with 2-second sleeps
 for politeness with myneta. Against a remote Postgres (e.g. Neon free tier)
@@ -121,18 +126,34 @@ def ingest_punjab():
 def _ingest_one(session, row: WinnerRow, state, election, won: bool = True):
     """Insert/update one ElectionAppearance row. `won` indicates whether
     the candidate won this particular election (True for the winners list,
-    False for losers from the all-candidates scrape)."""
+    False for losers from the all-candidates scrape).
+
+    Dedup is keyed on (election_id, myneta_candidate_id), NOT on candidate_id
+    alone. myneta numbers candidates per-election, so cand_id=2 in punjab2022
+    and cand_id=2 in Delhi2025 are different real people. Using candidate_id
+    alone would merge them into one polluted record (the bug that motivated
+    scripts/split_merged_politicians.py)."""
     party, _ = get_or_create(session, Party, short_name=row.party)
     constituency, _ = get_or_create(
         session, Constituency,
         name=row.constituency, state_id=state.id, house="Assembly",
     )
 
-    politician = session.query(Politician).filter_by(
-        myneta_candidate_id=row.candidate_id
-    ).first()
+    # Election-scoped dedup: only match a politician who already has an
+    # appearance in THIS specific election. New (election, cand_id) pairs
+    # always allocate a fresh Politician row.
+    politician = (
+        session.query(Politician)
+        .join(ElectionAppearance, ElectionAppearance.politician_id == Politician.id)
+        .filter(Politician.myneta_candidate_id == row.candidate_id)
+        .filter(ElectionAppearance.election_id == election.id)
+        .first()
+    )
     if not politician:
-        base_slug = slugify(row.name)[:200]
+        # Slug format matches the splitter: <name>-<election_slug>-<cand_id>.
+        # That makes URLs stable across re-ingests and avoids slug collisions
+        # between (e.g.) punjab2022 cand_id=2 and Delhi2025 cand_id=2.
+        base_slug = slugify(f"{row.name}-{election.myneta_slug}-{row.candidate_id}")[:240]
         slug = base_slug
         n = 1
         while session.query(Politician).filter_by(slug=slug).first():
@@ -199,17 +220,24 @@ def ingest_punjab_ls():
 
 
 def _ingest_ls_one(session, row: LSWinnerRow, state, election):
+    """Lok Sabha equivalent of _ingest_one. Same per-election dedup rule:
+    candidate_id is per-election on myneta, so we must scope by election_id
+    to avoid merging different people into one politician row."""
     party, _ = get_or_create(session, Party, short_name=row.party)
     constituency, _ = get_or_create(
         session, Constituency,
         name=row.constituency, state_id=state.id, house="LokSabha",
     )
 
-    politician = session.query(Politician).filter_by(
-        myneta_candidate_id=row.candidate_id
-    ).first()
+    politician = (
+        session.query(Politician)
+        .join(ElectionAppearance, ElectionAppearance.politician_id == Politician.id)
+        .filter(Politician.myneta_candidate_id == row.candidate_id)
+        .filter(ElectionAppearance.election_id == election.id)
+        .first()
+    )
     if not politician:
-        base_slug = slugify(row.name)[:200]
+        base_slug = slugify(f"{row.name}-{election.myneta_slug}-{row.candidate_id}")[:240]
         slug = base_slug
         n = 1
         while session.query(Politician).filter_by(slug=slug).first():

@@ -19,8 +19,9 @@
           </div>
           <h1 class="font-display-lg text-display-lg-mobile md:text-headline-lg text-on-surface mb-2">Data pattern analysis</h1>
           <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
-            Statistical-variance flagging on declared assets across election cycles. Politicians whose declared wealth
-            jumped sharply between cycles are surfaced for inspection — innocence presumed; this is a starting point, not a verdict.
+            Outlier flagging on pending criminal cases and declared wealth.
+            Politicians who stand out from the {{ state }} median are surfaced for
+            inspection — innocence presumed; this is a starting point, not a verdict.
           </p>
         </div>
         <div class="flex gap-stack-sm overflow-x-auto pb-2">
@@ -29,6 +30,29 @@
           </span>
           <a href="/browse" class="bg-surface-container-highest px-4 py-2 rounded-full font-label-lg text-label-lg whitespace-nowrap text-on-surface-variant hover:bg-surface-container transition-colors">
             ← Back to Rankings
+          </a>
+        </div>
+      </div>
+
+      {# Scope toggle + clarification banner — answer the "is this current MLAs or every
+         candidate ever?" question directly. Defaults to current-sitting MLAs because that's
+         what most users assume. #}
+      <div class="mt-stack-md flex flex-col md:flex-row md:items-center gap-stack-md p-stack-md bg-surface-container-low rounded-xl border border-outline-variant">
+        <div class="flex items-center gap-2 text-on-surface-variant flex-1">
+          <span class="material-symbols-outlined text-sm">info</span>
+          <span class="text-label-sm">
+            Showing
+            <strong class="text-on-surface">{% if scope == 'current' %}only currently-sitting {{ state }} MLAs (latest cycle winners){% else %}every {{ state }} candidate scraped, across all cycles (winners + losers){% endif %}</strong>.
+          </span>
+        </div>
+        <div class="inline-flex bg-surface-container-lowest rounded-full p-1 gap-1 border border-outline-variant">
+          <a href="?state={{ state }}&scope=current"
+             class="px-4 py-1.5 rounded-full text-label-sm font-label-lg transition-all {% if scope == 'current' %}bg-primary text-on-primary{% else %}text-on-surface-variant hover:text-on-surface{% endif %}">
+            Current sitting
+          </a>
+          <a href="?state={{ state }}&scope=all"
+             class="px-4 py-1.5 rounded-full text-label-sm font-label-lg transition-all {% if scope == 'all' %}bg-primary text-on-primary{% else %}text-on-surface-variant hover:text-on-surface{% endif %}">
+            All cycles
           </a>
         </div>
       </div>

@@ -378,13 +378,21 @@ def anomalies(
     request: Request,
     db: Session = Depends(get_db),
     state: str = Depends(resolve_state),
+    scope: str = Query("current", regex="^(current|all)$"),
 ):
-    """Data Pattern Analysis — flag candidates with unusual wealth growth."""
+    """Data Pattern Analysis — flag candidates as outliers.
+
+    scope=current → only currently-sitting MLAs (latest cycle winners only).
+                    This is the default — what most users want to see.
+    scope=all     → every candidate ever scraped in this state, including
+                    losers and previous-cycle MLAs.
+    """
     return templates.TemplateResponse("anomalies.html", {
         "request": request,
-        "anomalies": services.anomaly_candidates(db, limit=20, state_name=state),
-        "buckets":   services.anomaly_buckets(db, state_name=state),
+        "anomalies": services.anomaly_candidates(db, limit=50, state_name=state, scope=scope),
+        "buckets":   services.anomaly_buckets(db, state_name=state, scope=scope),
         "state":     state,
+        "scope":     scope,
     })
 
 

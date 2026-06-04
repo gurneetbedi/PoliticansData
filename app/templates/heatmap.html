@@ -13,7 +13,7 @@
       </div>
       <h1 class="text-display-lg-mobile md:text-headline-lg font-display-lg text-on-surface mb-2">State-wise Transparency Heatmap</h1>
       <p class="text-body-lg font-body-lg text-on-surface-variant max-w-2xl">
-        Currently viewing <strong class="text-primary">{{ state }}</strong> · {{ kpis.count or 0 }} MLAs · {{ kpis.pct_with_cases|int }}% with declared criminal cases. Use the State Selector in the top-right to switch.
+        Currently viewing <strong class="text-primary">{{ state }}</strong> · {{ kpis.count or 0 }} MLAs · {{ kpis.avg_cases_per_mla }} avg pending criminal cases per MLA. Use the State Selector in the top-right to switch.
       </p>
     </div>
     <a href="/?state={{ state }}" class="inline-flex items-center gap-2 px-4 py-2 border border-outline-variant rounded-xl text-label-lg font-label-lg hover:bg-surface-container-low transition-colors">
@@ -33,12 +33,34 @@
       </div>
       <div class="relative" style="height: 480px;">
         <div id="indiaMap" class="absolute inset-0"></div>
-        <!-- Legend -->
+        <!-- Legend — same buckets as the homepage map for visual consistency -->
         <div class="absolute top-stack-md left-stack-md bg-surface-container-lowest rounded-xl border border-outline-variant px-3 py-2 shadow-sm" style="z-index: 400;">
-          <p class="text-label-sm font-label-sm uppercase tracking-wider text-on-surface-variant mb-1">Case intensity</p>
-          <div class="h-2 w-32 rounded-full" style="background: linear-gradient(90deg, #2d9b67, #d4a017, #d9714f, #b14545);"></div>
-          <div class="flex justify-between text-[10px] text-on-surface-variant mt-1">
-            <span>Low</span><span>High</span>
+          <p class="text-label-sm font-label-sm uppercase tracking-wider text-on-surface-variant mb-2">Avg cases per MLA</p>
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-sm" style="background:#2d9b67;"></span>
+              <span class="text-[10px] text-on-surface-variant">&lt; 1 &nbsp;· Clean</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-sm" style="background:#7d8c69;"></span>
+              <span class="text-[10px] text-on-surface-variant">1 – 2 &nbsp;· Low</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-sm" style="background:#d4a017;"></span>
+              <span class="text-[10px] text-on-surface-variant">2 – 4 &nbsp;· Moderate</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-sm" style="background:#d9714f;"></span>
+              <span class="text-[10px] text-on-surface-variant">4 – 6 &nbsp;· High</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-sm" style="background:#b14545;"></span>
+              <span class="text-[10px] text-on-surface-variant">6+ &nbsp;· Severe</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 mt-2 pt-2 border-t border-outline-variant">
+            <span class="w-3 h-3 rounded-sm bg-[#e6ebf1] border border-outline-variant"></span>
+            <span class="text-[10px] text-on-surface-variant">Data not available</span>
           </div>
         </div>
         <!-- Hover tooltip -->
@@ -64,9 +86,30 @@
             {% set is_selected = (s.name == state) %}
             {% set has_data = (s.kpi.count or 0) > 0 %}
             <a href="/heatmap?state={{ s.name }}" class="block p-3 rounded-lg hover:shadow-md transition-all border {% if is_selected %}border-secondary-container bg-surface-container-low{% else %}border-outline-variant{% endif %} {% if not has_data %}opacity-60{% endif %}">
+              {# Pick the same 5 swatches as the map legend so the dots match. #}
+              {% set avg = s.kpi.avg_cases_per_mla or 0 %}
+              {% if not has_data %}
+                {% set dot_color = 'bg-outline-variant' %}
+                {% set bucket_label = '' %}
+              {% elif avg < 1 %}
+                {% set dot_color = 'bg-[#2d9b67]' %}
+                {% set bucket_label = 'Clean' %}
+              {% elif avg < 2 %}
+                {% set dot_color = 'bg-[#7d8c69]' %}
+                {% set bucket_label = 'Low' %}
+              {% elif avg < 4 %}
+                {% set dot_color = 'bg-[#d4a017]' %}
+                {% set bucket_label = 'Moderate' %}
+              {% elif avg < 6 %}
+                {% set dot_color = 'bg-[#d9714f]' %}
+                {% set bucket_label = 'High' %}
+              {% else %}
+                {% set dot_color = 'bg-[#b14545]' %}
+                {% set bucket_label = 'Severe' %}
+              {% endif %}
               <div class="flex items-center justify-between mb-2">
                 <div class="flex items-center gap-2">
-                  <span class="w-3 h-3 rounded-full {% if not has_data %}bg-outline-variant{% elif s.kpi.pct_with_cases > 50 %}bg-[#b14545]{% elif s.kpi.pct_with_cases > 30 %}bg-[#d9714f]{% else %}bg-[#2d9b67]{% endif %}"></span>
+                  <span class="w-3 h-3 rounded-full {{ dot_color }}"></span>
                   <span class="font-bold text-on-surface">{{ s.name }}</span>
                 </div>
                 {% if is_selected %}
@@ -74,7 +117,7 @@
                 {% elif not has_data %}
                   <span class="text-label-sm text-on-surface-variant italic">Data coming soon</span>
                 {% else %}
-                  <span class="text-label-sm text-on-surface-variant">{{ s.kpi.pct_with_cases|int }}% cases →</span>
+                  <span class="text-label-sm text-on-surface-variant">{{ bucket_label }} · {{ avg }}/MLA →</span>
                 {% endif %}
               </div>
               {% if has_data %}
@@ -141,13 +184,16 @@ const STATE_DATA = JSON.parse(document.getElementById('india-states').textConten
 const STATE_KPI = {};
 STATE_DATA.forEach(s => { STATE_KPI[s.name] = s.kpi; });
 
-function colorForPct(pct) {
-  if (pct == null) return '#e6ebf1';
-  if (pct < 20)  return '#2d9b67';
-  if (pct < 40)  return '#7d8c69';
-  if (pct < 60)  return '#d4a017';
-  if (pct < 80)  return '#d9714f';
-  return '#b14545';
+// Map coloring driven by avg criminal cases per MLA. Same buckets as the
+// homepage dashboard so the two India maps are visually consistent — if a
+// user toggles between dashboard and heatmap, the colors don't shift.
+function bucketForAvgCases(avg) {
+  if (avg == null) return { color: '#e6ebf1', label: 'Data not available' };
+  if (avg < 1)  return { color: '#2d9b67', label: 'Clean' };
+  if (avg < 2)  return { color: '#7d8c69', label: 'Low' };
+  if (avg < 4)  return { color: '#d4a017', label: 'Moderate' };
+  if (avg < 6)  return { color: '#d9714f', label: 'High' };
+  return            { color: '#b14545', label: 'Severe' };
 }
 function normalizeStateName(n) {
   return (n || '').replace(/&/g, 'and').replace(/\s+/g, ' ').trim();
@@ -178,12 +224,14 @@ function styleFeature(feature) {
   const props = feature.properties || {};
   const name = props.NAME_1 || props.ST_NM || props.name || props.STATE || props.State || props.st_nm || '';
   const kpi = findKpiForState(name);
+  const hasData = !!kpi;
   const isSelected = (normalizeStateName(name).toLowerCase() === normalizeStateName(CURRENT_STATE).toLowerCase());
+  const bucket = hasData ? bucketForAvgCases(kpi.avg_cases_per_mla) : { color: '#e6ebf1' };
   return {
-    fillColor: kpi ? colorForPct(kpi.pct_with_cases) : '#e6ebf1',
+    fillColor: bucket.color,
     weight: isSelected ? 2.5 : 0.75,
     color: isSelected ? '#131b2e' : '#ffffff',
-    fillOpacity: kpi ? 0.92 : 0.6,
+    fillOpacity: hasData ? 0.92 : 0.6,
   };
 }
 function onEachFeature(feature, layer) {
@@ -195,9 +243,12 @@ function onEachFeature(feature, layer) {
       layer.setStyle({ weight: 2, color: '#131b2e' });
       imTooltip.classList.remove('hidden');
       imtName.textContent = name;
-      imtData.innerHTML = kpi
-        ? `<span class="text-on-surface-variant">${kpi.pct_with_cases}% with cases · ${kpi.count} MLAs</span>`
-        : `<span class="text-on-surface-variant italic">Data Not Available</span>`;
+      if (kpi) {
+        const b = bucketForAvgCases(kpi.avg_cases_per_mla);
+        imtData.innerHTML = `<span class="text-on-surface-variant"><strong style="color:${b.color}">${b.label}</strong> · ${kpi.avg_cases_per_mla} cases / MLA · ${kpi.count} MLAs</span>`;
+      } else {
+        imtData.innerHTML = `<span class="text-on-surface-variant italic">Data Not Available</span>`;
+      }
       const rect = indiaMapEl.getBoundingClientRect();
       imTooltip.style.left = (e.originalEvent.clientX - rect.left + 12) + 'px';
       imTooltip.style.top  = (e.originalEvent.clientY - rect.top  + 12) + 'px';

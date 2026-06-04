@@ -159,7 +159,16 @@ def main():
     """).fetchall()
     print(f"Found {len(appearances):,} appearances with source_url")
 
-    # Pass 1 — derive (slug, candidate_id, name) for every appearance
+    # Pass 1 — derive (slug, candidate_id, name) for every appearance.
+    # Cache-miss appearances are NOT skipped: they get a placeholder name
+    # derived from the existing politician record (if one is attached) so they
+    # still get correctly split. Skipping them would leave them attached to
+    # their old (polluted) politician_id, defeating the cleanup.
+    existing_names_by_pid = {
+        r["id"]: r["name"]
+        for r in cur.execute("SELECT id, name FROM politicians").fetchall()
+    }
+
     rows = []
     cache_misses = parse_misses = name_misses = 0
     for app in appearances:
@@ -168,18 +177,24 @@ def main():
             parse_misses += 1
             continue
         path = cache_path(app["source_url"])
-        if not path.exists():
+        name = None
+        if path.exists():
+            try:
+                html = path.read_text(encoding="utf-8", errors="ignore")
+                name = extract_name(html)
+            except Exception:
+                pass
+        else:
             cache_misses += 1
-            continue
-        try:
-            html = path.read_text(encoding="utf-8", errors="ignore")
-        except Exception as e:
-            cache_misses += 1
-            continue
-        name = extract_name(html)
+
         if not name:
-            name_misses += 1
-            name = f"Candidate {cand_id} ({slug})"
+            # Fallbacks: existing politician's name (could be polluted but
+            # better than a placeholder), then a generic "Candidate N" tag.
+            name = existing_names_by_pid.get(app["politician_id"])
+            if not name or _looks_like_garbage(name):
+                name_misses += 1
+                name = f"Candidate {cand_id} ({slug})"
+
         rows.append({
             "app_id":   app["id"],
             "slug":     slug,
@@ -257,7 +272,16 @@ def main():
         # 1. Insert new politicians. We use myneta_candidate_id = cand_id but it's
         #    no longer constrained to be globally unique (the unique constraint
         #    must be relaxed in models.py — done in the same commit).
-        taken_slugs = set()
+        #
+        # Pre-seed `taken_slugs` with EVERY existing slug in the DB. Otherwise,
+        # if the splitter is re-run after a previous split (e.g. you added new
+        # states and the new ingest re-introduced some pollution), the new
+        # INSERTs would collide with existing slugs because the DELETE of old
+        # politicians only happens at step 3, after all INSERTs. Loading the
+        # existing slugs up front makes build_slug() auto-suffix any collisions.
+        taken_slugs = {
+            r[0] for r in cur.execute("SELECT slug FROM politicians").fetchall()
+        }
         new_ids = {}   # (slug, cand_id) -> new politician_id
 
         # Allocate IDs starting above current MAX(id) so we don't collide with
