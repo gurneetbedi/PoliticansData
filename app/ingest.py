@@ -67,6 +67,17 @@ from app.scrapers.bihar import scrape_all_bihar, scrape_all_bihar_candidates, BI
 from app.scrapers.goa    import scrape_all_goa,    scrape_all_goa_candidates,    GOA_CYCLES
 from app.scrapers.sikkim import scrape_all_sikkim, scrape_all_sikkim_candidates, SIKKIM_CYCLES
 from app.scrapers.delhi  import scrape_all_delhi,  scrape_all_delhi_candidates,  DELHI_CYCLES
+from app.scrapers.small_states import (
+    scrape_all_puducherry,  scrape_all_puducherry_candidates,  PUDUCHERRY_CYCLES,
+    scrape_all_mizoram,     scrape_all_mizoram_candidates,     MIZORAM_CYCLES,
+    scrape_all_manipur,     scrape_all_manipur_candidates,     MANIPUR_CYCLES,
+    scrape_all_meghalaya,   scrape_all_meghalaya_candidates,   MEGHALAYA_CYCLES,
+    scrape_all_nagaland,    scrape_all_nagaland_candidates,    NAGALAND_CYCLES,
+    scrape_all_tripura,     scrape_all_tripura_candidates,     TRIPURA_CYCLES,
+    scrape_all_arunachal,   scrape_all_arunachal_candidates,   ARUNACHAL_CYCLES,
+    scrape_all_himachal,    scrape_all_himachal_candidates,    HIMACHAL_CYCLES,
+    scrape_all_uttarakhand, scrape_all_uttarakhand_candidates, UTTARAKHAND_CYCLES,
+)
 from app.models import Asset, CriminalCase
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
@@ -758,28 +769,67 @@ def ingest_delhi_detail_all():
     ingest_detail(state_name="Delhi", winners_only=False)
 
 
+# ============================================================================
+# Small-state batch — generated programmatically. Each state gets four CLI
+# targets (winners, all, detail, detail_all) just like the older per-state
+# helpers above. Wall-clock estimates assume the standard 2-second politeness
+# rate limit and a fresh cache.
+# ============================================================================
+
+_SMALL_STATES = [
+    # (CLI key,      Display name,         Code,  CYCLES,             scrape_all_winners,    scrape_all_candidates)
+    ("puducherry",  "Puducherry",          "PY",  PUDUCHERRY_CYCLES,  scrape_all_puducherry,  scrape_all_puducherry_candidates),
+    ("mizoram",     "Mizoram",             "MZ",  MIZORAM_CYCLES,     scrape_all_mizoram,     scrape_all_mizoram_candidates),
+    ("manipur",     "Manipur",             "MN",  MANIPUR_CYCLES,     scrape_all_manipur,     scrape_all_manipur_candidates),
+    ("meghalaya",   "Meghalaya",           "ML",  MEGHALAYA_CYCLES,   scrape_all_meghalaya,   scrape_all_meghalaya_candidates),
+    ("nagaland",    "Nagaland",            "NL",  NAGALAND_CYCLES,    scrape_all_nagaland,    scrape_all_nagaland_candidates),
+    ("tripura",     "Tripura",             "TR",  TRIPURA_CYCLES,     scrape_all_tripura,     scrape_all_tripura_candidates),
+    ("arunachal",   "Arunachal Pradesh",   "AR",  ARUNACHAL_CYCLES,   scrape_all_arunachal,   scrape_all_arunachal_candidates),
+    ("himachal",    "Himachal Pradesh",    "HP",  HIMACHAL_CYCLES,    scrape_all_himachal,    scrape_all_himachal_candidates),
+    ("uttarakhand", "Uttarakhand",         "UK",  UTTARAKHAND_CYCLES, scrape_all_uttarakhand, scrape_all_uttarakhand_candidates),
+]
+
+# Bind one ingest function per (state, mode) into module globals so the CLI
+# dispatcher can look them up by name like `ingest_mizoram_all`. Mirrors the
+# manual goa/sikkim/delhi pattern but without 36 hand-written functions.
+_SMALL_STATE_DISPATCH = {}
+for _key, _name, _code, _cycles, _winners_fn, _all_fn in _SMALL_STATES:
+    def _make_winners(name, code, cycles, winners_fn):
+        def _ingest(): _ingest_state_winners(name, code, cycles, winners_fn)
+        _ingest.__doc__ = f"Scrape {name} Assembly winners across all available cycles."
+        return _ingest
+    def _make_all(name, code, cycles, winners_fn, all_fn):
+        def _ingest(): _ingest_state_all_candidates(name, code, cycles, winners_fn, all_fn)
+        _ingest.__doc__ = f"Scrape EVERY {name} candidate across all cycles."
+        return _ingest
+    def _make_detail(name):
+        def _ingest(): ingest_detail(state_name=name, winners_only=True)
+        _ingest.__doc__ = f"Winners-only detail enrichment for {name}."
+        return _ingest
+    def _make_detail_all(name):
+        def _ingest(): ingest_detail(state_name=name, winners_only=False)
+        _ingest.__doc__ = f"All-candidates detail enrichment for {name}."
+        return _ingest
+
+    _SMALL_STATE_DISPATCH[f"{_key}"]            = _make_winners(_name, _code, _cycles, _winners_fn)
+    _SMALL_STATE_DISPATCH[f"{_key}_all"]        = _make_all(_name, _code, _cycles, _winners_fn, _all_fn)
+    _SMALL_STATE_DISPATCH[f"{_key}_detail"]     = _make_detail(_name)
+    _SMALL_STATE_DISPATCH[f"{_key}_detail_all"] = _make_detail_all(_name)
+
+
 def main():
-    if len(sys.argv) < 2:
-        print("Usage:")
-        print("  python -m app.ingest punjab           # Punjab MLAs (winners only — fast)")
-        print("  python -m app.ingest punjab_all       # Punjab MLAs (all candidates inc. losers)")
-        print("  python -m app.ingest punjab_ls        # Punjab Lok Sabha MPs")
-        print("  python -m app.ingest punjab_detail    # Enrich Punjab politicians (assets, cases)")
-        print("  python -m app.ingest bihar            # Bihar MLAs (winners only)")
-        print("  python -m app.ingest bihar_all        # Bihar MLAs (all candidates)")
-        print("  python -m app.ingest bihar_detail     # Enrich Bihar politicians (assets, cases)")
-        sys.exit(1)
-    target = sys.argv[1]
-    fn = {
+    targets = {
+        # Per-state targets that pre-date the small-state batch — keep the
+        # explicit mapping so the older codepaths stay clearly traceable.
         "punjab":            ingest_punjab,
         "punjab_all":        ingest_punjab_all,
         "punjab_ls":         ingest_punjab_ls,
-        "punjab_detail":     ingest_punjab_detail,          # winners-only (fast)
-        "punjab_detail_all": ingest_punjab_detail_all,      # all candidates (slow)
+        "punjab_detail":     ingest_punjab_detail,
+        "punjab_detail_all": ingest_punjab_detail_all,
         "bihar":             ingest_bihar,
         "bihar_all":         ingest_bihar_all,
-        "bihar_detail":      ingest_bihar_detail,           # winners-only (fast)
-        "bihar_detail_all":  ingest_bihar_detail_all,       # all candidates (slow)
+        "bihar_detail":      ingest_bihar_detail,
+        "bihar_detail_all":  ingest_bihar_detail_all,
         "goa":               ingest_goa,
         "goa_all":           ingest_goa_all,
         "goa_detail":        ingest_goa_detail,
@@ -792,9 +842,30 @@ def main():
         "delhi_all":         ingest_delhi_all,
         "delhi_detail":      ingest_delhi_detail,
         "delhi_detail_all":  ingest_delhi_detail_all,
-    }.get(target)
+        # Small-state batch — bound dynamically from _SMALL_STATE_DISPATCH.
+        **_SMALL_STATE_DISPATCH,
+    }
+
+    if len(sys.argv) < 2:
+        print("Usage: python -m app.ingest <target>\n")
+        print("Per-state targets (each has 4 variants: <state>, <state>_all,")
+        print("<state>_detail, <state>_detail_all):\n")
+        states_listed = sorted({k.split("_")[0] for k in targets if k != "punjab_ls"})
+        for s in states_listed:
+            print(f"  {s}")
+        print("\nSuffixes:")
+        print("  <state>           winners-only base scrape (fast)")
+        print("  <state>_all       winners + losers (slow; comprehensive)")
+        print("  <state>_detail    enrich existing winners with assets/cases")
+        print("  <state>_detail_all   enrich all candidates (very slow)")
+        print("\nExtras: punjab_ls  (Punjab Lok Sabha MPs)\n")
+        sys.exit(1)
+
+    target = sys.argv[1]
+    fn = targets.get(target)
     if not fn:
         print(f"Unknown target: {target}")
+        print(f"Known targets: {sorted(targets.keys())}")
         sys.exit(1)
     fn()
 

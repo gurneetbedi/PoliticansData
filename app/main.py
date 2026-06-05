@@ -25,6 +25,7 @@ from app.models import (
 )
 from app import services
 from app.data.punjab_rs import PUNJAB_RS_MEMBERS
+from app.states import ALL_STATES as _ALL_STATES
 
 Base.metadata.create_all(bind=engine)
 
@@ -37,6 +38,14 @@ TEMPLATES_DIR = APP_DIR / "templates"
 app = FastAPI(title="PoliTrack India", version="0.1.0")
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
+
+# Make the tracked-states list available to every template (used by the
+# State Selector dropdown in base.html and any other UI that needs to
+# enumerate states). This way adding a new state in app/states.py
+# automatically shows up everywhere without per-template edits.
+templates.env.globals["TRACKED_STATES"] = [
+    {"name": _ALL_STATES[k].name, "key": k} for k in _ALL_STATES
+]
 
 
 # ---------------- Jinja filters for case-description cleanup ----------------
@@ -116,7 +125,14 @@ templates.env.filters["all_case_types"] = all_case_types
 # which breaks navigation when a link accidentally drops the value (e.g. browser
 # back, copy-paste, manually typed URL). Replace with a coercing dependency.
 
-KNOWN_STATES = {"punjab", "bihar", "goa", "sikkim", "delhi"}
+# Derived from the registry so adding a new state is a single edit in states.py.
+KNOWN_STATES = set(_ALL_STATES.keys())
+# Display order for dropdowns / leaderboards / map summaries. Punjab first
+# (richest dataset), then alphabetical for everything else — predictable
+# for users scanning the list.
+TRACKED_STATE_NAMES = ["Punjab"] + sorted(
+    s.name for k, s in _ALL_STATES.items() if k != "punjab"
+)
 
 def resolve_state(state: str | None = None) -> str:
     """Return a canonical state name. Falls back to 'Punjab' for empty/unknown."""
@@ -231,7 +247,7 @@ def home(
                 "name": s_name,
                 "kpi": services.hero_kpis(db, house="Assembly", scope="current", state_name=s_name),
             }
-            for s_name in ("Punjab", "Bihar", "Goa", "Sikkim", "Delhi")
+            for s_name in TRACKED_STATE_NAMES
         ],
 
         # Helpers
@@ -368,7 +384,7 @@ def heatmap(
         "kpis":    services.hero_kpis(db, house="Assembly", scope="current", state_name=state),
         "india_states": [
             {"name": s_name, "kpi": services.hero_kpis(db, house="Assembly", scope="current", state_name=s_name)}
-            for s_name in ("Punjab", "Bihar", "Goa", "Sikkim", "Delhi")
+            for s_name in TRACKED_STATE_NAMES
         ],
     })
 

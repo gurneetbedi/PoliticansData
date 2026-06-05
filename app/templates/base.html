@@ -149,7 +149,7 @@
         <span>{{ current_state }}</span>
         <span class="material-symbols-outlined" style="font-size:18px;">expand_more</span>
       </button>
-      <div id="globalStateMenu" class="hidden absolute right-0 mt-2 w-48 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-2xl overflow-hidden" style="z-index: 9999;">
+      <div id="globalStateMenu" class="hidden absolute right-0 mt-2 w-56 max-h-96 overflow-y-auto bg-surface-container-lowest border border-outline-variant rounded-xl shadow-2xl" style="z-index: 9999;">
         {# Preserve all existing query params (party, year, sort, view, scope, etc.)
            when switching state. Without this, the dropdown silently wipes any
            filters the user has already set, which feels like "the filter isn't
@@ -160,12 +160,11 @@
         {% endfor %}
         {% set _preserve_str = _preserve | join('&') %}
 
-        {% set available_states = [
-            ('Punjab', True), ('Bihar', True), ('Goa', True),
-            ('Sikkim', True), ('Delhi', True),
-        ] %}
-        {% for sname, has_data in available_states %}
-          {% if has_data %}
+        {# State list is sourced from TRACKED_STATES, a Jinja global bound in main.py
+           from app/states.py. Adding a new state in the registry automatically
+           shows up here — no template edit needed. #}
+        {% for entry in TRACKED_STATES %}
+          {% set sname = entry.name %}
             {# href is the canonical destination — works without JS / right-click / cmd-click.
                onclick forces navigation directly so any click handler that might run on the
                bubbling phase (outside-click closers, Leaflet capture handlers, etc.) can't
@@ -182,15 +181,6 @@
                 <span class="material-symbols-outlined text-[16px] text-primary">check</span>
               {% endif %}
             </a>
-          {% else %}
-            <div class="flex items-center justify-between px-4 py-3 text-label-sm text-on-surface-variant italic cursor-not-allowed">
-              <span class="flex items-center gap-2">
-                <span class="material-symbols-outlined text-[16px]">location_on</span>
-                {{ sname }}
-              </span>
-              <span class="text-[10px] uppercase tracking-wider">Coming soon</span>
-            </div>
-          {% endif %}
         {% endfor %}
       </div>
     </div>

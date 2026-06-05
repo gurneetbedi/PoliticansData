@@ -150,11 +150,17 @@
           Explore regional integrity metrics. Select a state to dive into local constituency performance and candidate profiles.
         </p>
         <div class="space-y-stack-sm">
-          {% set zones = [
-              ('Punjab','#fd761a'), ('Bihar','#d9714f'), ('Goa','#2d9b67'),
-              ('Sikkim','#7d8c69'), ('Delhi','#19aaed')
+          {# Cycle through a small palette so each tracked state gets a
+             stable-looking marker color without a per-state hardcode. The
+             registry order in app/states.py defines the cycle. #}
+          {% set _palette = [
+              '#fd761a', '#d9714f', '#2d9b67', '#7d8c69', '#19aaed',
+              '#d4a017', '#b14545', '#1a3399', '#22336d', '#ff9933',
+              '#019cdf', '#7d8c69', '#9d4300', '#0b1c30'
           ] %}
-          {% for zname, zcolor in zones %}
+          {% for entry in TRACKED_STATES %}
+            {% set zname = entry.name %}
+            {% set zcolor = _palette[loop.index0 % (_palette | length)] %}
             {% set is_active = (state == zname) %}
             {# Find the matching KPI block from india_states for this zone #}
             {% set zone_kpi = (india_states | selectattr('name','equalto',zname) | list | first) %}
