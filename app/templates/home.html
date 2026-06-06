@@ -282,7 +282,12 @@
                        constituencies (currently: Punjab). Other states fall
                        back to the existing tile grid so the layout never goes
                        blank just because geocoding hasn't reached that state. -->
-      <div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-2xl p-stack-md">
+      {# col-span-2 right column. flex-col so header, map, and footer stack
+         and the map's wrapper can flex-1 to fill all remaining height.
+         Combined with CSS grid's default same-height-children behavior,
+         this keeps the right column visually balanced with the left zone
+         picker regardless of how many zones are listed. #}
+      <div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-2xl p-stack-md flex flex-col">
         <div class="flex justify-between items-start mb-stack-sm flex-wrap gap-stack-sm">
           <div>
             <h3 class="text-headline-md font-headline-md text-on-surface">{{ state }} · Constituency map</h3>
@@ -302,15 +307,18 @@
         </div>
 
         {% if constituency_dots %}
-          {# Dot map for states with constituency centroids on disk. #}
-          <div class="relative">
-            <div id="constituencyMap" class="rounded-lg border border-outline-variant"
-                 style="height: 420px; background: #eff4ff;"></div>
-            {# Map mode legend — only visible swatch overlay for the active mode #}
-            <div class="absolute top-2 right-2 z-[400] bg-surface-container-lowest/95 backdrop-blur border border-outline-variant rounded-lg px-3 py-2 shadow-sm">
-              <p id="dotmapLegendTitle" class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant mb-1">Party</p>
+          {# Dot map for states with constituency centroids on disk.
+             `flex-1 min-h-[420px]` lets it grow to fill column height
+             while keeping a usable minimum. #}
+          <div class="relative flex-1 min-h-[420px]">
+            <div id="constituencyMap" class="rounded-lg border border-outline-variant absolute inset-0"
+                 style="background: #eff4ff;"></div>
+            {# Map mode legend — only visible swatch overlay for the active mode.
+               Wider container so the Party mode's swatch list fits without ellipsis. #}
+            <div class="absolute top-2 right-2 z-[400] bg-surface-container-lowest/95 backdrop-blur border border-outline-variant rounded-lg px-3 py-2 shadow-sm min-w-[160px]">
+              <p id="dotmapLegendTitle" class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant mb-1.5">Party</p>
               <div id="dotmapLegendBody" class="text-[10px] text-on-surface-variant">
-                <span>Dot color = party</span>
+                <span>Loading…</span>
               </div>
             </div>
             <!-- Hover tooltip -->
@@ -320,9 +328,10 @@
             </div>
           </div>
         {% else %}
-          {# Fallback: existing tile grid for states without centroids yet. #}
-          <div id="constituencyGrid" class="grid gap-[3px]"
-               style="grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); min-height: 320px; max-height: 420px; overflow-y: auto;"></div>
+          {# Fallback: existing tile grid for states without centroids yet.
+             flex-1 so it stretches to match the left zone picker's height. #}
+          <div id="constituencyGrid" class="grid gap-[3px] flex-1"
+               style="grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); min-height: 420px; overflow-y: auto;"></div>
         {% endif %}
 
         <div class="flex justify-between items-center mt-stack-sm">
@@ -733,11 +742,21 @@ function renderDots() {
   if (!constMap) {
     constMap = L.map('constituencyMap', {
       zoomControl: true,
-      attributionControl: false,
+      attributionControl: true,
       scrollWheelZoom: false,
       dragging: true,
     });
-    constMap.getContainer().style.background = '#eff4ff';
+    // CartoDB Positron — light grayscale basemap. Free, no API key, gives
+    // the dots a real-world geographic context (roads, districts, water,
+    // labels) without competing visually with the colored party dots.
+    L.tileLayer(
+      'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+      {
+        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> · © <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 18,
+      }
+    ).addTo(constMap);
   }
 
   if (dotLayer) {
@@ -786,19 +805,46 @@ function renderDots() {
   const legendBody  = document.getElementById('dotmapLegendBody');
   if (legendTitle && legendBody) {
     if (ctMode === 'party') {
+      // Build dynamic party legend from the actual dots data. Group dots by
+      // party, sort by count desc, and show one swatch + label + count per
+      // party. Caps at the top 6 parties; anything below that collapses into
+      // an "Other" bucket so the legend doesn't run off the map.
+      const countByParty = {};
+      const colorByParty = {};
+      DOTS.forEach(d => {
+        const p = d.party || 'IND';
+        countByParty[p] = (countByParty[p] || 0) + 1;
+        colorByParty[p] = d.party_color || '#7f8c8d';
+      });
+      const sortedParties = Object.entries(countByParty)
+        .sort((a, b) => b[1] - a[1]);
+      const TOP = 6;
+      const topParties = sortedParties.slice(0, TOP);
+      const otherCount = sortedParties.slice(TOP).reduce((s, p) => s + p[1], 0);
+
       legendTitle.textContent = 'Party';
-      legendBody.innerHTML = '<span>Dot color = party</span>';
+      let html = '<div class="space-y-0.5 max-h-40 overflow-y-auto pr-1">';
+      topParties.forEach(([party, count]) => {
+        const color = colorByParty[party];
+        html += `<div class="flex items-center justify-between gap-3"><div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full flex-shrink-0" style="background:${color};"></span><span class="truncate" style="max-width:90px;">${party}</span></div><span class="text-on-surface-variant tabular-nums">${count}</span></div>`;
+      });
+      if (otherCount > 0) {
+        html += `<div class="flex items-center justify-between gap-3 pt-0.5 border-t border-outline-variant"><div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full" style="background:#7f8c8d;"></span><span>Other</span></div><span class="text-on-surface-variant tabular-nums">${otherCount}</span></div>`;
+      }
+      html += '</div>';
+      legendBody.innerHTML = html;
     } else if (ctMode === 'wealth') {
       legendTitle.textContent = 'Wealth';
       legendBody.innerHTML =
-        '<div class="flex items-center gap-2"><span class="w-8 h-1.5 rounded" style="background:linear-gradient(90deg,#fceee7,#9d4300);"></span><span>Low → High ₹Cr</span></div>';
+        '<div class="flex items-center gap-2"><span class="w-8 h-1.5 rounded" style="background:linear-gradient(90deg,#fceee7,#9d4300);"></span><span>Low → High ₹Cr</span></div>' +
+        '<div class="text-[9px] italic text-on-surface-variant mt-1">Dot size scales with wealth</div>';
     } else if (ctMode === 'cases') {
       legendTitle.textContent = 'Cases';
       legendBody.innerHTML =
         '<div class="space-y-0.5">' +
-        '<div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full" style="background:#2d9b67;"></span>0</div>' +
-        '<div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full" style="background:#d4a017;"></span>1–2</div>' +
-        '<div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full" style="background:#b14545;"></span>3+</div>' +
+        '<div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full" style="background:#2d9b67;"></span><span>0 — Clean</span></div>' +
+        '<div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full" style="background:#d4a017;"></span><span>1–2 — Few</span></div>' +
+        '<div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full" style="background:#b14545;"></span><span>3+ — Many</span></div>' +
         '</div>';
     }
   }
