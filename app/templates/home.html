@@ -228,64 +228,71 @@
           Explore regional integrity metrics. Select a state to dive into local constituency performance.
         </p>
 
-        {# Compact per-state list — bucketed by coverage status so the most
-           useful states (Full → Partial → Coming soon) appear together,
-           and the list scrolls inside a fixed height frame. #}
-        {% set _full_states    = coverage | selectattr('status','equalto','full')    | list %}
-        {% set _partial_states = coverage | selectattr('status','equalto','partial') | list %}
-        {% set _none_states    = coverage | selectattr('status','equalto','none')    | list %}
-        {% set _palette = [
-            '#fd761a', '#d9714f', '#2d9b67', '#7d8c69', '#19aaed',
-            '#d4a017', '#b14545', '#1a3399', '#22336d', '#ff9933',
-            '#019cdf', '#7d8c69', '#9d4300', '#0b1c30'
-        ] %}
+        {# Zonal aggregation panel — one card per geographic zone, each rolled
+           up from the tracked states inside it. Mirrors the Stitch design
+           pattern (North Zone 82% / South Zone 91% style). Hovering a zone
+           card reveals which states make it up; clicking opens the heatmap
+           filtered to the first state in that zone. #}
+        {% set _zone_colors = {
+            'North':     '#fd761a',
+            'South':     '#2d9b67',
+            'East':      '#d9714f',
+            'West':      '#d4a017',
+            'Northeast': '#7d8c69',
+            'Central':   '#19aaed',
+        } %}
 
-        <div class="overflow-y-auto pr-1" style="max-height: 420px;">
-          {% for group_label, group_states in [
-              ('Available now', _full_states + _partial_states),
-              ('Coming soon',   _none_states),
-            ] %}
-            {% if group_states %}
-              <p class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant mt-stack-sm mb-1 first:mt-0">
-                {{ group_label }} · {{ group_states|length }}
-              </p>
-              <div class="space-y-1">
-                {% for c in group_states %}
-                  {% set zname = c.name %}
-                  {% set zcolor = _palette[loop.index0 % (_palette | length)] %}
-                  {% set is_active = (state == zname) %}
-                  {% set zone_kpi = (india_states | selectattr('name','equalto',zname) | list | first) %}
-                  {% set has_data = (c.status != 'none') and zone_kpi and zone_kpi.kpi and (zone_kpi.kpi.count or 0) > 0 %}
-                  <a href="/?state={{ zname }}&view={{ view }}&scope={{ scope }}"
-                     class="flex items-center justify-between px-3 py-2 rounded-lg border text-label-sm
-                            {% if is_active %}border-primary bg-surface-container-low font-bold{% else %}border-outline-variant hover:bg-surface-container-low{% endif %}
-                            {% if not has_data %}opacity-60{% endif %} transition-colors">
-                    <div class="flex items-center gap-2 min-w-0">
-                      <span class="w-2.5 h-2.5 rounded-full flex-shrink-0" style="background: {{ zcolor }};"></span>
-                      <span class="text-on-surface truncate">{{ zname }}</span>
-                    </div>
-                    {% if has_data and zone_kpi.kpi.count %}
-                      <span class="text-[10px] text-on-surface-variant flex-shrink-0 ml-2">{{ zone_kpi.kpi.count }} MLAs</span>
-                    {% elif c.status == 'partial' and c.missing %}
-                      <span class="text-[10px] text-on-surface-variant italic flex-shrink-0 ml-2">partial</span>
-                    {% else %}
-                      <span class="text-[10px] text-on-surface-variant italic flex-shrink-0 ml-2">—</span>
-                    {% endif %}
-                  </a>
-                {% endfor %}
-              </div>
-            {% endif %}
-          {% endfor %}
+        <div class="space-y-stack-sm">
+          {% if zones and zones|length > 0 %}
+            {% for z in zones %}
+              {% set zcolor = _zone_colors.get(z.name, '#7f8c8d') %}
+              {% set _is_active_zone = (z.states and state in z.states) %}
+              <a href="/?state={{ z.states[0] }}&view={{ view }}&scope={{ scope }}"
+                 title="{{ z.states|join(', ') }}"
+                 class="block p-stack-md rounded-xl border transition-all
+                        {% if _is_active_zone %}border-primary bg-surface-container-low{% else %}border-outline-variant hover:bg-surface-container-low{% endif %}">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full" style="background: {{ zcolor }};"></span>
+                    <span class="text-label-lg font-label-lg text-on-surface">{{ z.name }} Zone</span>
+                  </div>
+                  <span class="text-label-sm font-bold text-on-surface">{{ z.transparency|int }}% Clean</span>
+                </div>
+                <div class="flex items-center justify-between text-[10px] text-on-surface-variant">
+                  <span>{{ z.mlas }} MLAs · {{ z.states|length }} state{{ '' if z.states|length == 1 else 's' }}</span>
+                  <span>{{ z.avg_cases }} cases / MLA</span>
+                </div>
+                {# Transparency progress bar — visual cue at the bottom of each card #}
+                <div class="mt-2 h-1 w-full bg-outline-variant/40 rounded-full overflow-hidden">
+                  <div class="h-full rounded-full" style="background:{{ zcolor }}; width: {{ z.transparency|int }}%;"></div>
+                </div>
+              </a>
+            {% endfor %}
+          {% else %}
+            <p class="text-label-sm italic text-on-surface-variant p-stack-md">
+              No zonal data yet. Scrape a state with data first
+              (e.g. <code>python -m app.ingest punjab</code>) and re-load.
+            </p>
+          {% endif %}
         </div>
       </div>
 
-      <!-- RIGHT (2/3): Constituency heatmap visualization — gets the bigger
-                       canvas, matching the Stitch layout proportions. -->
+      <!-- RIGHT (2/3): Constituency visualization. Renders as an interactive
+                       Leaflet dot map when we have centroids for the state's
+                       constituencies (currently: Punjab). Other states fall
+                       back to the existing tile grid so the layout never goes
+                       blank just because geocoding hasn't reached that state. -->
       <div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-2xl p-stack-md">
         <div class="flex justify-between items-start mb-stack-sm flex-wrap gap-stack-sm">
           <div>
-            <h3 class="text-headline-md font-headline-md text-on-surface">{{ state }} · Constituency heatmap</h3>
-            <p class="text-label-sm text-on-surface-variant">Each tile = one constituency. Click any tile to open the MLA's profile.</p>
+            <h3 class="text-headline-md font-headline-md text-on-surface">{{ state }} · Constituency map</h3>
+            <p class="text-label-sm text-on-surface-variant">
+              {% if constituency_dots %}
+                {{ constituency_dots|length }} constituencies geo-located. Hover any dot for candidate detail; click to open profile.
+              {% else %}
+                Each tile = one constituency. Click any tile to open the MLA's profile.
+              {% endif %}
+            </p>
           </div>
           <div class="flex gap-1">
             <button class="ct-mode active px-3 py-1.5 bg-primary text-on-primary rounded text-[10px] font-bold uppercase" data-mode="party">Party</button>
@@ -293,10 +300,37 @@
             <button class="ct-mode px-3 py-1.5 bg-surface-container-high rounded text-[10px] font-bold uppercase" data-mode="cases">Cases</button>
           </div>
         </div>
-        <div id="constituencyGrid" class="grid gap-[3px]"
-             style="grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); min-height: 320px; max-height: 420px; overflow-y: auto;"></div>
+
+        {% if constituency_dots %}
+          {# Dot map for states with constituency centroids on disk. #}
+          <div class="relative">
+            <div id="constituencyMap" class="rounded-lg border border-outline-variant"
+                 style="height: 420px; background: #eff4ff;"></div>
+            {# Map mode legend — only visible swatch overlay for the active mode #}
+            <div class="absolute top-2 right-2 z-[400] bg-surface-container-lowest/95 backdrop-blur border border-outline-variant rounded-lg px-3 py-2 shadow-sm">
+              <p id="dotmapLegendTitle" class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant mb-1">Party</p>
+              <div id="dotmapLegendBody" class="text-[10px] text-on-surface-variant">
+                <span>Dot color = party</span>
+              </div>
+            </div>
+            <!-- Hover tooltip -->
+            <div id="dotmapTooltip" class="absolute bg-surface-container-lowest border border-outline-variant rounded-lg shadow-lg px-3 py-2 z-[500] pointer-events-none hidden">
+              <div class="font-bold text-on-surface text-label-sm" id="dotmapTipConst">—</div>
+              <div class="text-label-sm" id="dotmapTipBody">—</div>
+            </div>
+          </div>
+        {% else %}
+          {# Fallback: existing tile grid for states without centroids yet. #}
+          <div id="constituencyGrid" class="grid gap-[3px]"
+               style="grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); min-height: 320px; max-height: 420px; overflow-y: auto;"></div>
+        {% endif %}
+
         <div class="flex justify-between items-center mt-stack-sm">
-          <p class="text-[10px] text-on-surface-variant">Hover any tile to see candidate detail.</p>
+          <p class="text-[10px] text-on-surface-variant">
+            {% if not constituency_dots %}
+              Map view coming for {{ state }} once constituencies are geocoded (<code>python scripts/geocode_constituencies.py</code>).
+            {% endif %}
+          </p>
           <a href="/heatmap?state={{ state }}" class="inline-flex items-center gap-1 text-label-sm text-primary hover:underline">
             Open the full heatmap <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
           </a>
@@ -435,6 +469,7 @@
 <script id="india-states" type="application/json">{{ india_states|tojson }}</script>
 <script id="party-wealth-cycles" type="application/json">{{ party_wealth_cycles|tojson }}</script>
 <script id="tiles-data" type="application/json">{{ tiles|tojson }}</script>
+<script id="dots-data" type="application/json">{{ constituency_dots|tojson }}</script>
 
 <script>
 const CURRENT_STATE = {{ state|tojson }};
@@ -615,28 +650,44 @@ document.querySelectorAll('.map-mode-tab').forEach(tab => {
 });
 
 // ============================================================
-// CONSTITUENCY GRID — interactive heatmap embedded on home
+// CONSTITUENCY DEEP-DIVE viz — picks the dot map if we have centroids
+// for this state, otherwise falls back to the existing tile grid.
 // ============================================================
 const TILES = JSON.parse(document.getElementById('tiles-data').textContent);
+const DOTS  = JSON.parse(document.getElementById('dots-data').textContent);
 const ctGrid = document.getElementById('constituencyGrid');
+const dotmapEl = document.getElementById('constituencyMap');
 let ctMode = 'party';
-const maxWealth = Math.max(...TILES.map(t => t.wealth_cr || 0), 1);
-const maxCases  = Math.max(...TILES.map(t => t.cases || 0), 1);
 
-function tileBg(t, mode) {
-  if (mode === 'party')  return t.color || '#7f8c8d';
+// Pre-compute dataset max values from whichever data set is active so the
+// gradient scales appropriately for the state being shown.
+const _allItems = DOTS && DOTS.length ? DOTS : TILES;
+const maxWealth = Math.max(..._allItems.map(t => t.wealth_cr || 0), 1);
+const maxCases  = Math.max(..._allItems.map(t => t.cases || 0), 1);
+
+// --- Shared color rules (used by both tiles and dots) ----------------------
+
+function modeColor(item, mode) {
+  if (mode === 'party')  return item.party_color || item.color || '#7f8c8d';
   if (mode === 'wealth') {
-    const pct = Math.min(1, (t.wealth_cr || 0) / maxWealth);
+    const pct = Math.min(1, (item.wealth_cr || 0) / maxWealth);
+    // Pale → orange gradient for wealth (so the eye reads "bigger = darker")
     const r = Math.round(252 - 35 * pct);
     const g = Math.round(238 - 130 * pct);
     const b = Math.round(231 - 152 * pct);
     return `rgb(${r}, ${g}, ${b})`;
   }
   if (mode === 'cases') {
-    const pct = Math.min(1, (t.cases || 0) / maxCases);
-    return `rgb(${Math.round(250 - 70 * pct)}, ${Math.round(232 - 165 * pct)}, ${Math.round(232 - 165 * pct)})`;
+    // Discrete bands so 0/1-2/3+ cases each get a clear color
+    const c = item.cases || 0;
+    if (c === 0)  return '#2d9b67';   // clean — green
+    if (c <= 2)  return '#d4a017';    // a few — amber
+    return '#b14545';                  // many — red
   }
+  return '#7f8c8d';
 }
+
+// --- Tile grid (fallback) --------------------------------------------------
 
 function renderCt() {
   if (!ctGrid) return;
@@ -644,7 +695,7 @@ function renderCt() {
   TILES.forEach(t => {
     const tile = document.createElement('a');
     tile.href = '/politician/' + t.slug;
-    tile.style.background = tileBg(t, ctMode);
+    tile.style.background = modeColor(t, ctMode);
     tile.style.borderRadius = '6px';
     tile.style.padding = '10px 12px';
     tile.style.color = 'white';
@@ -662,7 +713,106 @@ function renderCt() {
     ctGrid.appendChild(tile);
   });
 }
-renderCt();
+
+// --- Dot map (primary, when centroids are available) -----------------------
+
+let constMap = null;
+let dotLayer = null;
+
+function dotRadius(item) {
+  // Slight size variation by wealth so dense areas don't all look identical.
+  // 5px floor, 14px ceiling — scaled by sqrt to compress large outliers.
+  const cap = 50;  // ₹Cr ceiling for size scaling
+  const w = Math.min(cap, item.wealth_cr || 0);
+  return 5 + Math.sqrt(w / cap) * 9;
+}
+
+function renderDots() {
+  if (!dotmapEl || !DOTS || DOTS.length === 0) return;
+
+  if (!constMap) {
+    constMap = L.map('constituencyMap', {
+      zoomControl: true,
+      attributionControl: false,
+      scrollWheelZoom: false,
+      dragging: true,
+    });
+    constMap.getContainer().style.background = '#eff4ff';
+  }
+
+  if (dotLayer) {
+    constMap.removeLayer(dotLayer);
+  }
+
+  const tooltip = document.getElementById('dotmapTooltip');
+  const tipConst = document.getElementById('dotmapTipConst');
+  const tipBody  = document.getElementById('dotmapTipBody');
+
+  const markers = DOTS.map(d => {
+    const color = modeColor(d, ctMode);
+    const m = L.circleMarker([d.lat, d.lng], {
+      radius:      dotRadius(d),
+      fillColor:   color,
+      color:       '#0b1c30',     // dark stroke for contrast on light bg
+      weight:      0.8,
+      fillOpacity: 0.88,
+    });
+    m.on('mousemove', (e) => {
+      tooltip.classList.remove('hidden');
+      tipConst.textContent = d.constituency;
+      tipBody.innerHTML =
+        `<span class="text-on-surface-variant">${d.mla} · <strong style="color:${d.party_color}">${d.party}</strong> · ` +
+        `₹${d.wealth_cr} Cr · <strong>${d.cases}</strong> case${d.cases === 1 ? '' : 's'}</span>`;
+      const rect = dotmapEl.getBoundingClientRect();
+      tooltip.style.left = (e.originalEvent.clientX - rect.left + 12) + 'px';
+      tooltip.style.top  = (e.originalEvent.clientY - rect.top  + 12) + 'px';
+    });
+    m.on('mouseout', () => tooltip.classList.add('hidden'));
+    m.on('click', () => { window.location.href = '/politician/' + d.slug; });
+    return m;
+  });
+
+  dotLayer = L.layerGroup(markers).addTo(constMap);
+  // Fit the map to the bounding box of all dots
+  const bounds = L.latLngBounds(DOTS.map(d => [d.lat, d.lng]));
+  if (bounds.isValid()) {
+    constMap.fitBounds(bounds, { padding: [24, 24] });
+  } else {
+    constMap.setView([22.5, 80], 5);
+  }
+
+  // Update the corner legend to describe the active mode
+  const legendTitle = document.getElementById('dotmapLegendTitle');
+  const legendBody  = document.getElementById('dotmapLegendBody');
+  if (legendTitle && legendBody) {
+    if (ctMode === 'party') {
+      legendTitle.textContent = 'Party';
+      legendBody.innerHTML = '<span>Dot color = party</span>';
+    } else if (ctMode === 'wealth') {
+      legendTitle.textContent = 'Wealth';
+      legendBody.innerHTML =
+        '<div class="flex items-center gap-2"><span class="w-8 h-1.5 rounded" style="background:linear-gradient(90deg,#fceee7,#9d4300);"></span><span>Low → High ₹Cr</span></div>';
+    } else if (ctMode === 'cases') {
+      legendTitle.textContent = 'Cases';
+      legendBody.innerHTML =
+        '<div class="space-y-0.5">' +
+        '<div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full" style="background:#2d9b67;"></span>0</div>' +
+        '<div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full" style="background:#d4a017;"></span>1–2</div>' +
+        '<div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full" style="background:#b14545;"></span>3+</div>' +
+        '</div>';
+    }
+  }
+}
+
+// --- Initial render (picks whichever view exists in the DOM) ---------------
+
+if (DOTS && DOTS.length > 0 && dotmapEl) {
+  renderDots();
+} else {
+  renderCt();
+}
+
+// Mode toggle — drives both renderers; the inactive one is a no-op.
 document.querySelectorAll('.ct-mode').forEach(btn => {
   btn.onclick = () => {
     document.querySelectorAll('.ct-mode').forEach(b => {
@@ -673,6 +823,7 @@ document.querySelectorAll('.ct-mode').forEach(btn => {
     btn.classList.remove('bg-surface-container-high');
     ctMode = btn.dataset.mode;
     renderCt();
+    renderDots();
   };
 });
 

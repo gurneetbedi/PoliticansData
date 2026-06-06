@@ -250,6 +250,21 @@ def home(
             for s_name in TRACKED_STATE_NAMES
         ],
 
+        # Per-state coverage status for the Data Coverage banner. Computed
+        # fresh on each load so the banner always reflects what's actually
+        # in the DB.
+        "coverage": services.coverage_summary(db),
+
+        # Zonal aggregations for the Constituency Deep-Dive panel —
+        # one card per geographic zone (North / South / East / West /
+        # Northeast / Central) with rolled-up MLA count + Transparency %.
+        "zones": services.zone_summary(db),
+
+        # Per-constituency dot map data for the Deep-Dive right column.
+        # Empty for states that aren't geocoded yet — template falls back
+        # to the tile grid in that case.
+        "constituency_dots": services.constituency_dots(db, state_name=state),
+
         # Helpers
         "party_color": services.party_color,
         "latest":      latest_appearance,

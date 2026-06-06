@@ -13,6 +13,112 @@ from sqlalchemy.orm import Session, joinedload
 from app.models import (
     Politician, ElectionAppearance, Election, Party, Constituency, State,
 )
+from app.states import ALL_STATES
+
+
+def zone_summary(db: Session) -> list[dict]:
+    """
+    Aggregate every tracked state's current-cycle MLAs into geographic zones
+    (North / South / East / West / Northeast / Central) and compute a single
+    Transparency % per zone.
+
+    Returns one dict per non-empty zone:
+        - name:         "North"
+        - mlas:          total MLAs across this zone's states
+        - states:        list of state names in this zone that have data
+        - transparency:  % of MLAs in the zone with zero pending criminal cases
+        - avg_cases:     average pending cases per MLA across the zone
+
+    The number of zones returned only counts those that contain at least one
+    state with data. Empty zones are omitted so the panel doesn't list a
+    "South Zone — 0 MLAs" placeholder until at least one southern state ships.
+    """
+    by_zone = {}
+    for key, cfg in ALL_STATES.items():
+        if not cfg.zone:
+            continue
+        apps = _latest_appearances(db, house="Assembly", scope="current",
+                                    state_name=cfg.name)
+        if not apps:
+            continue
+        bucket = by_zone.setdefault(cfg.zone, {"mlas": 0, "clean": 0,
+                                                "cases": 0, "states": []})
+        for a in apps:
+            bucket["mlas"] += 1
+            if (a.criminal_cases_count or 0) == 0:
+                bucket["clean"] += 1
+            bucket["cases"] += (a.criminal_cases_count or 0)
+        bucket["states"].append(cfg.name)
+
+    out = []
+    for zone, d in by_zone.items():
+        if d["mlas"] == 0:
+            continue
+        out.append({
+            "name":         zone,
+            "mlas":         d["mlas"],
+            "states":       sorted(d["states"]),
+            "transparency": round(100 * d["clean"] / d["mlas"], 0),
+            "avg_cases":    round(d["cases"] / d["mlas"], 1),
+        })
+    # Sort by transparency descending so "cleanest" zone surfaces first
+    out.sort(key=lambda z: z["transparency"], reverse=True)
+    return out
+
+
+def coverage_summary(db: Session) -> list[dict]:
+    """
+    Per-state coverage report comparing the registry (app/states.py — every
+    cycle myneta has) against the local DB (cycles we've actually ingested).
+
+    Returns one dict per state, ordered the same way as TRACKED_STATE_NAMES,
+    with three pieces of information for the Data Coverage banner:
+        - status:    "full"    → every declared cycle has data
+                     "partial" → at least one cycle scraped, but not all
+                     "none"    → no data yet (registered but not scraped)
+        - loaded:    list of cycle years actually in the DB for this state
+        - missing:   list of cycle years declared but absent
+        - notes:     free-text from StateConfig.coverage_notes (e.g.
+                     "detail enrichment ~50%") — appended even on "full" status.
+    """
+    # Pull every (state_name, year) pair that actually has appearance data.
+    # NOT just election-row existence: previous ingest attempts may have
+    # created Election rows for cycles whose candidate scrape failed, which
+    # would falsely classify the state as "full" if we joined only on
+    # state→elections. We join all the way through to election_appearances
+    # so a state-year combo only counts if at least one candidate landed.
+    have = {}
+    rows = (
+        db.query(State.name, Election.year)
+        .join(Election, Election.state_id == State.id)
+        .join(ElectionAppearance, ElectionAppearance.election_id == Election.id)
+        .filter(Election.house == "Assembly")
+        .distinct()
+        .all()
+    )
+    for name, year in rows:
+        have.setdefault(name, set()).add(year)
+
+    out = []
+    for key, cfg in ALL_STATES.items():
+        declared_years = {c["year"] for c in cfg.assembly_cycles}
+        loaded_years = have.get(cfg.name, set()) & declared_years
+        missing_years = declared_years - loaded_years
+        if not loaded_years:
+            status = "none"
+        elif missing_years:
+            status = "partial"
+        else:
+            status = "full"
+        out.append({
+            "key":    key,
+            "name":   cfg.name,
+            "status": status,
+            "loaded":  sorted(loaded_years, reverse=True),
+            "missing": sorted(missing_years, reverse=True),
+            "notes":   cfg.coverage_notes,
+        })
+    return out
 
 
 # Brand colors for major Punjab parties. Used in badges, the scatter chart,
@@ -340,6 +446,92 @@ def constituency_tiles(db: Session, year: Optional[int] = None, state_name: Opti
         })
     tiles.sort(key=lambda t: t["constituency"])
     return tiles
+
+
+# ---------------- Constituency dot map -----------------------------------------
+# Lazy-load the centroid file once per process. The static file is keyed by
+# uppercased constituency name (e.g. "ABOHAR" → {lat, lng}). Currently only
+# Punjab is geocoded; other states will return an empty dict.
+_constituency_coords_cache: dict[str, dict] = {}
+
+def _load_constituency_coords() -> dict[str, dict]:
+    global _constituency_coords_cache
+    if _constituency_coords_cache:
+        return _constituency_coords_cache
+    import json
+    from pathlib import Path
+    path = Path(__file__).resolve().parent / "static" / "constituency_coords.json"
+    if not path.exists():
+        return {}
+    try:
+        with open(path) as f:
+            _constituency_coords_cache = json.load(f)
+    except Exception:
+        _constituency_coords_cache = {}
+    return _constituency_coords_cache
+
+
+def constituency_dots(db: Session, state_name: Optional[str] = None) -> list[dict]:
+    """
+    Per-constituency dot data for the Leaflet map on the homepage.
+    Returns one dict per constituency that BOTH has a current-cycle winner
+    AND has a known lat/lng centroid. Constituencies without coords are
+    silently omitted so the map can still render even if geocoding is
+    incomplete for the state.
+
+    Output shape (one dict per dot):
+        {
+            "constituency":  "ABOHAR",
+            "mla":           "Sandeep Jakhar",
+            "slug":          "sandeep-jakhar-punjab2022-2",
+            "party":         "INC",
+            "party_color":   "#19aaed",
+            "wealth_cr":     1.57,
+            "cases":         0,
+            "lat":           30.1450543,
+            "lng":           74.1956597,
+        }
+
+    The caller can check `len(constituency_dots(...))` to decide whether to
+    render the dot map or fall back to the tile grid.
+    """
+    coords = _load_constituency_coords()
+    if not coords:
+        return []
+
+    # Normalize keys for case-insensitive lookups. The JSON file uses raw
+    # uppercase keys; ensure we match those even if DB names are mixed case.
+    coords_upper = {k.upper().strip(): v for k, v in coords.items()}
+
+    apps = _latest_appearances(db, house="Assembly", scope="current",
+                                state_name=state_name)
+
+    dots = []
+    for a in apps:
+        if not a.constituency or not a.politician:
+            continue
+        # Strip (SC) / (ST) reservation suffixes for matching — the centroid
+        # file is keyed by the plain name without reservation tags.
+        plain = a.constituency.name.upper().strip()
+        for suffix in (" (SC)", " (ST)", "(SC)", "(ST)"):
+            plain = plain.replace(suffix, "").strip()
+
+        loc = coords_upper.get(plain)
+        if not loc:
+            continue
+
+        dots.append({
+            "constituency": a.constituency.name,
+            "mla":          a.politician.display_name,
+            "slug":         a.politician.slug or str(a.politician.id),
+            "party":        a.party.short_name if a.party else "IND",
+            "party_color":  party_color(a.party.short_name if a.party else None),
+            "wealth_cr":    round((a.total_assets_inr or 0) / CRORE, 2),
+            "cases":        a.criminal_cases_count or 0,
+            "lat":          loc.get("lat"),
+            "lng":          loc.get("lng"),
+        })
+    return dots
 
 
 # ---------------- Did You Know -----------------------------------------------
