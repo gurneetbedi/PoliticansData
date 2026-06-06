@@ -36,6 +36,75 @@
   </section>
 
   <!-- ============================================================ -->
+  <!-- DATA COVERAGE BANNER — honest about what's loaded and what isn't -->
+  <!-- ============================================================ -->
+  {% set _full    = coverage | selectattr('status','equalto','full')    | list %}
+  {% set _partial = coverage | selectattr('status','equalto','partial') | list %}
+  {% set _none    = coverage | selectattr('status','equalto','none')    | list %}
+  <section class="px-margin-mobile md:px-margin-desktop mt-stack-md">
+    <div class="max-w-container-max mx-auto">
+      <details class="group bg-surface-container-low border border-outline-variant rounded-xl overflow-hidden">
+        <summary class="cursor-pointer flex items-center justify-between p-stack-md hover:bg-surface-container transition-colors">
+          <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-secondary-container">info</span>
+            <div class="text-left">
+              <p class="text-label-lg font-label-lg text-on-surface">Data coverage notice</p>
+              <p class="text-label-sm text-on-surface-variant mt-0.5">
+                {{ _full|length }} state{{ '' if _full|length == 1 else 's' }} fully covered ·
+                {{ _partial|length }} partial ·
+                {{ _none|length }} registered but not yet scraped.
+                Click to see per-state details.
+              </p>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-on-surface-variant group-open:rotate-180 transition-transform">expand_more</span>
+        </summary>
+        <div class="px-stack-md pb-stack-md border-t border-outline-variant">
+          <p class="text-body-md text-on-surface-variant mt-stack-md mb-stack-md max-w-3xl">
+            All data is sourced from candidate affidavits on
+            <a href="https://myneta.info/" target="_blank" class="text-secondary underline">myneta.info</a>
+            (ADR) and is loaded into our database state-by-state. Some states have
+            partial coverage — election cycles missing, or per-affidavit asset/case
+            detail still pending — because the polite scraping rate limit (2 seconds
+            between requests) makes the full pull slow. Coverage will fill in over time.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-stack-md">
+            {% for status_key, status_label, items, badge_class in [
+                ('full',    'Fully covered',           _full,    'bg-tertiary-fixed text-on-tertiary-container'),
+                ('partial', 'Partial',                 _partial, 'bg-secondary-fixed text-on-secondary-fixed-variant'),
+                ('none',    'Registered, not scraped', _none,    'bg-surface-container-highest text-on-surface-variant'),
+              ] %}
+              <div>
+                <p class="text-label-sm font-label-sm uppercase tracking-wider text-on-surface-variant mb-2">{{ status_label }}</p>
+                {% if items %}
+                  <ul class="space-y-1">
+                    {% for c in items %}
+                      <li class="text-label-sm">
+                        <a href="/?state={{ c.name }}" class="hover:underline">
+                          <span class="font-bold text-on-surface">{{ c.name }}</span>
+                          {% if c.status == 'partial' and c.missing %}
+                            <span class="text-on-surface-variant">— missing {{ c.missing|join(', ') }}</span>
+                          {% endif %}
+                          {% if c.notes %}
+                            <span class="block text-[10px] italic text-on-surface-variant mt-0.5">{{ c.notes }}</span>
+                          {% endif %}
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% else %}
+                  <p class="text-label-sm italic text-on-surface-variant">— none —</p>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
   <!-- REAL INDIA MAP (Leaflet + GeoJSON) — Political Integrity     -->
   <!-- ============================================================ -->
   <section class="px-margin-mobile md:px-margin-desktop">
@@ -44,30 +113,27 @@
         <!-- Map canvas -->
         <div id="indiaMap" class="absolute inset-0"></div>
 
-        <!-- Case Intensity legend (top left) — discrete buckets by avg cases per MLA -->
-        <div class="absolute top-stack-md left-stack-md bg-surface-container-lowest rounded-xl border border-outline-variant px-3 py-2 shadow-sm z-[400]">
-          <p class="text-label-sm font-label-sm uppercase tracking-wider text-on-surface-variant mb-2">Avg cases per MLA</p>
-          <div class="space-y-1">
-            <div class="flex items-center gap-2">
-              <span class="w-3 h-3 rounded-sm" style="background:#2d9b67;"></span>
-              <span class="text-[10px] text-on-surface-variant">&lt; 1 &nbsp;· Clean</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="w-3 h-3 rounded-sm" style="background:#7d8c69;"></span>
-              <span class="text-[10px] text-on-surface-variant">1 – 2 &nbsp;· Low</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="w-3 h-3 rounded-sm" style="background:#d4a017;"></span>
-              <span class="text-[10px] text-on-surface-variant">2 – 4 &nbsp;· Moderate</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="w-3 h-3 rounded-sm" style="background:#d9714f;"></span>
-              <span class="text-[10px] text-on-surface-variant">4 – 6 &nbsp;· High</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="w-3 h-3 rounded-sm" style="background:#b14545;"></span>
-              <span class="text-[10px] text-on-surface-variant">6+ &nbsp;· Severe</span>
-            </div>
+        <!-- Map legend — gradient bar with a Cases ↔ Wealth tab toggle.
+             Clicking a tab swaps the metric that drives the map coloring and
+             the hover tooltip. -->
+        <div class="absolute top-stack-md left-stack-md bg-surface-container-lowest/95 backdrop-blur rounded-xl border border-outline-variant px-3 py-2 shadow-sm z-[400] min-w-[180px]">
+          {# Mode tabs — wired to JS via data-mode attribute. The currently-selected
+             tab gets the bg-surface-container-lowest highlight. #}
+          <div class="flex bg-surface-container-high p-1 rounded-lg border border-outline-variant mb-2">
+            <button type="button" data-map-mode="cases"
+                    class="map-mode-tab flex-1 px-2 py-1 text-[11px] font-bold rounded transition-all bg-surface-container-lowest text-primary shadow-sm">
+              Cases
+            </button>
+            <button type="button" data-map-mode="wealth"
+                    class="map-mode-tab flex-1 px-2 py-1 text-[11px] font-bold rounded transition-all text-on-surface-variant hover:text-primary">
+              Wealth
+            </button>
+          </div>
+          <p class="text-label-sm font-label-sm uppercase tracking-wider text-on-surface-variant mb-1" id="mapLegendTitle">Case intensity</p>
+          <div class="h-2 w-40 rounded-full" style="background: linear-gradient(90deg, #2d9b67, #d4a017, #d9714f, #b14545);"></div>
+          <div class="flex justify-between text-[10px] text-on-surface-variant mt-1">
+            <span id="mapLegendLow">Low</span>
+            <span id="mapLegendHigh">High</span>
           </div>
           <div class="flex items-center gap-2 mt-2 pt-2 border-t border-outline-variant">
             <span class="w-3 h-3 rounded-sm bg-[#e6ebf1] border border-outline-variant"></span>
@@ -91,6 +157,15 @@
           <span class="material-symbols-outlined text-secondary-container text-4xl">map</span>
           <h3 class="text-headline-md font-headline-md text-on-surface mt-2">India map data missing</h3>
           <p class="text-body-md text-on-surface-variant mt-1 max-w-md">Run <code class="bg-surface-container px-2 py-1 rounded">python scripts/download_india_geojson.py</code> to enable the National Integrity Map.</p>
+        </div>
+
+        <!-- Click-affordance prompt at the bottom of the map (from Stitch design).
+             Hidden when a tooltip is shown so they don't fight for the same pixels. -->
+        <div id="mapClickPrompt" class="absolute bottom-stack-md left-1/2 -translate-x-1/2 z-[300] flex flex-col items-center gap-2 pointer-events-none">
+          <div class="bg-primary text-on-primary px-4 py-2 rounded-full text-label-sm font-bold flex items-center gap-2 shadow-lg">
+            <span class="material-symbols-outlined text-[16px]">ads_click</span>
+            Click any state to drill through
+          </div>
         </div>
       </div>
     </div>
@@ -138,70 +213,94 @@
   {% endif %}
 
   <!-- ============================================================ -->
-  <!-- CONSTITUENCY DEEP-DIVE (left)  +  INTERACTIVE HEATMAP (right) -->
+  <!-- CONSTITUENCY DEEP-DIVE — Stitch-inspired 1/3 + 2/3 split.
+       Left column is a compact, scrollable per-state picker that stays
+       a fixed height regardless of how many states are tracked. Right
+       column gets twice the width for the constituency heatmap. -->
   <!-- ============================================================ -->
   <section class="px-margin-mobile md:px-margin-desktop mt-stack-lg">
-    <div class="max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+    <div class="max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-3 gap-gutter">
 
-      <!-- LEFT: Deep-Dive -->
-      <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-stack-md">
+      <!-- LEFT (1/3): Deep-Dive text + state picker -->
+      <div class="lg:col-span-1 bg-surface-container-lowest border border-outline-variant rounded-2xl p-stack-md flex flex-col">
         <h2 class="text-headline-md font-headline-md text-on-surface mb-stack-sm">Constituency Deep-Dive</h2>
         <p class="text-body-md text-on-surface-variant mb-stack-md">
-          Explore regional integrity metrics. Select a state to dive into local constituency performance and candidate profiles.
+          Explore regional integrity metrics. Select a state to dive into local constituency performance.
         </p>
-        <div class="space-y-stack-sm">
-          {# Cycle through a small palette so each tracked state gets a
-             stable-looking marker color without a per-state hardcode. The
-             registry order in app/states.py defines the cycle. #}
-          {% set _palette = [
-              '#fd761a', '#d9714f', '#2d9b67', '#7d8c69', '#19aaed',
-              '#d4a017', '#b14545', '#1a3399', '#22336d', '#ff9933',
-              '#019cdf', '#7d8c69', '#9d4300', '#0b1c30'
-          ] %}
-          {% for entry in TRACKED_STATES %}
-            {% set zname = entry.name %}
-            {% set zcolor = _palette[loop.index0 % (_palette | length)] %}
-            {% set is_active = (state == zname) %}
-            {# Find the matching KPI block from india_states for this zone #}
-            {% set zone_kpi = (india_states | selectattr('name','equalto',zname) | list | first) %}
-            {% set has_data = zone_kpi and zone_kpi.kpi and (zone_kpi.kpi.count or 0) > 0 %}
-            <a href="/?state={{ zname }}&view={{ view }}&scope={{ scope }}"
-               class="flex items-center justify-between px-stack-md py-stack-sm rounded-xl border {% if is_active %}border-primary bg-surface-container-low{% else %}border-outline-variant bg-surface-container-lowest hover:bg-surface-container-low{% endif %} transition-colors">
-              <div class="flex items-center gap-2">
-                <span class="w-3 h-3 rounded-full" style="background: {{ zcolor }};"></span>
-                <span class="font-bold text-on-surface">{{ zname }}</span>
+
+        {# Compact per-state list — bucketed by coverage status so the most
+           useful states (Full → Partial → Coming soon) appear together,
+           and the list scrolls inside a fixed height frame. #}
+        {% set _full_states    = coverage | selectattr('status','equalto','full')    | list %}
+        {% set _partial_states = coverage | selectattr('status','equalto','partial') | list %}
+        {% set _none_states    = coverage | selectattr('status','equalto','none')    | list %}
+        {% set _palette = [
+            '#fd761a', '#d9714f', '#2d9b67', '#7d8c69', '#19aaed',
+            '#d4a017', '#b14545', '#1a3399', '#22336d', '#ff9933',
+            '#019cdf', '#7d8c69', '#9d4300', '#0b1c30'
+        ] %}
+
+        <div class="overflow-y-auto pr-1" style="max-height: 420px;">
+          {% for group_label, group_states in [
+              ('Available now', _full_states + _partial_states),
+              ('Coming soon',   _none_states),
+            ] %}
+            {% if group_states %}
+              <p class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant mt-stack-sm mb-1 first:mt-0">
+                {{ group_label }} · {{ group_states|length }}
+              </p>
+              <div class="space-y-1">
+                {% for c in group_states %}
+                  {% set zname = c.name %}
+                  {% set zcolor = _palette[loop.index0 % (_palette | length)] %}
+                  {% set is_active = (state == zname) %}
+                  {% set zone_kpi = (india_states | selectattr('name','equalto',zname) | list | first) %}
+                  {% set has_data = (c.status != 'none') and zone_kpi and zone_kpi.kpi and (zone_kpi.kpi.count or 0) > 0 %}
+                  <a href="/?state={{ zname }}&view={{ view }}&scope={{ scope }}"
+                     class="flex items-center justify-between px-3 py-2 rounded-lg border text-label-sm
+                            {% if is_active %}border-primary bg-surface-container-low font-bold{% else %}border-outline-variant hover:bg-surface-container-low{% endif %}
+                            {% if not has_data %}opacity-60{% endif %} transition-colors">
+                    <div class="flex items-center gap-2 min-w-0">
+                      <span class="w-2.5 h-2.5 rounded-full flex-shrink-0" style="background: {{ zcolor }};"></span>
+                      <span class="text-on-surface truncate">{{ zname }}</span>
+                    </div>
+                    {% if has_data and zone_kpi.kpi.count %}
+                      <span class="text-[10px] text-on-surface-variant flex-shrink-0 ml-2">{{ zone_kpi.kpi.count }} MLAs</span>
+                    {% elif c.status == 'partial' and c.missing %}
+                      <span class="text-[10px] text-on-surface-variant italic flex-shrink-0 ml-2">partial</span>
+                    {% else %}
+                      <span class="text-[10px] text-on-surface-variant italic flex-shrink-0 ml-2">—</span>
+                    {% endif %}
+                  </a>
+                {% endfor %}
               </div>
-              <span class="text-label-sm text-on-surface-variant">
-                {% if not has_data %}
-                  Data coming soon
-                {% elif zname == state %}
-                  {{ "{:.0f}".format(100 - (kpis.pct_with_cases or 0)) }}% Clean record
-                {% else %}
-                  View →
-                {% endif %}
-              </span>
-            </a>
+            {% endif %}
           {% endfor %}
         </div>
       </div>
 
-      <!-- RIGHT: Real Heatmap visualization (constituency grid) -->
-      <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-stack-md">
-        <div class="flex justify-between items-start mb-stack-sm">
+      <!-- RIGHT (2/3): Constituency heatmap visualization — gets the bigger
+                       canvas, matching the Stitch layout proportions. -->
+      <div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-2xl p-stack-md">
+        <div class="flex justify-between items-start mb-stack-sm flex-wrap gap-stack-sm">
           <div>
-            <h3 class="text-headline-md font-headline-md text-on-surface">Interactive Heatmap</h3>
-            <p class="text-label-sm text-on-surface-variant">Each tile = one constituency. Click to view the MLA.</p>
+            <h3 class="text-headline-md font-headline-md text-on-surface">{{ state }} · Constituency heatmap</h3>
+            <p class="text-label-sm text-on-surface-variant">Each tile = one constituency. Click any tile to open the MLA's profile.</p>
           </div>
           <div class="flex gap-1">
-            <button class="ct-mode active px-2 py-1 bg-primary text-on-primary rounded text-[10px] font-bold uppercase" data-mode="party">Party</button>
-            <button class="ct-mode px-2 py-1 bg-surface-container-high rounded text-[10px] font-bold uppercase" data-mode="wealth">Wealth</button>
-            <button class="ct-mode px-2 py-1 bg-surface-container-high rounded text-[10px] font-bold uppercase" data-mode="cases">Cases</button>
+            <button class="ct-mode active px-3 py-1.5 bg-primary text-on-primary rounded text-[10px] font-bold uppercase" data-mode="party">Party</button>
+            <button class="ct-mode px-3 py-1.5 bg-surface-container-high rounded text-[10px] font-bold uppercase" data-mode="wealth">Wealth</button>
+            <button class="ct-mode px-3 py-1.5 bg-surface-container-high rounded text-[10px] font-bold uppercase" data-mode="cases">Cases</button>
           </div>
         </div>
-        <div id="constituencyGrid" class="grid gap-[3px]" style="grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); max-height: 320px; overflow-y: auto;"></div>
-        <a href="/heatmap?state={{ state }}" class="inline-flex items-center gap-1 text-label-sm text-primary mt-stack-sm hover:underline">
-          Open the full heatmap <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
-        </a>
+        <div id="constituencyGrid" class="grid gap-[3px]"
+             style="grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); min-height: 320px; max-height: 420px; overflow-y: auto;"></div>
+        <div class="flex justify-between items-center mt-stack-sm">
+          <p class="text-[10px] text-on-surface-variant">Hover any tile to see candidate detail.</p>
+          <a href="/heatmap?state={{ state }}" class="inline-flex items-center gap-1 text-label-sm text-primary hover:underline">
+            Open the full heatmap <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -349,10 +448,12 @@ const STATE_DATA = JSON.parse(document.getElementById('india-states').textConten
 const STATE_KPI = {};
 STATE_DATA.forEach(s => { STATE_KPI[s.name] = s.kpi; });
 
-// Map color buckets are now driven by avg pending criminal cases per MLA.
-// Thresholds were chosen to spread the three current states (Punjab, Bihar, Goa)
-// across visibly different buckets while leaving headroom at the top end for
-// future states with worse averages.
+// Map color buckets driven by either avg cases per MLA or avg wealth per MLA.
+// Wealth thresholds are in ₹ crore (note services exposes avg_wealth_cr).
+// Color ramp green → yellow → orange → red is shared so the gradient
+// legend bar works for both modes without re-rendering.
+let MAP_MODE = 'cases';  // 'cases' or 'wealth'
+
 function bucketForAvgCases(avg) {
   if (avg == null) return { color: '#e6ebf1', label: 'Data not available' };
   if (avg < 1)  return { color: '#2d9b67', label: 'Clean' };
@@ -360,6 +461,22 @@ function bucketForAvgCases(avg) {
   if (avg < 4)  return { color: '#d4a017', label: 'Moderate' };
   if (avg < 6)  return { color: '#d9714f', label: 'High' };
   return            { color: '#b14545', label: 'Severe' };
+}
+
+function bucketForAvgWealth(crores) {
+  if (crores == null) return { color: '#e6ebf1', label: 'Data not available' };
+  if (crores < 1)   return { color: '#2d9b67', label: 'Modest' };
+  if (crores < 5)   return { color: '#7d8c69', label: 'Comfortable' };
+  if (crores < 15)  return { color: '#d4a017', label: 'High' };
+  if (crores < 30)  return { color: '#d9714f', label: 'Very high' };
+  return                  { color: '#b14545', label: 'Extreme' };
+}
+
+function bucketForMetric(kpi) {
+  if (!kpi) return { color: '#e6ebf1', label: 'Data not available' };
+  return MAP_MODE === 'wealth'
+    ? bucketForAvgWealth(kpi.avg_wealth_cr)
+    : bucketForAvgCases(kpi.avg_cases_per_mla);
 }
 
 // Common variants of state names that may differ between our DB and the GeoJSON
@@ -406,7 +523,7 @@ function styleFeature(feature) {
   const kpi = findKpiForState(name);
   const hasData = !!kpi;
   const isSelected = (normalizeStateName(name).toLowerCase() === normalizeStateName(CURRENT_STATE).toLowerCase());
-  const bucket = hasData ? bucketForAvgCases(kpi.avg_cases_per_mla) : { color: '#e6ebf1' };
+  const bucket = bucketForMetric(kpi);
   return {
     fillColor: bucket.color,
     weight: isSelected ? 2.5 : 0.75,
@@ -423,10 +540,17 @@ function onEachFeature(feature, layer) {
     mousemove: (e) => {
       layer.setStyle({ weight: 2, color: '#131b2e' });
       imTooltip.classList.remove('hidden');
+      // Hide the "click to drill through" prompt while a tooltip is shown
+      // so they don't overlap visually.
+      const prompt = document.getElementById('mapClickPrompt');
+      if (prompt) prompt.style.opacity = '0';
       imtName.textContent = name;
       if (kpi) {
-        const b = bucketForAvgCases(kpi.avg_cases_per_mla);
-        imtData.innerHTML = `<span class="text-on-surface-variant"><strong style="color:${b.color}">${b.label}</strong> · ${kpi.avg_cases_per_mla} cases / MLA · ${kpi.count} MLAs</span>`;
+        const b = bucketForMetric(kpi);
+        const metricLine = MAP_MODE === 'wealth'
+          ? `${kpi.avg_wealth_cr} Cr avg / MLA`
+          : `${kpi.avg_cases_per_mla} cases / MLA`;
+        imtData.innerHTML = `<span class="text-on-surface-variant"><strong style="color:${b.color}">${b.label}</strong> · ${metricLine} · ${kpi.count} MLAs</span>`;
       } else {
         imtData.innerHTML = `<span class="text-on-surface-variant italic">Data Not Available</span>`;
       }
@@ -437,6 +561,8 @@ function onEachFeature(feature, layer) {
     mouseout: () => {
       imTooltip.classList.add('hidden');
       indiaLayer.resetStyle(layer);
+      const prompt = document.getElementById('mapClickPrompt');
+      if (prompt) prompt.style.opacity = '1';
     },
     click: () => {
       if (kpi) window.location.href = '/?state=' + encodeURIComponent(name);
@@ -455,6 +581,38 @@ fetch('/static/india_states.geojson')
     indiaMapMissing.classList.remove('hidden');
     indiaMapMissing.style.display = 'flex';
   });
+
+// Cases ↔ Wealth tab toggle. Swaps the metric driving the choropleth
+// (resetStyle re-runs styleFeature against the current MAP_MODE) and
+// updates the legend title + axis labels in place.
+document.querySelectorAll('.map-mode-tab').forEach(tab => {
+  tab.addEventListener('click', (e) => {
+    const mode = tab.dataset.mapMode;
+    if (mode === MAP_MODE) return;
+    MAP_MODE = mode;
+
+    // Restyle every state polygon with the new metric
+    if (indiaLayer) indiaLayer.eachLayer(l => indiaLayer.resetStyle(l));
+
+    // Update tab visuals — picked tab gets the white pill, the other reverts
+    document.querySelectorAll('.map-mode-tab').forEach(t => {
+      const active = t.dataset.mapMode === mode;
+      t.classList.toggle('bg-surface-container-lowest', active);
+      t.classList.toggle('text-primary', active);
+      t.classList.toggle('shadow-sm', active);
+      t.classList.toggle('text-on-surface-variant', !active);
+      t.classList.toggle('hover:text-primary', !active);
+    });
+
+    // Update the legend text — title + low/high anchors
+    document.getElementById('mapLegendTitle').textContent =
+      mode === 'wealth' ? 'Avg wealth per MLA' : 'Case intensity';
+    document.getElementById('mapLegendLow').textContent =
+      mode === 'wealth' ? '₹0' : 'Low';
+    document.getElementById('mapLegendHigh').textContent =
+      mode === 'wealth' ? '₹30Cr+' : 'High';
+  });
+});
 
 // ============================================================
 // CONSTITUENCY GRID — interactive heatmap embedded on home
