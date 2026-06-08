@@ -68,15 +68,21 @@ from app.scrapers.goa    import scrape_all_goa,    scrape_all_goa_candidates,   
 from app.scrapers.sikkim import scrape_all_sikkim, scrape_all_sikkim_candidates, SIKKIM_CYCLES
 from app.scrapers.delhi  import scrape_all_delhi,  scrape_all_delhi_candidates,  DELHI_CYCLES
 from app.scrapers.small_states import (
-    scrape_all_puducherry,  scrape_all_puducherry_candidates,  PUDUCHERRY_CYCLES,
-    scrape_all_mizoram,     scrape_all_mizoram_candidates,     MIZORAM_CYCLES,
-    scrape_all_manipur,     scrape_all_manipur_candidates,     MANIPUR_CYCLES,
-    scrape_all_meghalaya,   scrape_all_meghalaya_candidates,   MEGHALAYA_CYCLES,
-    scrape_all_nagaland,    scrape_all_nagaland_candidates,    NAGALAND_CYCLES,
-    scrape_all_tripura,     scrape_all_tripura_candidates,     TRIPURA_CYCLES,
-    scrape_all_arunachal,   scrape_all_arunachal_candidates,   ARUNACHAL_CYCLES,
-    scrape_all_himachal,    scrape_all_himachal_candidates,    HIMACHAL_CYCLES,
-    scrape_all_uttarakhand, scrape_all_uttarakhand_candidates, UTTARAKHAND_CYCLES,
+    scrape_all_puducherry,   scrape_all_puducherry_candidates,   PUDUCHERRY_CYCLES,
+    scrape_all_mizoram,      scrape_all_mizoram_candidates,      MIZORAM_CYCLES,
+    scrape_all_manipur,      scrape_all_manipur_candidates,      MANIPUR_CYCLES,
+    scrape_all_meghalaya,    scrape_all_meghalaya_candidates,    MEGHALAYA_CYCLES,
+    scrape_all_nagaland,     scrape_all_nagaland_candidates,     NAGALAND_CYCLES,
+    scrape_all_tripura,      scrape_all_tripura_candidates,      TRIPURA_CYCLES,
+    scrape_all_arunachal,    scrape_all_arunachal_candidates,    ARUNACHAL_CYCLES,
+    scrape_all_himachal,     scrape_all_himachal_candidates,     HIMACHAL_CYCLES,
+    scrape_all_uttarakhand,  scrape_all_uttarakhand_candidates,  UTTARAKHAND_CYCLES,
+    scrape_all_jharkhand,    scrape_all_jharkhand_candidates,    JHARKHAND_CYCLES,
+    scrape_all_haryana,      scrape_all_haryana_candidates,      HARYANA_CYCLES,
+    scrape_all_chhattisgarh, scrape_all_chhattisgarh_candidates, CHHATTISGARH_CYCLES,
+    scrape_all_jk,           scrape_all_jk_candidates,           JK_CYCLES,
+    scrape_all_telangana,    scrape_all_telangana_candidates,    TELANGANA_CYCLES,
+    scrape_all_assam,        scrape_all_assam_candidates,        ASSAM_CYCLES,
 )
 from app.models import Asset, CriminalCase
 
@@ -785,8 +791,16 @@ _SMALL_STATES = [
     ("nagaland",    "Nagaland",            "NL",  NAGALAND_CYCLES,    scrape_all_nagaland,    scrape_all_nagaland_candidates),
     ("tripura",     "Tripura",             "TR",  TRIPURA_CYCLES,     scrape_all_tripura,     scrape_all_tripura_candidates),
     ("arunachal",   "Arunachal Pradesh",   "AR",  ARUNACHAL_CYCLES,   scrape_all_arunachal,   scrape_all_arunachal_candidates),
-    ("himachal",    "Himachal Pradesh",    "HP",  HIMACHAL_CYCLES,    scrape_all_himachal,    scrape_all_himachal_candidates),
-    ("uttarakhand", "Uttarakhand",         "UK",  UTTARAKHAND_CYCLES, scrape_all_uttarakhand, scrape_all_uttarakhand_candidates),
+    ("himachal",     "Himachal Pradesh", "HP", HIMACHAL_CYCLES,     scrape_all_himachal,     scrape_all_himachal_candidates),
+    ("uttarakhand",  "Uttarakhand",      "UK", UTTARAKHAND_CYCLES,  scrape_all_uttarakhand,  scrape_all_uttarakhand_candidates),
+    # Next-smallest tier (81-90 seats)
+    ("jharkhand",    "Jharkhand",        "JH", JHARKHAND_CYCLES,    scrape_all_jharkhand,    scrape_all_jharkhand_candidates),
+    ("haryana",      "Haryana",          "HR", HARYANA_CYCLES,      scrape_all_haryana,      scrape_all_haryana_candidates),
+    ("chhattisgarh", "Chhattisgarh",     "CG", CHHATTISGARH_CYCLES, scrape_all_chhattisgarh, scrape_all_chhattisgarh_candidates),
+    # Zone-balancing batch (90-126 seats)
+    ("jk",           "Jammu and Kashmir","JK", JK_CYCLES,           scrape_all_jk,           scrape_all_jk_candidates),
+    ("telangana",    "Telangana",        "TG", TELANGANA_CYCLES,    scrape_all_telangana,    scrape_all_telangana_candidates),
+    ("assam",        "Assam",            "AS", ASSAM_CYCLES,        scrape_all_assam,        scrape_all_assam_candidates),
 ]
 
 # Bind one ingest function per (state, mode) into module globals so the CLI

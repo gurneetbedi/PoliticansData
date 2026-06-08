@@ -308,11 +308,13 @@
 
         {% if constituency_dots %}
           {# Dot map for states with constituency centroids on disk.
-             `flex-1 min-h-[420px]` lets it grow to fill column height
-             while keeping a usable minimum. #}
-          <div class="relative flex-1 min-h-[420px]">
-            <div id="constituencyMap" class="rounded-lg border border-outline-variant absolute inset-0"
-                 style="background: #eff4ff;"></div>
+             Leaflet needs a definite pixel height at init time — `absolute
+             inset-0` inside a still-computing flex parent reads as 0×0 and
+             the tile layer never loads. Give the map a concrete min-height
+             that fits the panel and let it grow naturally via flex-1. #}
+          <div class="relative flex-1" style="min-height: 520px;">
+            <div id="constituencyMap" class="rounded-lg border border-outline-variant w-full h-full"
+                 style="background: #eff4ff; min-height: 520px;"></div>
             {# Map mode legend — only visible swatch overlay for the active mode.
                Wider container so the Party mode's swatch list fits without ellipsis. #}
             <div class="absolute top-2 right-2 z-[400] bg-surface-container-lowest/95 backdrop-blur border border-outline-variant rounded-lg px-3 py-2 shadow-sm min-w-[160px]">
@@ -727,28 +729,76 @@ function renderCt() {
 
 let constMap = null;
 let dotLayer = null;
+let stateOutlineLayer = null;
+// CURRENT_STATE comes from a Jinja-injected var below. Used to find the
+// matching feature in india_states.geojson so we can draw a bold outline
+// around just the selected state on the constituency map.
+const SELECTED_STATE_NAME = "{{ state }}";
+
+// Cache the parsed India GeoJSON once it's loaded so subsequent renders
+// (mode switches) don't refetch.
+let _indiaStatesGeo = null;
+function _loadIndiaGeo() {
+  if (_indiaStatesGeo) return Promise.resolve(_indiaStatesGeo);
+  return fetch('/static/india_states.geojson')
+    .then(r => r.ok ? r.json() : null)
+    .then(g => { _indiaStatesGeo = g; return g; })
+    .catch(() => null);
+}
+
+function _findStateFeature(geo, stateName) {
+  if (!geo || !geo.features) return null;
+  const target = (stateName || '').trim().toLowerCase().replace(/&/g, 'and');
+  for (const f of geo.features) {
+    const p = f.properties || {};
+    const candidates = [p.NAME_1, p.ST_NM, p.name, p.STATE, p.State, p.st_nm]
+      .filter(Boolean)
+      .map(s => s.trim().toLowerCase().replace(/&/g, 'and'));
+    if (candidates.includes(target)) return f;
+  }
+  return null;
+}
 
 function dotRadius(item) {
-  // Slight size variation by wealth so dense areas don't all look identical.
-  // 5px floor, 14px ceiling — scaled by sqrt to compress large outliers.
+  // Slight size variation by wealth. 3px floor, 9px ceiling — smaller than
+  // the original scale per user feedback (dots were dominating the map).
+  // Sqrt compresses large outliers so a ₹100Cr MLA doesn't dwarf a ₹2Cr one.
   const cap = 50;  // ₹Cr ceiling for size scaling
   const w = Math.min(cap, item.wealth_cr || 0);
-  return 5 + Math.sqrt(w / cap) * 9;
+  return 3 + Math.sqrt(w / cap) * 6;
 }
 
 function renderDots() {
   if (!dotmapEl || !DOTS || DOTS.length === 0) return;
 
   if (!constMap) {
+    // Compute an immediate initial view from the dots themselves so the map
+    // has a valid center/zoom AT INIT TIME. Without this the map sits in a
+    // 'no view' state until the async india_states.geojson fetch returns,
+    // and tiles never request because there's no viewport to request them
+    // for. (The top India map works because it calls .setView() inline.)
+    let initLat = 22.5, initLng = 80, initZoom = 5;
+    if (DOTS && DOTS.length) {
+      // Centroid of the dot cloud — close enough for first paint; fitBounds
+      // tightens later once the geojson polygon arrives.
+      const sumLat = DOTS.reduce((s, d) => s + d.lat, 0);
+      const sumLng = DOTS.reduce((s, d) => s + d.lng, 0);
+      initLat = sumLat / DOTS.length;
+      initLng = sumLng / DOTS.length;
+      initZoom = 7;
+    }
     constMap = L.map('constituencyMap', {
       zoomControl: true,
-      attributionControl: true,
+      attributionControl: true,    // visible because we render CartoDB tiles
       scrollWheelZoom: false,
       dragging: true,
-    });
-    // CartoDB Positron — light grayscale basemap. Free, no API key, gives
-    // the dots a real-world geographic context (roads, districts, water,
-    // labels) without competing visually with the colored party dots.
+    }).setView([initLat, initLng], initZoom);
+
+    // CartoDB Positron — light grayscale basemap. Renders globally beneath
+    // everything, but the polygon-with-hole mask added in the geo handler
+    // below covers it everywhere EXCEPT inside the selected state's polygon.
+    // Net effect: roads + districts + place names visible only inside e.g.
+    // Punjab, not anywhere else.
     L.tileLayer(
       'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
       {
@@ -757,6 +807,17 @@ function renderDots() {
         maxZoom: 18,
       }
     ).addTo(constMap);
+
+    // Container background visible only behind tiles that haven't loaded yet,
+    // or under transparent polygon edges; matches body so transitions are clean.
+    constMap.getContainer().style.background = '#f8f9ff';
+
+    // Force Leaflet to recompute the container size once the browser has
+    // finished layout. Without this, a flex-grown container that was 0×0
+    // at init time leaves tiles + dots invisible until you manually resize.
+    setTimeout(() => constMap.invalidateSize(true), 100);
+    setTimeout(() => constMap.invalidateSize(true), 500);
+    window.addEventListener('resize', () => constMap.invalidateSize(true));
   }
 
   if (dotLayer) {
@@ -792,13 +853,155 @@ function renderDots() {
   });
 
   dotLayer = L.layerGroup(markers).addTo(constMap);
-  // Fit the map to the bounding box of all dots
-  const bounds = L.latLngBounds(DOTS.map(d => [d.lat, d.lng]));
-  if (bounds.isValid()) {
-    constMap.fitBounds(bounds, { padding: [24, 24] });
-  } else {
-    constMap.setView([22.5, 80], 5);
-  }
+
+  // Overlay the selected state's outline so it visually dominates the basemap.
+  // Neighbouring states still show through (basemap tiles + labels) but get
+  // visually de-emphasised. Fits the map view to the state's bounds, NOT the
+  // dot bounds — so the user always sees the whole state regardless of where
+  // its constituencies happen to cluster.
+  _loadIndiaGeo().then(geo => {
+    if (stateOutlineLayer) {
+      constMap.removeLayer(stateOutlineLayer);
+      stateOutlineLayer = null;
+    }
+    if (!geo || !geo.features) return;
+
+    // Re-invalidate size right before fitBounds so the zoom-to-bbox math
+    // uses the post-layout container dimensions, not the 0×0 from init.
+    constMap.invalidateSize(true);
+
+    const targetName = (SELECTED_STATE_NAME || '').trim().toLowerCase().replace(/&/g, 'and');
+    const targetFeature = _findStateFeature(geo, SELECTED_STATE_NAME);
+
+    // Container for everything we add this render, so we can drop it all
+    // cleanly when the user switches state without removing the tile layer.
+    stateOutlineLayer = L.layerGroup();
+
+    // ============================================================
+    // LAYER 1: Mask polygon = world bounding box with selected state
+    //          as one or more holes. Filled #f8f9ff opaque, this hides
+    //          the CartoDB tile layer everywhere EXCEPT through the
+    //          state-shaped hole. So roads/cities only show in Punjab.
+    // ============================================================
+    // World outer ring in [lat, lng] order (Leaflet convention)
+    const worldRing = [[-85, -180], [85, -180], [85, 180], [-85, 180]];
+    const holes = [];
+    if (targetFeature && targetFeature.geometry) {
+      const geom = targetFeature.geometry;
+      const toLatLngRing = (ring) => ring.map(c => [c[1], c[0]]);
+      if (geom.type === 'Polygon') {
+        // First ring is the outer boundary; any subsequent rings are state-
+        // internal holes (rare, but handled).
+        holes.push(toLatLngRing(geom.coordinates[0]));
+      } else if (geom.type === 'MultiPolygon') {
+        // One hole per disconnected piece (e.g. islands)
+        geom.coordinates.forEach(poly => holes.push(toLatLngRing(poly[0])));
+      }
+    }
+    L.polygon([worldRing, ...holes], {
+      fillColor:   '#f8f9ff',
+      fillOpacity: 1,
+      stroke:      false,
+      interactive: false,
+    }).addTo(stateOutlineLayer);
+
+    // ============================================================
+    // LAYER 2: Every Indian state OTHER than the selected one,
+    //          rendered with opaque pale fill + thin gray border.
+    //          Sits on top of the mask so its color overrides the
+    //          background in those areas. End result: adjoining
+    //          states look like flat pale polygons.
+    // ============================================================
+    geo.features.forEach(f => {
+      const p = f.properties || {};
+      const name = (p.NAME_1 || p.ST_NM || p.name || p.STATE || p.State || p.st_nm || '')
+        .trim().toLowerCase().replace(/&/g, 'and');
+      if (name === targetName) return;
+      L.geoJSON(f, {
+        style: {
+          color:       '#bcc3d6',
+          weight:      0.6,
+          fillColor:   '#eef1f8',
+          fillOpacity: 1,
+          interactive: false,
+        },
+      }).addTo(stateOutlineLayer);
+    });
+
+    // ============================================================
+    // LAYER 3: Selected state outline only — bold dark border,
+    //          NO fill so the tile basemap below shows through.
+    // ============================================================
+    if (targetFeature) {
+      L.geoJSON(targetFeature, {
+        style: {
+          color:       '#0b1c30',
+          weight:      3.5,
+          fillColor:   'transparent',
+          fillOpacity: 0,
+          interactive: false,
+        },
+      }).addTo(stateOutlineLayer);
+    }
+
+    // ============================================================
+    // LAYER 4: Name labels for ADJOINING states only. The selected
+    //          state has its own internal labels via the basemap
+    //          tiles (city names, etc.) so we don't add a big
+    //          PUNJAB label on top of it.
+    // ============================================================
+    geo.features.forEach(f => {
+      const p = f.properties || {};
+      const name = p.NAME_1 || p.ST_NM || p.name || p.STATE || p.State || p.st_nm;
+      if (!name) return;
+      const norm = name.trim().toLowerCase().replace(/&/g, 'and');
+      if (norm === targetName) return;
+
+      // Cheap centroid: average of all coordinate pairs.
+      let cx = 0, cy = 0, n = 0;
+      const walk = (coords) => {
+        if (!Array.isArray(coords)) return;
+        if (typeof coords[0] === 'number') { cx += coords[0]; cy += coords[1]; n++; }
+        else coords.forEach(walk);
+      };
+      walk(f.geometry && f.geometry.coordinates);
+      if (!n) return;
+
+      const label = L.divIcon({
+        className: '',
+        html: `<span style="
+          display:inline-block;
+          font-size:9px;
+          font-weight:500;
+          color:#7c839b;
+          text-transform:uppercase;
+          letter-spacing:0.04em;
+          white-space:nowrap;
+          text-shadow: 0 0 4px #eef1f8, 0 0 2px #eef1f8;
+          pointer-events:none;
+        ">${name}</span>`,
+        iconSize:  [1, 1],
+        iconAnchor:[0, 0],
+      });
+      L.marker([cy / n, cx / n], { icon: label, interactive: false, keyboard: false })
+        .addTo(stateOutlineLayer);
+    });
+
+    stateOutlineLayer.addTo(constMap);
+
+    // Dot markers belong on top of everything — basemap, mask, polygons, labels
+    if (dotLayer) dotLayer.bringToFront();
+
+    // Fit view to the selected state's bounding box with generous padding so
+    // adjoining state polygons + labels frame Punjab nicely.
+    if (targetFeature) {
+      const onlyTarget = L.geoJSON(targetFeature);
+      constMap.fitBounds(onlyTarget.getBounds(), { padding: [40, 40] });
+    } else if (DOTS && DOTS.length) {
+      const bounds = L.latLngBounds(DOTS.map(d => [d.lat, d.lng]));
+      if (bounds.isValid()) constMap.fitBounds(bounds, { padding: [24, 24] });
+    }
+  });
 
   // Update the corner legend to describe the active mode
   const legendTitle = document.getElementById('dotmapLegendTitle');

@@ -41,6 +41,10 @@ def _all_candidates_factory(state_key: str):
 for _key in (
     "puducherry", "mizoram", "manipur", "meghalaya",
     "nagaland", "tripura", "arunachal", "himachal", "uttarakhand",
+    # Next-smallest tier (81-90 seats)
+    "jharkhand", "haryana", "chhattisgarh",
+    # Zone-balancing batch (90-126 seats: J&K North, Telangana South, Assam NE)
+    "jk", "telangana", "assam",
 ):
     globals()[f"scrape_all_{_key}"]            = _winners_factory(_key)
     globals()[f"scrape_all_{_key}_candidates"] = _all_candidates_factory(_key)
