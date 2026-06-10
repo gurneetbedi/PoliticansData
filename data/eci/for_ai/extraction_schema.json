@@ -1,0 +1,357 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Form26AffidavitExtraction",
+  "description": "Schema for one candidate's Indian electoral affidavit (Form 26 of the Conduct of Election Rules 1961), extracted by an AI from the affidavit PDF.",
+  "type": "object",
+  "required": [
+    "candidate", "election", "criminal", "assets",
+    "liabilities", "abstract", "provenance"
+  ],
+  "properties": {
+
+    "candidate": {
+      "type": "object",
+      "description": "Identity fields from Part A items (1)-(3) and (9)-(10).",
+      "required": ["name"],
+      "properties": {
+        "name":                   {"type": "string"},
+        "father_or_husband_name": {"type": ["string", "null"]},
+        "relationship_to_named":  {"type": ["string", "null"], "enum": ["son", "daughter", "wife", "husband", null]},
+        "age":                    {"type": ["integer", "null"]},
+        "gender":                 {"type": ["string", "null"], "enum": ["male", "female", "other", null]},
+        "address":                {"type": ["string", "null"]},
+        "phone":                  {"type": "array", "items": {"type": "string"}},
+        "email":                  {"type": ["string", "null"]},
+        "social_media": {
+          "type": ["object", "null"],
+          "properties": {
+            "facebook":  {"type": ["string", "null"]},
+            "instagram": {"type": ["string", "null"]},
+            "x_twitter": {"type": ["string", "null"]},
+            "youtube":   {"type": ["string", "null"]},
+            "whatsapp":  {"type": ["string", "null"]}
+          }
+        },
+        "profession_self":        {"type": ["string", "null"]},
+        "income_source_self":     {"type": ["string", "null"]},
+        "education_highest":      {"type": ["string", "null"], "description": "Full string: degree, college/university, year"},
+        "pan":                    {"type": ["string", "null"]},
+        "income_tax_returns": {
+          "type": "object",
+          "description": "Income reported in last 5 financial years (FY 2019-20 to FY 2023-24). Values in rupees.",
+          "properties": {
+            "last_filed_fy":   {"type": ["string", "null"], "description": "e.g. '2023-24'"},
+            "fy_2023_24":      {"type": ["integer", "null"]},
+            "fy_2022_23":      {"type": ["integer", "null"]},
+            "fy_2021_22":      {"type": ["integer", "null"]},
+            "fy_2020_21":      {"type": ["integer", "null"]},
+            "fy_2019_20":      {"type": ["integer", "null"]}
+          }
+        }
+      }
+    },
+
+    "spouse": {
+      "type": ["object", "null"],
+      "description": "Spouse identity + income. Asset breakdown lives under assets.movable.spouse and assets.immovable.spouse.",
+      "properties": {
+        "name":               {"type": ["string", "null"]},
+        "pan":                {"type": ["string", "null"]},
+        "profession":         {"type": ["string", "null"]},
+        "income_source":     {"type": ["string", "null"]},
+        "income_tax_returns": {
+          "type": "object",
+          "properties": {
+            "last_filed_fy":   {"type": ["string", "null"]},
+            "fy_2023_24":      {"type": ["integer", "null"]},
+            "fy_2022_23":      {"type": ["integer", "null"]},
+            "fy_2021_22":      {"type": ["integer", "null"]},
+            "fy_2020_21":      {"type": ["integer", "null"]},
+            "fy_2019_20":      {"type": ["integer", "null"]}
+          }
+        }
+      }
+    },
+
+    "dependents": {
+      "type": "array",
+      "description": "Other family members listed as financial dependents (children, parents).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name":               {"type": "string"},
+          "pan":                {"type": ["string", "null"]},
+          "relationship":      {"type": ["string", "null"]},
+          "has_pan":            {"type": "boolean"}
+        }
+      }
+    },
+
+    "election": {
+      "type": "object",
+      "description": "Election particulars from Part A item (1)-(2).",
+      "required": ["party", "constituency"],
+      "properties": {
+        "party":              {"type": "string", "description": "Full party name as written, or 'INDEPENDENT'"},
+        "constituency":      {"type": "string", "description": "Includes AC/PC number when present, e.g. 'AC-18, MODEL TOWN, NCT OF DELHI'"},
+        "state":              {"type": ["string", "null"]},
+        "voter_serial":      {"type": ["string", "null"], "description": "Serial No. X in Part No. Y"}
+      }
+    },
+
+    "criminal": {
+      "type": "object",
+      "description": "Item (5) pending cases + Item (6) convictions + annexures.",
+      "required": ["pending_cases_count", "convictions_count"],
+      "properties": {
+        "pending_cases_count": {"type": "integer", "minimum": 0},
+        "pending_cases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "fir_no":                 {"type": ["string", "null"]},
+              "police_station":        {"type": ["string", "null"]},
+              "case_no":                {"type": ["string", "null"]},
+              "court":                  {"type": ["string", "null"]},
+              "sections":               {"type": ["string", "null"], "description": "IPC / BNS / Act sections as written"},
+              "description":            {"type": ["string", "null"], "description": "Brief description of offence"},
+              "charges_framed":        {"type": ["boolean", "null"]},
+              "charges_framed_date":  {"type": ["string", "null"]},
+              "appeal_filed":          {"type": ["boolean", "null"]}
+            }
+          }
+        },
+        "convictions_count": {"type": "integer", "minimum": 0},
+        "convictions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "case_no":                       {"type": ["string", "null"]},
+              "court":                          {"type": ["string", "null"]},
+              "sections_charged":              {"type": ["string", "null"]},
+              "sections_convicted_under":     {"type": ["string", "null"], "description": "Often DIFFERENT from sections_charged when court convicts under a lesser section"},
+              "description":                    {"type": ["string", "null"]},
+              "date_of_conviction":           {"type": ["string", "null"]},
+              "punishment":                     {"type": ["string", "null"], "description": "Sentence, fine, probation, etc."},
+              "appeal_filed":                  {"type": ["boolean", "null"]}
+            }
+          }
+        }
+      }
+    },
+
+    "assets": {
+      "type": "object",
+      "description": "Item (7) movable + immovable, per person.",
+      "required": ["movable", "immovable"],
+      "properties": {
+        "movable": {
+          "type": "object",
+          "description": "Detailed breakdown per person (self, spouse). Each person has the same sub-structure.",
+          "properties": {
+            "self":   {"$ref": "#/$defs/movable_person"},
+            "spouse": {"$ref": "#/$defs/movable_person"}
+          }
+        },
+        "immovable": {
+          "type": "object",
+          "properties": {
+            "self":   {"$ref": "#/$defs/immovable_person"},
+            "spouse": {"$ref": "#/$defs/immovable_person"}
+          }
+        }
+      }
+    },
+
+    "liabilities": {
+      "type": "object",
+      "description": "Item (8) liabilities + disputed liabilities.",
+      "properties": {
+        "bank_loans": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "bank_name":           {"type": "string"},
+              "account_no":          {"type": ["string", "null"]},
+              "outstanding_amount":  {"type": "integer"},
+              "loan_type":            {"type": ["string", "null"]},
+              "applies_to":           {"type": ["string", "null"], "description": "self / spouse / HUF / dependent"}
+            }
+          }
+        },
+        "other_loans":   {"type": "array", "items": {"type": "object"}},
+        "government_dues": {
+          "type": "object",
+          "description": "Government dues — rent, electricity, water, telephone, transport, income tax, GST, municipal/property tax, etc.",
+          "properties": {
+            "income_tax":       {"type": ["integer", "null"]},
+            "gst":               {"type": ["integer", "null"]},
+            "municipal_tax":    {"type": ["integer", "null"]},
+            "rent_due":         {"type": ["integer", "null"]},
+            "electricity_due":  {"type": ["integer", "null"]},
+            "water_due":        {"type": ["integer", "null"]},
+            "telephone_due":    {"type": ["integer", "null"]},
+            "transport_due":    {"type": ["integer", "null"]},
+            "other_dues":       {"type": ["integer", "null"]},
+            "grand_total":      {"type": ["integer", "null"]}
+          }
+        },
+        "disputed_liabilities": {
+          "type": "object",
+          "properties": {
+            "amount":            {"type": ["integer", "null"]},
+            "detail":            {"type": ["string", "null"]},
+            "authority":         {"type": ["string", "null"], "description": "Body before which dispute is pending"}
+          }
+        },
+        "grand_total":  {"type": ["integer", "null"]}
+      }
+    },
+
+    "abstract": {
+      "type": "object",
+      "description": "Part B abstract — candidate's own one-page summary. Often inconsistent with Part A detail; capture independently.",
+      "properties": {
+        "pending_cases_count":      {"type": ["integer", "null"]},
+        "convictions_count":         {"type": ["integer", "null"]},
+        "movable_self":              {"type": ["integer", "null"]},
+        "movable_spouse":            {"type": ["integer", "null"]},
+        "movable_huf":               {"type": ["integer", "null"]},
+        "movable_dependents":        {"type": ["integer", "null"]},
+        "immovable_self":            {"type": ["integer", "null"]},
+        "immovable_spouse":          {"type": ["integer", "null"]},
+        "immovable_purchase_price":  {"type": ["integer", "null"]},
+        "immovable_market_value":    {"type": ["integer", "null"]},
+        "liabilities_government":   {"type": ["integer", "null"]},
+        "liabilities_bank":         {"type": ["integer", "null"]},
+        "education_highest":        {"type": ["string", "null"]}
+      }
+    },
+
+    "provenance": {
+      "type": "object",
+      "required": ["source_pdf_filename"],
+      "properties": {
+        "source_pdf_filename":          {"type": "string"},
+        "estamp_cert_number":           {"type": ["string", "null"], "description": "e.g. IN-DL19330930870225X"},
+        "estamp_issue_date":            {"type": ["string", "null"], "description": "e.g. '16-Jan-2025 02:02 PM'"},
+        "estamp_purchased_by":          {"type": ["string", "null"]},
+        "stamp_duty_rs":                {"type": ["integer", "null"]},
+        "affidavit_filed_date":         {"type": ["string", "null"]},
+        "notary_register_entry_number": {"type": ["string", "null"]},
+        "page_count":                    {"type": ["integer", "null"]}
+      }
+    },
+
+    "extraction_notes": {
+      "type": "array",
+      "description": "Any data-quality notes — Part A vs Part B inconsistencies, illegible fields, signature overlays, OCR-equivalent fuzziness, etc.",
+      "items": {"type": "string"}
+    }
+  },
+
+  "$defs": {
+    "movable_person": {
+      "type": "object",
+      "properties": {
+        "cash_in_hand":     {"type": ["integer", "null"]},
+        "bank_accounts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "bank_name":     {"type": "string"},
+              "branch":         {"type": ["string", "null"]},
+              "account_no":     {"type": ["string", "null"]},
+              "account_type":  {"type": ["string", "null"], "description": "S/B, FD, Current, Locker, etc."},
+              "balance":        {"type": "integer"},
+              "as_of_date":    {"type": ["string", "null"]}
+            }
+          }
+        },
+        "investments_bonds_mf": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name":             {"type": "string", "description": "Fund / scheme name"},
+              "registration_no": {"type": ["string", "null"]},
+              "amount_invested": {"type": ["integer", "null"]},
+              "current_value":   {"type": ["integer", "null"]}
+            }
+          }
+        },
+        "nss_postal_insurance": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "instrument":     {"type": "string"},
+              "issuer":          {"type": ["string", "null"]},
+              "policy_no":      {"type": ["string", "null"]},
+              "start_date":     {"type": ["string", "null"]},
+              "premium":         {"type": ["integer", "null"]},
+              "sum_assured":    {"type": ["integer", "null"]}
+            }
+          }
+        },
+        "personal_loans_given": {"type": ["integer", "null"]},
+        "vehicles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "make_model":      {"type": "string"},
+              "year":             {"type": ["integer", "null"]},
+              "registration":    {"type": ["string", "null"]},
+              "purchase_value": {"type": ["integer", "null"]},
+              "market_value":   {"type": ["integer", "null"]}
+            }
+          }
+        },
+        "jewellery": {
+          "type": ["object", "null"],
+          "properties": {
+            "gold_grams":       {"type": ["number", "null"]},
+            "gold_value":       {"type": ["integer", "null"]},
+            "silver_grams":     {"type": ["number", "null"]},
+            "silver_value":     {"type": ["integer", "null"]},
+            "other":             {"type": ["string", "null"]},
+            "description":      {"type": ["string", "null"]}
+          }
+        },
+        "other_assets":          {"type": ["integer", "null"]},
+        "gross_total_partA":     {"type": ["integer", "null"], "description": "Gross total from item 7A breakdown"}
+      }
+    },
+
+    "immovable_person": {
+      "type": "object",
+      "properties": {
+        "agricultural_land":      {"type": "array", "items": {"$ref": "#/$defs/property"}},
+        "non_agricultural_land": {"type": "array", "items": {"$ref": "#/$defs/property"}},
+        "commercial_buildings":  {"type": "array", "items": {"$ref": "#/$defs/property"}},
+        "residential_buildings": {"type": "array", "items": {"$ref": "#/$defs/property"}},
+        "other_interest":         {"type": ["integer", "null"]},
+        "total_market_value":    {"type": ["integer", "null"], "description": "Sum of (vi) Total of current market value across categories"}
+      }
+    },
+
+    "property": {
+      "type": "object",
+      "properties": {
+        "location":             {"type": "string"},
+        "survey_number":        {"type": ["string", "null"]},
+        "area":                  {"type": ["string", "null"], "description": "With units, e.g. '2.5 acres' or '1200 sq ft'"},
+        "inherited":             {"type": ["boolean", "null"]},
+        "purchase_date":        {"type": ["string", "null"]},
+        "purchase_cost":        {"type": ["integer", "null"]},
+        "development_cost":     {"type": ["integer", "null"]},
+        "current_market_value": {"type": ["integer", "null"]}
+      }
+    }
+  }
+}

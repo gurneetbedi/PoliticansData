@@ -1,20 +1,29 @@
 """
-Geocode each Punjab assembly constituency to a (lat, lng) using OpenStreetMap
-Nominatim. Run once after the scraper populates the DB. Output is saved as
+Geocode assembly constituencies to (lat, lng) using OpenStreetMap Nominatim.
+Run once after the scraper populates the DB. Output is saved as
 app/static/constituency_coords.json which the homepage map reads.
 
 Polite to Nominatim:
   - 1 request per second (their published limit is 1/sec for free use)
   - identifies the project via User-Agent
-  - results are cached on disk; re-running is instant
+  - results are cached on disk; re-running is instant for already-geocoded
+    constituencies (use --refresh to force re-fetch)
 
 Usage:
-  python scripts/geocode_constituencies.py
-  python scripts/geocode_constituencies.py --refresh   # re-fetch even cached
+  python scripts/geocode_constituencies.py                  # all tracked states
+  python scripts/geocode_constituencies.py punjab           # one state only
+  python scripts/geocode_constituencies.py punjab bihar     # several states
+  python scripts/geocode_constituencies.py --refresh        # re-fetch even cached
 
-If you get an empty result for some constituencies, the script logs them.
-The map renders dots only for constituencies it has coords for; missing ones
-simply do not show a dot (no crash).
+Output format (nested by state to avoid cross-state name collisions):
+  {
+    "Punjab": {"ABOHAR": {"lat": ..., "lng": ...}, ...},
+    "Bihar":  {"PATNA SAHIB": {...}, ...}
+  }
+
+This is backward compatible with the old flat-keyed format: at startup,
+if the file looks flat (top-level keys are constituency names, not state
+names), it's auto-migrated into a {"Punjab": {flat dict}} structure.
 """
 import json
 import sys
@@ -30,6 +39,7 @@ sys.path.insert(0, str(ROOT))
 
 from app.database import SessionLocal
 from app.models import Constituency, State
+from app.states import ALL_STATES
 
 OUT = ROOT / "app" / "static" / "constituency_coords.json"
 
@@ -39,7 +49,7 @@ RATE_LIMIT = 1.1  # seconds between calls (Nominatim free tier policy)
 
 
 def normalize_name(name: str) -> str:
-    """Strip '(SC)' or '(ST)' suffixes — Nominatim hits better on plain names."""
+    """Strip '(SC)' or '(ST)' reservation suffixes — Nominatim hits better on plain names."""
     if not name:
         return ""
     return (
@@ -51,9 +61,9 @@ def normalize_name(name: str) -> str:
     )
 
 
-def geocode(name: str) -> dict | None:
-    """Query Nominatim for a single constituency. Returns {'lat': ..., 'lng': ...} or None."""
-    q = f"{normalize_name(name)}, Punjab, India"
+def geocode(constituency_name: str, state_name: str) -> dict | None:
+    """Query Nominatim for a single (constituency, state) tuple."""
+    q = f"{normalize_name(constituency_name)}, {state_name}, India"
     try:
         r = requests.get(
             NOMINATIM,
@@ -67,59 +77,113 @@ def geocode(name: str) -> dict | None:
             return None
         return {"lat": float(data[0]["lat"]), "lng": float(data[0]["lon"])}
     except Exception as e:
-        print(f"  ! error geocoding {name!r}: {e}")
+        print(f"      ! error geocoding {constituency_name!r} / {state_name}: {e}")
         return None
+
+
+def load_existing() -> dict[str, dict[str, dict]]:
+    """
+    Load the existing coords file. Migrates the old flat format
+    ({"ABOHAR": {...}}) into the new nested-by-state format
+    ({"Punjab": {"ABOHAR": {...}}}) transparently.
+    """
+    if not OUT.exists():
+        return {}
+    try:
+        data = json.loads(OUT.read_text())
+    except Exception:
+        return {}
+    if not isinstance(data, dict) or not data:
+        return {}
+    # Heuristic: if the first value is a {lat, lng} dict, we're in flat format.
+    first_val = next(iter(data.values()))
+    if isinstance(first_val, dict) and "lat" in first_val and "lng" in first_val:
+        # Old flat format — migrate. All historical flat keys were Punjab.
+        print("  (migrating old flat-keyed coords file into nested-by-state)")
+        return {"Punjab": data}
+    return data
 
 
 def main():
     refresh = "--refresh" in sys.argv
+    requested = [a.lower() for a in sys.argv[1:] if not a.startswith("--")]
 
-    # Load existing coords (so we don't re-geocode every run)
-    existing: dict[str, dict] = {}
-    if OUT.exists() and not refresh:
-        try:
-            existing = json.loads(OUT.read_text())
-        except Exception:
-            existing = {}
+    # Resolve the state targets. If none specified, process every state in
+    # ALL_STATES that has any assembly constituencies in the DB.
+    coords = load_existing()
 
     session = SessionLocal()
     try:
-        # Get all Punjab assembly constituencies in the DB
-        rows = (
-            session.query(Constituency)
-            .join(State, Constituency.state_id == State.id)
-            .filter(State.name == "Punjab")
+        # Pull every (state_name, constituency_name) tuple that has at least
+        # one assembly appearance — this is the universe of constituencies
+        # to potentially geocode. Filtered by --refresh + requested-states.
+        q = (
+            session.query(State.name, Constituency.name)
+            .join(Constituency, Constituency.state_id == State.id)
             .filter(Constituency.house == "Assembly")
-            .order_by(Constituency.name)
-            .all()
+            .distinct()
+            .order_by(State.name, Constituency.name)
         )
-        print(f"Found {len(rows)} Punjab assembly constituencies in DB")
+        rows = q.all()
 
-        coords = dict(existing)
-        added = 0
-        missed = []
-
-        for c in rows:
-            key = normalize_name(c.name).upper()
-            if key in coords and not refresh:
+        # Group rows by state for nicer per-state progress output
+        by_state: dict[str, list[str]] = {}
+        for state_name, cons_name in rows:
+            if not cons_name:
                 continue
-            print(f"  geocoding {c.name!r} -> {key!r}")
-            result = geocode(c.name)
-            if result:
-                coords[key] = result
-                added += 1
-            else:
-                missed.append(c.name)
-            time.sleep(RATE_LIMIT)
+            by_state.setdefault(state_name, []).append(cons_name)
 
-            # Save incrementally so a Ctrl-C mid-run does not lose work
-            OUT.parent.mkdir(parents=True, exist_ok=True)
-            OUT.write_text(json.dumps(coords, indent=2))
+        # If the user asked for specific states, filter
+        if requested:
+            allowed_names = {ALL_STATES[k].name for k in requested if k in ALL_STATES}
+            unknown = [k for k in requested if k not in ALL_STATES]
+            if unknown:
+                print(f"Unknown state keys: {unknown}")
+                print(f"Known keys: {sorted(ALL_STATES.keys())}")
+                sys.exit(1)
+            by_state = {s: c for s, c in by_state.items() if s in allowed_names}
 
-        print(f"\nDone. Added {added} new coords. Total: {len(coords)}.")
-        if missed:
-            print(f"Could not geocode ({len(missed)}): {missed}")
-        print(f"Saved -> {OUT}")
+        total_constituencies = sum(len(v) for v in by_state.values())
+        print(f"Target: {len(by_state)} states · {total_constituencies} constituencies\n")
+
+        total_added = 0
+        total_missed: list[tuple[str, str]] = []
+
+        for state_name, cons_list in by_state.items():
+            print(f"=== {state_name} ({len(cons_list)} constituencies) ===")
+            bucket = coords.setdefault(state_name, {})
+            added_for_state = 0
+
+            for cons_name in cons_list:
+                key = normalize_name(cons_name).upper()
+                if key in bucket and not refresh:
+                    continue
+
+                print(f"    geocoding {cons_name!r} -> {key!r}")
+                result = geocode(cons_name, state_name)
+                if result:
+                    bucket[key] = result
+                    added_for_state += 1
+                    total_added += 1
+                else:
+                    total_missed.append((state_name, cons_name))
+                time.sleep(RATE_LIMIT)
+
+                # Save incrementally so Ctrl-C mid-run doesn't lose work
+                OUT.parent.mkdir(parents=True, exist_ok=True)
+                OUT.write_text(json.dumps(coords, indent=2))
+
+            print(f"  → {added_for_state} new for {state_name}\n")
+
+        print("=" * 60)
+        print(f"Done. Added {total_added} new coords across {len(by_state)} states.")
+        print(f"Cached in {OUT}")
+        if total_missed:
+            print(f"\nCould not geocode ({len(total_missed)}):")
+            for state, cons in total_missed[:30]:
+                print(f"  {state}: {cons}")
+            if len(total_missed) > 30:
+                print(f"  ...and {len(total_missed) - 30} more")
     finally:
         session.close()
 

@@ -1,0 +1,195 @@
+{
+  "candidate": {
+    "name": "AKHILESH PATI TRIPATHI",
+    "father_or_husband_name": "SH. ABHAY NANDAN TRIPATHI",
+    "relationship_to_named": "son",
+    "age": 40,
+    "gender": "male",
+    "address": "N-9C/129, LAL BAGH, AZADPUR, DELHI-110033",
+    "phone": ["9873386499", "8588833977"],
+    "email": "akhilesht84@gmail.com",
+    "social_media": {
+      "facebook": "akhileshpati.tripathi.73",
+      "instagram": "Akhilesht84",
+      "x_twitter": "AapAkhilesh",
+      "youtube": "UCXHsWB1Lm6q8EndAE6dIclA",
+      "whatsapp": "9873386499"
+    },
+    "profession_self": "POLITICAL ACTIVIST / MLA, MODEL TOWN (AC-18) NCT OF DELHI",
+    "income_source_self": "SALARY",
+    "education_highest": "Post Graduate (Master of Arts in Ancient History), RML Avadh University, Faizabad, Uttar Pradesh, 2008",
+    "pan": "AUFPT4082Q",
+    "income_tax_returns": {
+      "last_filed_fy": "2023-24",
+      "fy_2023_24": 704830,
+      "fy_2022_23": 479900,
+      "fy_2021_22": 493480,
+      "fy_2020_21": 490920,
+      "fy_2019_20": 499460
+    }
+  },
+
+  "spouse": {
+    "name": "PRATIMA PANDEY TRIPATHI",
+    "pan": "BGOPT9337G",
+    "profession": "HOUSEWIFE / HOME TUTOR",
+    "income_source": "HOME TUITION",
+    "income_tax_returns": {
+      "last_filed_fy": "2023-24",
+      "fy_2023_24": 497450,
+      "fy_2022_23": 494350,
+      "fy_2021_22": 333090,
+      "fy_2020_21": 241300,
+      "fy_2019_20": null
+    }
+  },
+
+  "dependents": [
+    {"name": "ANIKA TRIPATHI", "pan": null, "relationship": "daughter", "has_pan": false},
+    {"name": "ANANT TRIPATHI", "pan": null, "relationship": "son",      "has_pan": false}
+  ],
+
+  "election": {
+    "party": "AAM AADMI PARTY",
+    "constituency": "AC-18, MODEL TOWN, NCT OF DELHI",
+    "state": "NCT OF DELHI",
+    "voter_serial": "563 in Part No. 53"
+  },
+
+  "criminal": {
+    "pending_cases_count": 7,
+    "pending_cases": [
+      {"fir_no": null, "police_station": null, "case_no": "Complaint Case No. 4/2019", "court": "ACMM/RADC New Delhi (Sh. Ravindra Kumar Pandey)", "sections": "U/S 420 IPC", "description": "Vivek Garg vs Akhilesh — allegation of illegal medical reimbursement on account of mother's illness. Discharged on merit; appeal/revision (CRL.L.P 325/2022) pending before Delhi High Court.", "charges_framed": null, "charges_framed_date": null, "appeal_filed": true},
+      {"fir_no": "292/2019", "police_station": "PS Adarsh Nagar", "case_no": null, "court": null, "sections": "U/S 186/353/332/34 IPC", "description": "Allegation of hurting public servant during the course of his public duty", "charges_framed": true, "charges_framed_date": "9/01/2020", "appeal_filed": true},
+      {"fir_no": "11/2022", "police_station": "PS ACB", "case_no": null, "court": null, "sections": "U/S 7A/13 PCC Act + U/S 171(B)(E) IPC", "description": "Allegation of influencing a public servant through illegal or corrupt means & criminal misconduct by public servant", "charges_framed": false, "charges_framed_date": null, "appeal_filed": false},
+      {"fir_no": null, "police_station": null, "case_no": "C-3842/LOK/2018/5730", "court": "Lokayukta NCT of Delhi (Justice Harish Chand Mishra)", "sections": "Under the Lokayukta Act", "description": null, "charges_framed": true, "charges_framed_date": "06.11.2023", "appeal_filed": false},
+      {"fir_no": "559/24", "police_station": "PS Model Town", "case_no": null, "court": null, "sections": "U/S 221/132/121(1)/3(5) BNS", "description": "Voluntarily causing hurt or grievous hurt to public servant", "charges_framed": false, "charges_framed_date": null, "appeal_filed": false},
+      {"fir_no": "537/20", "police_station": "PS Civil Lines", "case_no": null, "court": null, "sections": "U/S 186/353/332/34 IPC", "description": "Voluntarily causing hurt or grievous hurt to public servant", "charges_framed": false, "charges_framed_date": null, "appeal_filed": false},
+      {"fir_no": "261/20", "police_station": "PS Kamla Market", "case_no": null, "court": null, "sections": "U/S 186/353/332/188/269/34 IPC + 3 E.D. Act", "description": "Obstruction of public servant performing their duties", "charges_framed": false, "charges_framed_date": null, "appeal_filed": false}
+    ],
+    "convictions_count": 3,
+    "convictions": [
+      {"case_no": "SC NO-01/2021", "court": "MS. Geetanjali Goel ASJ/SPL JUDGE PC ACT CBI RADC/New Delhi", "sections_charged": "U/S 3(i)(r)(s) SC/ST Act + U/S 323/341/506 IPC", "sections_convicted_under": "U/S 323 IPC", "description": "Causing hurt / simple injury (FIR 84/2020)", "date_of_conviction": "17.05.2023", "punishment": "Till rising of court and pay a compensation of Rs. 30,000/- out of which Rs. 6,500/- to be deposited towards proceedings and rest to the complainant", "appeal_filed": false},
+      {"case_no": "Case 33/2015", "court": "MS. Geetanjali Goel ASJ/SPL JUDGE PC ACT CBI RADC/New Delhi", "sections_charged": "U/S 147/186/332/506 IPC + Section 3 Damage to Public Property Act 1984 read with Section 149 IPC", "sections_convicted_under": "U/S 332 read with Section 149 IPC", "description": "Voluntarily causing hurt to public servant (FIR 236/2015)", "date_of_conviction": "03.07.2023", "punishment": "Till rising of court and fine of Rs. 10,000/-", "appeal_filed": false},
+      {"case_no": "SC NO-04/2019 (MPs MLAs case)", "court": "MS. Geetanjali Goel ASJ/SPL JUDGE PC ACT CBI RADC/New Delhi", "sections_charged": "U/S 147/186/353/332/333 IPC read with Section 149 IPC + Section 3 + sub-section -1 of Section-3 of Prevention of Damage to Public Property Act 1984 read with Section 149 IPC", "sections_convicted_under": null, "description": "Alleged rioting & hurting public servant on account of allegedly carrying protest at Tripolia Gate (FIR 260/2013)", "date_of_conviction": "22.09.2021", "punishment": "Released on three-month probation bond and Rs. 6,150/- cost of proceeding u/s of Probation of Offenders Act 1958", "appeal_filed": false}
+    ]
+  },
+
+  "assets": {
+    "movable": {
+      "self": {
+        "cash_in_hand": 40000,
+        "bank_accounts": [
+          {"bank_name": "SBI", "branch": "OLD SECRETARIAT, CIVIL LINES, NEW DELHI", "account_no": "33572146375", "account_type": "S/B", "balance": 534549, "as_of_date": null},
+          {"bank_name": "ICICI", "branch": "GUJRAWALA TOWN, NEW DELHI", "account_no": "071701509604", "account_type": "S/B", "balance": 0, "as_of_date": null},
+          {"bank_name": "HDFC", "branch": "RANA PRATAP BAGH", "account_no": "50200101924822", "account_type": "Current", "balance": 25000, "as_of_date": null},
+          {"bank_name": "SBI", "branch": "MENHDAWAL", "account_no": "0129202932200", "account_type": "FDR No. 0144839 (05/01/2006)", "balance": 134304, "as_of_date": null}
+        ],
+        "investments_bonds_mf": [],
+        "nss_postal_insurance": [],
+        "personal_loans_given": null,
+        "vehicles": [
+          {"make_model": "TATA TIAGO", "year": 2023, "registration": "DL10CEV0007", "purchase_value": 1012020, "market_value": null}
+        ],
+        "jewellery": null,
+        "other_assets": null,
+        "gross_total_partA": 1745874
+      },
+      "spouse": {
+        "cash_in_hand": 15000,
+        "bank_accounts": [
+          {"bank_name": "SBI", "branch": "MODEL TOWN, NEW DELHI", "account_no": "20253312795", "account_type": "S/B with Locker", "balance": 701626, "as_of_date": null},
+          {"bank_name": "ICICI", "branch": "GUJRAWALA TOWN, NEW DELHI", "account_no": "071701509603", "account_type": "S/B", "balance": 0, "as_of_date": null}
+        ],
+        "investments_bonds_mf": [
+          {"name": "Axis Focused Fund",        "registration_no": "901156084933",   "amount_invested": 216999, "current_value": 263085},
+          {"name": "HDFC Hybrid Equity Fund",  "registration_no": "13299155/90",    "amount_invested": 223999, "current_value": 274003},
+          {"name": "Mirae Asset Focused Fund", "registration_no": "70158196885",    "amount_invested": 203000, "current_value": 249097},
+          {"name": "Motilal Oswal Flexi Cap Fund", "registration_no": "9018701346", "amount_invested": 224000, "current_value": 354387},
+          {"name": "Tata India Consumer Fund", "registration_no": "393797302",      "amount_invested": 461999, "current_value": 948853},
+          {"name": "Kotak Emerging Equity",     "registration_no": "48114696",       "amount_invested": 66500,  "current_value": 214240},
+          {"name": "Sundaram Large and Mid Cap Fund", "registration_no": "60409972", "amount_invested": 6999,   "current_value": 13547},
+          {"name": "SBI Focused Equity Fund",  "registration_no": "19194988",       "amount_invested": 220498, "current_value": 308651}
+        ],
+        "nss_postal_insurance": [
+          {"instrument": "Future Generali New Assured Wealth Plan", "issuer": "Future Generali", "policy_no": "01761277", "start_date": "31/03/2023", "premium": 57000, "sum_assured": 456000}
+        ],
+        "personal_loans_given": null,
+        "vehicles": [],
+        "jewellery": {
+          "gold_grams": 141.76,
+          "gold_value": 1023562,
+          "silver_grams": 1540,
+          "silver_value": 157080,
+          "other": null,
+          "description": "Gold 141.76 gm + Silver 1540 gm (both approx)"
+        },
+        "other_assets": null,
+        "gross_total_partA": 4979105
+      }
+    },
+    "immovable": {
+      "self":   {"agricultural_land": [], "non_agricultural_land": [], "commercial_buildings": [], "residential_buildings": [], "other_interest": null, "total_market_value": 0},
+      "spouse": {"agricultural_land": [], "non_agricultural_land": [], "commercial_buildings": [], "residential_buildings": [], "other_interest": null, "total_market_value": 0}
+    }
+  },
+
+  "liabilities": {
+    "bank_loans": [
+      {"bank_name": "HDFC Bank", "account_no": "14485 1105", "outstanding_amount": 400926, "loan_type": "Card Loan", "applies_to": "self"}
+    ],
+    "other_loans": [],
+    "government_dues": {
+      "income_tax": null,
+      "gst": null,
+      "municipal_tax": null,
+      "rent_due": null,
+      "electricity_due": null,
+      "water_due": null,
+      "telephone_due": null,
+      "transport_due": null,
+      "other_dues": null,
+      "grand_total": 0
+    },
+    "disputed_liabilities": {
+      "amount": 2738386,
+      "detail": "Office space under PWD allotted for Model Town AC Office at Flat H-3 Model Town Type-V Delhi Admin Flats; PWD claims arrears",
+      "authority": "Delhi Vidhan Sabha (dispute pending)"
+    },
+    "grand_total": 400926
+  },
+
+  "abstract": {
+    "pending_cases_count": 7,
+    "convictions_count": 3,
+    "movable_self": 2315874,
+    "movable_spouse": 4979105,
+    "movable_huf": null,
+    "movable_dependents": null,
+    "immovable_self": 0,
+    "immovable_spouse": 0,
+    "immovable_purchase_price": null,
+    "immovable_market_value": null,
+    "liabilities_government": 0,
+    "liabilities_bank": 400926,
+    "education_highest": "Post Graduate (Master of Arts in Ancient History), RML Avadh University, Faizabad, Uttar Pradesh, 2008"
+  },
+
+  "provenance": {
+    "source_pdf_filename": "AKHILESH_PATI_TRIPATHI__1679.pdf",
+    "estamp_cert_number": "IN-DL19330930870225X",
+    "estamp_issue_date": "16-Jan-2025 02:02 PM",
+    "estamp_purchased_by": "AKHILESH PATI TRIPATHI",
+    "stamp_duty_rs": 100,
+    "affidavit_filed_date": "16 January 2025",
+    "notary_register_entry_number": "895/25",
+    "page_count": 34
+  },
+
+  "extraction_notes": [
+    "Part A item (7A) gross movable self = ₹17,45,874; Part B abstract movable self = ₹23,15,874 — ₹5,70,000 internal inconsistency in candidate filing. Item (7A) values are likely the authoritative breakdown (matches the listed bank/MF/vehicle/jewellery sums).",
+    "Movable spouse value matches between Part A and Part B (₹49,79,105).",
+    "Pending criminal case detail captured from Annexures I, II, III — Part A item (5) only listed 'AS GIVEN IN ANNEXURE-I, II & III' as a reference.",
+    "Three convictions exist (item 6) including under IPC 332 (hurt to public servant) and a 3-month probation bond — myneta's database has convictions=0 for this candidate, which is a substantive data gap."
+  ]
+}

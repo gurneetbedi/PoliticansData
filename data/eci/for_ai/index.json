@@ -1,0 +1,1178 @@
+[
+  {
+    "seq": 1,
+    "candidate_name": "AALEY MOHAMMED IQBAL",
+    "filename": "001_AALEY_MOHAMMED_IQBAL__2011.pdf",
+    "canonical_source": "AALEY_MOHAMMED_IQBAL__2011.pdf",
+    "affidavit_id": "2011",
+    "size_bytes": 4660388,
+    "size_mb": 4.66,
+    "other_affidavits": [
+      "AALEY_MOHAMMED_IQBAL__1897.pdf"
+    ],
+    "other_affidavit_count": 1
+  },
+  {
+    "seq": 2,
+    "candidate_name": "ABDUL REHMAN",
+    "filename": "002_ABDUL_REHMAN__1900.pdf",
+    "canonical_source": "ABDUL_REHMAN__1900.pdf",
+    "affidavit_id": "1900",
+    "size_bytes": 3683212,
+    "size_mb": 3.68,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 3,
+    "candidate_name": "ADVOCATE MEHAK DOGRA",
+    "filename": "003_ADVOCATE_MEHAK_DOGRA__1769.pdf",
+    "canonical_source": "ADVOCATE_MEHAK_DOGRA__1769.pdf",
+    "affidavit_id": "1769",
+    "size_bytes": 4024076,
+    "size_mb": 4.02,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 4,
+    "candidate_name": "AJAY KUMAR",
+    "filename": "004_AJAY_KUMAR__1932.pdf",
+    "canonical_source": "AJAY_KUMAR__1932.pdf",
+    "affidavit_id": "1932",
+    "size_bytes": 2963823,
+    "size_mb": 2.96,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 5,
+    "candidate_name": "AKHILESH PATI TRIPATHI",
+    "filename": "005_AKHILESH_PATI_TRIPATHI__1679.pdf",
+    "canonical_source": "AKHILESH_PATI_TRIPATHI__1679.pdf",
+    "affidavit_id": "1679",
+    "size_bytes": 8436090,
+    "size_mb": 8.44,
+    "other_affidavits": [
+      "AKHILESH_PATI_TRIPATHI__1673.pdf",
+      "AKHILESH_PATI_TRIPATHI__1666.pdf"
+    ],
+    "other_affidavit_count": 2
+  },
+  {
+    "seq": 6,
+    "candidate_name": "AMAR NATH",
+    "filename": "006_AMAR_NATH__1838.pdf",
+    "canonical_source": "AMAR_NATH__1838.pdf",
+    "affidavit_id": "1838",
+    "size_bytes": 3843668,
+    "size_mb": 3.84,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 7,
+    "candidate_name": "ANIL KAPOOR",
+    "filename": "007_ANIL_KAPOOR__1575.pdf",
+    "canonical_source": "ANIL_KAPOOR__1575.pdf",
+    "affidavit_id": "1575",
+    "size_bytes": 4566420,
+    "size_mb": 4.57,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 8,
+    "candidate_name": "ANIL KUMAR",
+    "filename": "008_ANIL_KUMAR__1921.pdf",
+    "canonical_source": "ANIL_KUMAR__1921.pdf",
+    "affidavit_id": "1921",
+    "size_bytes": 8118069,
+    "size_mb": 8.12,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 9,
+    "candidate_name": "ANIL KUMAR VASHISHT",
+    "filename": "009_ANIL_KUMAR_VASHISHT__1561.pdf",
+    "canonical_source": "ANIL_KUMAR_VASHISHT__1561.pdf",
+    "affidavit_id": "1561",
+    "size_bytes": 3238312,
+    "size_mb": 3.24,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 10,
+    "candidate_name": "ANITA",
+    "filename": "010_ANITA__2017.pdf",
+    "canonical_source": "ANITA__2017.pdf",
+    "affidavit_id": "2017",
+    "size_bytes": 3923344,
+    "size_mb": 3.92,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 11,
+    "candidate_name": "ASHA KAMBLE",
+    "filename": "011_ASHA_KAMBLE__1628.pdf",
+    "canonical_source": "ASHA_KAMBLE__1628.pdf",
+    "affidavit_id": "1628",
+    "size_bytes": 5160794,
+    "size_mb": 5.16,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 12,
+    "candidate_name": "ASHISH KUMAR",
+    "filename": "012_ASHISH_KUMAR__1941.pdf",
+    "canonical_source": "ASHISH_KUMAR__1941.pdf",
+    "affidavit_id": "1941",
+    "size_bytes": 5510004,
+    "size_mb": 5.51,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 13,
+    "candidate_name": "ASHISH SOOD",
+    "filename": "013_ASHISH_SOOD__1834.pdf",
+    "canonical_source": "ASHISH_SOOD__1834.pdf",
+    "affidavit_id": "1834",
+    "size_bytes": 5799068,
+    "size_mb": 5.8,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 14,
+    "candidate_name": "ASHOK BAMBANI",
+    "filename": "014_ASHOK_BAMBANI__1722.pdf",
+    "canonical_source": "ASHOK_BAMBANI__1722.pdf",
+    "affidavit_id": "1722",
+    "size_bytes": 9993391,
+    "size_mb": 9.99,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 15,
+    "candidate_name": "ASHOK GOEL",
+    "filename": "015_ASHOK_GOEL__1782.pdf",
+    "canonical_source": "ASHOK_GOEL__1782.pdf",
+    "affidavit_id": "1782",
+    "size_bytes": 4184956,
+    "size_mb": 4.18,
+    "other_affidavits": [
+      "ASHOK_GOEL__1778.pdf"
+    ],
+    "other_affidavit_count": 1
+  },
+  {
+    "seq": 16,
+    "candidate_name": "ASHOK KUMAR",
+    "filename": "016_ASHOK_KUMAR__1664.pdf",
+    "canonical_source": "ASHOK_KUMAR__1664.pdf",
+    "affidavit_id": "1664",
+    "size_bytes": 6279113,
+    "size_mb": 6.28,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 17,
+    "candidate_name": "ASIM AHMED KHAN",
+    "filename": "017_ASIM_AHMED_KHAN__1855.pdf",
+    "canonical_source": "ASIM_AHMED_KHAN__1855.pdf",
+    "affidavit_id": "1855",
+    "size_bytes": 4614826,
+    "size_mb": 4.61,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 18,
+    "candidate_name": "AWDHESH KUMAR JHA",
+    "filename": "018_AWDHESH_KUMAR_JHA__1819.pdf",
+    "canonical_source": "AWDHESH_KUMAR_JHA__1819.pdf",
+    "affidavit_id": "1819",
+    "size_bytes": 2644327,
+    "size_mb": 2.64,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 19,
+    "candidate_name": "BHAGWAN DASS",
+    "filename": "019_BHAGWAN_DASS__1816.pdf",
+    "canonical_source": "BHAGWAN_DASS__1816.pdf",
+    "affidavit_id": "1816",
+    "size_bytes": 3887736,
+    "size_mb": 3.89,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 20,
+    "candidate_name": "BHISHAM SHARMA",
+    "filename": "020_BHISHAM_SHARMA__1759.pdf",
+    "canonical_source": "BHISHAM_SHARMA__1759.pdf",
+    "affidavit_id": "1759",
+    "size_bytes": 3057979,
+    "size_mb": 3.06,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 21,
+    "candidate_name": "BUDIYA",
+    "filename": "021_BUDIYA__1687.pdf",
+    "canonical_source": "BUDIYA__1687.pdf",
+    "affidavit_id": "1687",
+    "size_bytes": 6507612,
+    "size_mb": 6.51,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 22,
+    "candidate_name": "DEEPAK KUMAR",
+    "filename": "022_DEEPAK_KUMAR__1886.pdf",
+    "canonical_source": "DEEPAK_KUMAR__1886.pdf",
+    "affidavit_id": "1886",
+    "size_bytes": 3110222,
+    "size_mb": 3.11,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 23,
+    "candidate_name": "DEEPAK TANWAR",
+    "filename": "023_DEEPAK_TANWAR__1743.pdf",
+    "canonical_source": "DEEPAK_TANWAR__1743.pdf",
+    "affidavit_id": "1743",
+    "size_bytes": 4511078,
+    "size_mb": 4.51,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 24,
+    "candidate_name": "DEEPTI INDORA",
+    "filename": "024_DEEPTI_INDORA__1903.pdf",
+    "canonical_source": "DEEPTI_INDORA__1903.pdf",
+    "affidavit_id": "1903",
+    "size_bytes": 4378921,
+    "size_mb": 4.38,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 25,
+    "candidate_name": "DEVIKA",
+    "filename": "025_DEVIKA__1753.pdf",
+    "canonical_source": "DEVIKA__1753.pdf",
+    "affidavit_id": "1753",
+    "size_bytes": 5614786,
+    "size_mb": 5.61,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 26,
+    "candidate_name": "DHARAMPAL LAKRA",
+    "filename": "026_DHARAMPAL_LAKRA__1565.pdf",
+    "canonical_source": "DHARAMPAL_LAKRA__1565.pdf",
+    "affidavit_id": "1565",
+    "size_bytes": 7690396,
+    "size_mb": 7.69,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 27,
+    "candidate_name": "DHARAM VEER",
+    "filename": "027_DHARAM_VEER__1786.pdf",
+    "canonical_source": "DHARAM_VEER__1786.pdf",
+    "affidavit_id": "1786",
+    "size_bytes": 4921124,
+    "size_mb": 4.92,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 28,
+    "candidate_name": "DINESH KUMAR SAH",
+    "filename": "028_DINESH_KUMAR_SAH__1823.pdf",
+    "canonical_source": "DINESH_KUMAR_SAH__1823.pdf",
+    "affidavit_id": "1823",
+    "size_bytes": 9523214,
+    "size_mb": 9.52,
+    "other_affidavits": [
+      "DINESH_KUMAR_SAH__1821.pdf"
+    ],
+    "other_affidavit_count": 1
+  },
+  {
+    "seq": 29,
+    "candidate_name": "DR  AJAY DUTT",
+    "filename": "029_DR__AJAY_DUTT__1555.pdf",
+    "canonical_source": "DR__AJAY_DUTT__1555.pdf",
+    "affidavit_id": "1555",
+    "size_bytes": 9218048,
+    "size_mb": 9.22,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 30,
+    "candidate_name": "DURGESH PATHAK",
+    "filename": "030_DURGESH_PATHAK__1796.pdf",
+    "canonical_source": "DURGESH_PATHAK__1796.pdf",
+    "affidavit_id": "1796",
+    "size_bytes": 2544897,
+    "size_mb": 2.54,
+    "other_affidavits": [
+      "DURGESH_PATHAK__1797.pdf"
+    ],
+    "other_affidavit_count": 1
+  },
+  {
+    "seq": 31,
+    "candidate_name": "FIRDOUS AHMAD",
+    "filename": "031_FIRDOUS_AHMAD__1849.pdf",
+    "canonical_source": "FIRDOUS_AHMAD__1849.pdf",
+    "affidavit_id": "1849",
+    "size_bytes": 4327697,
+    "size_mb": 4.33,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 32,
+    "candidate_name": "GANGA RAM",
+    "filename": "032_GANGA_RAM__1613.pdf",
+    "canonical_source": "GANGA_RAM__1613.pdf",
+    "affidavit_id": "1613",
+    "size_bytes": 6287726,
+    "size_mb": 6.29,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 33,
+    "candidate_name": "GAURAV SHARMA",
+    "filename": "033_GAURAV_SHARMA__1791.pdf",
+    "canonical_source": "GAURAV_SHARMA__1791.pdf",
+    "affidavit_id": "1791",
+    "size_bytes": 3782984,
+    "size_mb": 3.78,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 34,
+    "candidate_name": "GOPAL PRASAD",
+    "filename": "034_GOPAL_PRASAD__1558.pdf",
+    "canonical_source": "GOPAL_PRASAD__1558.pdf",
+    "affidavit_id": "1558",
+    "size_bytes": 10123395,
+    "size_mb": 10.12,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 35,
+    "candidate_name": "GULAB SINGHAL",
+    "filename": "035_GULAB_SINGHAL__1590.pdf",
+    "canonical_source": "GULAB_SINGHAL__1590.pdf",
+    "affidavit_id": "1590",
+    "size_bytes": 4870647,
+    "size_mb": 4.87,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 36,
+    "candidate_name": "HANUMAN SAHAY ALIAS HANUMAN CHAUHAN",
+    "filename": "036_HANUMAN_SAHAY_ALIAS_HANUMAN_CHAUHAN__1644.pdf",
+    "canonical_source": "HANUMAN_SAHAY_ALIAS_HANUMAN_CHAUHAN__1644.pdf",
+    "affidavit_id": "1644",
+    "size_bytes": 10032705,
+    "size_mb": 10.03,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 37,
+    "candidate_name": "HIRA LAL",
+    "filename": "037_HIRA_LAL__1610.pdf",
+    "canonical_source": "HIRA_LAL__1610.pdf",
+    "affidavit_id": "1610",
+    "size_bytes": 7764877,
+    "size_mb": 7.76,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 38,
+    "candidate_name": "ISLAUDDIN",
+    "filename": "038_ISLAUDDIN__1859.pdf",
+    "canonical_source": "ISLAUDDIN__1859.pdf",
+    "affidavit_id": "1859",
+    "size_bytes": 3011114,
+    "size_mb": 3.01,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 39,
+    "candidate_name": "JAI BHAGWAN",
+    "filename": "039_JAI_BHAGWAN__1661.pdf",
+    "canonical_source": "JAI_BHAGWAN__1661.pdf",
+    "affidavit_id": "1661",
+    "size_bytes": 3515255,
+    "size_mb": 3.52,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 40,
+    "candidate_name": "JAYA RAMAN",
+    "filename": "040_JAYA_RAMAN__1701.pdf",
+    "canonical_source": "JAYA_RAMAN__1701.pdf",
+    "affidavit_id": "1701",
+    "size_bytes": 5631409,
+    "size_mb": 5.63,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 41,
+    "candidate_name": "JOURNALIST RAMESH KUMAR JAIN   NIRBHIK",
+    "filename": "041_JOURNALIST_RAMESH_KUMAR_JAIN___NIRBHIK__1848.pdf",
+    "canonical_source": "JOURNALIST_RAMESH_KUMAR_JAIN___NIRBHIK__1848.pdf",
+    "affidavit_id": "1848",
+    "size_bytes": 3166623,
+    "size_mb": 3.17,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 42,
+    "candidate_name": "KANWAR KARAN SINGH",
+    "filename": "042_KANWAR_KARAN_SINGH__1765.pdf",
+    "canonical_source": "KANWAR_KARAN_SINGH__1765.pdf",
+    "affidavit_id": "1765",
+    "size_bytes": 9616183,
+    "size_mb": 9.62,
+    "other_affidavits": [
+      "KANWAR_KARAN_SINGH__1757.pdf",
+      "KANWAR_KARAN_SINGH__1761.pdf",
+      "KANWAR_KARAN_SINGH__1751.pdf"
+    ],
+    "other_affidavit_count": 3
+  },
+  {
+    "seq": 43,
+    "candidate_name": "KARAN SINGH",
+    "filename": "043_KARAN_SINGH__1604.pdf",
+    "canonical_source": "KARAN_SINGH__1604.pdf",
+    "affidavit_id": "1604",
+    "size_bytes": 8219981,
+    "size_mb": 8.22,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 44,
+    "candidate_name": "KARAN TALWAR",
+    "filename": "044_KARAN_TALWAR__1676.pdf",
+    "canonical_source": "KARAN_TALWAR__1676.pdf",
+    "affidavit_id": "1676",
+    "size_bytes": 5645817,
+    "size_mb": 5.65,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 45,
+    "candidate_name": "KARNAIL SINGH",
+    "filename": "045_KARNAIL_SINGH__1708.pdf",
+    "canonical_source": "KARNAIL_SINGH__1708.pdf",
+    "affidavit_id": "1708",
+    "size_bytes": 6549396,
+    "size_mb": 6.55,
+    "other_affidavits": [
+      "KARNAIL_SINGH__1710.pdf"
+    ],
+    "other_affidavit_count": 1
+  },
+  {
+    "seq": 46,
+    "candidate_name": "KASHMIR CHAND",
+    "filename": "046_KASHMIR_CHAND__1895.pdf",
+    "canonical_source": "KASHMIR_CHAND__1895.pdf",
+    "affidavit_id": "1895",
+    "size_bytes": 4794131,
+    "size_mb": 4.79,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 47,
+    "candidate_name": "KU  RINKU",
+    "filename": "047_KU__RINKU__1916.pdf",
+    "canonical_source": "KU__RINKU__1916.pdf",
+    "affidavit_id": "1916",
+    "size_bytes": 6311541,
+    "size_mb": 6.31,
+    "other_affidavits": [
+      "KU__RINKU__1917.pdf",
+      "KU__RINKU__1919.pdf"
+    ],
+    "other_affidavit_count": 2
+  },
+  {
+    "seq": 48,
+    "candidate_name": "LAXMI",
+    "filename": "048_LAXMI__1663.pdf",
+    "canonical_source": "LAXMI__1663.pdf",
+    "affidavit_id": "1663",
+    "size_bytes": 6891534,
+    "size_mb": 6.89,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 49,
+    "candidate_name": "LAXMI THAKUR SINGHAL",
+    "filename": "049_LAXMI_THAKUR_SINGHAL__1567.pdf",
+    "canonical_source": "LAXMI_THAKUR_SINGHAL__1567.pdf",
+    "affidavit_id": "1567",
+    "size_bytes": 543535,
+    "size_mb": 0.54,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 50,
+    "candidate_name": "MANOJ",
+    "filename": "050_MANOJ__1928.pdf",
+    "canonical_source": "MANOJ__1928.pdf",
+    "affidavit_id": "1928",
+    "size_bytes": 9347986,
+    "size_mb": 9.35,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 51,
+    "candidate_name": "MAYANK MEHTA",
+    "filename": "051_MAYANK_MEHTA__1559.pdf",
+    "canonical_source": "MAYANK_MEHTA__1559.pdf",
+    "affidavit_id": "1559",
+    "size_bytes": 8556405,
+    "size_mb": 8.56,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 52,
+    "candidate_name": "MD NAVEEN",
+    "filename": "052_MD_NAVEEN__1861.pdf",
+    "canonical_source": "MD_NAVEEN__1861.pdf",
+    "affidavit_id": "1861",
+    "size_bytes": 5225509,
+    "size_mb": 5.23,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 53,
+    "candidate_name": "MOHAN LAL BHARDWAJ",
+    "filename": "053_MOHAN_LAL_BHARDWAJ__1711.pdf",
+    "canonical_source": "MOHAN_LAL_BHARDWAJ__1711.pdf",
+    "affidavit_id": "1711",
+    "size_bytes": 8937906,
+    "size_mb": 8.94,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 54,
+    "candidate_name": "MOHD NAZIR",
+    "filename": "054_MOHD_NAZIR__1853.pdf",
+    "canonical_source": "MOHD_NAZIR__1853.pdf",
+    "affidavit_id": "1853",
+    "size_bytes": 3197770,
+    "size_mb": 3.2,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 55,
+    "candidate_name": "MOHD OJER",
+    "filename": "055_MOHD_OJER__1822.pdf",
+    "canonical_source": "MOHD_OJER__1822.pdf",
+    "affidavit_id": "1822",
+    "size_bytes": 2543975,
+    "size_mb": 2.54,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 56,
+    "candidate_name": "MOHD SHAFI",
+    "filename": "056_MOHD_SHAFI__1864.pdf",
+    "canonical_source": "MOHD_SHAFI__1864.pdf",
+    "affidavit_id": "1864",
+    "size_bytes": 3080844,
+    "size_mb": 3.08,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 57,
+    "candidate_name": "MOHD ZUBAIR MALIK",
+    "filename": "057_MOHD_ZUBAIR_MALIK__1899.pdf",
+    "canonical_source": "MOHD_ZUBAIR_MALIK__1899.pdf",
+    "affidavit_id": "1899",
+    "size_bytes": 3126595,
+    "size_mb": 3.13,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 58,
+    "candidate_name": "MUKESH SHARMA",
+    "filename": "058_MUKESH_SHARMA__1828.pdf",
+    "canonical_source": "MUKESH_SHARMA__1828.pdf",
+    "affidavit_id": "1828",
+    "size_bytes": 9256265,
+    "size_mb": 9.26,
+    "other_affidavits": [
+      "MUKESH_SHARMA__1836.pdf",
+      "MUKESH_SHARMA__1832.pdf",
+      "MUKESH_SHARMA__1835.pdf"
+    ],
+    "other_affidavit_count": 3
+  },
+  {
+    "seq": 59,
+    "candidate_name": "NIZAMUDDIN KHAN",
+    "filename": "059_NIZAMUDDIN_KHAN__1866.pdf",
+    "canonical_source": "NIZAMUDDIN_KHAN__1866.pdf",
+    "affidavit_id": "1866",
+    "size_bytes": 4334177,
+    "size_mb": 4.33,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 60,
+    "candidate_name": "PANKAJ JAGYA",
+    "filename": "060_PANKAJ_JAGYA__1841.pdf",
+    "canonical_source": "PANKAJ_JAGYA__1841.pdf",
+    "affidavit_id": "1841",
+    "size_bytes": 2066515,
+    "size_mb": 2.07,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 61,
+    "candidate_name": "PERMILA",
+    "filename": "061_PERMILA__1611.pdf",
+    "canonical_source": "PERMILA__1611.pdf",
+    "affidavit_id": "1611",
+    "size_bytes": 4752330,
+    "size_mb": 4.75,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 62,
+    "candidate_name": "POONAM SHARMA",
+    "filename": "062_POONAM_SHARMA__1627.pdf",
+    "canonical_source": "POONAM_SHARMA__1627.pdf",
+    "affidavit_id": "1627",
+    "size_bytes": 9418883,
+    "size_mb": 9.42,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 63,
+    "candidate_name": "PRAVEEN KUMAR",
+    "filename": "063_PRAVEEN_KUMAR__1842.pdf",
+    "canonical_source": "PRAVEEN_KUMAR__1842.pdf",
+    "affidavit_id": "1842",
+    "size_bytes": 5349870,
+    "size_mb": 5.35,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 64,
+    "candidate_name": "PREETI",
+    "filename": "064_PREETI__1566.pdf",
+    "canonical_source": "PREETI__1566.pdf",
+    "affidavit_id": "1566",
+    "size_bytes": 5670047,
+    "size_mb": 5.67,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 65,
+    "candidate_name": "PREM CHAUHAN",
+    "filename": "065_PREM_CHAUHAN__1758.pdf",
+    "canonical_source": "PREM_CHAUHAN__1758.pdf",
+    "affidavit_id": "1758",
+    "size_bytes": 10001812,
+    "size_mb": 10.0,
+    "other_affidavits": [
+      "PREM_CHAUHAN__1760.pdf"
+    ],
+    "other_affidavit_count": 1
+  },
+  {
+    "seq": 66,
+    "candidate_name": "PRIYANKA GAUTAM",
+    "filename": "066_PRIYANKA_GAUTAM__1598.pdf",
+    "canonical_source": "PRIYANKA_GAUTAM__1598.pdf",
+    "affidavit_id": "1598",
+    "size_bytes": 9806877,
+    "size_mb": 9.81,
+    "other_affidavits": [
+      "PRIYANKA_GAUTAM__1603.pdf"
+    ],
+    "other_affidavit_count": 1
+  },
+  {
+    "seq": 67,
+    "candidate_name": "PUNAM PANDEY",
+    "filename": "067_PUNAM_PANDEY__1569.pdf",
+    "canonical_source": "PUNAM_PANDEY__1569.pdf",
+    "affidavit_id": "1569",
+    "size_bytes": 7458598,
+    "size_mb": 7.46,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 68,
+    "candidate_name": "RAGINI NAYAK",
+    "filename": "068_RAGINI_NAYAK__1694.pdf",
+    "canonical_source": "RAGINI_NAYAK__1694.pdf",
+    "affidavit_id": "1694",
+    "size_bytes": 9176877,
+    "size_mb": 9.18,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 69,
+    "candidate_name": "RAHISUDDIN AHMAD",
+    "filename": "069_RAHISUDDIN_AHMAD__1876.pdf",
+    "canonical_source": "RAHISUDDIN_AHMAD__1876.pdf",
+    "affidavit_id": "1876",
+    "size_bytes": 3039888,
+    "size_mb": 3.04,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 70,
+    "candidate_name": "RAI SINGH",
+    "filename": "070_RAI_SINGH__1596.pdf",
+    "canonical_source": "RAI_SINGH__1596.pdf",
+    "affidavit_id": "1596",
+    "size_bytes": 5479375,
+    "size_mb": 5.48,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 71,
+    "candidate_name": "RAJA RAM",
+    "filename": "071_RAJA_RAM__1768.pdf",
+    "canonical_source": "RAJA_RAM__1768.pdf",
+    "affidavit_id": "1768",
+    "size_bytes": 4755054,
+    "size_mb": 4.76,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 72,
+    "candidate_name": "RAJESH",
+    "filename": "072_RAJESH__1925.pdf",
+    "canonical_source": "RAJESH__1925.pdf",
+    "affidavit_id": "1925",
+    "size_bytes": 8195741,
+    "size_mb": 8.2,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 73,
+    "candidate_name": "RAJESH KUMAR LOHIYA",
+    "filename": "073_RAJESH_KUMAR_LOHIYA__1940.pdf",
+    "canonical_source": "RAJESH_KUMAR_LOHIYA__1940.pdf",
+    "affidavit_id": "1940",
+    "size_bytes": 6622256,
+    "size_mb": 6.62,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 74,
+    "candidate_name": "RAJESH LILOTHIA",
+    "filename": "074_RAJESH_LILOTHIA__1923.pdf",
+    "canonical_source": "RAJESH_LILOTHIA__1923.pdf",
+    "affidavit_id": "1923",
+    "size_bytes": 8558536,
+    "size_mb": 8.56,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 75,
+    "candidate_name": "RAJIV BHRIGUKUMAR",
+    "filename": "075_RAJIV_BHRIGUKUMAR__1870.pdf",
+    "canonical_source": "RAJIV_BHRIGUKUMAR__1870.pdf",
+    "affidavit_id": "1870",
+    "size_bytes": 7461430,
+    "size_mb": 7.46,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 76,
+    "candidate_name": "RAJU NIGAM",
+    "filename": "076_RAJU_NIGAM__1943.pdf",
+    "canonical_source": "RAJU_NIGAM__1943.pdf",
+    "affidavit_id": "1943",
+    "size_bytes": 8038052,
+    "size_mb": 8.04,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 77,
+    "candidate_name": "RAJ KUMARI DHILLON",
+    "filename": "077_RAJ_KUMARI_DHILLON__1718.pdf",
+    "canonical_source": "RAJ_KUMARI_DHILLON__1718.pdf",
+    "affidavit_id": "1718",
+    "size_bytes": 9476877,
+    "size_mb": 9.48,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 78,
+    "candidate_name": "RAKESH SAGAR",
+    "filename": "078_RAKESH_SAGAR__1913.pdf",
+    "canonical_source": "RAKESH_SAGAR__1913.pdf",
+    "affidavit_id": "1913",
+    "size_bytes": 1004946,
+    "size_mb": 1.0,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 79,
+    "candidate_name": "RATAN TYAGI",
+    "filename": "079_RATAN_TYAGI__1639.pdf",
+    "canonical_source": "RATAN_TYAGI__1639.pdf",
+    "affidavit_id": "1639",
+    "size_bytes": 7331990,
+    "size_mb": 7.33,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 80,
+    "candidate_name": "RAVINDRA SINGH RAVIYODAYA",
+    "filename": "080_RAVINDRA_SINGH_RAVIYODAYA__1752.pdf",
+    "canonical_source": "RAVINDRA_SINGH_RAVIYODAYA__1752.pdf",
+    "affidavit_id": "1752",
+    "size_bytes": 8554375,
+    "size_mb": 8.55,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 81,
+    "candidate_name": "RAVI PARTAP RAO",
+    "filename": "081_RAVI_PARTAP_RAO__1774.pdf",
+    "canonical_source": "RAVI_PARTAP_RAO__1774.pdf",
+    "affidavit_id": "1774",
+    "size_bytes": 6050375,
+    "size_mb": 6.05,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 82,
+    "candidate_name": "ROMAN RASHID",
+    "filename": "082_ROMAN_RASHID__1839.pdf",
+    "canonical_source": "ROMAN_RASHID__1839.pdf",
+    "affidavit_id": "1839",
+    "size_bytes": 10090019,
+    "size_mb": 10.09,
+    "other_affidavits": [
+      "ROMAN_RASHID__1843.pdf"
+    ],
+    "other_affidavit_count": 1
+  },
+  {
+    "seq": 83,
+    "candidate_name": "SANGEETA",
+    "filename": "083_SANGEETA__1704.pdf",
+    "canonical_source": "SANGEETA__1704.pdf",
+    "affidavit_id": "1704",
+    "size_bytes": 6459058,
+    "size_mb": 6.46,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 84,
+    "candidate_name": "SANJEEV KUMAR",
+    "filename": "084_SANJEEV_KUMAR__1942.pdf",
+    "canonical_source": "SANJEEV_KUMAR__1942.pdf",
+    "affidavit_id": "1942",
+    "size_bytes": 7262452,
+    "size_mb": 7.26,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 85,
+    "candidate_name": "SANTOSH",
+    "filename": "085_SANTOSH__1669.pdf",
+    "canonical_source": "SANTOSH__1669.pdf",
+    "affidavit_id": "1669",
+    "size_bytes": 4931175,
+    "size_mb": 4.93,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 86,
+    "candidate_name": "SARAVANAN",
+    "filename": "086_SARAVANAN__1633.pdf",
+    "canonical_source": "SARAVANAN__1633.pdf",
+    "affidavit_id": "1633",
+    "size_bytes": 5964304,
+    "size_mb": 5.96,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 87,
+    "candidate_name": "SAROJ BALA",
+    "filename": "087_SAROJ_BALA__1938.pdf",
+    "canonical_source": "SAROJ_BALA__1938.pdf",
+    "affidavit_id": "1938",
+    "size_bytes": 8450037,
+    "size_mb": 8.45,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 88,
+    "candidate_name": "SHAIL KUMARI",
+    "filename": "088_SHAIL_KUMARI__1614.pdf",
+    "canonical_source": "SHAIL_KUMARI__1614.pdf",
+    "affidavit_id": "1614",
+    "size_bytes": 444629,
+    "size_mb": 0.44,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 89,
+    "candidate_name": "SHEELA DEVI",
+    "filename": "089_SHEELA_DEVI__1755.pdf",
+    "canonical_source": "SHEELA_DEVI__1755.pdf",
+    "affidavit_id": "1755",
+    "size_bytes": 7952247,
+    "size_mb": 7.95,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 90,
+    "candidate_name": "SUNDER LOHIYA",
+    "filename": "090_SUNDER_LOHIYA__1776.pdf",
+    "canonical_source": "SUNDER_LOHIYA__1776.pdf",
+    "affidavit_id": "1776",
+    "size_bytes": 4274323,
+    "size_mb": 4.27,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 91,
+    "candidate_name": "SUNIL KUMAR",
+    "filename": "091_SUNIL_KUMAR__1618.pdf",
+    "canonical_source": "SUNIL_KUMAR__1618.pdf",
+    "affidavit_id": "1618",
+    "size_bytes": 5388793,
+    "size_mb": 5.39,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 92,
+    "candidate_name": "SYED MUNEEB",
+    "filename": "092_SYED_MUNEEB__1833.pdf",
+    "canonical_source": "SYED_MUNEEB__1833.pdf",
+    "affidavit_id": "1833",
+    "size_bytes": 3032823,
+    "size_mb": 3.03,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 93,
+    "candidate_name": "S  M  AQIF",
+    "filename": "093_S__M__AQIF__1862.pdf",
+    "canonical_source": "S__M__AQIF__1862.pdf",
+    "affidavit_id": "1862",
+    "size_bytes": 3103364,
+    "size_mb": 3.1,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 94,
+    "candidate_name": "TARUN KUMAR SHARMA",
+    "filename": "094_TARUN_KUMAR_SHARMA__1852.pdf",
+    "canonical_source": "TARUN_KUMAR_SHARMA__1852.pdf",
+    "affidavit_id": "1852",
+    "size_bytes": 3344807,
+    "size_mb": 3.34,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 95,
+    "candidate_name": "TEJ RAM",
+    "filename": "095_TEJ_RAM__1891.pdf",
+    "canonical_source": "TEJ_RAM__1891.pdf",
+    "affidavit_id": "1891",
+    "size_bytes": 4036906,
+    "size_mb": 4.04,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 96,
+    "candidate_name": "TIKRAJ SINGH",
+    "filename": "096_TIKRAJ_SINGH__1624.pdf",
+    "canonical_source": "TIKRAJ_SINGH__1624.pdf",
+    "affidavit_id": "1624",
+    "size_bytes": 6108312,
+    "size_mb": 6.11,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 97,
+    "candidate_name": "UMANG",
+    "filename": "097_UMANG__1818.pdf",
+    "canonical_source": "UMANG__1818.pdf",
+    "affidavit_id": "1818",
+    "size_bytes": 6493020,
+    "size_mb": 6.49,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 98,
+    "candidate_name": "UMESH RATHOR",
+    "filename": "098_UMESH_RATHOR__1665.pdf",
+    "canonical_source": "UMESH_RATHOR__1665.pdf",
+    "affidavit_id": "1665",
+    "size_bytes": 600798,
+    "size_mb": 0.6,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 99,
+    "candidate_name": "VEER SINGH DHINGAN",
+    "filename": "099_VEER_SINGH_DHINGAN__1922.pdf",
+    "canonical_source": "VEER_SINGH_DHINGAN__1922.pdf",
+    "affidavit_id": "1922",
+    "size_bytes": 8558536,
+    "size_mb": 8.56,
+    "other_affidavits": [
+      "VEER_SINGH_DHINGAN__1931.pdf"
+    ],
+    "other_affidavit_count": 1
+  },
+  {
+    "seq": 100,
+    "candidate_name": "VINEET YADAV",
+    "filename": "100_VINEET_YADAV__1801.pdf",
+    "canonical_source": "VINEET_YADAV__1801.pdf",
+    "affidavit_id": "1801",
+    "size_bytes": 1389234,
+    "size_mb": 1.39,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 101,
+    "candidate_name": "VISHESH KUMAR",
+    "filename": "101_VISHESH_KUMAR__1578.pdf",
+    "canonical_source": "VISHESH_KUMAR__1578.pdf",
+    "affidavit_id": "1578",
+    "size_bytes": 6464780,
+    "size_mb": 6.46,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 102,
+    "candidate_name": "VIVEK GIRI",
+    "filename": "102_VIVEK_GIRI__1798.pdf",
+    "canonical_source": "VIVEK_GIRI__1798.pdf",
+    "affidavit_id": "1798",
+    "size_bytes": 9104411,
+    "size_mb": 9.1,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 103,
+    "candidate_name": "YOGESH KUMAR",
+    "filename": "103_YOGESH_KUMAR__1609.pdf",
+    "canonical_source": "YOGESH_KUMAR__1609.pdf",
+    "affidavit_id": "1609",
+    "size_bytes": 7462217,
+    "size_mb": 7.46,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  },
+  {
+    "seq": 104,
+    "candidate_name": "ZAINUDDIN",
+    "filename": "104_ZAINUDDIN__1824.pdf",
+    "canonical_source": "ZAINUDDIN__1824.pdf",
+    "affidavit_id": "1824",
+    "size_bytes": 4069515,
+    "size_mb": 4.07,
+    "other_affidavits": [],
+    "other_affidavit_count": 0
+  }
+]

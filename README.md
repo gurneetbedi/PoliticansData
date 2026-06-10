@@ -113,6 +113,126 @@ The scraper is built to be a good citizen:
 
 Before scraping at scale, **edit `MYNETA_USER_AGENT`** in `app/scrapers/myneta_client.py` to include your real contact email. ADR runs myneta.info as a non-profit and they appreciate being able to reach you if anything goes wrong.
 
+> **Note (2026):** ADR sent a formal cease-and-desist asking us to stop
+> scraping myneta.info. The myneta scraper is now **disabled by default**
+> (`ScrapeDisabledError` guard in `app/scrapers/myneta_client.py`). The
+> existing data in the DB remains the production source while we migrate
+> to the ECI affidavit pipeline described below. See
+> [`docs/ECI_MIGRATION_PLAN.md`](docs/ECI_MIGRATION_PLAN.md) for the full
+> roadmap.
+
+## ECI Affidavit Pipeline (next-generation data source)
+
+Form 26 affidavits are filed directly with the Election Commission of
+India and made public at <https://affidavit.eci.gov.in>. They contain
+*more* than what ADR/myneta surfaces — per-bank-account balances, per-
+fund mutual-fund holdings, jewellery weights, vehicle registration
+numbers, full 5-year income tax history, and detailed criminal case
+records *including convictions* (which myneta sometimes misses).
+
+The pipeline is four scripts, each with its own runbook in `docs/`:
+
+```
+PDFs on ECI portal
+       │
+       ▼
+┌──────────────────────────────────┐
+│ scripts/fetch_eci_affidavits.py  │  Playwright crawler, Akamai-aware
+│                                    │  (warm-up + UA mask + non-headless),
+│                                    │  status-filtered (--status Accepted)
+└──────────────────────────────────┘
+       │  data/eci/raw_pdfs/<state-year>/raw_pdfs/<NAME>__<id>.pdf
+       ▼
+┌──────────────────────────────────┐
+│ scripts/build_ai_extraction_     │  Dedup multi-affidavit candidates,
+│           package.py              │  pick canonical (largest) per
+│                                    │  candidate, copy to organized folder
+└──────────────────────────────────┘
+       │  data/eci/for_ai/pdfs/<seq>_<NAME>__<id>.pdf  (one per candidate)
+       ▼
+┌──────────────────────────────────┐
+│ scripts/preprocess_eci_pdfs.py   │  HSV stamp removal → 300-DPI render →
+│                                    │  EasyOCR with bbox spatial sorting →
+│                                    │  column-delimited cleaned text JSON.
+│                                    │  pdfplumber fast-path on text-native
+│                                    │  PDFs.
+└──────────────────────────────────┘
+       │  data/eci/for_ai/preprocessed/<seq>_<NAME>.json
+       ▼
+┌──────────────────────────────────┐
+│ scripts/qc_preprocessed.py       │  Tags each candidate CLEAN / LIGHT /
+│                                    │  FLAG / EMPTY based on key markers
+│                                    │  (name, PAN, party, currency, Part B)
+└──────────────────────────────────┘
+       │  data/eci/for_ai/preprocessed/_qc_report.csv
+       ▼
+       │  (manual or LLM-assisted structured extraction step)
+       │
+       │  Hand the cleaned text + extraction_prompt.md to any LLM
+       │  (Claude, ChatGPT, Gemini). Get JSON matching
+       │  data/eci/for_ai/extraction_schema.json. See README in
+       │  data/eci/for_ai/ for AI-agnostic usage notes.
+       ▼
+   data/eci/for_ai/output/<seq>_<NAME>.json     ← structured records
+       │
+       ▼
+   (TODO) Loader → eci_* parallel tables in politrack.db
+```
+
+### Quick start
+
+One-time deps (system + Python):
+
+```bash
+brew install poppler tesseract        # required by pdftoppm/easyocr
+python3 -m venv .venv-eci
+source .venv-eci/bin/activate
+pip install playwright easyocr opencv-python pdf2image pdfplumber pillow
+playwright install chromium
+```
+
+Then for any state/year:
+
+```bash
+# 1. Fetch (visible browser; Akamai blocks headless)
+python scripts/fetch_eci_affidavits.py \
+    --listing-url "https://affidavit.eci.gov.in/CandidateCustomFilter?electionType=28-AC-GENERAL-3-54&election=28-AC-GENERAL-3-54&states=U05" \
+    --output data/eci/raw_pdfs/delhi-2025/
+
+# 2. Organize into one-canonical-PDF-per-candidate
+python scripts/build_ai_extraction_package.py
+
+# 3. Preprocess with EasyOCR + CV
+python scripts/preprocess_eci_pdfs.py
+
+# 4. QC the output
+python scripts/qc_preprocessed.py
+```
+
+### Why this architecture
+
+- **ECI is the authoritative source.** myneta is a curated derivative.
+  Going to ECI directly removes a middleman and avoids the politics of
+  scraping a non-profit.
+- **AI-agnostic structured extraction.** The `data/eci/for_ai/` folder is
+  the bridge — you can hand its prompt + schema + example to Claude,
+  ChatGPT, Gemini, or any model with PDF support. No vendor lock-in.
+- **Hybrid OCR is cheap and fast.** Image sanitation (HSV stamp removal)
+  plus EasyOCR's bounding-box-aware spatial sorting handles ~90% of
+  affidavits without an LLM. Only the noisy 10% need to escalate to a
+  vision LLM as a top-up. Total cost for all-of-Delhi-2025 is ~$5 in API
+  spend, vs ~$30 for pure vision-LLM.
+- **Resumable everywhere.** Fetcher manifests, preprocessing checkpoint
+  per PDF, dedup cache invalidates poisoned entries automatically.
+
+### Detailed runbooks
+
+- [`docs/eci_fetcher_runbook.md`](docs/eci_fetcher_runbook.md) — fetcher details, Akamai workaround, CAPTCHA fallback
+- [`docs/eci_preprocessing_runbook.md`](docs/eci_preprocessing_runbook.md) — preprocessing pipeline, QC tags, when to escalate to LLM
+- [`docs/eci_dedup_method.md`](docs/eci_dedup_method.md) — multi-affidavit candidate dedup logic
+- [`docs/ECI_MIGRATION_PLAN.md`](docs/ECI_MIGRATION_PLAN.md) — overall roadmap from myneta → ECI
+- [`data/eci/for_ai/README.md`](data/eci/for_ai/README.md) — how to hand PDFs to any AI for structured extraction
+
 ## What Gets Scraped
 
 For each Punjab assembly cycle (2007, 2012, 2017, 2022) the winners list provides per MLA:
