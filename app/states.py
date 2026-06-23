@@ -325,7 +325,15 @@ ASSAM = StateConfig(
 )
 
 
+# NOTE — only Delhi is exposed right now. The other StateConfig objects above
+# are preserved in source so we can re-enable them as we backfill ECI data
+# state-by-state. Adding a state back is a one-line edit in this dict.
 ALL_STATES: dict[str, StateConfig] = {
+    "delhi":        DELHI,
+}
+
+# Internal-only — used by scripts/migrate scaffolding. Not surfaced in the UI.
+_ALL_STATES_HISTORICAL: dict[str, StateConfig] = {
     "punjab":       PUNJAB,
     "bihar":        BIHAR,
     "goa":          GOA,

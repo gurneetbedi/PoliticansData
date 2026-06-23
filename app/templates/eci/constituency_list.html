@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}{{ state }} {{ year }} Constituencies · PolitiTrack{% endblock %}
+
+{% block content %}
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg pb-20 md:pb-stack-xl">
+
+  <nav class="text-label-md font-label-md text-on-surface-variant mb-stack-xs flex flex-wrap items-center gap-1">
+    <a href="/eci/" class="hover:text-primary transition-colors">ECI Affidavits</a>
+    <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+    <span>{{ state }} {{ year }}</span>
+  </nav>
+
+  <header class="mb-stack-md">
+    <h1 class="text-display-sm md:text-display-md font-display-md font-bold text-on-surface">{{ state }} {{ year }} Assembly</h1>
+    <p class="mt-stack-xs text-body-lg font-body-lg text-on-surface-variant">
+      {{ constituencies | length }} constituencies · click any to see candidate affidavits.
+    </p>
+  </header>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-stack-sm">
+    {% for c in constituencies %}
+    <a href="/eci/{{ state | lower }}/{{ year }}/{{ c.constituency }}"
+       class="group block p-card-md rounded-2xl bg-surface-container-lowest border border-outline-variant hover:border-primary hover:shadow-md transition-all">
+      <div class="text-title-md font-title-md font-bold text-on-surface group-hover:text-primary transition-colors">{{ c.constituency }}</div>
+      <div class="mt-stack-xs text-label-md font-label-md text-on-surface-variant flex items-center gap-1">
+        <span class="material-symbols-outlined text-[16px]">groups</span>
+        {{ c.candidate_count }} candidate{% if c.candidate_count != 1 %}s{% endif %}
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+
+</main>
+{% endblock %}

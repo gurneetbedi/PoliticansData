@@ -15,7 +15,7 @@
           Visualizing Political Integrity
         </h1>
         <p class="text-body-md font-body-md text-on-surface-variant">
-          Interactive intelligence mapping the criminal cases and legislative records across India. Discover the data behind governance.
+          Affidavit-grounded intelligence on Delhi 2025 Assembly candidates, sourced from the Election Commission of India. Discover the data behind governance.
         </p>
       </div>
 
@@ -61,12 +61,14 @@
         </summary>
         <div class="px-stack-md pb-stack-md border-t border-outline-variant">
           <p class="text-body-md text-on-surface-variant mt-stack-md mb-stack-md max-w-3xl">
-            All data is sourced from candidate affidavits on
-            <a href="https://myneta.info/" target="_blank" class="text-secondary underline">myneta.info</a>
-            (ADR) and is loaded into our database state-by-state. Some states have
-            partial coverage — election cycles missing, or per-affidavit asset/case
-            detail still pending — because the polite scraping rate limit (2 seconds
-            between requests) makes the full pull slow. Coverage will fill in over time.
+            All candidate data is sourced from Form 26 affidavits filed on
+            <a href="https://affidavit.eci.gov.in/" target="_blank" class="text-secondary underline">affidavit.eci.gov.in</a>,
+            published by the Election Commission of India under the Government
+            Open Data License (NDSAP 2012). Only Delhi 2025 Assembly is loaded
+            today; other states will follow as ECI publishes their data. Financial
+            and criminal-case figures shown elsewhere on the site are
+            auto-extracted from PDF and not yet verified — treat them as
+            indicative until we publish a verified-figures pipeline.
           </p>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-stack-md">
@@ -173,20 +175,42 @@
 
   <!-- ============================================================ -->
   <!-- STAT STRIP — three big numbers                              -->
+  <!--                                                              -->
+  <!-- POST-ECI-MIGRATION POLICY                                    -->
+  <!-- Total tracked assets and % with criminal cases come from the -->
+  <!-- regex extractor on the affidavit OCR. They are noisy enough  -->
+  <!-- that we don't want them as the first thing the user sees,    -->
+  <!-- so we show them only when the kpi value is non-zero AND mark -->
+  <!-- them as "indicative" via the italic caveat under each card.  -->
+  <!-- The third tile is changed from "Verified records" to         -->
+  <!-- "Candidates on file" because nothing is verified yet.        -->
   <!-- ============================================================ -->
   <section class="px-margin-mobile md:px-margin-desktop mt-stack-md">
     <div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-3 gap-gutter">
       <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-stack-lg text-center">
-        <p class="text-label-sm font-label-sm uppercase tracking-widest text-on-surface-variant">Total tracked assets</p>
-        <p class="text-display-lg-mobile md:text-display-lg font-display-lg text-on-surface mt-2">₹{{ "{:,.1f}".format(kpis.total_wealth_cr / 100) if kpis.total_wealth_cr else '0' }}K Cr</p>
+        <p class="text-label-sm font-label-sm uppercase tracking-widest text-on-surface-variant">Total declared assets</p>
+        {% if kpis.total_wealth_cr %}
+          <p class="text-display-lg-mobile md:text-display-lg font-display-lg text-on-surface mt-2">₹{{ "{:,.1f}".format(kpis.total_wealth_cr / 100) }}K Cr</p>
+          <p class="text-[10px] italic text-on-surface-variant mt-1">Auto-extracted · not yet verified</p>
+        {% else %}
+          <p class="text-headline-md font-headline-md text-on-surface-variant mt-2">Not yet verified</p>
+          <p class="text-[10px] italic text-on-surface-variant mt-1">Awaiting affidavit re-extraction</p>
+        {% endif %}
       </div>
       <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-stack-lg text-center">
         <p class="text-label-sm font-label-sm uppercase tracking-widest text-on-surface-variant">With criminal cases</p>
-        <p class="text-display-lg-mobile md:text-display-lg font-display-lg text-on-surface mt-2">{{ kpis.pct_with_cases|int }}%</p>
+        {% if kpis.pct_with_cases %}
+          <p class="text-display-lg-mobile md:text-display-lg font-display-lg text-on-surface mt-2">{{ kpis.pct_with_cases|int }}%</p>
+          <p class="text-[10px] italic text-on-surface-variant mt-1">Auto-extracted · not yet verified</p>
+        {% else %}
+          <p class="text-headline-md font-headline-md text-on-surface-variant mt-2">Not yet verified</p>
+          <p class="text-[10px] italic text-on-surface-variant mt-1">Awaiting affidavit re-extraction</p>
+        {% endif %}
       </div>
       <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-stack-lg text-center">
-        <p class="text-label-sm font-label-sm uppercase tracking-widest text-on-surface-variant">Verified records</p>
+        <p class="text-label-sm font-label-sm uppercase tracking-widest text-on-surface-variant">Candidates on file</p>
         <p class="text-display-lg-mobile md:text-display-lg font-display-lg text-on-surface mt-2">{{ "{:,}".format(kpis.count or 0) }}</p>
+        <p class="text-[10px] italic text-on-surface-variant mt-1">ECI-accepted affidavits · {{ state }} 2025</p>
       </div>
     </div>
   </section>
@@ -256,11 +280,19 @@
                     <span class="w-3 h-3 rounded-full" style="background: {{ zcolor }};"></span>
                     <span class="text-label-lg font-label-lg text-on-surface">{{ z.name }} Zone</span>
                   </div>
-                  <span class="text-label-sm font-bold text-on-surface">{{ z.transparency|int }}% Clean</span>
+                  {# In fallback mode (no winners flagged yet) the % is based
+                     on the candidate pool, not winners — show it as
+                     "indicative" so it doesn't read as a sitting-MLA stat. #}
+                  {% if z.fallback %}
+                    <span class="text-label-sm font-bold text-on-surface-variant italic">{{ z.transparency|int }}% Clean*</span>
+                  {% else %}
+                    <span class="text-label-sm font-bold text-on-surface">{{ z.transparency|int }}% Clean</span>
+                  {% endif %}
                 </div>
+                {% set _unit = z.label or 'MLAs' %}
                 <div class="flex items-center justify-between text-[10px] text-on-surface-variant">
-                  <span>{{ z.mlas }} MLAs · {{ z.states|length }} state{{ '' if z.states|length == 1 else 's' }}</span>
-                  <span>{{ z.avg_cases }} cases / MLA</span>
+                  <span>{{ z.mlas }} {{ _unit }} · {{ z.states|length }} state{{ '' if z.states|length == 1 else 's' }}</span>
+                  <span>{{ z.avg_cases }} cases / {{ _unit[:-1] if _unit.endswith('s') else _unit }}</span>
                 </div>
                 {# Transparency progress bar — visual cue at the bottom of each card #}
                 <div class="mt-2 h-1 w-full bg-outline-variant/40 rounded-full overflow-hidden">
@@ -270,8 +302,9 @@
             {% endfor %}
           {% else %}
             <p class="text-label-sm italic text-on-surface-variant p-stack-md">
-              No zonal data yet. Scrape a state with data first
-              (e.g. <code>python -m app.ingest punjab</code>) and re-load.
+              No zonal data yet for {{ state }}. Run the ECI affidavit
+              pipeline (<code>scripts/migrate_to_eci_only.py</code>) to
+              populate this view.
             </p>
           {% endif %}
         </div>
@@ -279,9 +312,8 @@
 
       <!-- RIGHT (2/3): Constituency visualization. Renders as an interactive
                        Leaflet dot map when we have centroids for the state's
-                       constituencies (currently: Punjab). Other states fall
-                       back to the existing tile grid so the layout never goes
-                       blank just because geocoding hasn't reached that state. -->
+                       constituencies. Without centroids, the basemap-clipped
+                       polygon still renders so the layout never goes blank. -->
       {# col-span-2 right column. flex-col so header, map, and footer stack
          and the map's wrapper can flex-1 to fill all remaining height.
          Combined with CSS grid's default same-height-children behavior,
@@ -291,11 +323,19 @@
         <div class="flex justify-between items-start mb-stack-sm flex-wrap gap-stack-sm">
           <div>
             <h3 class="text-headline-md font-headline-md text-on-surface">{{ state }} · Constituency map</h3>
+            {# `tiles` is one row per candidate, not per constituency, so dedupe
+               on the constituency name before counting. Pre-ECI-migration there
+               was usually 1 winner per constituency so `tiles|length` ≈ seats.
+               Post-migration we carry every accepted candidate, so the raw
+               length is ~10× seats. #}
+            {% set _const_count = (tiles | map(attribute='constituency') | unique | list | length) %}
             <p class="text-label-sm text-on-surface-variant">
               {% if constituency_dots %}
-                {{ constituency_dots|length }} constituencies geo-located. Hover any dot for candidate detail; click to open profile.
+                {{ constituency_dots|length }} of {{ _const_count }} constituencies geo-located · {{ tiles|length }} candidates on file. Hover any dot for candidate detail.
+              {% elif tiles %}
+                {{ _const_count }} constituencies · {{ tiles|length }} candidates on file. Geographic dots will appear once constituency centroids are loaded.
               {% else %}
-                Each tile = one constituency. Click any tile to open the MLA's profile.
+                No constituency data for this state yet.
               {% endif %}
             </p>
           </div>
@@ -306,40 +346,36 @@
           </div>
         </div>
 
-        {% if constituency_dots %}
-          {# Dot map for states with constituency centroids on disk.
-             Leaflet needs a definite pixel height at init time — `absolute
-             inset-0` inside a still-computing flex parent reads as 0×0 and
-             the tile layer never loads. Give the map a concrete min-height
-             that fits the panel and let it grow naturally via flex-1. #}
-          <div class="relative flex-1" style="min-height: 520px;">
-            <div id="constituencyMap" class="rounded-lg border border-outline-variant w-full h-full"
-                 style="background: #eff4ff; min-height: 520px;"></div>
-            {# Map mode legend — only visible swatch overlay for the active mode.
-               Wider container so the Party mode's swatch list fits without ellipsis. #}
-            <div class="absolute top-2 right-2 z-[400] bg-surface-container-lowest/95 backdrop-blur border border-outline-variant rounded-lg px-3 py-2 shadow-sm min-w-[160px]">
-              <p id="dotmapLegendTitle" class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant mb-1.5">Party</p>
-              <div id="dotmapLegendBody" class="text-[10px] text-on-surface-variant">
-                <span>Loading…</span>
-              </div>
-            </div>
-            <!-- Hover tooltip -->
-            <div id="dotmapTooltip" class="absolute bg-surface-container-lowest border border-outline-variant rounded-lg shadow-lg px-3 py-2 z-[500] pointer-events-none hidden">
-              <div class="font-bold text-on-surface text-label-sm" id="dotmapTipConst">—</div>
-              <div class="text-label-sm" id="dotmapTipBody">—</div>
+        {# Map renders for every state. The basemap is clipped to the selected
+           state's polygon; adjoining states render as pale flat polygons.
+           Dot markers are an OPTIONAL overlay added only when we have
+           geocoded centroids for the state's constituencies. So states
+           without dots still get a proper basemap-clipped highlighted view. #}
+        <div class="relative flex-1" style="min-height: 520px;">
+          <div id="constituencyMap" class="rounded-lg border border-outline-variant w-full h-full"
+               style="background: #f8f9ff; min-height: 520px;"></div>
+
+          {# Map mode legend — only meaningful when dots are present. Hidden
+             until renderDots populates it; renderMap (no-dots case) shows
+             a 'Geocoding pending' note here instead. #}
+          <div class="absolute top-2 right-2 z-[400] bg-surface-container-lowest/95 backdrop-blur border border-outline-variant rounded-lg px-3 py-2 shadow-sm min-w-[160px]">
+            <p id="dotmapLegendTitle" class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant mb-1.5">Party</p>
+            <div id="dotmapLegendBody" class="text-[10px] text-on-surface-variant">
+              <span>Loading…</span>
             </div>
           </div>
-        {% else %}
-          {# Fallback: existing tile grid for states without centroids yet.
-             flex-1 so it stretches to match the left zone picker's height. #}
-          <div id="constituencyGrid" class="grid gap-[3px] flex-1"
-               style="grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); min-height: 420px; overflow-y: auto;"></div>
-        {% endif %}
+
+          <!-- Hover tooltip (only used when dots are present) -->
+          <div id="dotmapTooltip" class="absolute bg-surface-container-lowest border border-outline-variant rounded-lg shadow-lg px-3 py-2 z-[500] pointer-events-none hidden">
+            <div class="font-bold text-on-surface text-label-sm" id="dotmapTipConst">—</div>
+            <div class="text-label-sm" id="dotmapTipBody">—</div>
+          </div>
+        </div>
 
         <div class="flex justify-between items-center mt-stack-sm">
           <p class="text-[10px] text-on-surface-variant">
             {% if not constituency_dots %}
-              Map view coming for {{ state }} once constituencies are geocoded (<code>python scripts/geocode_constituencies.py</code>).
+              Constituency dots pending for {{ state }} — run <code class="bg-surface-container px-1 rounded">python scripts/geocode_constituencies.py</code> to enable.
             {% endif %}
           </p>
           <a href="/heatmap?state={{ state }}" class="inline-flex items-center gap-1 text-label-sm text-primary hover:underline">
@@ -358,11 +394,16 @@
       <div class="flex justify-between items-end mb-stack-md">
         <div>
           <h2 class="text-headline-md font-headline-md text-on-surface">Trending Intelligence</h2>
-          <p class="text-body-md text-on-surface-variant">Automated patterns identified across {{ kpis.count or 0 }}+ legislative records.</p>
+          <p class="text-body-md text-on-surface-variant">
+            Cycle-over-cycle insights — currently waiting on a second
+            cycle of ECI data for {{ state }} to compute.
+          </p>
         </div>
-        <a href="/anomalies?state={{ state }}" class="text-primary font-label-lg flex items-center gap-1 hover:underline whitespace-nowrap">
-          Explore Patterns <span class="material-symbols-outlined text-sm">arrow_forward</span>
-        </a>
+        {# The "Explore Patterns" link previously pointed at /anomalies.
+           Anomalies is hidden post-migration until cycle-over-cycle ECI
+           data is available — see app/templates/base.html nav for the
+           matching comment. Restore this link when /anomalies is
+           re-enabled. #}
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
@@ -372,13 +413,15 @@
             <span class="material-symbols-outlined text-on-tertiary-container bg-tertiary-fixed/40 p-1 rounded">trending_up</span>
             <h3 class="font-label-lg text-label-lg font-bold">Highest Asset Growth</h3>
           </div>
-          <p class="text-label-sm text-on-surface-variant mb-stack-sm">Politicians showing the most significant increase in declared assets over the last 5+ years.</p>
+          <p class="text-label-sm text-on-surface-variant mb-stack-sm">Politicians showing the most significant increase in declared assets cycle-over-cycle.</p>
           <div class="space-y-2">
             {% for m in wealth_multipliers[:3] %}
             <a href="/politician/{{ m.politician.slug or m.politician.id }}" class="flex items-center justify-between text-label-sm hover:text-primary transition-colors">
               <span class="truncate flex-1">{{ m.politician.display_name }}</span>
               <span class="font-bold text-error ml-2">+{{ "{:,.0f}".format(m.pct) }}%</span>
             </a>
+            {% else %}
+            <p class="text-label-sm italic text-on-surface-variant">Need at least 2 cycles of data.</p>
             {% endfor %}
           </div>
         </div>
@@ -397,6 +440,8 @@
               <span class="flex-1 truncate">{{ r.politician.display_name }}</span>
               <span class="text-label-sm text-on-surface-variant">{{ r.appearance.constituency.name if r.appearance.constituency else '' }}</span>
             </a>
+            {% else %}
+            <p class="text-label-sm italic text-on-surface-variant">Waiting on verified ECI extractions.</p>
             {% endfor %}
           </div>
         </div>
@@ -426,8 +471,12 @@
   <!-- ============================================================ -->
   <section class="px-margin-mobile md:px-margin-desktop mt-stack-lg">
     <div class="max-w-container-max mx-auto">
-      <h2 class="text-headline-md font-headline-md text-on-surface">{{ state }} Asset Landscape</h2>
-      <p class="text-body-md text-on-surface-variant mb-stack-md">How average declared wealth has evolved across election cycles.</p>
+      <h2 class="text-headline-md font-headline-md text-on-surface">{{ state }} · Coverage Snapshot</h2>
+      <p class="text-body-md text-on-surface-variant mb-stack-md">
+        What we currently have on file for {{ state }}. Cycle-over-cycle
+        comparisons will turn on once a second cycle of ECI affidavit data
+        is published.
+      </p>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
         <!-- Term-by-term grouped bar chart -->
@@ -679,6 +728,12 @@ const maxCases  = Math.max(..._allItems.map(t => t.cases || 0), 1);
 // --- Shared color rules (used by both tiles and dots) ----------------------
 
 function modeColor(item, mode) {
+  // Fallback-mode dots (no winner data) carry party=null, wealth_cr=null,
+  // cases=null. Painting them green "0 cases = clean" or pale "₹0 = poor"
+  // would be misleading — render them neutral grey instead so it's obvious
+  // the seat is in the data but the per-candidate metric is pending.
+  if (item.fallback) return '#c4cad3';
+
   if (mode === 'party')  return item.party_color || item.color || '#7f8c8d';
   if (mode === 'wealth') {
     const pct = Math.min(1, (item.wealth_cr || 0) / maxWealth);
@@ -769,18 +824,20 @@ function dotRadius(item) {
 }
 
 function renderDots() {
-  if (!dotmapEl || !DOTS || DOTS.length === 0) return;
+  // Render the masked basemap + state highlight even if we don't have any
+  // dots yet. The dots layer becomes an optional overlay added at the end
+  // only when DOTS is non-empty. This way every state gets the same map
+  // experience the moment we have its election data, with dots filling in
+  // as constituencies are geocoded.
+  if (!dotmapEl) return;
+  const hasDots = DOTS && DOTS.length > 0;
 
   if (!constMap) {
-    // Compute an immediate initial view from the dots themselves so the map
-    // has a valid center/zoom AT INIT TIME. Without this the map sits in a
-    // 'no view' state until the async india_states.geojson fetch returns,
-    // and tiles never request because there's no viewport to request them
-    // for. (The top India map works because it calls .setView() inline.)
+    // Compute an immediate initial view from the dots if we have them, or
+    // fall back to India center otherwise. The async geo fetch will tighten
+    // the view to the state's polygon bounds once it arrives.
     let initLat = 22.5, initLng = 80, initZoom = 5;
-    if (DOTS && DOTS.length) {
-      // Centroid of the dot cloud — close enough for first paint; fitBounds
-      // tightens later once the geojson polygon arrives.
+    if (hasDots) {
       const sumLat = DOTS.reduce((s, d) => s + d.lat, 0);
       const sumLng = DOTS.reduce((s, d) => s + d.lng, 0);
       initLat = sumLat / DOTS.length;
@@ -822,37 +879,61 @@ function renderDots() {
 
   if (dotLayer) {
     constMap.removeLayer(dotLayer);
+    dotLayer = null;
   }
 
-  const tooltip = document.getElementById('dotmapTooltip');
-  const tipConst = document.getElementById('dotmapTipConst');
-  const tipBody  = document.getElementById('dotmapTipBody');
+  // Build the dot markers only if we have geocoded centroids. Otherwise the
+  // map shows just the basemap-clipped state + adjoining polygons.
+  if (hasDots) {
+    const tooltip = document.getElementById('dotmapTooltip');
+    const tipConst = document.getElementById('dotmapTipConst');
+    const tipBody  = document.getElementById('dotmapTipBody');
 
-  const markers = DOTS.map(d => {
-    const color = modeColor(d, ctMode);
-    const m = L.circleMarker([d.lat, d.lng], {
-      radius:      dotRadius(d),
-      fillColor:   color,
-      color:       '#0b1c30',     // dark stroke for contrast on light bg
-      weight:      0.8,
-      fillOpacity: 0.88,
+    const markers = DOTS.map(d => {
+      const color = modeColor(d, ctMode);
+      const m = L.circleMarker([d.lat, d.lng], {
+        radius:      dotRadius(d),
+        fillColor:   color,
+        color:       '#0b1c30',     // dark stroke for contrast on light bg
+        weight:      0.8,
+        fillOpacity: 0.88,
+      });
+      m.on('mousemove', (e) => {
+        tooltip.classList.remove('hidden');
+        tipConst.textContent = d.constituency;
+        // Fallback-mode dots (no winner data) carry null party/wealth/cases.
+        // Build a different tooltip in that case — show the candidate-count
+        // and a "winner data pending" note instead of "null Cr · null cases".
+        if (d.fallback) {
+          tipBody.innerHTML =
+            `<span class="text-on-surface-variant">${d.mla}` +
+            ` <span class="italic opacity-70">(winner data pending)</span></span>`;
+        } else {
+          tipBody.innerHTML =
+            `<span class="text-on-surface-variant">${d.mla} · <strong style="color:${d.party_color}">${d.party}</strong> · ` +
+            `₹${d.wealth_cr} Cr · <strong>${d.cases}</strong> case${d.cases === 1 ? '' : 's'}</span>`;
+        }
+        const rect = dotmapEl.getBoundingClientRect();
+        tooltip.style.left = (e.originalEvent.clientX - rect.left + 12) + 'px';
+        tooltip.style.top  = (e.originalEvent.clientY - rect.top  + 12) + 'px';
+      });
+      m.on('mouseout', () => tooltip.classList.add('hidden'));
+      m.on('click', () => {
+        // Fallback dots represent the constituency, not a specific candidate
+        // — there's no politician slug to navigate to. Drop the user on the
+        // browse page filtered to this constituency instead.
+        if (d.fallback || !d.slug) {
+          window.location.href = '/browse?state=' + encodeURIComponent(CURRENT_STATE) +
+                                  '&constituency=' + encodeURIComponent(d.constituency);
+          return;
+        }
+        window.location.href = '/politician/' + d.slug;
+      });
+      return m;
     });
-    m.on('mousemove', (e) => {
-      tooltip.classList.remove('hidden');
-      tipConst.textContent = d.constituency;
-      tipBody.innerHTML =
-        `<span class="text-on-surface-variant">${d.mla} · <strong style="color:${d.party_color}">${d.party}</strong> · ` +
-        `₹${d.wealth_cr} Cr · <strong>${d.cases}</strong> case${d.cases === 1 ? '' : 's'}</span>`;
-      const rect = dotmapEl.getBoundingClientRect();
-      tooltip.style.left = (e.originalEvent.clientX - rect.left + 12) + 'px';
-      tooltip.style.top  = (e.originalEvent.clientY - rect.top  + 12) + 'px';
-    });
-    m.on('mouseout', () => tooltip.classList.add('hidden'));
-    m.on('click', () => { window.location.href = '/politician/' + d.slug; });
-    return m;
-  });
 
-  dotLayer = L.layerGroup(markers).addTo(constMap);
+    dotLayer = L.layerGroup(markers).addTo(constMap);
+  }
 
   // Overlay the selected state's outline so it visually dominates the basemap.
   // Neighbouring states still show through (basemap tiles + labels) but get
@@ -1007,7 +1088,15 @@ function renderDots() {
   const legendTitle = document.getElementById('dotmapLegendTitle');
   const legendBody  = document.getElementById('dotmapLegendBody');
   if (legendTitle && legendBody) {
-    if (ctMode === 'party') {
+    if (!hasDots) {
+      // States without geocoded dots — replace the legend with a note so
+      // the user understands the empty map. State outline is still visible.
+      legendTitle.textContent = 'Geocoding pending';
+      legendBody.innerHTML =
+        '<div class="space-y-1"><div class="text-on-surface-variant">' +
+        'Constituency centroids not yet loaded for this state.</div>' +
+        '<div class="italic text-on-surface-variant">Run <code>scripts/geocode_constituencies.py</code></div></div>';
+    } else if (ctMode === 'party') {
       // Build dynamic party legend from the actual dots data. Group dots by
       // party, sort by count desc, and show one swatch + label + count per
       // party. Caps at the top 6 parties; anything below that collapses into
@@ -1055,7 +1144,12 @@ function renderDots() {
 
 // --- Initial render (picks whichever view exists in the DOM) ---------------
 
-if (DOTS && DOTS.length > 0 && dotmapEl) {
+// Map renders for every state via renderDots() — which always draws the
+// basemap + state polygons and optionally adds dot markers if DOTS is
+// non-empty. renderCt() (tile grid) is no longer the primary fallback
+// since the template removed that branch; the call is kept here as a
+// safety net in case dotmapEl ever fails to mount.
+if (dotmapEl) {
   renderDots();
 } else {
   renderCt();

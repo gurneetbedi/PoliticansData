@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}{{ constituency }} — {{ state }} {{ year }} · PolitiTrack{% endblock %}
+
+{% block content %}
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg pb-20 md:pb-stack-xl">
+
+  <nav class="text-label-md font-label-md text-on-surface-variant mb-stack-xs flex flex-wrap items-center gap-1">
+    <a href="/eci/" class="hover:text-primary transition-colors">ECI Affidavits</a>
+    <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+    <a href="/eci/{{ state | lower }}/{{ year }}" class="hover:text-primary transition-colors">{{ state }} {{ year }}</a>
+    <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+    <span>{{ constituency }}</span>
+  </nav>
+
+  <header class="mb-stack-md">
+    <h1 class="text-display-sm md:text-display-md font-display-md font-bold text-on-surface">{{ constituency }}</h1>
+    <p class="mt-stack-xs text-body-lg font-body-lg text-on-surface-variant">
+      {{ candidates | length }} accepted candidate{% if candidates | length != 1 %}s{% endif %} in this constituency.
+    </p>
+  </header>
+
+  <div class="overflow-x-auto rounded-2xl border border-outline-variant bg-surface-container-lowest">
+    <table class="min-w-full text-body-md font-body-md">
+      <thead>
+        <tr class="bg-surface-container text-on-surface-variant text-label-md font-label-md">
+          <th class="text-left px-card-md py-stack-sm">Candidate</th>
+          <th class="text-left px-card-md py-stack-sm">Party</th>
+          <th class="text-left px-card-md py-stack-sm">eStamp</th>
+          <th class="text-right px-card-md py-stack-sm">Data captured</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in candidates %}
+        <tr class="border-t border-outline-variant/40 hover:bg-surface-container-low transition-colors">
+          <td class="px-card-md py-stack-sm">
+            <a href="/eci/candidate/{{ c.id }}" class="font-semibold text-on-surface hover:text-primary transition-colors">{{ c.candidate_name }}</a>
+          </td>
+          <td class="px-card-md py-stack-sm text-on-surface-variant">{{ c.party }}</td>
+          <td class="px-card-md py-stack-sm">
+            {% if c.estamp_cert %}
+              <code class="font-mono text-label-md font-label-md text-on-surface">{{ c.estamp_cert[:14] }}…</code>
+            {% else %}
+              <span class="text-on-surface-variant italic">—</span>
+            {% endif %}
+          </td>
+          <td class="px-card-md py-stack-sm text-right text-on-surface-variant text-label-md font-label-md">
+            {{ c.fields_present_count }}/20 fields
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <p class="mt-stack-md text-label-md font-label-md text-on-surface-variant italic">
+    Click any candidate to see what's extracted from their affidavit, plus the link to the original ECI PDF.
+  </p>
+
+</main>
+{% endblock %}

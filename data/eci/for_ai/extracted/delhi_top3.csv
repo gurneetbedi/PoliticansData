@@ -1,0 +1,211 @@
+constituency,rank,rank_reason,politician_id,candidate_name,party,won,myneta_total_assets,myneta_criminal_cases,myneta_education,has_eci_match,eci_quality_status,eci_fields_present
+ADARSH NAGAR,1 (winner),winner,136147,Raj Kumar Bhatia,BJP,1,166043106,1,12th Pass,True,NEEDS_REVIEW,10
+ADARSH NAGAR,2,party_priority:AAP,136694,Mukesh Kumar Goel,AAP,0,102764691,0,Graduate,True,NEEDS_REVIEW,10
+ADARSH NAGAR,3,party_priority:INC,136884,Shivank Singal,INC,0,3778997,0,Post Graduate,True,NEEDS_REVIEW,6
+AMBEDKAR NAGAR,1 (winner),winner,136148,Dr. Ajay Dutt,AAP,1,119294435,0,Doctorate,True,NEEDS_REVIEW,3
+AMBEDKAR NAGAR,2,party_priority:INC,136596,Jai Prakash,INC,0,25514467,9,12th Pass,True,NEEDS_REVIEW,8
+AMBEDKAR NAGAR,3,party_priority:BSP,136869,Sewa Dass,BSP,0,1394000,0,Illiterate,True,NEEDS_REVIEW,5
+BABARPUR,1 (winner),winner,136149,Gopal Rai,AAP,1,14199753,1,Post Graduate,True,NEEDS_REVIEW,9
+BABARPUR,2,party_priority:BJP,136438,Anil Kumar Vashisht,BJP,0,45366037,0,Post Graduate,True,NEEDS_REVIEW,9
+BABARPUR,3,party_priority:INC,136674,Mohd Ishraq Khan,INC,0,29353000,1,5th Pass,True,NEEDS_REVIEW,7
+BADARPUR,1 (winner),winner,136150,Ram Singh Netaji,AAP,1,896703141,0,5th Pass,True,NEEDS_REVIEW,5
+BADARPUR,2,party_priority:BJP,136701,Narayan Dutt Sharma,BJP,0,27160133,1,12th Pass,True,NEEDS_REVIEW,8
+BADARPUR,3,party_priority:INC,136447,Arjun Singh Bhadana,INC,0,15770224,1,Graduate,True,NEEDS_REVIEW,4
+BADLI,1 (winner),winner,136151,Aahir Deepak Chaudharyy,BJP,1,15841080,0,Graduate Professional,True,NEEDS_REVIEW,7
+BADLI,2,party_priority:AAP,136416,Ajesh Yadav,AAP,0,98929035,0,Graduate,True,NEEDS_REVIEW,8
+BADLI,3,party_priority:INC,136523,Devender Yadav,INC,0,483801676,1,10th Pass,True,NEEDS_REVIEW,5
+BALLIMARAN,1 (winner),winner,136152,Imran Hussain,AAP,1,35646554,0,Graduate Professional,True,NEEDS_REVIEW,9
+BALLIMARAN,2,party_priority:INC,136575,Haroon Yusuf,INC,0,47863695,0,Graduate,True,NEEDS_REVIEW,7
+BALLIMARAN,3,party_priority:BSP,136894,Sonu,BSP,0,3583135,0,8th Pass,True,NEEDS_REVIEW,7
+BAWANA,1 (winner),winner,136153,Ravinder Indraj Singh,BJP,1,72337348,0,Graduate,True,NEEDS_REVIEW,7
+BAWANA,2,party_priority:AAP,136593,Jai Bhagwan Upkar,AAP,0,68737506,4,12th Pass,True,NEEDS_REVIEW,5
+BAWANA,3,party_priority:INC,136911,Surender Kumar,INC,0,35267309,0,12th Pass,True,NEEDS_REVIEW,3
+BIJWASAN,1 (winner),winner,136154,Kailash Gahlot,BJP,1,599114620,0,Post Graduate,True,NEEDS_REVIEW,9
+BIJWASAN,2,party_priority:AAP,136910,Surender Bhardwaj,AAP,0,44680746,3,Graduate Professional,True,NEEDS_REVIEW,6
+BIJWASAN,3,party_priority:INC,136507,Col Devinder Kumar Sehrawat,INC,0,34422585,1,Graduate Professional,True,NEEDS_REVIEW,4
+BURARI,1,party_priority:AAP,136851,Sanjeev Jha,AAP,0,1447331,2,Graduate,True,NEEDS_REVIEW,12
+BURARI,2,party_priority:INC,136651,Mangesh Tyagi,INC,0,75956328,3,12th Pass,True,NEEDS_REVIEW,7
+BURARI,3,party_priority:BSP,136554,Ganga Ram,BSP,0,41000,0,10th Pass,True,NEEDS_REVIEW,3
+CHANDNI CHOWK,1 (winner),winner,136155,Punardeep Singh Sawney,AAP,1,212150426,1,12th Pass,False,,
+CHANDNI CHOWK,2,party_priority:BJP,136861,Satish Jain,BJP,0,76606736,0,Post Graduate,True,NEEDS_REVIEW,7
+CHANDNI CHOWK,3,party_priority:INC,136688,Mudit Agarwal,INC,0,141591694,2,Graduate,True,NEEDS_REVIEW,7
+CHHATARPUR,1 (winner),winner,136156,Kartar Singh Tanwar,BJP,1,252159151,0,Others,True,NEEDS_REVIEW,9
+CHHATARPUR,2,party_priority:AAP,136496,Brahm Singh Tanwar,AAP,0,242985718,1,8th Pass,True,NEEDS_REVIEW,7
+CHHATARPUR,3,party_priority:INC,136782,Rajender Singh Tanwar,INC,0,67778976,0,Post Graduate,True,NEEDS_REVIEW,8
+DELHI CANTT,1 (winner),winner,136157,Virender Singh Kadian,AAP,1,60044332,2,Post Graduate,True,NEEDS_REVIEW,7
+DELHI CANTT,2,party_priority:BJP,136492,Bhuvan Tanwar,BJP,0,153051818,0,Post Graduate,True,NEEDS_REVIEW,10
+DELHI CANTT,3,party_priority:INC,136744,Pradeep Kumar Upmanyu,INC,0,57775661,1,Graduate,True,NEEDS_REVIEW,4
+DEOLI,1 (winner),winner,136158,Prem Chauhan,AAP,1,1649779,0,Graduate,True,NEEDS_REVIEW,5
+DEOLI,2,party_priority:INC,136785,Rajesh Chauhan,INC,0,47283869,0,Graduate,True,NEEDS_REVIEW,7
+DEOLI,3,party_priority:BSP,136471,Asmita,BSP,0,115500,0,Post Graduate,True,NEEDS_REVIEW,5
+DWARKA,1 (winner),winner,136159,Parduymn Singh Rajput,BJP,1,425316587,2,Post Graduate,True,NEEDS_REVIEW,4
+DWARKA,2,party_priority:AAP,136947,Vinay Mishra,AAP,0,87017731,6,Post Graduate,True,NEEDS_REVIEW,11
+DWARKA,3,party_priority:INC,136410,Adarsh Shastri,INC,0,66659648,2,Graduate,True,NEEDS_REVIEW,7
+GANDHI NAGAR,1 (winner),winner,136160,Arvinder Singh Lovely,BJP,1,116502287,0,Graduate,True,NEEDS_REVIEW,9
+GANDHI NAGAR,2,party_priority:AAP,136708,Naveen Chaudhary,AAP,0,257393912,4,12th Pass,False,,
+GANDHI NAGAR,3,party_priority:INC,136612,Kamal Arora,INC,0,18303180,2,Graduate Professional,False,,
+GHONDA,1 (winner),winner,136161,Ajay Mahawar,BJP,1,77106885,0,Post Graduate,True,NEEDS_REVIEW,8
+GHONDA,2,party_priority:AAP,136555,Gaurav Sharma,AAP,0,7606533,0,Graduate Professional,True,NEEDS_REVIEW,10
+GHONDA,3,party_priority:INC,136490,Bhisham Sharma,INC,0,447945834,0,Graduate,True,NEEDS_REVIEW,9
+GOKALPUR,1 (winner),winner,136162,Surendra Kumar,AAP,1,45520497,1,Others,True,NEEDS_REVIEW,6
+GOKALPUR,2,party_priority:BJP,136753,Praveen Nimesh,BJP,0,95805528,0,12th Pass,True,NEEDS_REVIEW,9
+GOKALPUR,3,party_priority:INC,136583,Ishwar Singh,INC,0,50897683,0,8th Pass,True,NEEDS_REVIEW,8
+GREATER KAILASH,1,party_priority:BJP,136881,Shikha Roy,BJP,0,161344383,0,Post Graduate,True,NEEDS_REVIEW,10
+GREATER KAILASH,2,party_priority:AAP,136866,Saurabh Bharadwaj,AAP,0,14809968,6,Graduate Professional,True,NEEDS_REVIEW,4
+GREATER KAILASH,3,party_priority:BSP,136721,Niyati Choudhary,BSP,0,5665000,0,Post Graduate,True,NEEDS_REVIEW,5
+HARI NAGAR,1 (winner),winner,136163,Shyam Sharma,BJP,1,160114845,0,10th Pass,True,NEEDS_REVIEW,9
+HARI NAGAR,2,party_priority:AAP,136919,Surinder Kumar Setia,AAP,0,505926226,0,10th Pass,True,NEEDS_REVIEW,8
+HARI NAGAR,3,party_priority:INC,136757,Prem Ballabh,INC,0,37664421,0,12th Pass,True,NEEDS_REVIEW,4
+JANAKPURI,1 (winner),winner,136164,Ashish Sood,BJP,1,92202367,1,Graduate,True,NEEDS_REVIEW,9
+JANAKPURI,2,party_priority:AAP,136736,Parveen Kumar,AAP,0,2358628,2,Graduate Professional,True,NEEDS_REVIEW,7
+JANAKPURI,3,party_priority:INC,136571,Harbani Kaur,INC,0,3004878,0,Graduate,True,NEEDS_REVIEW,4
+JANGPURA,1 (winner),winner,136165,Tarvinder Singh Marwah,BJP,1,496768001,1,12th Pass,True,NEEDS_REVIEW,6
+JANGPURA,2,party_priority:AAP,136654,Manish Sisodia,AAP,0,14281215,6,Others,True,NEEDS_REVIEW,9
+JANGPURA,3,party_priority:INC,136549,Farhad Suri,INC,0,3246263,5,Graduate,True,NEEDS_REVIEW,3
+KALKAJI,1 (winner),winner,136166,Atishi,AAP,1,7693374,4,Post Graduate,True,NEEDS_REVIEW,7
+KALKAJI,2,party_priority:BJP,136810,Ramesh Bidhuri,BJP,0,199462028,0,Graduate Professional,True,NEEDS_REVIEW,7
+KALKAJI,3,party_priority:BSP,136760,Pritam Singh,BSP,0,270000,0,12th Pass,True,NEEDS_REVIEW,9
+KARAWAL NAGAR,1 (winner),winner,136167,Kapil Mishra,BJP,1,10654682,3,Post Graduate,True,NEEDS_REVIEW,9
+KARAWAL NAGAR,2,party_priority:AAP,136659,Manoj Kumar Tyagi,AAP,0,27402865,1,Graduate,True,NEEDS_REVIEW,10
+KARAWAL NAGAR,3,party_priority:INC,136545,Dr. P.K. Mishra,INC,0,13971502,0,Post Graduate,True,NEEDS_REVIEW,8
+KAROL BAGH,1 (winner),winner,136168,Vishesh Ravi,AAP,1,4147048,1,12th Pass,True,NEEDS_REVIEW,7
+KAROL BAGH,2,party_priority:BJP,136548,Dushyant Gautam,BJP,0,53146269,0,Graduate,True,NEEDS_REVIEW,12
+KAROL BAGH,3,party_priority:INC,136773,Rahul Kumar,INC,0,9885968,0,10th Pass,True,NEEDS_REVIEW,7
+KASTURBA NAGAR,1 (winner),winner,136169,Neeraj Basoya,BJP,1,72450155,0,Graduate Professional,True,NEEDS_REVIEW,10
+KASTURBA NAGAR,2,party_priority:AAP,136812,Ramesh Pahelwan,AAP,0,59997020,0,12th Pass,True,NEEDS_REVIEW,8
+KASTURBA NAGAR,3,party_priority:INC,136407,Abhishek Dutt,INC,0,637434319,1,Post Graduate,True,NEEDS_REVIEW,6
+KIRARI,1 (winner),winner,136170,Anil Jha,AAP,1,43302165,3,Post Graduate,True,NEEDS_REVIEW,11
+KIRARI,2,party_priority:BJP,136483,Bajrang Shukla,BJP,0,16434388,1,Graduate,True,NEEDS_REVIEW,10
+KIRARI,3,party_priority:INC,136789,Rajesh Kumar Gupta,INC,0,198442437,0,Graduate,True,NEEDS_REVIEW,8
+KONDLI,1,party_priority:BJP,136762,Priyanka Gautam,BJP,0,8227984,0,Graduate Professional,True,NEEDS_REVIEW,9
+KONDLI,2,party_priority:AAP,136629,Kuldeep Kumar,AAP,0,5300281,7,12th Pass,False,,
+KONDLI,3,party_priority:INC,136419,Akshay Kumar,INC,0,514657,0,Post Graduate,True,NEEDS_REVIEW,10
+KRISHNA NAGAR,1 (winner),winner,136171,Dr Anil Goyal,BJP,1,781842401,0,Post Graduate,True,NEEDS_REVIEW,6
+KRISHNA NAGAR,2,party_priority:AAP,136941,Vikas Bagga Ca,AAP,0,35367049,0,Post Graduate,True,NEEDS_REVIEW,8
+KRISHNA NAGAR,3,party_priority:INC,136565,Gurcharan Singh,INC,0,1309052000,1,8th Pass,False,,
+LAXMI NAGAR,1 (winner),winner,136172,Abhay Kumar Verma,BJP,1,19780321,1,Graduate Professional,False,,
+LAXMI NAGAR,2,party_priority:AAP,136478,B B Tyagi,AAP,0,73324194,2,Graduate Professional,True,NEEDS_REVIEW,10
+LAXMI NAGAR,3,party_priority:INC,136903,Sumit Sharma,INC,0,21699389,0,8th Pass,True,NEEDS_REVIEW,10
+MADIPUR,1 (winner),winner,136173,Kailash Gangwal,BJP,1,7679369,0,12th Pass,True,NEEDS_REVIEW,10
+MADIPUR,2,party_priority:AAP,136803,Rakhi Birla,AAP,0,3852358,1,Post Graduate,True,NEEDS_REVIEW,6
+MADIPUR,3,party_priority:INC,136597,Jai Prakash Panwar,INC,0,551685853,0,12th Pass,False,,
+MALVIYA NAGAR,1 (winner),winner,136174,Satish Upadhyay,BJP,1,132251447,0,Graduate,True,NEEDS_REVIEW,6
+MALVIYA NAGAR,2,party_priority:AAP,136893,Somnath Bharti,AAP,0,22367040,7,Post Graduate,True,NEEDS_REVIEW,6
+MALVIYA NAGAR,3,party_priority:INC,136605,Jitender Kumar Kochar,INC,0,205856905,0,12th Pass,True,NEEDS_REVIEW,9
+MANGOL PURI,1 (winner),winner,136175,Raj Kumar Chauhan,BJP,1,118332064,0,12th Pass,True,NEEDS_REVIEW,3
+MANGOL PURI,2,party_priority:AAP,136527,Dharam Rakshak Alias Rakesh Jatav,AAP,0,18280055,0,8th Pass,True,NEEDS_REVIEW,5
+MANGOL PURI,3,party_priority:INC,136570,Hanuman Sahay Alias Hanuman Chauhan,INC,0,3741108,0,8th Pass,True,NEEDS_REVIEW,7
+MATIA MAHAL,1 (winner),winner,136176,Aaley Mohammed Iqbal,AAP,1,11794437,1,12th Pass,True,NEEDS_REVIEW,7
+MATIA MAHAL,2,party_priority:BJP,136520,Deepti Indora,BJP,0,10971252,0,Post Graduate,True,NEEDS_REVIEW,5
+MATIA MAHAL,3,party_priority:INC,136470,Asim Ahmed Khan,INC,0,246027514,0,Graduate,True,NEEDS_REVIEW,7
+MATIALA,1 (winner),winner,136177,Sandeep Sehrawat,BJP,1,18438177,2,Graduate Professional,True,NEEDS_REVIEW,5
+MATIALA,2,party_priority:AAP,136902,Sumesh Shokeen,AAP,0,651417698,1,12th Pass,True,NEEDS_REVIEW,13
+MATIALA,3,party_priority:INC,136769,Raghvinder Singh,INC,0,244280358,1,Graduate,True,NEEDS_REVIEW,7
+MEHRAULI,1 (winner),winner,136178,Gajender Singh Yadav,BJP,1,301102326,0,Post Graduate,True,NEEDS_REVIEW,8
+MEHRAULI,2,party_priority:AAP,136642,Mahender Chaudhary,AAP,0,12587137,0,Graduate Professional,True,NEEDS_REVIEW,8
+MEHRAULI,3,party_priority:INC,136765,Pushpa Singh,INC,0,3093865,1,12th Pass,True,NEEDS_REVIEW,3
+MODEL TOWN,1,party_priority:BJP,136461,Ashok Goel,BJP,0,263039120,0,Graduate Professional,True,NEEDS_REVIEW,4
+MODEL TOWN,2,party_priority:AAP,136418,Akhilesh Pati Tripathi,AAP,0,6724979,10,Post Graduate,True,NEEDS_REVIEW,11
+MODEL TOWN,3,party_priority:INC,136619,Kanwar Karan Singh,INC,0,99649359,1,12th Pass,True,NEEDS_REVIEW,7
+MOTI NAGAR,1 (winner),winner,136179,Harish Khurana,BJP,1,27046864,1,Graduate,True,NEEDS_REVIEW,9
+MOTI NAGAR,2,party_priority:AAP,136885,Shivcharan Goel,AAP,0,241986928,0,12th Pass,True,NEEDS_REVIEW,11
+MOTI NAGAR,3,party_priority:INC,136781,Rajender Singh,INC,0,55021828,0,10th Pass,True,NEEDS_REVIEW,8
+MUNDKA,1 (winner),winner,136180,Gajender Drall,BJP,1,127169681,0,Graduate,True,NEEDS_REVIEW,8
+MUNDKA,2,party_priority:AAP,136600,Jasbir Karala,AAP,0,43156239,0,12th Pass,True,NEEDS_REVIEW,9
+MUNDKA,3,party_priority:INC,136529,Dharampal Lakra,INC,0,760144877,0,Others,True,NEEDS_REVIEW,9
+MUSTAFABAD,1 (winner),winner,136181,Mohan Singh Bisht,BJP,1,78293737,0,12th Pass,True,NEEDS_REVIEW,8
+MUSTAFABAD,2,party_priority:AAP,136411,Adeel Ahmad Khan,AAP,0,4938831,0,Graduate,True,NEEDS_REVIEW,6
+MUSTAFABAD,3,party_priority:INC,136420,Ali Mehdi,INC,0,37956382,1,Graduate Professional,True,NEEDS_REVIEW,5
+NAJAFGARH,1 (winner),winner,136182,Neelam Pahalwan,BJP,1,125010791,0,Post Graduate,True,NEEDS_REVIEW,8
+NAJAFGARH,2,party_priority:AAP,136926,Tarun Kumar,AAP,0,26546659,1,10th Pass,True,NEEDS_REVIEW,5
+NAJAFGARH,3,party_priority:INC,136922,Sushma Devi Yadav,INC,0,4954536,1,Post Graduate,True,NEEDS_REVIEW,8
+NANGLOI JAT,1 (winner),winner,136183,Manoj Kumar Shokeen,BJP,1,131283303,0,12th Pass,True,NEEDS_REVIEW,7
+NANGLOI JAT,2,party_priority:AAP,136768,Raghuvinder Shokeen,AAP,0,233030525,0,Graduate Professional,True,NEEDS_REVIEW,6
+NANGLOI JAT,3,party_priority:INC,136831,Rohit Choudhary,INC,0,23095564,1,Graduate Professional,True,NEEDS_REVIEW,8
+NERELA,1 (winner),winner,136184,Raj Karan Khatri,BJP,1,104411275,0,12th Pass,True,NEEDS_REVIEW,10
+NERELA,2,party_priority:AAP,136873,Sharad Kumar,AAP,0,67878442,1,10th Pass,True,NEEDS_REVIEW,6
+NERELA,3,party_priority:INC,136450,Aruna,INC,0,22772639,0,Post Graduate,True,NEEDS_REVIEW,7
+NEW DELHI,1 (winner),winner,136185,Parvesh Sahib Singh,BJP,1,1156383180,1,Post Graduate,True,NEEDS_REVIEW,6
+NEW DELHI,2,party_priority:AAP,136451,Arvind Kejriwal,AAP,0,42436504,15,Graduate Professional,True,NEEDS_REVIEW,3
+NEW DELHI,3,party_priority:INC,136841,Sandeep Dikshit,INC,0,111381677,0,Post Graduate,True,NEEDS_REVIEW,5
+OKHLA,1 (winner),winner,136186,Amanatullah Khan,AAP,1,18415626,19,12th Pass,True,NEEDS_REVIEW,6
+OKHLA,2,party_priority:BJP,136653,Manish Chaudhary,BJP,0,83753407,0,Graduate,True,NEEDS_REVIEW,7
+OKHLA,3,party_priority:INC,136446,Ariba Khan,INC,0,2111744,1,Graduate Professional,True,NEEDS_REVIEW,7
+PALAM,1,party_priority:BJP,136631,Kuldeep Solanki,BJP,0,136242582,1,10th Pass,True,NEEDS_REVIEW,4
+PALAM,2,party_priority:AAP,136607,Joginder Solanki,AAP,0,154248976,0,Graduate,True,NEEDS_REVIEW,9
+PALAM,3,party_priority:INC,136649,Mange Ram,INC,0,74091817,1,Illiterate,True,NEEDS_REVIEW,9
+PATEL NAGAR,1 (winner),winner,136187,Pravesh Ratn,AAP,1,15282007,0,Graduate,True,NEEDS_REVIEW,9
+PATEL NAGAR,2,party_priority:BJP,136767,Raaj Kumar Anand,BJP,0,798529298,2,Post Graduate,True,NEEDS_REVIEW,8
+PATEL NAGAR,3,party_priority:INC,136627,Krishna Tirath,INC,0,186106656,0,Graduate Professional,True,NEEDS_REVIEW,5
+PATPARGANJ,1 (winner),winner,136188,Ravinder Singh Negi,BJP,1,17840741,0,Graduate,False,,
+PATPARGANJ,2,party_priority:AAP,136473,Avadh Ojha,AAP,0,85907918,0,Graduate Professional,True,NEEDS_REVIEW,9
+PATPARGANJ,3,party_priority:INC,136433,Anil Kumar,INC,0,38540745,7,Graduate Professional,True,NEEDS_REVIEW,6
+R K PURAM,1 (winner),winner,136189,Anil Kumar Sharma,BJP,1,71300145,0,Graduate,True,NEEDS_REVIEW,7
+R K PURAM,2,party_priority:AAP,136748,Pramila Tokas,AAP,0,732195667,2,12th Pass,True,NEEDS_REVIEW,6
+R K PURAM,3,party_priority:INC,136957,Vishesh Kumar,INC,0,19098249,0,Post Graduate,True,NEEDS_REVIEW,9
+RAJINDER NAGAR,1 (winner),winner,136190,Umang Bajaj,BJP,1,107563096,0,Post Graduate,True,NEEDS_REVIEW,8
+RAJINDER NAGAR,2,party_priority:AAP,136547,Durgesh Pathak,AAP,0,1947576,4,Post Graduate,True,NEEDS_REVIEW,5
+RAJINDER NAGAR,3,party_priority:BSP,136883,Shiv Prasad Verma,BSP,0,6817622,0,8th Pass,True,NEEDS_REVIEW,7
+RAJOURI GARDEN,1 (winner),winner,136191,Manjinder Singh Sirsa,BJP,1,2488552444,5,12th Pass,True,NEEDS_REVIEW,8
+RAJOURI GARDEN,2,party_priority:AAP,136401,A Dhanwati Chandela A,AAP,0,1099005522,0,10th Pass,True,NEEDS_REVIEW,10
+RAJOURI GARDEN,3,party_priority:INC,136526,Dharam Pal Chandela,INC,0,61036079,0,12th Pass,True,NEEDS_REVIEW,7
+RITHALA,1 (winner),winner,136192,Kulwant Rana,BJP,1,701125079,3,Graduate,True,NEEDS_REVIEW,7
+RITHALA,2,party_priority:INC,136921,Sushant Mishra,INC,0,19420660,0,Graduate Professional,True,NEEDS_REVIEW,11
+RITHALA,3,party_priority:BSP,136714,Neyaz Khan,BSP,0,4861000,0,8th Pass,True,NEEDS_REVIEW,5
+ROHINI,1 (winner),winner,136193,Vijender Gupta,BJP,1,161028211,4,Post Graduate,True,NEEDS_REVIEW,8
+ROHINI,2,party_priority:AAP,136731,Pardeep Mittal,AAP,0,4392451,3,12th Pass,True,NEEDS_REVIEW,2
+ROHINI,3,party_priority:INC,136901,Sumesh Gupta,INC,0,22044295,0,8th Pass,True,NEEDS_REVIEW,5
+ROHTAS NAGAR,1 (winner),winner,136194,Jitender Mahajan,BJP,1,25758304,3,Graduate,True,NEEDS_REVIEW,8
+ROHTAS NAGAR,2,party_priority:AAP,136858,Sarita Singh,AAP,0,795524,1,Post Graduate,True,NEEDS_REVIEW,8
+ROHTAS NAGAR,3,party_priority:INC,136918,Sureshvati,INC,0,18511299,0,10th Pass,True,NEEDS_REVIEW,3
+SADAR BAZAR,1,party_priority:BJP,136658,Manoj Kumar Jindal,BJP,0,82099353,0,12th Pass,True,NEEDS_REVIEW,11
+SADAR BAZAR,2,party_priority:AAP,136891,Som Dutt,AAP,0,2120795,1,Graduate,True,NEEDS_REVIEW,4
+SADAR BAZAR,3,party_priority:INC,136431,Anil Bhardwaj,INC,0,102234994,1,Graduate,True,NEEDS_REVIEW,8
+SANGAM VIHAR,1 (winner),winner,136195,Chandan Kumar Choudhary,BJP,1,39473899,5,Graduate,True,NEEDS_REVIEW,10
+SANGAM VIHAR,2,party_priority:AAP,136540,Dinesh Mohaniya,AAP,0,7700166,4,Graduate Professional,True,NEEDS_REVIEW,11
+SANGAM VIHAR,3,party_priority:INC,136576,Harsh Choudhary,INC,0,51016582,0,Post Graduate,True,NEEDS_REVIEW,5
+SEELAM PUR,1 (winner),winner,136196,Chaudhary Zubair Ahmad,AAP,1,36925933,0,Graduate,True,NEEDS_REVIEW,9
+SEELAM PUR,2,party_priority:BJP,136436,Anil Kumar Sharma,BJP,0,19239979,0,8th Pass,True,NEEDS_REVIEW,7
+SEELAM PUR,3,party_priority:INC,136403,Abdul Rehman,INC,0,5773795,3,8th Pass,True,NEEDS_REVIEW,5
+SEEMA PURI,1 (winner),winner,136197,Veer Singh Dhingan,AAP,1,5837000,0,10th Pass,True,NEEDS_REVIEW,6
+SEEMA PURI,2,party_priority:BJP,136628,Ku. Rinku,BJP,0,9056365,0,10th Pass,True,NEEDS_REVIEW,10
+SEEMA PURI,3,party_priority:INC,136792,Rajesh Lilothia,INC,0,50545167,0,Post Graduate,True,NEEDS_REVIEW,6
+SHAHDARA,1 (winner),winner,136198,Sanjay Goyal,BJP,1,544744218,0,Graduate Professional,True,NEEDS_REVIEW,8
+SHAHDARA,2,party_priority:AAP,136606,Jitender Singh Shunty,AAP,0,76092538,0,10th Pass,True,NEEDS_REVIEW,6
+SHAHDARA,3,party_priority:INC,136586,Jagat Singh,INC,0,21329241,0,Graduate,True,NEEDS_REVIEW,7
+SHAKUR BASTI,1 (winner),winner,136199,Karnail Singh,BJP,1,2596736090,0,10th Pass,True,NEEDS_REVIEW,9
+SHAKUR BASTI,2,party_priority:INC,136864,Satish Kumar Luthra,INC,0,724959523,0,10th Pass,True,NEEDS_REVIEW,5
+SHAKUR BASTI,3,party_priority:BSP,136938,Vijay Kumar,BSP,0,20000,0,12th Pass,True,NEEDS_REVIEW,7
+SHALIMAR BAGH,1 (winner),winner,136200,Rekha Gupta,BJP,1,53134981,0,Graduate Professional,True,NEEDS_REVIEW,9
+SHALIMAR BAGH,2,party_priority:AAP,136485,Bandana Kumari,AAP,0,115429658,1,Graduate,True,NEEDS_REVIEW,8
+SHALIMAR BAGH,3,party_priority:INC,136737,Parveen Kumar Jain,INC,0,276670764,0,10th Pass,True,NEEDS_REVIEW,7
+SULTAN PUR MAJRA,1 (winner),winner,136201,Mukesh Kumar Ahlawat,AAP,1,110982888,4,12th Pass,True,NEEDS_REVIEW,4
+SULTAN PUR MAJRA,2,party_priority:INC,136594,Jai Kishan,INC,0,7841573,3,12th Pass,False,,
+SULTAN PUR MAJRA,3,party_priority:BSP,136632,Kulwant Rana,BSP,0,41875000,0,Graduate Professional,True,NEEDS_REVIEW,7
+TILAK NAGAR,1 (winner),winner,136202,Jarnail Singh,AAP,1,40697670,4,12th Pass,True,NEEDS_REVIEW,12
+TILAK NAGAR,2,party_priority:BJP,136887,Shveta Saini,BJP,0,6430169,0,Graduate Professional,True,NEEDS_REVIEW,8
+TILAK NAGAR,3,party_priority:INC,136738,Parvinder Singh Alias P S Bawa,INC,0,162048836,0,Graduate,True,NEEDS_REVIEW,6
+TIMARPUR,1,party_priority:BJP,136920,Surya Prakash Khatri,BJP,0,269150712,0,Graduate Professional,True,NEEDS_REVIEW,6
+TIMARPUR,2,party_priority:INC,136638,Lokendra Kalyan Singh,INC,0,687070296,1,Graduate Professional,True,NEEDS_REVIEW,13
+TIMARPUR,3,fallback:asset_rank,136927,Tarun Kumar,Republican Sena,0,23245000,0,10th Pass,True,NEEDS_REVIEW,5
+TRI NAGAR,1 (winner),winner,136203,Tilak Ram Gupta,BJP,1,23565559,0,10th Pass,True,NEEDS_REVIEW,6
+TRI NAGAR,2,party_priority:AAP,136756,Preeti Jitender Tomar,AAP,0,42689094,0,Post Graduate,True,NEEDS_REVIEW,5
+TRI NAGAR,3,party_priority:INC,136860,Satender Sharma,INC,0,20031200,0,12th Pass,True,NEEDS_REVIEW,7
+TRILOKPURI,1 (winner),winner,136204,Ravi Kant,BJP,1,2047145,0,Post Graduate,True,NEEDS_REVIEW,9
+TRILOKPURI,2,party_priority:AAP,136442,Anjana Parcha,AAP,0,6522872,1,Graduate,True,NEEDS_REVIEW,7
+TRILOKPURI,3,party_priority:INC,136425,Amardeep,INC,0,20736780,0,10th Pass,True,NEEDS_REVIEW,10
+TUGHLAKABAD,1 (winner),winner,136205,Sahi Ram,AAP,1,13899388,2,10th Pass,True,NEEDS_REVIEW,7
+TUGHLAKABAD,2,party_priority:BJP,136833,Rohtash Kumar,BJP,0,54218749,0,Post Graduate,True,NEEDS_REVIEW,3
+TUGHLAKABAD,3,party_priority:INC,136951,Virender Singh,INC,0,190233937,0,Literate,True,NEEDS_REVIEW,4
+UTTAM NAGAR,1 (winner),winner,136206,Pawan Sharma,BJP,1,64685034,0,Post Graduate,True,NEEDS_REVIEW,4
+UTTAM NAGAR,2,party_priority:AAP,136743,Posh Balyan,AAP,0,726940052,0,Graduate Professional,True,NEEDS_REVIEW,8
+UTTAM NAGAR,3,party_priority:INC,136696,Mukesh Sharma,INC,0,546033928,1,Post Graduate,True,NEEDS_REVIEW,11
+VIKASPURI,1 (winner),winner,136207,Pankaj Kumar Singh,BJP,1,49406844,1,Graduate Professional,True,NEEDS_REVIEW,9
+VIKASPURI,2,party_priority:AAP,136648,Mahinder Yadav,AAP,0,38485038,1,10th Pass,True,NEEDS_REVIEW,9
+VIKASPURI,3,party_priority:BSP,136626,Krishna Thakur,BSP,0,10365000,0,10th Pass,True,NEEDS_REVIEW,7
+VISHWAS NAGAR,1 (winner),winner,136208,Om Prakash Sharma,BJP,1,251231937,0,Graduate,True,NEEDS_REVIEW,9
+VISHWAS NAGAR,2,party_priority:AAP,136518,Deepak Singhal,AAP,0,152850269,1,8th Pass,True,NEEDS_REVIEW,9
+VISHWAS NAGAR,3,party_priority:INC,136794,Rajiv Chaudhary,INC,0,42854696,0,Graduate Professional,True,NEEDS_REVIEW,7
+WAZIRPUR,1 (winner),winner,136209,Poonam Sharma,BJP,1,12755121,0,12th Pass,True,NEEDS_REVIEW,6
+WAZIRPUR,2,party_priority:INC,136770,Ragini Nayak,INC,0,18999401,3,Doctorate,True,NEEDS_REVIEW,10
+WAZIRPUR,3,party_priority:BSP,136578,Hira Lal,BSP,0,5900000,0,8th Pass,True,NEEDS_REVIEW,6

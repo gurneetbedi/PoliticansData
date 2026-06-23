@@ -37,29 +37,47 @@ def zone_summary(db: Session) -> list[dict]:
     for key, cfg in ALL_STATES.items():
         if not cfg.zone:
             continue
+        # Primary path: winners only ("MLAs"). ECI source has no win flag
+        # yet, so this is empty for Delhi today. Fall back to all accepted
+        # candidates so the zone panel still populates with neutral counts.
         apps = _latest_appearances(db, house="Assembly", scope="current",
                                     state_name=cfg.name)
+        fallback = False
+        if not apps:
+            apps = _latest_appearances(db, house="Assembly", scope="all",
+                                        state_name=cfg.name)
+            fallback = True
         if not apps:
             continue
         bucket = by_zone.setdefault(cfg.zone, {"mlas": 0, "clean": 0,
-                                                "cases": 0, "states": []})
+                                                "cases": 0, "states": [],
+                                                "fallback_states": []})
         for a in apps:
             bucket["mlas"] += 1
             if (a.criminal_cases_count or 0) == 0:
                 bucket["clean"] += 1
             bucket["cases"] += (a.criminal_cases_count or 0)
         bucket["states"].append(cfg.name)
+        if fallback:
+            bucket["fallback_states"].append(cfg.name)
 
     out = []
     for zone, d in by_zone.items():
         if d["mlas"] == 0:
             continue
+        # In fallback mode the "transparency" % is based on the candidate
+        # pool, not winners — flag it so the template can dim/caveat the
+        # number. (The home.html template currently shows the % directly;
+        # treat it as indicative until winners are loaded.)
+        is_fallback = bool(d["fallback_states"])
         out.append({
             "name":         zone,
             "mlas":         d["mlas"],
             "states":       sorted(d["states"]),
             "transparency": round(100 * d["clean"] / d["mlas"], 0),
             "avg_cases":    round(d["cases"] / d["mlas"], 1),
+            "fallback":     is_fallback,
+            "label":        "candidates" if is_fallback else "MLAs",
         })
     # Sort by transparency descending so "cleanest" zone surfaces first
     out.sort(key=lambda z: z["transparency"], reverse=True)
@@ -449,12 +467,15 @@ def constituency_tiles(db: Session, year: Optional[int] = None, state_name: Opti
 
 
 # ---------------- Constituency dot map -----------------------------------------
-# Lazy-load the centroid file once per process. The static file is keyed by
-# uppercased constituency name (e.g. "ABOHAR" → {lat, lng}). Currently only
-# Punjab is geocoded; other states will return an empty dict.
+# Lazy-load the centroid file once per process. The file is nested by state to
+# avoid cross-state name collisions:
+#     {"Punjab": {"ABOHAR": {lat, lng}}, "Bihar": {"PATNA SAHIB": {lat, lng}}}
+# Backward-compatible with the older flat format ({"ABOHAR": {lat, lng}}) —
+# the migration is documented in scripts/geocode_constituencies.py.
 _constituency_coords_cache: dict[str, dict] = {}
 
 def _load_constituency_coords() -> dict[str, dict]:
+    """Read the coords file and normalize it to the nested-by-state shape."""
     global _constituency_coords_cache
     if _constituency_coords_cache:
         return _constituency_coords_cache
@@ -465,50 +486,79 @@ def _load_constituency_coords() -> dict[str, dict]:
         return {}
     try:
         with open(path) as f:
-            _constituency_coords_cache = json.load(f)
+            data = json.load(f)
     except Exception:
-        _constituency_coords_cache = {}
+        return {}
+
+    if not isinstance(data, dict) or not data:
+        return {}
+
+    # Detect old flat format: top-level values are {lat, lng} dicts, not
+    # per-state buckets. If so, wrap into the new shape under "Punjab"
+    # (every historical flat-keyed file was Punjab-only).
+    first_val = next(iter(data.values()), {})
+    if isinstance(first_val, dict) and "lat" in first_val and "lng" in first_val:
+        data = {"Punjab": data}
+
+    # Normalize the inner keys to uppercase-stripped for case-insensitive lookups.
+    out = {}
+    for state, bucket in data.items():
+        if not isinstance(bucket, dict):
+            continue
+        out[state] = {k.upper().strip(): v for k, v in bucket.items()}
+    _constituency_coords_cache = out
     return _constituency_coords_cache
 
 
 def constituency_dots(db: Session, state_name: Optional[str] = None) -> list[dict]:
     """
     Per-constituency dot data for the Leaflet map on the homepage.
-    Returns one dict per constituency that BOTH has a current-cycle winner
-    AND has a known lat/lng centroid. Constituencies without coords are
-    silently omitted so the map can still render even if geocoding is
-    incomplete for the state.
 
-    Output shape (one dict per dot):
-        {
-            "constituency":  "ABOHAR",
-            "mla":           "Sandeep Jakhar",
-            "slug":          "sandeep-jakhar-punjab2022-2",
-            "party":         "INC",
-            "party_color":   "#19aaed",
-            "wealth_cr":     1.57,
-            "cases":         0,
-            "lat":           30.1450543,
-            "lng":           74.1956597,
-        }
+    Primary mode: one dict per constituency that has a current-cycle winner
+    (`won=True`) and a known lat/lng centroid.
 
-    The caller can check `len(constituency_dots(...))` to decide whether to
-    render the dot map or fall back to the tile grid.
+    Fallback mode (post-ECI-migration): the ECI source doesn't include the
+    won/lost flag, so `scope="current"` returns []. When that happens, fall
+    back to one dot per constituency that has ANY accepted candidate. Each
+    dot represents the constituency itself, not a specific candidate —
+    `mla` becomes "N candidates" and `party` / `wealth_cr` / `cases` are
+    set to safe defaults until winner data is loaded.
     """
     coords = _load_constituency_coords()
-    if not coords:
+    if not coords or not state_name:
         return []
 
-    # Normalize keys for case-insensitive lookups. The JSON file uses raw
-    # uppercase keys; ensure we match those even if DB names are mixed case.
-    coords_upper = {k.upper().strip(): v for k, v in coords.items()}
+    # Per-state bucket. Empty if this state isn't geocoded yet.
+    state_bucket = coords.get(state_name, {})
+    if not state_bucket:
+        return []
 
     apps = _latest_appearances(db, house="Assembly", scope="current",
                                 state_name=state_name)
 
+    # --- Fallback: no winners flagged ---------------------------------------
+    # Build one dot per constituency from the all-cycle candidate pool. This
+    # is what unblocks Delhi 2025 where every row has `won=False` until
+    # winner data is cross-referenced.
+    fallback_mode = False
+    if not apps:
+        fallback_mode = True
+        all_apps = _latest_appearances(db, house="Assembly", scope="all",
+                                        state_name=state_name)
+        # Group by constituency
+        by_const: dict[str, list] = {}
+        for a in all_apps:
+            if not a.constituency:
+                continue
+            by_const.setdefault(a.constituency.name, []).append(a)
+        apps = [as_list[0] for as_list in by_const.values()]  # one rep per
+        const_counts = {k: len(v) for k, v in by_const.items()}
+    else:
+        const_counts = {}
+
     dots = []
     for a in apps:
-        if not a.constituency or not a.politician:
+        if not a.constituency:
             continue
         # Strip (SC) / (ST) reservation suffixes for matching — the centroid
         # file is keyed by the plain name without reservation tags.
@@ -516,8 +566,30 @@ def constituency_dots(db: Session, state_name: Optional[str] = None) -> list[dic
         for suffix in (" (SC)", " (ST)", "(SC)", "(ST)"):
             plain = plain.replace(suffix, "").strip()
 
-        loc = coords_upper.get(plain)
+        loc = state_bucket.get(plain)
         if not loc:
+            continue
+
+        if fallback_mode:
+            n = const_counts.get(a.constituency.name, 1)
+            dots.append({
+                "constituency": a.constituency.name,
+                # In fallback mode the dot represents the seat itself, not
+                # any one candidate. Surface the total candidate count so
+                # the hover/tooltip is still informative.
+                "mla":          f"{n} candidates contested",
+                "slug":         None,
+                "party":        None,
+                "party_color":  "#9aa0a6",  # neutral grey
+                "wealth_cr":    None,
+                "cases":        None,
+                "lat":          loc.get("lat"),
+                "lng":          loc.get("lng"),
+                "fallback":     True,
+            })
+            continue
+
+        if not a.politician:
             continue
 
         dots.append({
@@ -537,63 +609,52 @@ def constituency_dots(db: Session, state_name: Optional[str] = None) -> list[dic
 # ---------------- Did You Know -----------------------------------------------
 
 def did_you_know(db: Session, state_name: Optional[str] = None) -> list[str]:
-    """Auto-generated factoids computed live from the DB."""
+    """Auto-generated factoids computed live from the DB.
+
+    POST-ECI-MIGRATION POLICY
+    -------------------------
+    The wealth/cases insights from the myneta era are NOT shown here. ECI
+    affidavits are extracted by regex from OCR text, and the financial /
+    criminal-case fields are not reliable enough to lead with. Until we
+    have a verified-figures pipeline (LLM-assisted re-extraction + spot
+    checks), `did_you_know` reports only fact patterns that are robust
+    to NULL values — counts of candidates, parties, constituencies, and
+    coverage notes. The leaderboards on the page are also de-emphasised
+    until the underlying numbers are verified.
+    """
     facts = []
-    apps = _latest_appearances(db, state_name=state_name)
+
+    # Coverage counts — robust to NULL fields, drawn straight from the
+    # canonical tables. These won't surprise anyone.
+    apps = _latest_appearances(db, state_name=state_name, scope="all")
     if not apps:
-        return ["Run the scraper to populate the database."]
+        return ["No election data yet for this state."]
 
-    # Only consider appearances whose politician has a non-empty name —
-    # avoids "faces the most criminal cases — 9 pending" with a missing name.
-    named = [a for a in apps if a.politician and (a.politician.name or "").strip()]
-
-    # Wealthiest
-    if named:
-        wealthiest = max(named, key=lambda a: a.total_assets_inr or 0)
-        if wealthiest.total_assets_inr:
-            facts.append(
-                f"The wealthiest MLA in our database is {wealthiest.politician.name} "
-                f"with declared assets of ₹{round((wealthiest.total_assets_inr / CRORE), 1):,} Crore."
-            )
-
-    # % with cases
-    with_cases = sum(1 for a in apps if (a.criminal_cases_count or 0) > 0)
+    cands = len(apps)
+    parties = len({a.party.short_name for a in apps if a.party})
+    consts = len({a.constituency.name for a in apps if a.constituency})
     facts.append(
-        f"{round(100 * with_cases / len(apps))}% of MLAs in the database have at least one declared criminal case."
+        f"{cands:,} accepted candidates contested across {consts} constituencies "
+        f"in the latest cycle for this state."
     )
-
-    # Most cases — skip any politician without a name
-    if named:
-        most_cases = max(named, key=lambda a: a.criminal_cases_count or 0)
-        if (most_cases.criminal_cases_count or 0) > 0:
-            facts.append(
-                f"{most_cases.politician.name} faces the most pending criminal cases — "
-                f"{most_cases.criminal_cases_count} declared."
-            )
-
-    # Crorepati share
-    crore_count = sum(1 for a in apps if (a.total_assets_inr or 0) >= CRORE)
-    facts.append(
-        f"{round(100 * crore_count / len(apps))}% of MLAs are crorepatis "
-        f"(declared assets over ₹1 Crore)."
-    )
-
-    # Cycle range
-    years = sorted({a.election.year for a in apps if a.election})
-    if years:
+    if parties:
         facts.append(
-            f"Data covers Punjab assembly elections from {min(years)} to {max(years)} — "
-            f"{len(years)} cycles."
+            f"{parties} distinct political parties (including Independents) "
+            f"fielded candidates in this cycle."
         )
 
-    # Re-contesters
-    pol_count = db.query(func.count(Politician.id)).scalar()
-    app_count = db.query(func.count(ElectionAppearance.id)).scalar()
-    if pol_count and app_count > pol_count:
-        facts.append(
-            f"{app_count - pol_count} re-election entries: politicians who contested in multiple cycles."
-        )
+    # Data source / transparency note — this is the kind of fact we *can*
+    # vouch for, since it's derived from the canonical row count rather
+    # than any OCR-extracted number.
+    facts.append(
+        "All candidate data is sourced from ECI Form 26 affidavits "
+        "(affidavit.eci.gov.in) under India's Government Open Data License."
+    )
 
+    # NOTE: Wealth/cases factoids INTENTIONALLY OMITTED until we have a
+    # verified-figures pipeline. The myneta-era queries used to live
+    # here — see git history for the previous implementation. Don't
+    # re-enable them on the unverified ECI regex output.
     return facts
 
 

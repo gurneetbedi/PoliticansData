@@ -27,6 +27,13 @@ from app import services
 from app.data.punjab_rs import PUNJAB_RS_MEMBERS
 from app.states import ALL_STATES as _ALL_STATES
 
+# The /eci/* router is parked. After the ECI data was migrated into the
+# canonical politicians/election_appearances tables, the entire site became
+# ECI-sourced, so a separate "Affidavits" section was redundant. Keep the
+# file (app/eci_routes.py) and templates (app/templates/eci/) in source so
+# we can lift logic from them later if needed.
+# from app.eci_routes import router as eci_router
+
 Base.metadata.create_all(bind=engine)
 
 # Absolute paths resolved from this file so static/templates work regardless
@@ -38,6 +45,10 @@ TEMPLATES_DIR = APP_DIR / "templates"
 app = FastAPI(title="PoliTrack India", version="0.1.0")
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
+
+# (Removed: app.include_router(eci_router))
+# After the migration, the canonical routes are the ECI routes; no separate
+# /eci/* prefix is needed.
 
 # Make the tracked-states list available to every template (used by the
 # State Selector dropdown in base.html and any other UI that needs to
@@ -127,20 +138,24 @@ templates.env.filters["all_case_types"] = all_case_types
 
 # Derived from the registry so adding a new state is a single edit in states.py.
 KNOWN_STATES = set(_ALL_STATES.keys())
-# Display order for dropdowns / leaderboards / map summaries. Punjab first
-# (richest dataset), then alphabetical for everything else — predictable
-# for users scanning the list.
-TRACKED_STATE_NAMES = ["Punjab"] + sorted(
-    s.name for k, s in _ALL_STATES.items() if k != "punjab"
-)
+# Display order for dropdowns / leaderboards / map summaries. Delhi only —
+# all canonical tables now come from ECI (Delhi 2025 Assembly) after the
+# migration. When more states get ECI coverage, list them here in the
+# preferred display order.
+TRACKED_STATE_NAMES = [s.name for s in _ALL_STATES.values()]
 
 def resolve_state(state: str | None = None) -> str:
-    """Return a canonical state name. Falls back to 'Punjab' for empty/unknown."""
+    """Return a canonical state name. Falls back to 'Delhi' for empty/unknown.
+
+    Delhi is the default because it is currently the only state with
+    ECI-sourced data in the canonical tables (post-migration). When more
+    states are added, this default can be revisited.
+    """
     if not state:
-        return "Punjab"
+        return "Delhi"
     s = state.strip().lower()
     if s not in KNOWN_STATES:
-        return "Punjab"
+        return "Delhi"
     return s.capitalize()
 
 
@@ -175,18 +190,21 @@ def home(
     request: Request,
     db: Session = Depends(get_db),
     view: str = Query("mla", regex="^(mla|mp|rs)$"),
-    scope: str = Query("current", regex="^(current|all)$"),
+    scope: str = Query("all", regex="^(current|all)$"),
     state: str = Depends(resolve_state),
 ):
     """
     The view toggle selects which legislative body to focus the page on:
-      mla  → Punjab Assembly (default; 117 seats; richest dataset)
-      mp   → Punjab Lok Sabha MPs (13 seats; requires `python -m app.ingest punjab_ls`)
-      rs   → Punjab Rajya Sabha (7 seats; data lives in app/data/punjab_rs.py)
+      mla  → Delhi 2025 Assembly candidates (default; 70 seats; ECI-sourced)
+      mp   → Lok Sabha MPs (not yet populated for Delhi from ECI)
+      rs   → Rajya Sabha (curated; not yet populated for Delhi)
 
     The scope toggle:
-      current → only politicians who won in the latest cycle (default — what users expect)
-      all     → every politician who ever won, with their most recent declared data
+      current → only politicians who won in the latest cycle (empty for now —
+                ECI source doesn't include the won/lost flag; awaiting cross-ref
+                with EC result data before re-enabling)
+      all     → every accepted candidate in the latest cycle, with their
+                declared ECI data (DEFAULT)
     """
     HOUSE = {"mla": "Assembly", "mp": "LokSabha", "rs": "RajyaSabha"}[view]
 

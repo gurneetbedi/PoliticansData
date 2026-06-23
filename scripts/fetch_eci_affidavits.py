@@ -513,10 +513,27 @@ async def crawl_by_url(page: Page, base_url: str, max_pages: int,
 # PDF download
 # ---------------------------------------------------------------------------
 
-async def download_pdf(context: BrowserContext, candidate: CandidateRow,
+async def download_pdf(page, candidate: CandidateRow,
                          out_dir: Path) -> CandidateRow:
-    """Open the candidate's profile page, click Download, save the PDF."""
-    page = await context.new_page()
+    """Navigate the given page to a candidate profile, click Download, save PDF.
+
+    IMPORTANT (post-CDP-attach lesson):
+    -----------------------------------
+    Previous implementation created a NEW page per candidate via
+    `context.new_page()` and closed it at the end. On macOS, in CDP-attach
+    mode where the Chrome window lives on a separate Space, creating a
+    new tab causes macOS to switch Spaces and yank the user away from
+    their work. At 1,800 candidates that's 1,800 Space-switches.
+
+    The fix: pass in a single, long-lived page. The caller creates it
+    once at startup and reuses it across every candidate — we navigate
+    that one tab through each profile URL in sequence. No new tabs are
+    ever created during the loop, so macOS has nothing to switch to.
+
+    The download event still fires correctly via `page.expect_download`
+    because Playwright captures download events at the context level,
+    not per-tab.
+    """
     candidate.download_attempted = True
     try:
         await page.goto(candidate.profile_url, wait_until=WAIT_UNTIL,
@@ -578,8 +595,8 @@ async def download_pdf(context: BrowserContext, candidate: CandidateRow,
     except Exception as e:
         candidate.error = f"{type(e).__name__}: {e}"
         print(f"     ✗ {type(e).__name__}: {candidate.name}: {e}", file=sys.stderr)
-    finally:
-        await page.close()
+    # NOTE: deliberately NOT closing the page here — caller owns it and
+    # reuses it across all candidates.
     return candidate
 
 
@@ -597,64 +614,130 @@ async def run(args) -> None:
     if seen:
         print(f"Resume: {len(seen)} candidates already in manifest", file=sys.stderr)
 
-    if args.headless:
+    # ── Robust skip set built from the manifest ─────────────────────────
+    # The original skip used `cand.profile_url in seen`, which fails for
+    # this portal because the Laravel-encrypted profile_url is re-issued
+    # on every listing render. So a fresh scrape sees brand-new URLs and
+    # the skip never fires, forcing a profile-page visit + cache check
+    # for every candidate (~1-2 sec each × 1,800 candidates = ~45 min
+    # of wasted profile-page hits even when all PDFs are on disk).
+    #
+    # Solution: walk the manifest raw (not the de-duped `seen` dict),
+    # collect the set of successfully-downloaded affidavit_ids per
+    # (name, constituency, party, status) tuple. Those tuples ARE stable
+    # across re-renders. In the loop below, we count how many cards we've
+    # seen for a tuple in the current run and skip the first K where K =
+    # number of successes already in the manifest.
+    from collections import defaultdict
+    done_affs_by_key: dict[tuple, set[str]] = defaultdict(set)
+    if manifest_path.exists():
+        for _line in manifest_path.read_text().splitlines():
+            if not _line.strip():
+                continue
+            try:
+                _r = json.loads(_line)
+            except json.JSONDecodeError:
+                continue
+            if _r.get("download_succeeded") in (True, "True") and _r.get("affidavit_id"):
+                _key = (_r.get("name",""), _r.get("constituency",""),
+                        _r.get("party",""), _r.get("status",""))
+                done_affs_by_key[_key].add(str(_r["affidavit_id"]))
+    if done_affs_by_key:
+        _total = sum(len(s) for s in done_affs_by_key.values())
+        print(f"   → {_total} unique affidavit_ids already downloaded across "
+              f"{len(done_affs_by_key)} (name, constituency) keys — those "
+              f"will be skipped before any profile-page visit.",
+              file=sys.stderr)
+
+    if args.headless and not args.cdp:
         print("⚠️  --headless is on. Akamai often blocks headless Chrome on "
               "this portal; if warm-up fails, drop the flag and retry with "
               "a visible browser window.", file=sys.stderr)
 
     async with async_playwright() as pw:
-        # Anti-bot tweaks. Akamai inspects a long list of "are you a bot?"
-        # signals (navigator.webdriver, missing window.chrome, missing
-        # plugins array, headless UA string, viewport, locale, timezone).
-        # We patch each here. Some of this won't matter in headed mode
-        # because real Chrome already has them; we keep them anyway so
-        # the script is self-consistent.
-        browser = await pw.chromium.launch(
-            headless=args.headless,
-            slow_mo=80 if args.headless else 0,   # subtle pacing
-            args=[
-                "--disable-blink-features=AutomationControlled",
-                "--disable-features=IsolateOrigins,site-per-process",
-                "--no-sandbox",
-            ],
-        )
-        context = await browser.new_context(
-            user_agent=USER_AGENT,
-            extra_http_headers=CONTACT_HEADER,
-            viewport={"width": 1440, "height": 900},
-            locale="en-IN",
-            timezone_id="Asia/Kolkata",
-            color_scheme="light",
-        )
-        # Stealth init scripts — wipe the giveaways Akamai's sensor checks.
-        await context.add_init_script("""
-            // navigator.webdriver should not exist
-            Object.defineProperty(navigator, 'webdriver', {get: () => undefined});
-            // Fake chrome runtime presence
-            window.chrome = window.chrome || { runtime: {} };
-            // Plugins length 0 is suspicious — fake a few
-            Object.defineProperty(navigator, 'plugins', {
-                get: () => [1, 2, 3, 4, 5].map(i => ({ name: 'Plugin' + i })),
-            });
-            // Languages should match locale
-            Object.defineProperty(navigator, 'languages', {
-                get: () => ['en-IN', 'en-US', 'en'],
-            });
-            // Permissions API often leaks headless — fake notification permission
-            const originalQuery = window.navigator.permissions &&
-                                   window.navigator.permissions.query;
-            if (originalQuery) {
-                window.navigator.permissions.query = (parameters) => (
-                    parameters.name === 'notifications'
-                        ? Promise.resolve({ state: Notification.permission })
-                        : originalQuery(parameters)
-                );
-            }
-        """)
-        page = await context.new_page()
+        # ── CDP-attach mode: connect to a running Chrome ──────────────
+        # Confirmed working against Akamai per Phase 1 test (the test
+        # script `scripts/phase1_test_cdp_attach.py` proved 3/3 downloads
+        # in ~4-5 sec each). User opens a dedicated Chrome window with
+        # --remote-debugging-port=PORT, solves Akamai once, drags it to a
+        # separate macOS Space, and runs this script. Background tabs
+        # open in that Chrome; user's normal Chrome is untouched.
+        if args.cdp:
+            cdp_url = f"http://localhost:{args.cdp}"
+            print(f"Attaching to running Chrome at {cdp_url} …",
+                  file=sys.stderr)
+            try:
+                browser = await pw.chromium.connect_over_cdp(cdp_url)
+            except Exception as e:
+                sys.exit(f"\nCould not connect to Chrome at {cdp_url}: {e}\n"
+                          f"Did you run `python scripts/phase1_test_cdp_attach.py "
+                          f"--launch` first?")
+            if not browser.contexts:
+                sys.exit("Connected to CDP but no browser context is open. "
+                          "Open a tab in the dedicated Chrome window first.")
+            # Reuse the EXISTING context — it has Akamai cookies the user
+            # warmed manually. Creating a new context would start fresh.
+            context = browser.contexts[0]
+            print(f"✓ Attached. Reusing context with "
+                  f"{len(context.pages)} existing page(s).", file=sys.stderr)
+            # CDP attach skips warm_up_session — the user already
+            # solved Akamai in the real Chrome window before launching us.
+            page = await context.new_page()
 
-        # ── Akamai warm-up — required before any deep URL works ──────────
-        await warm_up_session(page)
+        # ── Launch mode: spawn our own Chromium (legacy / headless) ─────
+        else:
+            # Anti-bot tweaks. Akamai inspects a long list of "are you a bot?"
+            # signals (navigator.webdriver, missing window.chrome, missing
+            # plugins array, headless UA string, viewport, locale, timezone).
+            # We patch each here. Some of this won't matter in headed mode
+            # because real Chrome already has them; we keep them anyway so
+            # the script is self-consistent.
+            browser = await pw.chromium.launch(
+                headless=args.headless,
+                slow_mo=80 if args.headless else 0,   # subtle pacing
+                args=[
+                    "--disable-blink-features=AutomationControlled",
+                    "--disable-features=IsolateOrigins,site-per-process",
+                    "--no-sandbox",
+                ],
+            )
+            context = await browser.new_context(
+                user_agent=USER_AGENT,
+                extra_http_headers=CONTACT_HEADER,
+                viewport={"width": 1440, "height": 900},
+                locale="en-IN",
+                timezone_id="Asia/Kolkata",
+                color_scheme="light",
+            )
+            # Stealth init scripts — wipe the giveaways Akamai's sensor checks.
+            await context.add_init_script("""
+                // navigator.webdriver should not exist
+                Object.defineProperty(navigator, 'webdriver', {get: () => undefined});
+                // Fake chrome runtime presence
+                window.chrome = window.chrome || { runtime: {} };
+                // Plugins length 0 is suspicious — fake a few
+                Object.defineProperty(navigator, 'plugins', {
+                    get: () => [1, 2, 3, 4, 5].map(i => ({ name: 'Plugin' + i })),
+                });
+                // Languages should match locale
+                Object.defineProperty(navigator, 'languages', {
+                    get: () => ['en-IN', 'en-US', 'en'],
+                });
+                // Permissions API often leaks headless — fake notification permission
+                const originalQuery = window.navigator.permissions &&
+                                       window.navigator.permissions.query;
+                if (originalQuery) {
+                    window.navigator.permissions.query = (parameters) => (
+                        parameters.name === 'notifications'
+                            ? Promise.resolve({ state: Notification.permission })
+                            : originalQuery(parameters)
+                    );
+                }
+            """)
+            page = await context.new_page()
+
+            # Akamai warm-up — required before any deep URL works
+            await warm_up_session(page)
 
         # ── Mode A: direct URL (preferred — much simpler) ────────────────
         if args.listing_url:
@@ -680,13 +763,17 @@ async def run(args) -> None:
                       file=sys.stderr)
                 print(f"     or use --listing-url <full URL> to skip the form.",
                       file=sys.stderr)
-                await browser.close()
+                # In CDP-attach mode we don't own the browser — leave it
+                # running so the user can re-run after fixing the issue.
+                if not args.cdp:
+                    await browser.close()
                 sys.exit(2)
 
             if args.inspect:
                 print(f"\n→ Form layout saved — exiting (inspect mode).",
                       file=sys.stderr)
-                await browser.close()
+                if not args.cdp:
+                    await browser.close()
                 return
 
             # After form-submit we're on a listing page. Reuse the URL-mode
@@ -704,7 +791,8 @@ async def run(args) -> None:
         if not all_candidates:
             print("No candidates found. Inspect _empty_page_*.html for clues.",
                   file=sys.stderr)
-            await browser.close()
+            if not args.cdp:
+                await browser.close()
             sys.exit(2)
 
         # ── Status breakdown ─────────────────────────────────────────────
@@ -744,7 +832,8 @@ async def run(args) -> None:
         if not filtered:
             print("\nNo candidates match the status filter — exiting.",
                   file=sys.stderr)
-            await browser.close()
+            if not args.cdp:
+                await browser.close()
             return
 
         # If --limit was set but the user also asked for status filtering,
@@ -758,20 +847,97 @@ async def run(args) -> None:
         print(f"\nTotal candidates to process: {len(filtered)}",
               file=sys.stderr)
 
-        # Download each
+        # Create ONE long-lived page that we navigate through every profile
+        # URL. Crucial for CDP-attach mode on macOS: a new tab per candidate
+        # would trigger a Space switch every download, dragging the user
+        # away from their work. We keep navigating the same tab instead.
+        # In CDP mode we prefer to reuse the first existing tab so that the
+        # listing tab the user opened doesn't get hijacked: pick a non-active
+        # tab if one exists, else create one.
+        if args.cdp and len(context.pages) >= 2:
+            download_page = context.pages[1]
+            print(f"Reusing existing tab #2 for downloads (no new tabs "
+                  f"will be created).", file=sys.stderr)
+        else:
+            download_page = await context.new_page()
+            if args.cdp:
+                print(f"Created one download tab in the dedicated Chrome — "
+                      f"no further tabs will open during the loop.",
+                      file=sys.stderr)
+
+        # Download each. If the download_page dies mid-loop (TargetClosedError,
+        # browser crash, user accidentally closes the tab), recreate it on
+        # the fly so a single failure doesn't kill the rest of the run.
+        # We also retry the candidate that triggered the failure ONCE on the
+        # fresh page — most page-close events happen right after a download
+        # timeout, and retrying often succeeds.
+        #
+        # Per-key counter: walk the new listing in order, counting how many
+        # times each (name, constituency, party, status) tuple appears. Skip
+        # the Nth occurrence if we've already downloaded >= N affidavit_ids
+        # for that tuple. Avoids the profile-page visit entirely for
+        # already-known candidates.
+        encountered_per_key: dict[tuple, int] = defaultdict(int)
+
         for i, cand in enumerate(filtered, 1):
+            # Fast skip: by stable (name, constituency, party, status) tuple
+            _key = (cand.name, cand.constituency, cand.party, cand.status)
+            encountered_per_key[_key] += 1
+            _done = len(done_affs_by_key.get(_key, set()))
+            if encountered_per_key[_key] <= _done:
+                print(f"[{i}/{len(filtered)}] (skip — {_done} filings already on "
+                      f"disk for {cand.name} / {cand.constituency})",
+                      file=sys.stderr)
+                continue
+
+            # Legacy skip kept as belt-and-suspenders (rarely fires now
+            # because of the per-key skip above, but harmless).
             if cand.profile_url in seen and seen[cand.profile_url].download_succeeded:
-                print(f"[{i}/{len(filtered)}] (skip) {cand.name}",
+                print(f"[{i}/{len(filtered)}] (skip — profile_url matched manifest)",
                       file=sys.stderr)
                 continue
             status_tag = f"  [{cand.status}]" if cand.status else ""
             print(f"[{i}/{len(filtered)}] {cand.name} / {cand.party}{status_tag}",
                   file=sys.stderr)
-            cand = await download_pdf(context, cand, pdf_dir)
+
+            # If our long-lived page died on the previous iteration,
+            # recreate it now before navigating.
+            if download_page.is_closed():
+                print(f"     ⟳ Download page was closed — recreating …",
+                      file=sys.stderr)
+                download_page = await context.new_page()
+
+            cand = await download_pdf(download_page, cand, pdf_dir)
+
+            # If the download died with TargetClosed / context-closed,
+            # recreate the page and retry this same candidate once.
+            if (not cand.download_succeeded and cand.error
+                    and ("TargetClosedError" in cand.error
+                         or "has been closed" in cand.error
+                         or "Target closed" in cand.error)):
+                print(f"     ⟳ Page lost mid-download — retrying on fresh page …",
+                      file=sys.stderr)
+                try:
+                    if not download_page.is_closed():
+                        await download_page.close()
+                except Exception:
+                    pass
+                download_page = await context.new_page()
+                # Reset candidate flags for the retry
+                cand.error = ""
+                cand.download_attempted = False
+                cand.download_succeeded = False
+                cand = await download_pdf(download_page, cand, pdf_dir)
+
             append_manifest(manifest_path, cand)
             await asyncio.sleep(args.delay)
 
-        await browser.close()
+        # In CDP-attach mode the Chrome belongs to the user; leave it
+        # running so the next scrape can attach without --launch again.
+        # Close our long-lived download page only if WE created it (in
+        # launch mode), so we don't leave orphan tabs in user's Chrome.
+        if not args.cdp:
+            await browser.close()
 
 
 def main():
@@ -827,6 +993,15 @@ def main():
     ap.add_argument("--inspect", action="store_true",
                     help="(form mode only) Dump every <select> on the form page "
                          "to _form_layout.json, then exit.")
+    ap.add_argument("--cdp", type=int, default=0, metavar="PORT",
+                    help="Attach to a running Chrome via Chrome DevTools "
+                         "Protocol on the given port (e.g. --cdp 9222). The "
+                         "Chrome must already be running with "
+                         "--remote-debugging-port=PORT, and you must have "
+                         "already solved any Akamai challenge in that Chrome. "
+                         "See scripts/phase1_test_cdp_attach.py for the "
+                         "launch helper. When --cdp is used, --headless is "
+                         "ignored (the existing Chrome's mode is used).")
     args = ap.parse_args()
 
     # One mode must be picked

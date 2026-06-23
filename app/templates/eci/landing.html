@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}ECI Affidavits · PolitiTrack{% endblock %}
+
+{% block content %}
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg pb-20 md:pb-stack-xl">
+
+  <header class="mb-stack-lg">
+    <h1 class="text-display-sm md:text-display-md font-display-md font-bold text-on-surface">Election Commission Affidavits</h1>
+    <p class="mt-stack-xs text-body-lg font-body-lg text-on-surface-variant max-w-3xl">
+      Candidate affidavits filed with the Election Commission of India under
+      Form 26 of the Conduct of Election Rules, 1961. These pages publish
+      what's directly verifiable from the source documents and clearly mark
+      what's auto-extracted.
+    </p>
+  </header>
+
+  <div class="rounded-2xl bg-secondary-container/50 border border-secondary-container px-stack-md py-stack-sm text-body-md font-body-md text-on-secondary-container max-w-3xl">
+    <strong>Currently covered:</strong> Delhi 2025 Assembly only — this is
+    a proof of concept. Other states will appear here as they're processed.
+    The pipeline is open source — see the
+    <a href="https://github.com/gurneetbedi/Politicians-Project" target="_blank" class="underline">GitHub repository</a>
+    for status.
+  </div>
+
+  <section class="mt-stack-lg">
+    <h2 class="text-headline-sm font-headline-sm font-bold text-on-surface mb-stack-sm">Coverage</h2>
+    <div class="overflow-x-auto rounded-2xl border border-outline-variant bg-surface-container-lowest">
+      <table class="min-w-full text-body-md font-body-md">
+        <thead>
+          <tr class="bg-surface-container text-on-surface-variant text-label-md font-label-md">
+            <th class="text-left px-card-md py-stack-sm">State</th>
+            <th class="text-left px-card-md py-stack-sm">Election</th>
+            <th class="text-right px-card-md py-stack-sm">Candidates</th>
+            <th class="px-card-md py-stack-sm"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for e in elections %}
+          <tr class="border-t border-outline-variant/40 hover:bg-surface-container-low transition-colors">
+            <td class="px-card-md py-stack-sm font-semibold text-on-surface">{{ e.state }}</td>
+            <td class="px-card-md py-stack-sm text-on-surface">{{ e.election_year }} {{ e.election_type }}</td>
+            <td class="px-card-md py-stack-sm text-right text-on-surface">{{ e.candidate_count }}</td>
+            <td class="px-card-md py-stack-sm text-right">
+              <a href="/eci/{{ e.state | lower }}/{{ e.election_year }}"
+                 class="inline-flex items-center gap-1 text-label-md font-label-md text-primary hover:underline">
+                Browse <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+{% endblock %}

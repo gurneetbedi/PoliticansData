@@ -124,11 +124,12 @@
 <header class="sticky top-0 w-full bg-surface-container-lowest border-b border-outline-variant shadow-sm" style="z-index: 5000;">
   <div class="max-w-container-max mx-auto h-16 flex justify-between items-center px-margin-mobile md:px-margin-desktop">
     {# Resolve the current state BEFORE building the nav query string.
-       `.get('state', 'Punjab')` returns "" when the param exists but is empty, so we
-       chain `or 'Punjab'` to guarantee a real value. Without this `_q` becomes
-       "?state=" and every nav link points to "/?state=" (empty), which trips the
-       home-page state filter. #}
-    {% set current_state = request.query_params.get('state') or 'Punjab' %}
+       `.get('state')` returns "" when the param exists but is empty, so we
+       chain `or 'Delhi'` to guarantee a real value. Without this `_q` becomes
+       "?state=" and every nav link points to "/?state=" (empty), which trips
+       the home-page state filter. Default = Delhi because that is the only
+       state with ECI-sourced data after the migration. #}
+    {% set current_state = request.query_params.get('state') or 'Delhi' %}
     {# Preserve the current ?state= when navigating across pages, so the State Selector
        picked on the landing page sticks across the whole site. #}
     {% set _q = '?state=' ~ current_state %}
@@ -137,8 +138,16 @@
       <a class="text-label-lg font-label-lg {% if request.url.path == '/' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/{{ _q }}">Dashboard</a>
       <a class="text-label-lg font-label-lg {% if request.url.path == '/browse' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/browse{{ _q }}">Rankings</a>
       <a class="text-label-lg font-label-lg {% if request.url.path == '/heatmap' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/heatmap{{ _q }}">Heatmap</a>
-      <a class="text-label-lg font-label-lg {% if request.url.path == '/anomalies' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/anomalies{{ _q }}">Anomalies</a>
-      <a class="text-label-lg font-label-lg {% if request.url.path == '/funding' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/funding{{ _q }}">Funding</a>
+      {# Anomalies and Funding hidden for now — the underlying routes still exist
+         in app/main.py and the templates remain in app/templates/. Will be
+         re-introduced once we have multi-cycle ECI data (anomalies) and
+         party-funding data (funding) to back them.
+      <a ... href="/anomalies{{ _q }}">Anomalies</a>
+      <a ... href="/funding{{ _q }}">Funding</a>
+      #}
+      {# The "Affidavits" link I added in the previous round is also removed —
+         the entire site is now ECI-affidavit-sourced, so a separate section
+         is redundant. /eci/* routes are also deleted; main routes own this. #}
     </nav>
     {# Global State Selector — visible on every page, shows the currently selected state. #}
     <div class="relative hidden md:block" id="globalStateSelector" style="z-index: 9999;">
@@ -201,8 +210,8 @@
       </p>
     </div>
     <div class="flex flex-wrap gap-x-stack-lg gap-y-2">
-      <a class="text-label-sm font-label-sm opacity-80 hover:text-white transition-colors" href="https://myneta.info/" target="_blank">Data source · ADR myneta</a>
-      <a class="text-label-sm font-label-sm opacity-80 hover:text-white transition-colors" href="https://adrindia.org/content/about-myneta" target="_blank">Methodology</a>
+      <a class="text-label-sm font-label-sm opacity-80 hover:text-white transition-colors" href="https://affidavit.eci.gov.in/" target="_blank">Data source · ECI affidavits</a>
+      <a class="text-label-sm font-label-sm opacity-80 hover:text-white transition-colors" href="https://github.com/gurneetbedi/Politicians-Project/blob/main/docs/eci_compliance.md" target="_blank">Methodology &amp; data use</a>
       <a class="text-label-sm font-label-sm opacity-80 hover:text-white transition-colors" href="https://github.com" target="_blank">GitHub</a>
       <a class="text-label-sm font-label-sm opacity-80 hover:text-white transition-colors" href="mailto:gurneet.bedi@me.com?subject=PolitiTrack%20issue">Report an issue</a>
     </div>
@@ -220,12 +229,7 @@
   <a href="/heatmap{{ _q }}" class="flex flex-col items-center {% if request.url.path == '/heatmap' %}text-primary font-bold{% else %}text-on-surface-variant{% endif %}">
     <span class="material-symbols-outlined">map</span><span class="text-[10px]">Heatmap</span>
   </a>
-  <a href="/anomalies{{ _q }}" class="flex flex-col items-center {% if request.url.path == '/anomalies' %}text-primary font-bold{% else %}text-on-surface-variant{% endif %}">
-    <span class="material-symbols-outlined">warning</span><span class="text-[10px]">Anomalies</span>
-  </a>
-  <a href="/funding{{ _q }}" class="flex flex-col items-center {% if request.url.path == '/funding' %}text-primary font-bold{% else %}text-on-surface-variant{% endif %}">
-    <span class="material-symbols-outlined">account_tree</span><span class="text-[10px]">Funding</span>
-  </a>
+  {# Anomalies / Funding / Affidavits mobile-nav entries hidden — see desktop nav comment above. #}
 </nav>
 
 <script>

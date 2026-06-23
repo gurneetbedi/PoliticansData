@@ -8,6 +8,10 @@ venv/
 
 # Database
 *.db
+*.db.bak
+*.db-journal
+*.db-wal
+*.db-shm
 *.sqlite3
 
 # Scraper cache (regenerable, not source data)
@@ -44,8 +48,19 @@ logs/
 data/eci/raw_pdfs/
 data/eci/for_ai/pdfs/
 data/eci/for_ai/preprocessed/
+data/eci/for_ai/preprocessed_delhi_2020/
 data/eci/for_ai/output/
 data/eci/vision_demo/
+
+# Phase 1 test artifacts — sensitive (Akamai session cookies) or temporary
+data/eci/_akamai_state.json
+data/eci/_phase1_test/
+
+# Google Cloud service-account credentials — NEVER commit these
+**/*-service-account*.json
+**/gcp-key*.json
+gcp/
+.gcp/
 
 # Fetcher caches / manifests / error pages / debug dumps
 data/eci/**/_*.html

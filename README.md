@@ -2,13 +2,17 @@
 
 An open-source transparency platform that surfaces declared net worth, criminal cases, education, and term-over-term history for Indian elected representatives — MLAs, Lok Sabha MPs, and Rajya Sabha members. All data is sourced from [myneta.info](https://myneta.info/) (ADR), which structures Election Commission of India affidavits.
 
-**Current coverage (assembly):**
+**Current coverage on the live site** (ingested from myneta historically):
 
 - **Punjab** — 2007, 2012, 2017, 2022 (117 seats each cycle)
 - **Bihar** — 2005, 2010, 2015, 2020, 2025 (243 seats each cycle)
 - **Goa** — 2007, 2012, 2017, 2022 (40 seats each cycle)
 
 Lok Sabha and Rajya Sabha coverage for Punjab is also included. The architecture is state-agnostic — adding a new state means writing a small scraper module and adding an entry to `app/states.py`.
+
+**Experimental ECI pipeline (NOT on the live site yet):**
+
+- **Delhi 2025 Assembly** — partial pull of ~104 unique candidates (of ~600 total Accepted). Proof-of-concept only; the loader that lifts ECI extractions into the production DB has not been written yet. See the [ECI Affidavit Pipeline section](#eci-affidavit-pipeline-next-generation-data-source) for the engineering details.
 
 > **Status:** research-preview. Things will move. Issues and PRs welcome.
 
@@ -123,6 +127,14 @@ Before scraping at scale, **edit `MYNETA_USER_AGENT`** in `app/scrapers/myneta_c
 
 ## ECI Affidavit Pipeline (next-generation data source)
 
+> **Pipeline status: experimental.** We have run this against **one state,
+> one election** so far — Delhi 2025 Assembly, partial pull of ~104 of
+> ~600 Accepted candidates. The pipeline code is generic enough to point
+> at any state's listing URL, but it has not been validated outside this
+> single sample, and **no ECI-sourced data is on the live PolitiTrack
+> site yet**. Production is still entirely myneta-sourced (see coverage
+> table at the top of this README).
+
 Form 26 affidavits are filed directly with the Election Commission of
 India and made public at <https://affidavit.eci.gov.in>. They contain
 *more* than what ADR/myneta surfaces — per-bank-account balances, per-
@@ -232,6 +244,18 @@ python scripts/qc_preprocessed.py
 - [`docs/eci_dedup_method.md`](docs/eci_dedup_method.md) — multi-affidavit candidate dedup logic
 - [`docs/ECI_MIGRATION_PLAN.md`](docs/ECI_MIGRATION_PLAN.md) — overall roadmap from myneta → ECI
 - [`data/eci/for_ai/README.md`](data/eci/for_ai/README.md) — how to hand PDFs to any AI for structured extraction
+
+### Can we use this data?
+
+**Yes.** Government-owned data is reusable under the [Government Open
+Data License – India (GODL)](https://ap.data.gov.in/godl), issued under
+the National Data Sharing and Accessibility Policy (2012). Form 26
+affidavits are public records under Rule 4A of the Conduct of Election
+Rules, 1961. Requirement: attribution back to ECI, and respect for
+personal data (we redact PANs, phone, email, account numbers before
+republishing). Full reasoning + redaction list in
+[`docs/eci_compliance.md`](docs/eci_compliance.md). If ECI ever asks us
+to stop, we stop — same as we did for ADR.
 
 ## What Gets Scraped
 
