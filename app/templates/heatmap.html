@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}State-wise Transparency Heatmap | PolitiTrack India{% endblock %}
+{% block title %}State-wise Transparency Heatmap | Lokvani{% endblock %}
 {% block content %}
 
 <main class="flex-1 max-w-container-max w-full mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
@@ -276,7 +276,12 @@ function renderCt() {
   ctGrid.innerHTML = '';
   TILES.forEach(t => {
     const tile = document.createElement('a');
-    tile.href = '/politician/' + t.slug;
+    // Constituency-level drill-down: shows top-3 candidates per cycle
+    // including the winner of the seat. Goes here even when t.slug
+    // points at a winner because the constituency view contextualizes
+    // the winner against their opponents.
+    tile.href = '/constituency/' + encodeURIComponent(CURRENT_STATE)
+                 + '/' + encodeURIComponent(t.constituency);
     tile.style.background = tileBg(t, ctMode);
     tile.style.borderRadius = '6px';
     tile.style.padding = '10px 12px';

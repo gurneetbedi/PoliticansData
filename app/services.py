@@ -49,14 +49,25 @@ def zone_summary(db: Session) -> list[dict]:
             fallback = True
         if not apps:
             continue
-        bucket = by_zone.setdefault(cfg.zone, {"mlas": 0, "clean": 0,
-                                                "cases": 0, "states": [],
+        bucket = by_zone.setdefault(cfg.zone, {"mlas": 0,
+                                                "verified": 0,
+                                                "clean": 0,
+                                                "cases": 0,
+                                                "states": [],
                                                 "fallback_states": []})
         for a in apps:
             bucket["mlas"] += 1
-            if (a.criminal_cases_count or 0) == 0:
-                bucket["clean"] += 1
-            bucket["cases"] += (a.criminal_cases_count or 0)
+            # IMPORTANT: do NOT treat NULL criminal_cases_count as 0/clean.
+            # A NULL means we haven't extracted that field yet (Phase 5
+            # LLM extraction not run for that row). Only candidates whose
+            # cases field is genuinely set (could be 0) count toward the
+            # verified / clean / cases totals — otherwise the % is
+            # massively inflated by the unverified majority.
+            if a.criminal_cases_count is not None:
+                bucket["verified"] += 1
+                if a.criminal_cases_count == 0:
+                    bucket["clean"] += 1
+                bucket["cases"] += a.criminal_cases_count
         bucket["states"].append(cfg.name)
         if fallback:
             bucket["fallback_states"].append(cfg.name)
@@ -65,22 +76,34 @@ def zone_summary(db: Session) -> list[dict]:
     for zone, d in by_zone.items():
         if d["mlas"] == 0:
             continue
-        # In fallback mode the "transparency" % is based on the candidate
-        # pool, not winners — flag it so the template can dim/caveat the
-        # number. (The home.html template currently shows the % directly;
-        # treat it as indicative until winners are loaded.)
         is_fallback = bool(d["fallback_states"])
+        verified = d["verified"]
+        # transparency % is meaningful only across VERIFIED candidates.
+        # If we have zero verified rows in the zone, hide the % rather
+        # than show a meaningless "0% Clean" or division-by-zero error.
+        if verified > 0:
+            transparency = round(100 * d["clean"] / verified, 0)
+            avg_cases    = round(d["cases"] / verified, 2)
+        else:
+            transparency = None
+            avg_cases    = None
         out.append({
-            "name":         zone,
-            "mlas":         d["mlas"],
-            "states":       sorted(d["states"]),
-            "transparency": round(100 * d["clean"] / d["mlas"], 0),
-            "avg_cases":    round(d["cases"] / d["mlas"], 1),
-            "fallback":     is_fallback,
-            "label":        "candidates" if is_fallback else "MLAs",
+            "name":              zone,
+            "mlas":              d["mlas"],
+            "verified":          verified,
+            "states":            sorted(d["states"]),
+            "transparency":      transparency,
+            "avg_cases":         avg_cases,
+            "fallback":          is_fallback,
+            "label":             "candidates" if is_fallback else "MLAs",
+            # Coverage label for the template: e.g., "10 of 1224 verified"
+            "verified_label":    (f"{verified} of {d['mlas']} verified"
+                                   if verified < d["mlas"] else None),
         })
-    # Sort by transparency descending so "cleanest" zone surfaces first
-    out.sort(key=lambda z: z["transparency"], reverse=True)
+    # Sort by transparency descending — None last so unverified zones
+    # sink to the bottom of the list.
+    out.sort(key=lambda z: (z["transparency"] is None,
+                              -(z["transparency"] or 0)))
     return out
 
 
@@ -579,7 +602,10 @@ def constituency_dots(db: Session, state_name: Optional[str] = None) -> list[dic
                 # the hover/tooltip is still informative.
                 "mla":          f"{n} candidates contested",
                 "slug":         None,
-                "party":        None,
+                # Explicit "Pending winners" label so the home.html legend
+                # doesn't fall back to 'IND' for nulls (causes every
+                # constituency to look like an Independent stronghold).
+                "party":        "Pending winners",
                 "party_color":  "#9aa0a6",  # neutral grey
                 "wealth_cr":    None,
                 "cases":        None,
@@ -797,30 +823,68 @@ def party_seats_by_year(db: Session, house: str = "Assembly", state_name: Option
 # ---------------- Citizen-focused KPIs ---------------------------------------
 
 def hero_kpis(db: Session, house: str = "Assembly", scope: str = "all", state_name: Optional[str] = None) -> dict:
-    """Four headline numbers for the hero strip. Anchored to house / scope / state."""
+    """Four headline numbers for the hero strip. Anchored to house / scope / state.
+
+    IMPORTANT — verified-only stats
+    ===============================
+    The wealth / case fields are computed ONLY from candidates whose
+    `total_assets_inr` / `criminal_cases_count` are populated (i.e., who
+    have been through the LLM-extraction pipeline). NULL values are NOT
+    treated as 0 — they would inflate the apparent count-clean and
+    deflate the apparent total wealth.
+
+    `count` is still the total candidates on file (so the user sees both
+    the universe size and the verified subset side-by-side via
+    `count_verified_wealth` / `count_verified_cases`).
+    """
     apps = _latest_appearances(db, house=house, scope=scope, state_name=state_name)
     if not apps:
         return {"count": 0, "total_wealth_cr": 0, "avg_wealth_cr": 0,
                 "pct_with_cases": 0, "pct_crorepati": 0,
                 "total_cases": 0, "avg_cases_per_mla": 0,
+                "count_verified_wealth": 0,
+                "count_verified_cases": 0,
                 "house": house}
 
-    wealths = [a.total_assets_inr or 0 for a in apps]
-    with_cases = sum(1 for a in apps if (a.criminal_cases_count or 0) > 0)
-    total_cases = sum((a.criminal_cases_count or 0) for a in apps)
-    crorepati = sum(1 for w in wealths if w >= CRORE)
+    # Split into verified vs unverified subsets so the stats are honest
+    # about their denominator.
+    wealth_verified = [a for a in apps if a.total_assets_inr is not None]
+    cases_verified  = [a for a in apps if a.criminal_cases_count is not None]
+
+    if wealth_verified:
+        wealths = [a.total_assets_inr for a in wealth_verified]
+        total_wealth_cr = round(sum(wealths) / CRORE, 0)
+        avg_wealth_cr   = round(sum(wealths) / len(wealth_verified) / CRORE, 1)
+        crorepati       = sum(1 for w in wealths if w >= CRORE)
+        pct_crorepati   = round(100 * crorepati / len(wealth_verified), 0)
+    else:
+        total_wealth_cr = 0
+        avg_wealth_cr   = 0
+        pct_crorepati   = 0
+
+    if cases_verified:
+        with_cases   = sum(1 for a in cases_verified if a.criminal_cases_count > 0)
+        total_cases  = sum(a.criminal_cases_count for a in cases_verified)
+        pct_with_cases    = round(100 * with_cases / len(cases_verified), 0)
+        avg_cases_per_mla = round(total_cases / len(cases_verified), 1)
+    else:
+        total_cases       = 0
+        pct_with_cases    = 0
+        avg_cases_per_mla = 0
 
     return {
         "house": house,
         "count": len(apps),
-        "total_wealth_cr": round(sum(wealths) / CRORE, 0),
-        "avg_wealth_cr":   round(sum(wealths) / len(apps) / CRORE, 1) if apps else 0,
-        "pct_with_cases":  round(100 * with_cases / len(apps), 0),
-        "pct_crorepati":   round(100 * crorepati / len(apps), 0),
-        # New: map-coloring metric. Average pending criminal cases per sitting MLA.
-        # 1 decimal so a 0.8 doesn't round down to 0 and disappear from the bucketing.
-        "total_cases":       total_cases,
-        "avg_cases_per_mla": round(total_cases / len(apps), 1),
+        "total_wealth_cr":       total_wealth_cr,
+        "avg_wealth_cr":         avg_wealth_cr,
+        "pct_with_cases":        pct_with_cases,
+        "pct_crorepati":         pct_crorepati,
+        "total_cases":           total_cases,
+        "avg_cases_per_mla":     avg_cases_per_mla,
+        # NEW: how many of `count` actually contributed to wealth/case stats.
+        # Templates use these to show "N of M verified" caveats.
+        "count_verified_wealth": len(wealth_verified),
+        "count_verified_cases":  len(cases_verified),
     }
 
 
@@ -1094,3 +1158,123 @@ def random_politician(db: Session) -> Optional[Politician]:
     if not ids:
         return None
     return db.query(Politician).filter(Politician.id == random.choice(ids)).first()
+
+
+# ---------------- Per-constituency drill-down ---------------------------------
+
+def constituency_top_candidates(
+    db: Session,
+    state_name: str,
+    constituency_name: str,
+    limit: int = 3,
+) -> dict:
+    """Per-constituency cross-cycle data for the click-through page.
+
+    Returns:
+        {
+            "state": "Delhi",
+            "constituency": "NEW DELHI",
+            "cycles": [
+                {
+                    "year": 2025,
+                    "house": "Assembly",
+                    "total_candidates_on_file": int,
+                    "candidates": [
+                        {
+                            "rank": 1,
+                            "won": True,
+                            "politician": Politician,
+                            "appearance": ElectionAppearance,
+                            "party_short": "BJP",
+                            "party_color": "#fd761a",
+                            "votes": 30088,
+                            "vote_share_pct": 45.65,
+                        },
+                        ...top N...
+                    ],
+                },
+                # ... previous cycles ...
+            ],
+        }
+
+    Candidates within each cycle are sorted by votes_received DESC
+    (NULLs sink to bottom). For cycles where we don't have vote counts,
+    we still return the available candidates but mark them as
+    `votes_unknown`. The cycle dict is None-free; everything is in the
+    most renderable shape for the template.
+    """
+    # Normalize the constituency name once — we match by `name = ?`
+    # against the canonical (post-migration) name stored in `constituencies`.
+    cons = (
+        db.query(Constituency)
+        .join(State, Constituency.state_id == State.id)
+        .filter(State.name == state_name)
+        .filter(Constituency.name == constituency_name)
+        .first()
+    )
+    if not cons:
+        return None  # caller handles 404
+
+    cycles_out = []
+    elections = (
+        db.query(Election)
+        .filter(Election.state_id == cons.state_id)
+        .filter(Election.house == cons.house)
+        .order_by(Election.year.desc())
+        .all()
+    )
+    for e in elections:
+        # All accepted candidates in this (constituency, election)
+        apps = (
+            db.query(ElectionAppearance)
+            .filter(ElectionAppearance.constituency_id == cons.id)
+            .filter(ElectionAppearance.election_id == e.id)
+            .options(
+                joinedload(ElectionAppearance.politician),
+                joinedload(ElectionAppearance.party),
+            )
+            .all()
+        )
+        if not apps:
+            continue
+
+        # Sort: votes_received DESC (NULL last), then won=True first, then name
+        def _sort_key(a):
+            v = a.votes_received
+            return (
+                0 if v is not None else 1,  # known votes first
+                -(v or 0),                    # higher votes earlier
+                0 if a.won else 1,            # winner edge case
+                (a.politician.name if a.politician else ""),
+            )
+        apps_sorted = sorted(apps, key=_sort_key)
+
+        candidates_out = []
+        for rank, app in enumerate(apps_sorted[:limit], 1):
+            party_short = app.party.short_name if app.party else "IND"
+            candidates_out.append({
+                "rank":           rank,
+                "won":            bool(app.won),
+                "politician":     app.politician,
+                "appearance":     app,
+                "party_short":    party_short,
+                "party_color":    party_color(party_short),
+                "votes":          app.votes_received,
+                "vote_share_pct": app.vote_share_pct,
+                "votes_unknown":  app.votes_received is None,
+            })
+
+        cycles_out.append({
+            "year":                     e.year,
+            "house":                    e.house,
+            "total_candidates_on_file": len(apps),
+            "candidates":               candidates_out,
+        })
+
+    return {
+        "state":         state_name,
+        "constituency":  constituency_name,
+        "house":         cons.house,
+        "constituency_id": cons.id,
+        "cycles":        cycles_out,
+    }

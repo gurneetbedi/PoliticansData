@@ -190,7 +190,11 @@ def home(
     request: Request,
     db: Session = Depends(get_db),
     view: str = Query("mla", regex="^(mla|mp|rs)$"),
-    scope: str = Query("all", regex="^(current|all)$"),
+    # Default to "current" (winners only) now that we have winner flags
+    # loaded for Delhi 2020 + 2025. Users can toggle to "all" via the
+    # scope-switch UI to see every contesting candidate. Was "all"
+    # during the no-winner-data era — see git history for the reasoning.
+    scope: str = Query("current", regex="^(current|all)$"),
     state: str = Depends(resolve_state),
 ):
     """
@@ -462,6 +466,44 @@ def random_politician_route(db: Session = Depends(get_db)):
     if not p:
         return RedirectResponse(url="/browse", status_code=302)
     return RedirectResponse(url=f"/politician/{p.slug or p.id}", status_code=302)
+
+
+@app.get("/constituency/{state}/{constituency}", response_class=HTMLResponse)
+def constituency_detail(state: str, constituency: str, request: Request,
+                          db: Session = Depends(get_db)):
+    """Per-constituency drill-down. Shows top-3 candidates per cycle
+    (winner + runner-up + 3rd place) across every cycle we have data for,
+    with the winner highlighted and links to each candidate's detail page.
+
+    URL params:
+      state         — canonical state name (e.g., 'Delhi'); resolved via
+                       resolve_state for case-insensitive matching
+      constituency  — canonical constituency name (e.g., 'NEW DELHI').
+                       URL-decoded by FastAPI; we look up by exact match
+                       against `constituencies.name`.
+    """
+    # Resolve state through the canonical lookup (handles case + alias)
+    state_canonical = resolve_state(state)
+
+    data = services.constituency_top_candidates(
+        db, state_name=state_canonical, constituency_name=constituency,
+        limit=3,
+    )
+    if data is None:
+        # Constituency not found in DB — render a friendly 404
+        return templates.TemplateResponse(
+            "not_found.html",
+            {"request": request,
+              "message": f"Constituency '{constituency}' not found in {state_canonical}."},
+            status_code=404,
+        )
+    return templates.TemplateResponse("constituency_detail.html", {
+        "request":     request,
+        "state":       data["state"],
+        "constituency": data["constituency"],
+        "cycles":      data["cycles"],
+        "house":       data["house"],
+    })
 
 
 @app.get("/politician/{slug}", response_class=HTMLResponse)

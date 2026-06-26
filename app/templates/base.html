@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{% block title %}PolitiTrack India | Transparency for elected representatives{% endblock %}</title>
+<title>{% block title %}Lokvani | Transparency for elected representatives{% endblock %}</title>
 
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -133,16 +133,13 @@
     {# Preserve the current ?state= when navigating across pages, so the State Selector
        picked on the landing page sticks across the whole site. #}
     {% set _q = '?state=' ~ current_state %}
-    <a href="/{{ _q }}" class="text-headline-md font-headline-md font-bold text-on-surface">PolitiTrack India</a>
+    <a href="/{{ _q }}" class="text-headline-md font-headline-md font-bold text-on-surface">Lokvani</a>
     <nav class="hidden md:flex items-center gap-stack-md lg:gap-stack-lg">
       <a class="text-label-lg font-label-lg {% if request.url.path == '/' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/{{ _q }}">Dashboard</a>
       <a class="text-label-lg font-label-lg {% if request.url.path == '/browse' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/browse{{ _q }}">Rankings</a>
       <a class="text-label-lg font-label-lg {% if request.url.path == '/heatmap' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/heatmap{{ _q }}">Heatmap</a>
-      {# Anomalies and Funding hidden for now — the underlying routes still exist
-         in app/main.py and the templates remain in app/templates/. Will be
-         re-introduced once we have multi-cycle ECI data (anomalies) and
-         party-funding data (funding) to back them.
-      <a ... href="/anomalies{{ _q }}">Anomalies</a>
+      <a class="text-label-lg font-label-lg {% if request.url.path == '/anomalies' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/anomalies{{ _q }}">Anomalies</a>
+      {# Funding still hidden — no party-funding data yet.
       <a ... href="/funding{{ _q }}">Funding</a>
       #}
       {# The "Affidavits" link I added in the previous round is also removed —
@@ -202,7 +199,7 @@
 <footer class="bg-inverse-surface text-inverse-on-surface mt-auto">
   <div class="max-w-container-max mx-auto py-stack-lg px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-start md:items-center gap-stack-md">
     <div>
-      <p class="text-label-lg font-label-lg font-bold text-on-primary-fixed">PolitiTrack India</p>
+      <p class="text-label-lg font-label-lg font-bold text-on-primary-fixed">Lokvani</p>
       <p class="text-body-md font-body-md opacity-70 mt-1">Open-source transparency for elected representatives.</p>
       <p class="text-label-sm font-label-sm opacity-60 mt-3 max-w-xl italic">
         Data is self-declared in affidavits filed with the Election Commission of India.
@@ -213,7 +210,7 @@
       <a class="text-label-sm font-label-sm opacity-80 hover:text-white transition-colors" href="https://affidavit.eci.gov.in/" target="_blank">Data source · ECI affidavits</a>
       <a class="text-label-sm font-label-sm opacity-80 hover:text-white transition-colors" href="https://github.com/gurneetbedi/Politicians-Project/blob/main/docs/eci_compliance.md" target="_blank">Methodology &amp; data use</a>
       <a class="text-label-sm font-label-sm opacity-80 hover:text-white transition-colors" href="https://github.com" target="_blank">GitHub</a>
-      <a class="text-label-sm font-label-sm opacity-80 hover:text-white transition-colors" href="mailto:gurneet.bedi@me.com?subject=PolitiTrack%20issue">Report an issue</a>
+      <a class="text-label-sm font-label-sm opacity-80 hover:text-white transition-colors" href="mailto:gurneet.bedi@me.com?subject=Lokvani%20issue">Report an issue</a>
     </div>
   </div>
 </footer>

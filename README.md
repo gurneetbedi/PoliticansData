@@ -1,6 +1,10 @@
-# PolitiTrack India
+# Lokvani · लोकवाणी
 
-An open-source transparency platform that surfaces declared net worth, criminal cases, education, and term-over-term history for Indian elected representatives — MLAs, Lok Sabha MPs, and Rajya Sabha members. All data is sourced from [myneta.info](https://myneta.info/) (ADR), which structures Election Commission of India affidavits.
+An open-source civic-transparency platform that surfaces declared net worth, criminal cases, education, and term-over-term history for Indian elected representatives — MLAs, Lok Sabha MPs, and Rajya Sabha members. All data is sourced directly from Election Commission of India Form 26 affidavits, processed through a Cloud Vision OCR + Gemini extraction pipeline.
+
+> *Lokvani* (Hindi: लोकवाणी) means "voice of the people" — the name reflects the project's purpose of making the legally-public disclosures of India's elected officials accessible to the voters they answer to.
+
+The project was previously named **PolitiTrack India**; references throughout older documentation may still use that name. The internal database file (`politrack.db`) and Python module names retain the original name to avoid disrupting the data pipeline.
 
 **Current coverage on the live site** (ingested from myneta historically):
 
@@ -131,7 +135,7 @@ Before scraping at scale, **edit `MYNETA_USER_AGENT`** in `app/scrapers/myneta_c
 > one election** so far — Delhi 2025 Assembly, partial pull of ~104 of
 > ~600 Accepted candidates. The pipeline code is generic enough to point
 > at any state's listing URL, but it has not been validated outside this
-> single sample, and **no ECI-sourced data is on the live PolitiTrack
+> single sample, and **no ECI-sourced data is on the live Lokvani
 > site yet**. Production is still entirely myneta-sourced (see coverage
 > table at the top of this README).
 

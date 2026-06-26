@@ -1,0 +1,1333 @@
+seq,candidate_name,notes
+1,ABHIKARAN SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+2,ABHISHEK SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+3,ADAISH PARTAP SINGH KAIRON,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+4,ADAISH PARTAP SINGH KAIRON,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+5,ADAISH PARTAP SINGH KAIRON,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+6,ADVOCATE AJAY KUMAR PHILLAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+7,ADVOCATE BIKRAM SINGH SIDHU,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+8,ADVOCATE HARISH RAI DHANDA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+9,ADVOCATE JYOTI PAL BHIM,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+10,ADVOCATE PRABHJOT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+11,ADVOCATE RAVINDER SINGH VOHRA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+12,AJAIB SINGH BATHOI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+13,AJAIB SINGH RATOLAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+14,AJAIB SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+15,AJAIPAL SINGH SANDHU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+16,AJAY BHATIA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+17,AJAY KUMAR CHINNU,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+18,AJIT PAL SINGH KOHLI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+19,ALWINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+20,AMANDEEP KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+21,AMANDEEP SINGH GHUMAN,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+22,AMANDEEP SINGH GORA GILL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+23,AMANDEEP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+24,AMANDEEP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+25,AMANDEEP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+26,AMANSHER SINGH  SHERY KALSI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+27,AMARBEER SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+28,AMARINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+29,AMARJEET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+30,AMARJIT SINGH ASAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+31,AMARJIT SINGH MANN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+32,AMARJIT SINGH SHARMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+33,AMARJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+34,AMARPAL SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+35,AMARPARTAP SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+36,AMARPREET SINGH LALLY,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+37,AMAR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+38,AMIT MOHAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+39,Amit Rattan,movable_self_only; no_estamp_cert
+40,AMIT SINGH  MANTO,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+41,AMIT VIJ,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+42,AMIT VIJ,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+43,AMIT VIJ,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+44,AMIT VIJ,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+45,AMOLAK SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+46,AMRIK SINGH VARPAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+47,AMRIK SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+48,AMRISH BHAGAT,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+49,AMRITPAL SINGH CHHANDRAN,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+50,AMRITPAL SINGH MEHRON,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+51,AMRITPAL SINGH SIDHU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+52,AMRITPAL SINGH SUKHANAND,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+53,AMRITPAL SINGH SUKHANAND,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+54,AMRITPAL SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+55,ANGAD SINGH,no_estamp_cert; no_pending_cases_count; no_movable_totals
+56,ANGREJ SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+57,ANGREJ SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+58,ANGREJ SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+59,ANGREJ SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+60,ANIL JOSHI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+61,ANIL JOSHI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+62,ANIL KUMAR GOYAL,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+63,ANITA SHAH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+64,ANMOL GAGAN MAAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+65,ANMOL GAGAN MAAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+66,ANMOL GAGAN MAAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+67,ANMOL GAGAN MAAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+68,ANUROOP KAUR SANDHU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+69,ARASHDEEP SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+70,ARUNA CHAUDHARY,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+71,ARUNA CHAUDHARY,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+72,ARUNA CHAUDHARY,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+73,ARUN DOGRA,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+74,ARUN NARANG,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+75,ASHOK KUMAR,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+76,ASHOK PARASHAR  PAPPI,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+77,ASHU BANGER,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+78,ASHWANI KUMAR SHARMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+79,ASHWANI KUMAR SHARMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+80,ASHWANI KUMAR SHARMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+81,ASHWANI KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+82,ASHWANI KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+83,ASHWANI KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+84,ASHWANI SEKHRI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+85,AVNEET SINGH BAGLI KALAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+86,AVTAR SINGH HARPALPUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+87,AVTAR SINGH JUNIOR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+88,AVTAR SINGH NAMBERDAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+89,AVTAR SINGH ZIRA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+90,AVTAR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+91,AVTAR SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+92,AVTAR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+93,BABA PAWAN KUMAR,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+94,BABBU SINGH BAAZ,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+95,BACHITAR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+96,BACHITAR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+97,BAGEECHA SINGH DHALIWAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+98,BAHADUR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+99,BAHAL SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+100,BAKHSHISH SINGH UPPAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+101,BALBIR SINGH ALAMGIR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+102,BALBIR SINGH RAJEWAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+103,BALBIR SINGH SIDHU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+104,BALBIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+105,BALBIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_movable_totals
+106,BALDEEP KUMAR,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+107,BALDEV SINGH AKLIA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count
+108,BALDEV SINGH KHAIRA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+109,BALDEV SINGH MANUKE,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+110,BALDEV SINGH MIADIAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+111,BALDEV SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+112,BALDEV SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+113,BALDEV SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+114,BALDEV SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+115,BALDEV SINGH   DEV SARABHA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+116,BALJEET SINGH LADI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+117,BALJEET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+118,BALJINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+119,BALJINDER SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+120,BALJINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+121,BALJINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+122,BALJINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+123,BALJINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+124,BALJINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+125,BALJINDER SODHI ADVOCATE,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+126,BALJIT SINGH BADBAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+127,BALJIT SINGH JALAL USHMAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+128,BALJIT SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+129,BALJIT SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+130,BALJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+131,BALJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+132,BALKARAN MOGA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+133,BALKAR SINGH SIDHU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+134,BALKAR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+135,BALKAR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+136,BALKAR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+137,BALKAR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+138,BALRAJ SINGH KHALSA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+139,BALVAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+140,BALVINDER SINGH BAINS,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+141,BALVIR RAM,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+142,BALVIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+143,BALWANT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+144,BALWANT SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+145,BALWANT SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+146,BALWINDER KAUR,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+147,BALWINDER KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+148,BALWINDER KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+149,BALWINDER SEKHON,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+150,BALWINDER SINGH DHALIWAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+151,BALWINDER SINGH DHALIWAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+152,BALWINDER SINGH DHALIWAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+153,BALWINDER SINGH SANDHU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+154,BALWINDER SINGH SEKHON,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+155,BALWINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+156,BALWINDER SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+157,BAL KRISHAN SHARMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+158,BARINDERMEET SINGH PAHRA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+159,BARINDER KUMAR GOYAL VAKEEL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+160,BARINDER KUMAR GOYAL VAKEEL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+161,BARINDER KUMAR GOYAL VAKEEL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+162,BARINDER KUMAR GOYAL VAKEEL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+163,BARINDER KUMAR,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+164,BAVLESH KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+165,BHAGWANT MANN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+166,BHAGWANT SINGH SAMAON,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+167,BHAGWAN DASS,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+168,BHAGWAN SINGH SOMAL KHERI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+169,BHOLA SINGH BRAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+170,BHOLA SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+171,BHOLA SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+172,BHUPINDER SINGH CHHINA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+173,BHUPINDER SINGH MEHTON,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+174,BHUPINDER SINGH SAHOKE,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+175,BHUPINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+176,BIBI JAGIR KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+177,BIBI JAGIR KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+178,BIDRA RAM,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+179,BIKAR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+180,BIKAR SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+181,BIKRAMJIT INDER SINGH CHAHAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+182,BIKRAM SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+183,BIMLA RANI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+184,BRAHMJEET SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+185,BRINDER SINGH DHILLON,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+186,BUDH DAYAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+187,BUDH RAM,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+188,BUTA SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+189,CAPTAIN HARMINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+190,CHAIL SINGH DHIMAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+191,CHAMKAUR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+192,CHAMKAUR SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+193,CHANAN SINGH WATTU,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+194,CHANDAN KUMAR GREWAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+195,CHAND SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+196,CHARANJIT SINGH BRAR,name_from_filename (Part A regex missed); no_estamp_cert
+197,CHARANJIT SINGH CHANNI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+198,CHARANJIT SINGH CHANNI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+199,Charanjit Singh,no_estamp_cert; no_pending_cases_count
+200,Charanjit Singh,no_estamp_cert; no_pending_cases_count
+201,Charanjit Singh,no_estamp_cert; no_pending_cases_count
+202,CHARANJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+203,CHARANJIT,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+204,CHARAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+205,CHARNJEET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+206,CHAUDHARY SURINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+207,CHET RAM,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+208,CHHOTA SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+209,COMRADE PRITPAL SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+210,DALBIR SINGH TONG,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+211,DALBIR SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+212,DALBIR SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+213,DALJIT SINGH BAINS,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+214,DALJIT SINGH GILL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+215,DALJIT SINGH GREWAL  BHOLA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+216,DALJIT SINGH GREWAL  BHOLA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+217,DALJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+218,DALVIR KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+219,DALVIR SINGH GOLDY,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+220,DAMANJIT SINGH MOHIE,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+221,DAMANVIR SINGH PHILLAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+222,DARBARA SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+223,DARGESH KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+224,DARSHAN LAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+225,DARSHAN SINGH BABBI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+226,DARSHAN SINGH BAJIGAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+227,DARSHAN SINGH BRAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+228,DARSHAN SINGH BRAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+229,DARSHAN SINGH BRAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count
+230,DARSHAN SINGH KHOTE,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+231,DARSHAN SINGH SHIVJOT,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+232,DARSHAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+233,DARSHAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+234,DARSHAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+235,DARSHAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+236,DARSHAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+237,DARSHAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+238,DAVINDER KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+239,DAVINDER SINGH GHUBAYA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+240,DAVINDER SINGH SANGOWAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+241,DAVINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+242,DAVINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+243,DAVINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+244,DAVINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+245,DAVINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+246,DAVINDER SINGH  T N   VISHWKARMA RAMGARHIA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+247,DAYAL SODHI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+248,DEEPAK DHIR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+249,DEEPAK JYOTI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+250,DEEPAK SHARMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+251,DEEPINDER SINGH DHILLON,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+252,DESH RAJ,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+253,DES RAJ DHUGGA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+254,DES RAJ JASSAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+255,DEVINDERJEET SINGH LADDI DHOSE,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+256,DEVINDERJEET SINGH LADDI DHOSE,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+257,DEVINDER SINGH BAJWA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+258,DEVINDER SINGH KOTLI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+259,DHANWANT KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+260,DHARAMJEET SINGH  BONNY BEDI,name_from_filename (Part A regex missed); no_estamp_cert; no_movable_totals
+261,DHARAMPAL MAUSH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+262,DHARAMPAL SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+263,DHARAMPAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+264,DHARAM SINGH FOUJI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+265,DHARAM SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+266,DHARMINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+267,DHARMINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+268,DHARMINDER,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+269,DHIRAJ KUMAR,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+270,DHIRAJ KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+271,DHRAMINDER SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+272,DIDAR SINGH BHATTI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+273,DILBAGH SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+274,DILBAG SINGH SHERON,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+275,DILRAJ SINGH BHUNDAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+276,DINESH DHALL,no_estamp_cert; no_pending_cases_count; no_movable_totals
+277,DINESH KUMAR CHADHA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+278,DINESH KUMAR CHADHA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+279,DINESH KUMAR CHADHA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+280,DINESH KUMAR CHADHA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+281,DINESH SINGH  BABBU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+282,DOCTOR JASPREET SINGH BIJA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+283,DOMINIC MATTU,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+284,DR BALBIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+285,Ravjot Singh,no_estamp_cert; no_pending_cases_count; no_movable_totals
+286,DR SUKHWANT SINGH VIRDI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+287,DR  AMANDEEP KAUR ARORA,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+288,DR  AMANDEEP KAUR ARORA,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+289,DR  AMANDEEP KAUR ARORA,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+290,DR  AMANDEEP KAUR ARORA,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+291,DR  BALWINDER SINGH HAYER,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+292,DR  BHAI PARAMJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+293,DR  DALJIT SINGH CHEEMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+294,DR  DALJIT SINGH CHEEMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+295,DR  DALJIT SINGH CHEEMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+296,DR  DEVINDER SINGH GILL,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+297,DR  DHARAMBIR AGNIHOTRI,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+298,DR  DILBAG RAI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+299,DR  FAROOQ MASIH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+300,DR  HARJOT KAMAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+301,DR  JAGTAR SINGH CHANDI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+302,DR  JAGTAR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+303,DR  JASBIR SINGH SANDHU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+304,DR  JASBIR SINGH SANDHU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+305,DR  JASBIR SINGH SANDHU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+306,DR  KAMALJIT SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+307,DR  KASHMIR SINGH SOHAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+308,DR  K  N  S  KANG,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+309,DR  K  N  S  KANG,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+310,DR  K  N  S  KANG,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+311,DR  MANOJ BALA BANSAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+312,DR  NARESH SAGGAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+313,DR  NAVJOT SINGH DAHIYA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+314,DR  NISHAN SINGH HAKAMWALA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+315,DR  PARMINDER SHARMA,name_from_filename (Part A regex missed); movable_split_concatenated_digits; no_estamp_cert; no_pan; no_pending_cases_count
+316,DR  RAJ KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+317,DR  RAJ KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+318,DR  RAJ KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+319,DR  RAM CHAWLA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+320,DR  RANVIR KAUR MIAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+321,DR  SOHAN LAL BLAGGAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+322,DR  SUKHMANDEEP SINGH DHILLON,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+323,EMAAN SINGH MANN,name_from_filename (Part A regex missed); no_estamp_cert; no_movable_totals
+324,ER  AMRITBIR SINGH BHALMAJRA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+325,ER  JAGTAR SINGH LAMBA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+326,FATEHJANG SINGH BAJWA,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+327,FAUJA SINGH,no_estamp_cert; no_pending_cases_count; no_movable_totals
+328,F  NESARA KHATTON  FARZANA ALAM,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+329,GAGANDEEP SINGH A R,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+330,GAGANDEEP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+331,GANIEVE KAUR MAJITHIA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+332,GAURAV KAKKAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_movable_totals
+333,GOBIND SINGH CHHAJLI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+334,GOBIND SINGH LONGOWAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+335,GONNY KHABRA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+336,GOPI SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+337,GORA SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+338,GULZAR KHANNA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+339,GULZAR SINGH RANIKE,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+340,GURADITTA SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+341,GURBACHAN SINGH BABEHALI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+342,GURBACHAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+343,GURBAJ SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+344,GURBHEJ SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+345,GURCHARAN SINGH RAJPUT,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+346,GURCHARAN SINGH SANGHA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+347,GURCHARAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+348,GURCHARAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+349,GURDEEP SINGH DHALIWAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+350,GURDEEP SINGH KAHLON,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+351,GURDEEP SINGH KALI,name_from_filename (Part A regex missed); movable_split_concatenated_digits; no_estamp_cert; no_pan; no_pending_cases_count
+352,GURDEEP SINGH SIDHU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+353,GURDEEP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+354,GURDEEP SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+355,GURDEEP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+356,GURDEV SHARMA DEBI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+357,GURDEV SINGH DEV MAAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+358,GURDEV SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+359,GURDEV SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+360,GURDHIAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+361,GURDIAL SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+362,GURDIT SINGH SEKHON,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+363,GURINDER SINGH GARRY BIRRING,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+364,GURIQBAL SINGH MAHAL,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+365,GURJANT SINGH KATTU,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+366,GURJINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+367,GURJINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+368,GURJIT KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+369,GURJODH SINGH GILL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+370,GURKIRAT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+371,GURKIRAT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+372,GURKIRAT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+373,GURLAL GHANAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+374,GURLAL GHANAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+375,GURLAL SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+376,GURLAL SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+377,GURMEET KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+378,GURMEET SINGH KHUDIAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+379,GURMEET SINGH KHUDIAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+380,GURMEET SINGH MEET HAYER,name_from_filename (Part A regex missed); no_estamp_cert; no_movable_totals
+381,GURMEET SINGH MEET HAYER,name_from_filename (Part A regex missed); no_estamp_cert; no_movable_totals
+382,GURMEET SINGH NANDGARH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+383,GURMEET SINGH RANGHRETA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+384,GURMEET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+385,GURMEET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+386,GURMEL SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+387,GURMIT SINGH MUNDIAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+388,GURMIT SINGH SODHI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+389,GURMUKH SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+390,GURMUKH SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+391,GURNAM KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+392,GURNAM SINGH DAUD,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+393,GURNAM SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+394,GURNAM SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+395,GURPAL SINGH GOLDY,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+396,GURPARTAP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+397,GURPERVEZ SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+398,GURPREET BASSI GOGI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+399,GURPREET KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+400,GURPREET SINGH ARORA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+401,GURPREET SINGH,movable_self_only; no_estamp_cert; no_pending_cases_count
+402,GURPREET SINGH BHATTI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+403,GURPREET SINGH KOTLI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+404,GURPREET SINGH SHAHPUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+405,GURPREET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+406,GURPREET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+407,GURPREET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+408,GURPREET SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+409,GURPREET SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+410,GURPREET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+411,GURPREET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+412,GURPREET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+413,GURSAWAK SINGH BHANA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+414,GURSEWAK SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+415,GURSEWAK SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+416,GURSHARAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+417,GURTEJ SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+418,GURTEJ SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+419,GURWINDER SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+420,GURWINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+421,GURWINDER SINGH  RAJA BAJWA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+422,HAKAM SINGH THEKEDAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+423,HANSA SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+424,HANSA SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+425,HANS RAJ,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+426,HANS SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+427,HARBANS SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+428,HARBHAGWAN SHARMA BHIKHI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+429,HARBHAJAN SINGH E T O,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+430,HARBHAJAN SINGH E T O,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+431,HARBHAJAN SINGH E T O,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+432,HARBHAJAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+433,HARCHAND KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+434,HARCHAND RAM,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+435,HARCHAND SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+436,HARDEEP SINGH DIMPY DHILLON,name_from_filename (Part A regex missed); no_estamp_cert; no_movable_totals
+437,HARDEEP SINGH DIMPY DHILLON,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+438,HARDEEP SINGH MUNDIAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+439,HARDEEP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+440,HARDEEP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+441,HARDEEP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+442,HARDEEP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+443,HARDEV SINGH BAGGAR MAUR MANDI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+444,HARDIAL SINGH KAMBOJ,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+445,HARDIP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+446,HARGOBIND SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+447,HARINDERJEET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+448,HARINDER PAL SINGH CHANDUMAJRA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+449,HARINDER PAL SINGH HARRY MANN,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+450,HARINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+451,HARISH CHANDER,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+452,HARI CHAND GUPTA,name_from_filename (Part A regex missed); no_estamp_cert; no_movable_totals
+453,HARJINDER KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+454,HARJINDER SINGH TANDA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+455,HARJINDER SINGH TANDA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+456,HARJINDER SINGH THEKEDAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+457,HARJINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+458,HARJINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+459,HARJINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+460,HARJINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+461,HARJINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+462,HARJIT KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+463,HARJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+464,HARJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+465,HARJOT SINGH BAINS,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+466,HARKIRAN JEET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+467,HARKIRAT SINGH RANA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+468,HARMANPREET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+469,HARMEET SINGH MURADMAJRA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+470,HARMILAP SINGH GREWAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+471,HARMINDER SINGH GILL,no_estamp_cert; no_pending_cases_count; no_movable_totals
+472,HARMINDER SINGH,no_estamp_cert; no_pending_cases_count; no_movable_totals
+473,HARMINDER SINGH JASSI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+474,HARMINDER SINGH JASSI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+475,HARMINDER SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+476,HARMIT SINGH PATHANMAJRA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+477,HARMOHAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+478,HARNEK SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+479,HARPAL SINGH BALER,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+480,HARPAL SINGH CHEEMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+481,HARPAL SINGH CHEEMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+482,HARPAL SINGH CHEEMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+483,HARPAL SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+484,HARPAL SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+485,HARPAL SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+486,HARPARTAP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+487,HARPARTAP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+488,HARPREET KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+489,HARPREET KAUR,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+490,HARPREET SINGH GARCHA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+491,HARPREET SINGH GILL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+492,HARPREET SINGH HERO,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+493,HARPREET SINGH MAKHU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+494,HARPREET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+495,HARPREET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+496,HARPREET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+497,HARPREET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_movable_totals
+498,HARPREET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+499,HARPRITPAL SIGH VIRK,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+500,HARSHIT KUMAR SHEETAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+501,HARSIMRAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+502,HARVINDER SINGH LADDI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+503,HARWINDER SINGH RAHUL NIJJAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+504,HASAN MOHAMMAD,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+505,INDERBIR SINGH BOLARIA,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+506,INDERBIR SINGH NIJJAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+507,INDERJEET SINGH DHOLAN,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+508,INDERJIT KAUR MANN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+509,INDERJIT KAUR MANN,name_from_filename (Part A regex missed); no_estamp_cert; no_movable_totals
+510,INDERJIT KAUR MANN,name_from_filename (Part A regex missed); no_estamp_cert; no_movable_totals
+511,INDERJIT KAUR MANN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+512,INDERJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+513,INDERPAL SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+514,INDER DEV PANDEY,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+515,INDU BALA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+516,INDU BALA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+517,IQBAL SINGH JHUNDAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+518,IQBAL SINGH JHUNDAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+519,IQBAL SINGH LALPURA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+520,IQBAL SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+521,ISHWARJOT SINGH CHEEMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+522,JAGANDEEP KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+523,JAGBIR SINGH BRAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+524,JAGDEEP KAMBOJ,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+525,JAGDEEP SINGH CHEEMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+526,JAGDEEP SINGH GILL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+527,JAGDEEP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+528,JAGDEEP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+529,JAGDEEP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+530,JAGDEEP SINGH  KAKA BRAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+531,JAGDEEP SINGH  KAKA BRAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+532,JAGDEEP SINGH  R O VILLAGE MAJRI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+533,JAGDEV SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+534,JAGDISH KUMAR JAGGA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+535,JAGDISH KUMAR JASSAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+536,JAGDISH KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+537,JAGDISH MASIH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+538,JAGDISH RAI SHARMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+539,JAGDISH SINGH ATWAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+540,JAGJIT SINGH MILKHA,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+541,JAGJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+542,JAGJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+543,JAGMEET SINGH BRAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+544,JAGMOHAN SHARMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+545,JAGMOHAN SINGH RAJU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+546,JAGNEET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+547,JAGPAL SINGH ABULKHURANA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+548,JAGPAL SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+549,JAGRAJ SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+550,JAGROOP SINGH GILL,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+551,JAGROOP SINGH GILL,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+552,Jagroop Singh,movable_self_only; no_estamp_cert
+553,Jagroop Singh,movable_self_only; no_estamp_cert
+554,Jagroop Singh,movable_self_only; no_estamp_cert
+555,JAGROOP SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+556,JAGSEER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+557,JAGSEER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+558,JAGTAR SINGH DIYALPURA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+559,JAGTAR SINGH JAGGA HISSOWAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+560,JAGTAR SINGH JAGGA HISSOWAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+561,JAGTAR SINGH RAJEANA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+562,JAGTAR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+563,JAGTAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+564,JAGWINDER PAL SINGH  JAGGA MAJITHIA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+565,JAIMAL SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+566,JAI KRISHAN,name_from_filename (Part A regex missed); no_estamp_cert; no_movable_totals
+567,JANAK RAJ,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+568,JANAK RAJ,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+569,JANG BAHADUR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+570,JANMEJA SINGH SEKHON,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+571,JARNAIL NANGAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+572,JARNAIL SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+573,JASBIR KAUR BEERO,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+574,JASBIR SINGH CHAHAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+575,JASBIR SINGH MANN,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+576,JASBIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+577,JASDEEP KAUR YADU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+578,JASDEEP SINGH NIKKU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+579,JASDEV SINGH URF JASLEEN PATIALA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+580,JASHANDEEP SINGH JOSHI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+581,JASKARANJEET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+582,JASKARAN SINGH KAHAN SINGH WALA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+583,JASKARAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+584,JASKARAN TOOT GILL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+585,JASMEET SINGH RANDHAWA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+586,JASMEET SINGH RANDHAWA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+587,JASPAL SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+588,JASPAL SINGH  HARMAN TIWANA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+589,JASSAL SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+590,JASVEER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+591,JASVINDER SINGH DHIMAN S O DARSHAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+592,JASVIR CHANDER,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+593,JASVIR SINGH GARHI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+594,JASVIR SINGH JASSI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+595,JASVIR SINGH RAJA GILL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+596,JASVIR SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+597,JASWANT SINGH SOHAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+598,JASWANT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+599,JASWANT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_movable_totals
+600,JASWANT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+601,JASWINDER KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+602,JASWINDER SINGH DHIMAN S O AMARJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+603,JASWINDER SINGH JASSI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+604,JASWINDER SINGH SANGHA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+605,JASWINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+606,JASWINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+607,JASWINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+608,JASWINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+609,JASWINDER SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+610,JASWINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+611,JATHEDAR HIRA SINGH GABRIA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+612,JATINDERBIR SINGH PANNU,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+613,JATINDER KUMAR SHARMA,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+614,JATINDER PAL SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+615,JATINDER SINGH THIND,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+616,JATINDER SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+617,JATINDER,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+618,JEETA RAM,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+619,JEEVAN JYOT KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+620,JEEVAN JYOT KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+621,JEEVAN KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+622,JIT LAL BHATTI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+623,JIT LAL BHATTI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+624,JIT LAL BHATTI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+625,JIWAN DASS BAWA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+626,JIWAN SINGH SANGOWAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+627,JOGINDER PAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+628,JOGINDER SINGH MAAN,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+629,JOGINDER SINGH MANN,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+630,JOGINDER,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+631,JUGRAJ PAL SINGH SAHI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+632,JUGRAJ SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+633,JUGRAJ SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+634,JUGRAJ SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+635,JYOTI TIWARI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+636,KABIR DASS,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+637,KAKA RANDEEP SINGH NABHA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+638,KALA SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+639,KAMALJEET CHAWLA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+640,KAMALJEET CHAWLA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+641,KAMALJEET SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+642,KAMALJIT KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+643,KAMALJIT SINGH KARWAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+644,KAMALJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+645,KAMAL DEEP SINGH SAINI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+646,KAMIL AMAR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+647,KANWARJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+648,KANWARVEER SINGH TOHRA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+649,KANWAR NARINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+650,KANWAR VISHWADEEP SINGH SALARIA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+651,KARAMBIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+652,KARAMJIT SINGH BABLU JOSH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+653,KARAMJIT SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+654,KARAMJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+655,KARAMJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+656,KARAMJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+657,KARAM CHAND,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+658,KARAM SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+659,KARANDEEP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+660,KARANJIT SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+661,KARANVIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+662,KARAN KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+663,KARAN KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+664,KARNAIL SINGH IKOLAHA,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+665,KARNAIL SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+666,KARTAR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+667,KASHMIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+668,KASHMIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+669,KASHMIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+670,KHUSHI RAM,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+671,KRISHAN KUMAR ALIAS KRISHAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+672,KRISHAN KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+673,KRISHAN LAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+674,KRISHAN SINGH CHOUHAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+675,KRISHAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+676,KUDRATPAL SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+677,KULBIR SINGH BISHT,name_from_filename (Part A regex missed); no_estamp_cert; no_movable_totals
+678,KULBIR SINGH MATTA,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+679,KULBIR SINGH ZIRA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+680,KULBIR SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+681,KULDEEP KUMAR ALIAS DEEP KAMBOJ,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+682,KULDEEP KUMAR ALIAS DEEP KAMBOJ,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+683,KULDEEP SINGH DALLA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+684,KULDEEP SINGH DHALIWAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+685,KULDEEP SINGH DHALIWAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+686,KULDEEP SINGH DHALIWAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+687,KULDEEP SINGH DHALIWAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+688,KULDEEP SINGH NOOR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+689,KULDEEP SINGH VAID  BULARA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+690,KULDEEP SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+691,KULDEEP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+692,KULDEEP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+693,KULDEEP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+694,KULDIP SINGH BAZIDPUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+695,KULDIP SINGH LUBANA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+696,KULDIP SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+697,KULDIP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+698,KULJIT SINGH NAGRA,name_from_filename (Part A regex missed); no_estamp_cert; no_movable_totals
+699,KULJIT SINGH NAGRA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+700,KULJIT SINGH RANDHAWA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+701,Kuljit Singh,no_estamp_cert; no_pending_cases_count; no_movable_totals
+702,KULTAR SINGH SANDHWAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+703,KULWANT SINGH,movable_self_only; no_estamp_cert; no_pending_cases_count
+704,KULWANT SINGH BAZIGAR,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+705,KULWANT SINGH,movable_self_only; no_estamp_cert; no_pending_cases_count
+706,KULWANT SINGH JOSSAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+707,KULWANT SINGH JOSSAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+708,KULWANT SINGH KEETU,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+709,KULWANT SINGH KOTLA GUJRAN,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+710,KULWANT SINGH PANDORI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+711,KULWANT SINGH SIDHU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+712,KULWANT SINGH SIDHU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+713,KULWANT SINGH SIDHU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+714,KULWANT SINGH SIDHU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+715,KULWANT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+716,KULWANT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+717,KULWANT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+718,KULWANT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+719,KULWINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+720,KULWINDER SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+721,KULWINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+722,KUMAR AMIT ADVOCATE,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+723,KUNAL,name_from_filename (Part A regex missed); movable_split_concatenated_digits; no_estamp_cert; no_pan; no_pending_cases_count
+724,KUNWAR VIJAY PRATAP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+725,KUNWAR VIJAY PRATAP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+726,K  K  SABHARWAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+727,LABH SINGH UGOKE,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+728,LABH SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+729,LACHHMAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+730,LAKHA SINGH SIDHANA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+731,LAKHBIR SINGH LODHINANGAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+732,LAKHBIR SINGH RAI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+733,LAKHBIR SINGH RAI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+734,LAKHBIR SINGH RAI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+735,LAKHBIR SINGH RAI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+736,LAKHBIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+737,LAKHBIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+738,LAKHVIR SINGH SOUNTI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+739,LAKHVIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+740,LAKHVIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+741,LAKHVIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+742,LAKHVIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+743,LAKHVIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+744,LAKHVIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+745,LAKHWINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+746,LAKHWINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+747,LAKHWINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+748,LALIT MOHAN BALLU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+749,LALJIT SINGH BHULLAR,no_estamp_cert; no_pending_cases_count; no_movable_totals
+750,LALJIT SINGH BHULLAR,no_estamp_cert; no_pending_cases_count; no_movable_totals
+751,LALJIT SINGH BHULLAR,no_estamp_cert; no_pending_cases_count; no_movable_totals
+752,LAL CHAND,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+753,LAL CHAND,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+754,LAL CHAND,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+755,LAL SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+756,LAL SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+757,Lavinder Gill,no_estamp_cert; no_pending_cases_count; no_movable_totals
+758,LOVEPREET KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+759,LOVEPREET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+760,LOVE KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+761,MADAN LAL BAGGA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+762,MADAN LAL BAGGA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+763,MADAN LAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+764,MAHESHINDER SINGH GREWAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+765,MAHESH KUMAR,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+766,MAJOR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+767,MAJOR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+768,MAKHAN SINGH TAHARPURI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+769,MAKHAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+770,MALKEET SINGH,no_estamp_cert; no_pending_cases_count; no_movable_totals
+771,MALKIAT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+772,MALKIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+773,MALVIKA SOOD,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+774,MALVINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+775,MALWINDER SINGH GURON,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+776,MALWINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+777,MANDEEP KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+778,MANDEEP SINGH SAMRA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+779,MANDEEP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+780,MANDEEP SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+781,MANDEEP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+782,MANGAL RAM,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+783,MANGA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+784,MANIKSHA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+785,MANINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+786,MANISH BANSAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+787,MANJEET SINGH MALLAH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+788,MANJINDER SINGH LALPURA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+789,MANJINDER SINGH LALPURA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+790,MANJINDER SINGH LALPURA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+791,MANJIT KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+792,MANJIT KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+793,MANJIT KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+794,MANJIT SINGH ALIAS SUBA SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+795,MANJIT SINGH BHANGAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+796,MANJIT SINGH BILASPUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+797,MANJIT SINGH BILASPUR,name_from_filename (Part A regex missed); no_estamp_cert; no_movable_totals
+798,MANJIT SINGH BILASPUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+799,MANJIT SINGH BILASPUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+800,MANJIT SINGH MANNA,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+801,MANJIT SINGH SEKHON,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+802,MANJIT SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+803,MANJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+804,MANJU RANA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+805,MANJU RANA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+806,MANJU RANA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+807,MANJU RANA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+808,MANJU,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+809,MANN SINGH RAJU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+810,MANN SINGH RAJU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+811,MANN SINGH RAJU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+812,MANN SINGH RAJU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+813,MANOJ BEDI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+814,MANORANJAN KALIA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+815,MANORANJAN KALIA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+816,MANORANJAN KALIA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+817,MANPREET SINGH BADAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+818,MANPREET SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+819,MANPREET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+820,MASTER JOHAR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+821,MASTER TAJINDERPAL SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+822,MASTER TAJINDERPAL SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+823,MEGH RAJ,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+824,MELA SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+825,MOHAMMAD ANWER,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+826,MOHAMMAD JAMIL UR RAHMAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+827,MOHAMMAD JAMIL UR RAHMAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+828,MOHAMMAD JAMIL UR RAHMAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+829,MOHAMMAD MUNIR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+830,MOHAMMAD SHAKEEL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+831,MOHAMMAD YASIN  GUGGI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+832,MOHAMMAD ZUBAIR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+833,MOHAN LAL BEHRAM,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+834,MOHAN LAL GHARAM WALE,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+835,MOHAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+836,MOHAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+837,MOHAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+838,MOHAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+839,MOHINDER BHAGAT,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+840,MOHINDER KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+841,MOHINDER LAL,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+842,MOHINDER PAL SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+843,MOHINDER SINGH SANDHAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+844,MOHIT MOHINDRA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+845,MOHNIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+846,MORDA SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+847,MORIS,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+848,MUKHTAR SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+849,MUKHTIAR SINGH SANDHU S P,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+850,MUKHTIAR SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+851,MUKHWINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+852,MULKH RAJ JAKHU,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+853,MUNISH KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+854,NAGINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+855,NAIB SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+856,NARESH KATARIA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+857,NARESH KATARIA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+858,NARESH KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+859,NARESH PURI,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+860,NARINDER KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+861,NARINDER PAL SIDHU,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+862,NARINDER PAL SINGH CHANDI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+863,NARINDER PAL SINGH SAWNA,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+864,NARINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+865,NARINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+866,NARINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+867,NARINDER,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+868,NARYAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+869,NASEEB KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+870,NATHA SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+871,NAUNIHAL SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+872,NAVDEEP SANGHA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+873,NAVJOT SINGH SIDHU,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+874,NAVJOT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+875,NAVREET SINGH HUNDAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+876,NAVTEJ SINGH CHEEMA,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+877,NEELAM,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+878,NEETU CHHATRAN WALA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+879,NIMISHA MEHTA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+880,NIMISHA MEHTA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+881,NUSRAT ALI KHAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+882,NUTAN KUMAR ALIAS NITIN NANDA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+883,N  K  SHARMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+884,N  K  SHARMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+885,N  K  SHARMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+886,N  K  SHARMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+887,OM PARKASH JAKHU,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+888,OM PARKASH KHICHI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+889,OM PARKASH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+890,OM PARKASH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+891,ONKAR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+892,PANKAJ KHOSLA,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+893,PAPPU KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+894,PARAMDEEP SINGH BAIDWAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+895,PARAMJEET KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+896,PARAMJEET KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+897,PARAMJEET SINGH MUKARI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+898,PARAMJIT KAUR GULSHAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+899,PARAMJIT KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+900,PARAMJIT SINGH BHULLAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+901,PARAMJIT SINGH DHILLON,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+902,PARAMJIT SINGH JAJEANI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+903,PARAMJIT SINGH SAHOLI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+904,PARAMJIT SINGH SAHOTA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+905,PARAMJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+906,PARAMJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+907,PARAMJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+908,PARAMJOT,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+909,PARAMVIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+910,PARDEEP KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+911,PARDEEP SINGH DHAWAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+912,PARDEEP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+913,PARDEEP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+914,PARGAT SINGH POWAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+915,PARGAT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+916,PARGAT SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+917,PARIVAR SINGH DALLA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+918,PARKASH CHAND GARG,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+919,PARKASH SINGH BADAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+920,PARKASH SINGH BADAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+921,PARKASH SINGH BADAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+922,PARKASH SINGH BADAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+923,PARKASH SINGH BHATTI,name_from_filename (Part A regex missed); no_estamp_cert; no_movable_totals
+924,PARKASH SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+925,PARMINDER KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+926,PARMINDER SINGH,no_estamp_cert; no_pending_cases_count; no_movable_totals
+927,PARMINDER SINGH,no_estamp_cert; no_pending_cases_count; no_movable_totals
+928,PARMINDER SINGH DHINDSA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+929,PARMINDER SINGH GILL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+930,PARMINDER SINGH PINKI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+931,PARMINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+932,PARMINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+933,PARMINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+934,PARMJEET SINGH RINKA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+935,PARMJEET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+936,PARMJEET WALIA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+937,PARSHOTAM LAL BILGA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+938,PARSHOTAM RAJ AHIR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+939,PARTAP SINGH BAJWA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+940,PARVEEN BANSAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+941,PARVEEN HITESHI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+942,PARVEEN KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+943,PARVEEN KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+944,PARVINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+945,PARWINDER SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+946,PATRAS,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+947,PAUL RAM,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+948,PAWAN KUMAR ADIA,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+949,PAWAN KUMAR TINU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+950,PAWAN KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+951,PHULJIT SINGH VARPAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+952,POONAM MANIK,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+953,POONAM RANI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+954,PREM CHAND,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+955,PREM KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+956,PREM MITTAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+957,PREM MITTAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+958,PREM SINGH BHANGU,no_estamp_cert; no_pending_cases_count; no_movable_totals
+959,PREM SINGH CHANDUMAJRA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+960,PREM SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+961,PRITAM SINGH KOTBHAI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+962,PRITAM SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+963,PRITHI RAM MEGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+964,PRITPAL SHARMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+965,PRITPAL SHARMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+966,PRITPAL SINGH PALI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+967,PRITPAL SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+968,PRIYANKA RANI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+969,BALJINDER KAUR,movable_self_only; no_estamp_cert
+970,PROF  BALJINDER KAUR,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert
+971,PROF  BALJINDER KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_movable_totals
+972,PROF  GURDHIAN SINGH MULTANI,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+973,PROF  JASWANT SINGH GAJJAN MAJRA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+974,PROF  JASWANT SINGH GAJJAN MAJRA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+975,PROF  MOHINDER PAL SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+976,PROF  RUPINDER KAUR RUBY,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+977,PROMILA RALHAN BANI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+978,PUSHPINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+979,RACHHPAL SINGH JOURAMAJRA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+980,RAHMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+981,RAHUL BAJAJ,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+982,RAJANBIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+983,RAJBIR SINGH SIDHU,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+984,RAJDEEP KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+985,RAJDEEP KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+986,RAJEEV KUMAR LOVELY,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+987,RAJESH KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+988,RAJESH PATHELA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+989,RAJINDER BERI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+990,RAJINDER KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+991,RAJINDER PAL KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+992,RAJINDER SHARMA,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+993,RAJINDER SINGH SINGHPURA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+994,RAJINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+995,RAJINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+996,RAJINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+997,RAJINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+998,RAJIV KUMAR BABBAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+999,RAJNEESH KUMAR DAHIYA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1000,RAJNEESH KUMAR DAHIYA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1001,RAJNEESH KUMAR DAHIYA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1002,RAJPAL SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1003,RAJU RAM,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1004,RAJWINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1005,RAJ KUMAR GUPTA  BITTU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1006,RAJ KUMAR MAHAL KHURD,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1007,RAJ KUMAR SATHI,name_from_filename (Part A regex missed); movable_split_concatenated_digits; no_estamp_cert; no_pan; no_pending_cases_count
+1008,RAJ KUMAR VERKA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1009,RAJ KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1010,RAJ KUMAR,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1011,RAJ KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1012,RAJ KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1013,RAJ KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1014,RAJ KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1015,RAJ KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1016,RAJ KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1017,RAJ,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1018,RAKESH DHINGRA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1019,RAKESH KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1020,RAKESH PANDEY,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1021,RAMANDEEP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1022,RAMANJEET SINGH SAHOTA SIKKI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1023,RAMANJEET SINGH SAHOTA SIKKI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1024,RAMANJEET SINGH SAHOTA SIKKI,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1025,RAMANJIT BADHAN LALLY,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1026,RAMAN ARORA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1027,RAMAN ARORA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1028,RAMAN ARORA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1029,RAMAN BAHL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1030,RAMAN BAHL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1031,RAMAN BAHL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1032,RAMAN BAHL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1033,RAMAN KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+1034,RAMESH CHAND   MAHANT RAMESHANAND,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1035,RAMESH SHUKLA SAFAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1036,RAMPAL SINGH DAULATPUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1037,RAMPY KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1038,RAM KISHAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1039,RAM KUMAR MEGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1040,RAM LAL SANDHU,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1041,RANA GURJEET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1042,RANA GURJEET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1043,RANA GURJEET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1044,RANA GURJEET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1045,RANA INDER PARTAP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1046,RANBIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1047,RANBIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1048,RANBIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1049,RANDEEP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1050,RANDEEP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1051,RANDHIR SINGH SIVIA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1052,RANJIT KUMAR,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+1053,RANJIT RAM,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1054,RANJIT SINGH BHADRA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count
+1055,RANJIT SINGH,no_estamp_cert; no_pending_cases_count; no_movable_totals
+1056,RANJIT SINGH GAHLEWAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1057,RANJIT SINGH KAKA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1058,RANJIT SINGH KHOJEWAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1059,RANJIT SINGH KHOJEWAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1060,RANJIT SINGH RANA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1061,RANJIT SINGH RANA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count
+1062,RANJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1063,RANJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1064,RAN SINGH MEHLAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1065,RASHPAL SINGH RAJU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+1066,RATTAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1067,RATTAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1068,RATTAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1069,RAUNKI RAM,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1070,RAVIKARAN SINGH KAHLON,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1071,RAVINDER PAL KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1072,RAVINDER SINGH RAVI GREWAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1073,RAVINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1074,RAVI PREET SINGH SIDHU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1075,RAVNEET SINGH BRAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1076,RAVNEET SINGH BRAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1077,RAZIA SULTANA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1078,RAZIA SULTANA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1079,RAZIA SULTANA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1080,RENU KASHYAP,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1081,RESHAM LAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1082,RESHAM SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1083,RESHAM SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1084,RESHAM SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1085,RIBIKA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1086,ROHIT VOHRA,name_from_filename (Part A regex missed); no_estamp_cert; no_movable_totals
+1087,ROOP CHAND,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1088,ROOP LAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1089,RUPINDERJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1090,RUPINDER KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1091,RUPINDER SINGH RAJA GILL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1092,RUPINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1093,RUPINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1094,R D  SHARMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1095,SADHU SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1096,SAHIB SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1097,SAIF UR ISMAIL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1098,SAJJAN SINGH CHEEMA,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1099,SAJJAN SINGH CHEEMA,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1100,SANDEEP JAKHAR,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1101,SANDEEP KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1102,SANDEEP SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1103,SANGAT SINGH GILZIAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1104,SANJAY KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1105,SANJEEV KUMAR PILOT,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1106,SANJEEV KUMAR,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+1107,SANJEEV RANA,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1108,SANJEEV SHARMA BITTU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1109,SANJEEV VASHISHT,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1110,SANJIV KHANNA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1111,SANMUKH SINGH MOKHA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1112,SANTOKH SINGH BHALAIPUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1113,SANTOSH KUMARI KATARIAA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1114,SANT SUKHWINDER SINGH TIBBA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1115,SARABJIT SINGH MAKKAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1116,SARBJEET SINGH  MAKHAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1117,SARBJIT KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1118,SARBJIT SINGH LUBANA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1119,SARBJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1120,SARDAR ALI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+1121,SARDOOL SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1122,SARTAJ SINGH SANDHU,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1123,SARVAN SINGH DHUN,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1124,SARVAN SINGH DHUN,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1125,SARVAN SINGH DHUN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1126,SARVJIT KAUR MANUKE,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1127,SATBIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1128,SATINDERJIT SINGH CHHAJJALWADDI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1129,SATINDERJIT SINGH CHHAJJALWADDI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1130,SATINDERPAL SINGH TAJPURI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1131,SATNAM ALEER,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+1132,SATNAM SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1133,SATNAM SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1134,SATNAM SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1135,SATNAM SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+1136,SATPAL SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1137,SATPAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1138,SATVIR SINGH PALLI JHIKKI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1139,SATVIR SINGH SHEERA BANBHAURA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1140,SATVIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1141,SATWANT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1142,SATWANT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1143,SATWANT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1144,SATWINDER KAUR,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+1145,SATYA DEV SAINI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1146,SAT NARYAN SAH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1147,SAURABH JAIN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1148,SAVERA SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1149,SAYED MANZOOR GELANI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1150,SEEMA JAIN,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1151,SEEMA KUMARI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1152,SEEMA KUMARI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1153,SEEMA KUMARI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1154,SEWA RAM SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1155,SHAKTI KUMAR GUPTA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1156,SHAMMI KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1157,SHAMSHER SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert
+1158,SHAMSHER SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1159,SHAMSHER SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert
+1160,SHEETAL ANGURAL,name_from_filename (Part A regex missed); no_estamp_cert; no_movable_totals
+1161,SHEETAL ANGURAL,name_from_filename (Part A regex missed); no_estamp_cert; no_movable_totals
+1162,SHEETAL ANGURAL,name_from_filename (Part A regex missed); no_estamp_cert; no_movable_totals
+1163,SHEETAL ANGURAL,name_from_filename (Part A regex missed); no_estamp_cert; no_movable_totals
+1164,SHER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1165,SHER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1166,SHINDERPAL SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1167,SHINGARA SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1168,SHIVCHARAN DASS,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1169,SHIVJI SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1170,SHIV KUMAR KALYAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1171,SHIV KUMAR MANWANI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1172,SHUBHDEEP SINGH SIDHU MOOSE WALA,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+1173,SHWETA JINDAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1174,SikanderS ingh Maluka,no_estamp_cert; no_pending_cases_count; no_movable_totals
+1175,SIKANDER SINGH S O BHURA SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1176,SIKANDER SINGH S O SHAMSHER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1177,SIMARDEEP SINGH DOBURJI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1178,SIMARJEET SINGH BAINS,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1179,SIMARJIT KAUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1180,SIMRANDEEP SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1181,SIMRANJEET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1182,SIMRANJIT SINGH MAAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1183,SIMRANJIT SINGH MANN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1184,SMIT SINGH MANN,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1185,SODHI RAM,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1186,SOMA SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1187,SONA MASIH JAFAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1188,SONU,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1189,SUBEDAR AVTAR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1190,SUBEDAR MAJOR SINGH BHANGALA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1191,SUBHASH GORIA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1192,SUCHA LAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1193,SUCHA RAM LADHAR,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1194,SUCHA SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1195,SUKHBIR SINGH BADAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1196,SUKHBIR SINGH BADAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1197,SUKHBIR SINGH BADAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1198,SUKHBIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1199,SUKHCHAIN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1200,SUKHCHAIN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1201,SUKHDEV SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1202,SUKHDEV SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1203,SUKHJINDER KUMAR,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1204,SUKHJINDER RAJ SINGH  LALLI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1205,SUKHJINDER RAJ SINGH  LALLI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1206,SUKHJINDER SINGH RANDHAWA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1207,SUKHJINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1208,SUKHJINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1209,SUKHJIT SINGH KAKA LOHGARH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1210,SUKHJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1211,SUKHMINDER SINGH PINTU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1212,SUKHMINDER SINGH PINTU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1213,SUKHMIT SINGH KHANNA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1214,SUKHPAL SINGH BHULLAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1215,SUKHPAL SINGH BHULLAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1216,SUKHPAL SINGH KHAIRA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+1217,SUKHPAL SINGH KHAIRA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+1218,SUKHPREET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1219,SUKHRAJ SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count
+1220,SUKHVEER SINGH MAISERKHANA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1221,SUKHVEER SINGH MAISERKHANA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1222,SUKHVEER SINGH MAISERKHANA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1223,SUKHVEER SINGH MAISERKHANA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1224,SUKHVIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1225,SUKHWANT SINGH TILLU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+1226,SUKHWINDER KUMAR SUKHI DR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1227,SUKHWINDER KUMAR,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+1228,SUKHWINDER SINGH KOTLI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1229,SUKHWINDER SINGH MIRZAPURI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1230,SUKHWINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1231,SUKHWINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1232,SUKHWINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1233,SUKHWINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1234,SUKHWINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1235,SUKHWINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1236,SUKHWINDER SINGH  DANNY  BANDALA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1237,SUKHWINDER SINGH  DANNY  BANDALA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1238,SULAKHAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1239,SUNAINA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1240,SUNDAR LAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1241,SUNIL BABBAR,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1242,SUNIL DUTTI,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1243,SUNIL KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1244,SUNIL KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1245,SUNITA RANI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1246,SUNNY GILL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1247,SUNNY JASSAL,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1248,SUNNY KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1249,SUNNY SINGH JAFFARPUR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1250,SUPINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1251,SURAJ KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1252,SURESH KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1253,SURESH SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+1254,SURINDER KAUR BAINS,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1255,SURINDER KUMAR BEDI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1256,SURINDER MAHEY,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1257,SURINDER MEGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1258,SURINDER SHARMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1259,SURINDER SINGH HEER,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1260,SURINDER SINGH KHALSA,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1261,SURINDER SINGH KHERKI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1262,SURINDER SINGH SAHOTA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1263,SURINDER SINGH SODHI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1264,SURINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1265,SURINDER SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+1266,SURINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1267,SURJEET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1268,SURJEET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1269,SURJIT KUMAR JYANI,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1270,SURJIT SINGH BHURA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1271,SURJIT SINGH GAGRA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1272,SURJIT SINGH RAKHRA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1273,SURJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1274,SURJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1275,SURJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1276,SUSHEEL KUMAR SHARMA,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1277,SUSHIL KUMAR RINKU,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1278,SUTANTARDEEP SINGH BADGUJRAN,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1279,SWARAN SINGH MOMI,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1280,TAJINDER SINGH GUMBER  RINKU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1281,TAJINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1282,TAJINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1283,TALBIR SINGH GILL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1284,TARLOCHAN SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1285,TARSEM LAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1286,TARSEM SINGH SIALKA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1287,TARUNPREET SINGH SOND,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1288,TARUNVEER SINGH AHLUWALIA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1289,TARUN JAIN BAWA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1290,TARUN MEHTA,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+1291,TEJA SINGH KALABULA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count
+1292,TEJINDER KAUR TEJI SANDHU,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1293,TEJINDER SINGH DEOL,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1294,TEJWINDERPAL SINGH SAINI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1295,THOMES,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1296,TIKSHAN SUD,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+1297,TRIPT RAJINDER SINGH BAJWA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1298,VAID BALWANT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1299,VANDANA SANGWAL,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+1300,VARINDER KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1301,VARINDER SINGH BHINDER  VICKY BHINDER,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+1302,VARINDER SINGH SEKHON,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1303,VIBHUTI SHARMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1304,VIJAY KUMAR TREHAN,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+1305,VIJAY KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1306,VIJAY KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1307,VIJAY KUMAR,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count
+1308,VIJAY SAMPLA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1309,VIJAY SAMPLA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1310,VIJAY SHARMA TINKU,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1311,VIJAY SYAL,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1312,VIKAS SHARMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1313,VIKRAMJEET SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1314,VIKRAMJIT SINGH CHAUDHARY,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1315,VIKRAMJIT SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+1316,VIKRAM SINGH BAJWA,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1317,VINOD KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1318,VIPAN KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1319,VIRINDER SINGH PARHAR,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1320,VIRSA SINGH VALTOHA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1321,VIRSA SINGH VALTOHA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1322,VIRU SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1323,VIR SINGH LOPOKE,name_from_filename (Part A regex missed); no_estamp_cert; no_movable_totals
+1324,VISHAL JOSHI,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1325,VISHNU SHARMA,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count; no_movable_totals
+1326,WAZIR SINGH,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1327,WINNERJIT SINGH GOLDY,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+1328,YADWINDER SINGH,name_from_filename (Part A regex missed); no_estamp_cert
+1329,YADWINDER SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pending_cases_count
+1330,YOGESH KUMAR,name_from_filename (Part A regex missed); no_estamp_cert; no_pending_cases_count
+1331,YOG RAJ SAHOTA,name_from_filename (Part A regex missed); no_estamp_cert; no_pan; no_pending_cases_count; no_movable_totals
+1332,YUDHVIR SINGH,name_from_filename (Part A regex missed); movable_self_only; no_estamp_cert; no_pan; no_pending_cases_count

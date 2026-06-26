@@ -66,34 +66,87 @@ def main():
         shutil.copy2(db, backup)
         print(f"Backed up DB to {backup}", file=sys.stderr)
 
+    # ------- Ensure canonical schema exists ----------------------------
+    # If this DB was just created (e.g. after corruption recovery), the
+    # canonical tables — politicians, election_appearances, parties,
+    # constituencies, elections, states, assets, liabilities,
+    # criminal_cases — won't exist yet because they're normally created
+    # by FastAPI's startup hook via SQLAlchemy. Pull the schema from the
+    # app's models so we don't duplicate it here.
+    #
+    # The DATABASE_URL env var is consulted by app/database.py; if not
+    # set, it defaults to sqlite:///./politrack.db. To target a different
+    # path, set DATABASE_URL accordingly. Most users don't need to.
+    if not args.dry_run:
+        try:
+            import os
+            # Make `app.database` importable regardless of where the script
+            # is called from. The script lives at scripts/, so the project
+            # root is one level up. Without this prepend, Python's default
+            # sys.path doesn't include the project root and `import app.*`
+            # fails with "No module named 'app'".
+            _project_root = str(Path(__file__).resolve().parent.parent)
+            if _project_root not in sys.path:
+                sys.path.insert(0, _project_root)
+
+            # Point SQLAlchemy at the SAME db file we're migrating, in
+            # case the user passed --db with a non-default path.
+            os.environ.setdefault(
+                "DATABASE_URL", f"sqlite:///{db.resolve()}"
+            )
+            # Importing here (not at module top) so dry-runs and
+            # `--help` invocations don't pay the SQLAlchemy import cost.
+            # IMPORTANT: importing app.models is what REGISTERS the table
+            # classes with Base.metadata. Without that import, Base has
+            # no tables and create_all() silently does nothing.
+            from app.database import Base, engine
+            import app.models  # noqa: F401  (registers tables on Base)
+            Base.metadata.create_all(bind=engine)
+            print("Canonical schema verified (tables created if missing).",
+                  file=sys.stderr)
+        except ImportError as e:
+            print(f"  ⚠ Could not import app.database to bootstrap schema: {e}",
+                  file=sys.stderr)
+            print(f"  ⚠ If you hit 'no such table' errors below, run:",
+                  file=sys.stderr)
+            print(f"        python -c \"from app.database import Base, engine; "
+                  f"Base.metadata.create_all(bind=engine)\"",
+                  file=sys.stderr)
+
     con = sqlite3.connect(str(db))
     con.row_factory = sqlite3.Row
     cur = con.cursor()
 
-    # ------- Read source: ALL Delhi cycles in provisional table --------
-    # Multi-cycle: pull every (state, year) that exists. For each cycle,
-    # we'll insert an elections row and link election_appearances to it.
-    # Cross-cycle politician matching happens further below.
+    # ------- Read source: ALL (state, cycle) pairs in provisional ------
+    # Multi-state, multi-cycle: pull every (state, year) that exists.
+    # For each pair, we'll insert an elections row and link
+    # election_appearances to it. Cross-cycle politician matching happens
+    # per-state (a Manpreet Singh in Punjab is NOT the same person as a
+    # Manpreet Singh in Delhi, even if both ran in a 'Patiala' constituency).
     cur.execute("""
-        SELECT DISTINCT election_year
+        SELECT DISTINCT state, election_year
         FROM eci_candidates_provisional
-        WHERE state = 'Delhi' AND affidavit_status = 'Accepted'
-        ORDER BY election_year DESC
+        WHERE affidavit_status = 'Accepted'
+        ORDER BY state, election_year DESC
     """)
-    cycle_years = [r[0] for r in cur.fetchall()]
-    print(f"Found Delhi cycles in provisional: {cycle_years}",
-          file=sys.stderr)
+    state_cycles = [(r[0], r[1]) for r in cur.fetchall()]
+    states_in_data = sorted({s for s, _ in state_cycles})
+    print(f"States in provisional: {states_in_data}", file=sys.stderr)
+    for st in states_in_data:
+        years = sorted({y for s, y in state_cycles if s == st}, reverse=True)
+        print(f"  {st}: cycles {years}", file=sys.stderr)
 
-    # Pull rows per cycle, deduped within-cycle by (name, constituency)
-    # picking the HIGHEST affidavit_id (most recent filing).
-    rows_by_cycle: dict[int, list[dict]] = {}
-    for year in cycle_years:
+    # Pull rows per (state, cycle), deduped within-cycle by
+    # (name, constituency) picking the HIGHEST affidavit_id (most
+    # recent filing).
+    rows_by_state_cycle: dict[tuple[str, int], list[dict]] = {}
+    for state_name, year in state_cycles:
         cur.execute("""
             SELECT *
             FROM eci_candidates_provisional
-            WHERE state = 'Delhi' AND election_year = ?
+            WHERE state = ? AND election_year = ?
                   AND affidavit_status = 'Accepted'
-        """, (year,))
+        """, (state_name, year))
         all_rows = [dict(r) for r in cur.fetchall()]
         # Dedup: pick max affidavit_id per (name, constituency)
         from collections import defaultdict
@@ -114,38 +167,41 @@ def main():
                         by_key[key] = r
                 except (TypeError, ValueError):
                     pass
-        rows_by_cycle[year] = list(by_key.values())
-        print(f"  Cycle {year}: {len(all_rows)} rows → "
+        rows_by_state_cycle[(state_name, year)] = list(by_key.values())
+        print(f"  {state_name} {year}: {len(all_rows)} rows → "
               f"{len(by_key)} unique candidates after dedup",
               file=sys.stderr)
 
-    eci_rows_all = [r for rows in rows_by_cycle.values() for r in rows]
+    eci_rows_all = [r for rows in rows_by_state_cycle.values() for r in rows]
 
     if args.dry_run:
-        # Just count what each table would have
+        # Just count what each table would have (per state)
         parties = {r["party"] for r in eci_rows_all if r["party"]}
-        # Count NORMALIZED constituencies (so '(SC)' suffixes and
-        # spelling variants collapse — same logic the real run uses)
-        consts = {_normalize_constituency(r["constituency"])
-                   for r in eci_rows_all if r["constituency"]}
+        # Constituencies are per-state, but for dry-run we just want a total
+        const_total = 0
+        for st in states_in_data:
+            st_rows = [r for r in eci_rows_all if r.get("state") == st]
+            consts = {_normalize_constituency(r["constituency"])
+                       for r in st_rows if r["constituency"]}
+            const_total += len(consts)
         print(f"\nWould populate:", file=sys.stderr)
-        print(f"  states            1   (Delhi)", file=sys.stderr)
-        print(f"  elections        {len(cycle_years)}   (one per Delhi cycle)",
-              file=sys.stderr)
-        print(f"  constituencies   {len(consts):>2d}   "
-              f"(Delhi assembly seats, post-normalization)",
-              file=sys.stderr)
+        print(f"  states           {len(states_in_data):>2d}   "
+              f"({', '.join(states_in_data)})", file=sys.stderr)
+        print(f"  elections        {len(state_cycles):>2d}   "
+              f"(one per (state, cycle))", file=sys.stderr)
+        print(f"  constituencies   {const_total:>2d}   "
+              f"(per-state, post-normalization)", file=sys.stderr)
         print(f"  parties          {len(parties):>2d}   (deduplicated party names)",
               file=sys.stderr)
-        # Politician count = unique candidates across cycles (we'll
-        # cross-match by name+constituency below)
+        # Politicians: per-state (state, norm_name, constituency)
         all_keys = set()
-        for rows in rows_by_cycle.values():
+        for (state_name, _yr), rows in rows_by_state_cycle.items():
             for r in rows:
-                all_keys.add((_normalize_name(r["candidate_name"]),
+                all_keys.add((state_name,
+                               _normalize_name(r["candidate_name"]),
                                r["constituency"]))
         print(f"  politicians (approx): {len(all_keys):>3d}   "
-              f"(cross-cycle deduped by normalized name + constituency)",
+              f"(per-state, cross-cycle deduped)",
               file=sys.stderr)
         print(f"  election_appearances: {len(eci_rows_all):>3d}",
               file=sys.stderr)
@@ -163,57 +219,86 @@ def main():
         cur.execute(f"DELETE FROM {t}")
         cur.execute(f"DELETE FROM sqlite_sequence WHERE name = ?", (t,))
 
-    # ------- Populate states + ONE elections row per cycle -------------
-    cur.execute(
-        "INSERT INTO states (id, name, code) VALUES (1, 'Delhi', 'DL')"
-    )
-    state_id = 1
+    # ------- Populate states (one per unique state in provisional) -----
+    # State code mapping: prefer the well-known ISO-like 2-letter codes.
+    # Falls back to first two letters of the state name uppercased for
+    # unmapped states; this is fine until we hit two states starting
+    # with the same letter.
+    _STATE_CODES = {
+        "Delhi":   "DL",
+        "Punjab":  "PB",
+        "Bihar":   "BR",
+        "Goa":     "GA",
+        "Haryana": "HR",
+        "Karnataka": "KA",
+        "Maharashtra": "MH",
+        "Tamil Nadu": "TN",
+        "Uttar Pradesh": "UP",
+    }
+    state_id_by_name: dict[str, int] = {}
+    for i, state_name in enumerate(states_in_data, 1):
+        code = _STATE_CODES.get(state_name, state_name[:2].upper())
+        cur.execute(
+            "INSERT INTO states (id, name, code) VALUES (?, ?, ?)",
+            (i, state_name, code),
+        )
+        state_id_by_name[state_name] = i
+    print(f"  States inserted: {len(states_in_data)} "
+          f"({', '.join(states_in_data)})", file=sys.stderr)
 
-    # One elections row per cycle, indexed by year
-    election_id_by_year: dict[int, int] = {}
-    for i, year in enumerate(sorted(cycle_years), 1):
+    # ------- Populate elections (one per (state, cycle)) ---------------
+    # Index by (state_name, year) so the politician/appearance loop can
+    # look up the right election_id when joining a row to its election.
+    election_id_by_state_year: dict[tuple[str, int], int] = {}
+    sorted_state_cycles = sorted(state_cycles)  # deterministic order
+    for i, (state_name, year) in enumerate(sorted_state_cycles, 1):
         cur.execute(
             "INSERT INTO elections (id, year, house, state_id, myneta_slug) "
             "VALUES (?, ?, 'Assembly', ?, ?)",
-            (i, year, state_id, f"Delhi{year}"),
+            (i, year, state_id_by_name[state_name],
+             f"{state_name.lower().replace(' ', '')}{year}"),
         )
-        election_id_by_year[year] = i
-    print(f"  Elections inserted: {len(cycle_years)} "
-          f"({', '.join(str(y) for y in sorted(cycle_years))})",
-          file=sys.stderr)
+        election_id_by_state_year[(state_name, year)] = i
+    print(f"  Elections inserted: {len(sorted_state_cycles)} "
+          f"(one per state-cycle)", file=sys.stderr)
 
-    # ------- Populate constituencies (dedup + normalize across cycles) -
+    # ------- Populate constituencies (per-state, dedup across cycles) --
     # Normalize spellings so '(SC)' suffixes, dotted initials, and
     # whitespace variants all map to one row. Canonical name = the
-    # MOST RECENT cycle's spelling (so it matches the constituency_coords
-    # geojson + map / heatmap templates, which use 2025 spelling).
-    canonical_by_norm: dict[str, str] = {}
-    for year in sorted(cycle_years, reverse=True):
-        # Iterate latest cycle first; first writer wins
-        for r in rows_by_cycle[year]:
-            const_raw = r.get("constituency") or ""
-            norm = _normalize_constituency(const_raw)
-            if norm and norm not in canonical_by_norm:
-                # Clean the canonical: strip (SC)/(ST) suffix so the
-                # display name reads as 'AMBEDKAR NAGAR' not
-                # 'AMBEDKAR NAGAR(SC)'.
-                display = const_raw
-                for suf in ("(SC)", "(ST)"):
-                    if display.endswith(suf):
-                        display = display[: -len(suf)].strip()
-                canonical_by_norm[norm] = display
-
-    const_id_by_norm: dict[str, int] = {}
-    for i, (norm, name) in enumerate(sorted(canonical_by_norm.items(),
-                                              key=lambda kv: kv[1]), 1):
-        cur.execute(
-            "INSERT INTO constituencies (id, name, state_id, house) "
-            "VALUES (?, ?, ?, ?)",
-            (i, name, state_id, "Assembly"),
-        )
-        const_id_by_norm[norm] = i
-    print(f"  Constituencies inserted: {len(canonical_by_norm)} "
-          f"(canonical, post-normalization)", file=sys.stderr)
+    # MOST RECENT cycle's spelling. Constituencies are per-state, so we
+    # build the canonical-by-norm map per state separately — same
+    # constituency name in two states (e.g. "PATIALA" can exist in
+    # Punjab as a real constituency; not collide with anything else)
+    # gets two separate constituency rows.
+    const_id_by_state_norm: dict[tuple[str, str], int] = {}
+    next_const_id = 1
+    for state_name in states_in_data:
+        state_years = sorted({y for s, y in state_cycles if s == state_name},
+                              reverse=True)
+        canonical_by_norm: dict[str, str] = {}
+        for year in state_years:
+            # Iterate latest cycle first; first writer wins
+            for r in rows_by_state_cycle[(state_name, year)]:
+                const_raw = r.get("constituency") or ""
+                norm = _normalize_constituency(const_raw)
+                if norm and norm not in canonical_by_norm:
+                    display = const_raw
+                    for suf in ("(SC)", "(ST)"):
+                        if display.endswith(suf):
+                            display = display[: -len(suf)].strip()
+                    canonical_by_norm[norm] = display
+        for norm, name in sorted(canonical_by_norm.items(),
+                                   key=lambda kv: kv[1]):
+            cur.execute(
+                "INSERT INTO constituencies (id, name, state_id, house) "
+                "VALUES (?, ?, ?, ?)",
+                (next_const_id, name, state_id_by_name[state_name],
+                 "Assembly"),
+            )
+            const_id_by_state_norm[(state_name, norm)] = next_const_id
+            next_const_id += 1
+        print(f"  Constituencies for {state_name}: "
+              f"{len(canonical_by_norm)}", file=sys.stderr)
 
     # ------- Populate parties (dedup ACROSS cycles) --------------------
     # short_name is UNIQUE in the schema, so disambiguate collisions by
@@ -269,105 +354,142 @@ def main():
     appear_inserted = 0
     skipped_no_constituency = 0
     cross_cycle_matches = 0
-    # politician_id keyed by (normalized_name, constituency)
+    dup_appearances_skipped = 0
+    # politician_id keyed by (state_name, normalized_name, normalized_constituency)
+    # — state must be part of the key so a 'Manpreet Singh' in Punjab
+    # doesn't merge with a 'Manpreet Singh' in Delhi.
     pol_id_by_key: dict[tuple, int] = {}
+    # Track (politician_id, election_id) pairs we've already inserted so
+    # we don't violate the UNIQUE(politician_id, election_id) constraint.
+    # This happens when two raw rows (e.g. 'ARVIND KEJRIWAL' vs
+    # 'ARVIND KEJRI WAL' — OCR spacing artifact) survive the per-cycle
+    # raw-name dedup but collide under our normalized-name match key.
+    # We keep the first one and silently drop subsequent dupes; the
+    # 'first one' has the highest affidavit_id by construction (the
+    # earlier dedup step prefers max aff_id).
+    seen_appearance: set[tuple[int, int]] = set()
 
-    for year in sorted(cycle_years, reverse=True):
-        for r in rows_by_cycle[year]:
-            const_raw = r.get("constituency") or ""
-            const_norm = _normalize_constituency(const_raw)
-            const_id = const_id_by_norm.get(const_norm)
-            if not const_id:
-                skipped_no_constituency += 1
-                continue
+    # Iterate per state, then per cycle within state (latest cycle first).
+    # The cross-cycle matching only ever fires within a single state.
+    for state_name in states_in_data:
+        state_years = sorted({y for s, y in state_cycles if s == state_name},
+                              reverse=True)
+        state_lower = state_name.lower().replace(" ", "")
+        for year in state_years:
+            for r in rows_by_state_cycle[(state_name, year)]:
+                const_raw = r.get("constituency") or ""
+                const_norm = _normalize_constituency(const_raw)
+                const_id = const_id_by_state_norm.get(
+                    (state_name, const_norm))
+                if not const_id:
+                    skipped_no_constituency += 1
+                    continue
 
-            norm_name = _normalize_name(r["candidate_name"])
-            # Match by (normalized_name, normalized_constituency) so a
-            # 2020 candidate in 'AMBEDKAR NAGAR(SC)' matches their 2025
-            # entry in 'AMBEDKAR NAGAR'.
-            match_key = (norm_name, const_norm)
+                norm_name = _normalize_name(r["candidate_name"])
+                # Match by (state, normalized_name, normalized_constituency)
+                # so a 2020 candidate in 'AMBEDKAR NAGAR(SC)' matches their
+                # 2025 entry in 'AMBEDKAR NAGAR' but Manpreet Singh in
+                # Punjab does NOT merge with Manpreet Singh in Delhi.
+                match_key = (state_name, norm_name, const_norm)
 
-            if match_key in pol_id_by_key:
-                # Same candidate seen in a later cycle already — reuse id
-                pol_id = pol_id_by_key[match_key]
-                cross_cycle_matches += 1
-            else:
-                # New politician — insert
-                base = (
-                    f"{_slugify(r['candidate_name'])}"
-                    f"-delhi{year}-{r['affidavit_id'] or ''}"
-                ).rstrip("-")
-                slug = base
-                n = 2
-                while slug in used_slugs:
-                    slug = f"{base}-{n}"
-                    n += 1
-                used_slugs.add(slug)
+                if match_key in pol_id_by_key:
+                    # Same candidate seen in a later cycle already — reuse id.
+                    # NO new politician insert; we just attach an
+                    # additional election_appearance below.
+                    pol_id = pol_id_by_key[match_key]
+                    cross_cycle_matches += 1
+                else:
+                    # New politician — generate unique slug and insert.
+                    base = (
+                        f"{_slugify(r['candidate_name'])}"
+                        f"-{state_lower}{year}-{r['affidavit_id'] or ''}"
+                    ).rstrip("-")
+                    slug = base
+                    n = 2
+                    while slug in used_slugs:
+                        slug = f"{base}-{n}"
+                        n += 1
+                    used_slugs.add(slug)
 
+                    cur.execute(
+                        "INSERT INTO politicians "
+                        "(name, slug, myneta_candidate_id, age, profession, "
+                        " created_at, updated_at) "
+                        "VALUES (?, ?, ?, ?, ?, ?, ?)",
+                        (
+                            r["candidate_name"],
+                            slug,
+                            None,        # no myneta candidate id — pure ECI
+                            r.get("age"),
+                            r.get("profession_self"),
+                            datetime.utcnow(),
+                            datetime.utcnow(),
+                        ),
+                    )
+                    pol_id = cur.lastrowid
+                    pol_id_by_key[match_key] = pol_id
+                    pol_inserted += 1
+
+                party_id = (party_id_by_name.get(r["party"])
+                             if r.get("party") else None)
+                # const_id was set at top of loop from the normalized key
+                election_id = election_id_by_state_year[(state_name, year)]
+                source_url = "https://affidavit.eci.gov.in/"
+
+                # Skip if we've already inserted an appearance for this
+                # (politician, election) — see seen_appearance comment above.
+                appearance_key = (pol_id, election_id)
+                if appearance_key in seen_appearance:
+                    dup_appearances_skipped += 1
+                    continue
+                seen_appearance.add(appearance_key)
+
+                # PHASE 0 POLICY: regex-extracted numeric fields all NULL.
+                # See migrate_to_eci_only.py git history for the rationale.
                 cur.execute(
-                    "INSERT INTO politicians "
-                    "(name, slug, myneta_candidate_id, age, profession, "
-                    " created_at, updated_at) "
-                    "VALUES (?, ?, ?, ?, ?, ?, ?)",
+                    "INSERT INTO election_appearances "
+                    "(politician_id, election_id, constituency_id, party_id, "
+                    " age, education, profession, won, "
+                    " total_assets_inr, total_liabilities_inr, "
+                    " movable_assets_inr, immovable_assets_inr, "
+                    " criminal_cases_count, serious_cases_count, "
+                    " source_url, scraped_at) "
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                     (
-                        r["candidate_name"],
-                        slug,
-                        None,        # no myneta candidate id — pure ECI
+                        pol_id, election_id, const_id, party_id,
                         r.get("age"),
+                        r.get("education"),
                         r.get("profession_self"),
-                        datetime.utcnow(),
+                        False,        # won — awaiting Phase 2 winner cross-ref
+                        None, None, None, None,   # financials — NULL per Phase 0
+                        None, None,                # criminal — NULL per Phase 0
+                        source_url,
                         datetime.utcnow(),
                     ),
                 )
-                pol_id = cur.lastrowid
-                pol_id_by_key[match_key] = pol_id
-                pol_inserted += 1
-
-            party_id = (party_id_by_name.get(r["party"])
-                         if r.get("party") else None)
-            # const_id was set at top of loop from the normalized key
-            election_id = election_id_by_year[year]
-            source_url = "https://affidavit.eci.gov.in/"
-
-            # PHASE 0 POLICY: regex-extracted numeric fields all NULL.
-            # See migrate_to_eci_only.py git history for the rationale.
-            cur.execute(
-                "INSERT INTO election_appearances "
-                "(politician_id, election_id, constituency_id, party_id, "
-                " age, education, profession, won, "
-                " total_assets_inr, total_liabilities_inr, "
-                " movable_assets_inr, immovable_assets_inr, "
-                " criminal_cases_count, serious_cases_count, "
-                " source_url, scraped_at) "
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                (
-                    pol_id, election_id, const_id, party_id,
-                    r.get("age"),
-                    r.get("education"),
-                    r.get("profession_self"),
-                    False,        # won — awaiting Phase 2 winner cross-ref
-                    None, None, None, None,   # financials — NULL per Phase 0
-                    None, None,                # criminal — NULL per Phase 0
-                    source_url,
-                    datetime.utcnow(),
-                ),
-            )
-            appear_inserted += 1
+                appear_inserted += 1
 
     con.commit()
     con.close()
 
     # ------- Summary ---------------------------------------------------
     print(f"\n========== MIGRATION DONE ==========", file=sys.stderr)
-    print(f"  Cycles loaded:                  {len(cycle_years)} "
-          f"({', '.join(str(y) for y in sorted(cycle_years))})",
-          file=sys.stderr)
+    print(f"  States loaded:                  {len(states_in_data)} "
+          f"({', '.join(states_in_data)})", file=sys.stderr)
+    print(f"  Cycles loaded:                  {len(state_cycles)} "
+          f"(across all states)", file=sys.stderr)
+    for st in states_in_data:
+        yrs = sorted({y for s, y in state_cycles if s == st})
+        print(f"    {st}: {', '.join(str(y) for y in yrs)}",
+              file=sys.stderr)
     print(f"  Politicians inserted:           {pol_inserted}", file=sys.stderr)
     print(f"  Cross-cycle matches reused:     {cross_cycle_matches} "
           f"(same person, multiple cycles)", file=sys.stderr)
     print(f"  Election appearances inserted:  {appear_inserted}", file=sys.stderr)
     print(f"  Skipped (no constituency):      {skipped_no_constituency}",
           file=sys.stderr)
+    print(f"  Skipped (duplicate per election): {dup_appearances_skipped} "
+          f"(OCR spelling variants merged)", file=sys.stderr)
     print(f"  Backup at: {db.with_suffix('.db.bak')}", file=sys.stderr)
 
 

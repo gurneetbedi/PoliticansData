@@ -1,0 +1,13 @@
+{
+  "source_pdf": "SURESH_KUMAR__6749.pdf",
+  "page_count": 0,
+  "pages": [],
+  "stats": {
+    "pages_pdfplumber": 0,
+    "pages_cloud_vision": 0,
+    "elapsed_seconds": 0,
+    "cost_estimate_usd": 0,
+    "error": "PDFPageCountError: Unable to get page count.\nSyntax Error (65524): Illegal character '}'\nInternal Error: xref num 1 not found but needed, try to reconstruct\nSyntax Error: Page count in top-level pages object is wrong ty"
+  },
+  "corrupt": true
+}

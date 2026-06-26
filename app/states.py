@@ -325,11 +325,13 @@ ASSAM = StateConfig(
 )
 
 
-# NOTE — only Delhi is exposed right now. The other StateConfig objects above
-# are preserved in source so we can re-enable them as we backfill ECI data
-# state-by-state. Adding a state back is a one-line edit in this dict.
+# Active states — must have ECI affidavit data loaded for the listed
+# cycles before being added here. The other StateConfig objects above
+# are preserved in source so we can re-enable them as we backfill ECI
+# data state-by-state. Adding a state back is a one-line edit in this dict.
 ALL_STATES: dict[str, StateConfig] = {
     "delhi":        DELHI,
+    "punjab":       PUNJAB,   # 2022 + 2017 cycles, added during Punjab ingest
 }
 
 # Internal-only — used by scripts/migrate scaffolding. Not surfaced in the UI.

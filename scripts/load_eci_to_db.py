@@ -147,15 +147,30 @@ def compute_quality(row: dict) -> tuple[str, list[str]]:
 
 
 def _to_int_or_none(s: str | None) -> int | None:
+    """Parse a string to int, NULL-ing OCR garbage that overflows SQLite.
+
+    SQLite's INTEGER is 64-bit signed (max 9.22 × 10^18). Cloud Vision
+    occasionally reads strings of digits like bank account numbers,
+    vehicle chassis numbers, or PAN-like sequences as standalone
+    numbers, which silently become 20+ digit Python ints and crash
+    the INSERT. We treat anything above SQLite's max as a NULL —
+    real Indian wealth/age/case-count values never come close to that.
+    """
     if s is None:
         return None
     s = str(s).strip()
     if not s:
         return None
     try:
-        return int(s)
+        v = int(s)
     except ValueError:
         return None
+    # SQLite INTEGER is INT64 (2^63 - 1). Cap at 10^15 — well past any
+    # plausible Indian-rupee wealth (Mukesh Ambani-class is ~10^13),
+    # well under SQLite's limit. Anything bigger is OCR garbage.
+    if abs(v) > 10**15:
+        return None
+    return v
 
 
 def _to_str_or_none(s: str | None) -> str | None:

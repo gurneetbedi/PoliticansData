@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block title %}{{ constituency }} · {{ state }} · Lokvani{% endblock %}
+
+{% block content %}
+<main class="flex-grow max-w-container-max mx-auto w-full px-margin-mobile md:px-margin-desktop py-stack-lg">
+
+  <!-- Breadcrumb / back-nav -->
+  <nav class="flex items-center gap-1 text-label-sm text-on-surface-variant mb-stack-sm">
+    <a href="/?state={{ state }}" class="hover:text-primary transition-colors">{{ state }}</a>
+    <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+    <span class="text-on-surface">{{ constituency }}</span>
+  </nav>
+
+  <!-- Constituency title -->
+  <header class="mb-stack-lg">
+    <h1 class="text-display-sm md:text-display-md font-display-md font-bold text-on-surface">{{ constituency }}</h1>
+    <p class="mt-stack-xs text-body-md text-on-surface-variant">
+      {{ state }} {{ house }} constituency · {{ cycles|length }} election cycle{{ '' if cycles|length == 1 else 's' }} on file
+    </p>
+  </header>
+
+  {% if cycles and cycles|length > 0 %}
+    <!-- One section per cycle, latest first -->
+    {% for cycle in cycles %}
+    <section class="mb-stack-lg">
+      <div class="flex items-baseline justify-between mb-stack-sm">
+        <h2 class="text-headline-md font-headline-md text-on-surface">
+          {{ cycle.year }} {{ cycle.house }} Election
+        </h2>
+        <p class="text-label-sm text-on-surface-variant">
+          Top {{ cycle.candidates|length }} of {{ cycle.total_candidates_on_file }} candidates
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+        {% for c in cycle.candidates %}
+        <a href="/politician/{{ c.politician.slug or c.politician.id }}"
+           class="block bg-surface-container-lowest border-2 rounded-2xl p-stack-md
+                  {% if c.won %}border-primary{% else %}border-outline-variant hover:border-primary{% endif %}
+                  transition-all hover:shadow-md">
+
+          <!-- Rank + winner badge -->
+          <div class="flex items-center justify-between mb-stack-sm">
+            <span class="inline-flex items-center justify-center w-7 h-7 rounded-full
+                         text-label-md font-bold
+                         {% if c.won %}bg-primary text-on-primary{% else %}bg-surface-container text-on-surface-variant{% endif %}">
+              {{ c.rank }}
+            </span>
+            {% if c.won %}
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-label-sm font-label-sm
+                           bg-primary-container text-on-primary-container">
+                <span class="material-symbols-outlined text-[14px]">military_tech</span>
+                Winner
+              </span>
+            {% endif %}
+          </div>
+
+          <!-- Candidate name -->
+          <h3 class="text-headline-md font-headline-md text-on-surface mb-stack-xs truncate" title="{{ c.politician.name }}">
+            {{ c.politician.display_name }}
+          </h3>
+
+          <!-- Party pill -->
+          <div class="flex items-center gap-2 mb-stack-sm">
+            <span class="w-3 h-3 rounded-full" style="background:{{ c.party_color }};"></span>
+            <span class="text-label-md font-label-md text-on-surface-variant">{{ c.party_short }}</span>
+          </div>
+
+          <!-- Votes line -->
+          {% if c.votes %}
+            <p class="text-body-md text-on-surface">
+              <strong>{{ "{:,}".format(c.votes) }}</strong>
+              <span class="text-on-surface-variant">votes</span>
+              {% if c.vote_share_pct %}
+                <span class="text-on-surface-variant"> · {{ "{:.1f}".format(c.vote_share_pct) }}%</span>
+              {% endif %}
+            </p>
+          {% else %}
+            <p class="text-body-md text-on-surface-variant italic">Vote count not loaded</p>
+          {% endif %}
+
+          <!-- Wealth + cases summary (if available) -->
+          <div class="mt-stack-sm pt-stack-sm border-t border-outline-variant grid grid-cols-2 gap-2 text-label-sm">
+            <div>
+              <p class="text-label-sm text-on-surface-variant">Total assets</p>
+              {% if c.appearance.total_assets_inr %}
+                <p class="font-bold text-on-surface">₹{{ "{:.2f}".format(c.appearance.total_assets_inr / 10000000) }} Cr</p>
+              {% else %}
+                <p class="text-on-surface-variant italic text-label-sm">Not verified</p>
+              {% endif %}
+            </div>
+            <div>
+              <p class="text-label-sm text-on-surface-variant">Pending cases</p>
+              {% if c.appearance.criminal_cases_count is not none %}
+                <p class="font-bold {% if c.appearance.criminal_cases_count > 0 %}text-error{% else %}text-on-tertiary-container{% endif %}">
+                  {{ c.appearance.criminal_cases_count }}
+                </p>
+              {% else %}
+                <p class="text-on-surface-variant italic text-label-sm">—</p>
+              {% endif %}
+            </div>
+          </div>
+
+          {# Edge-case marker: this row has been verified by our LLM pass #}
+          {% if c.appearance.low_confidence_fields %}
+          <p class="mt-stack-xs text-[10px] italic text-on-surface-variant">
+            ⓘ Some fields flagged for review
+          </p>
+          {% endif %}
+
+        </a>
+        {% endfor %}
+      </div>
+    </section>
+    {% endfor %}
+
+    <!-- Methodology note -->
+    <section class="mt-stack-xl pt-stack-lg border-t border-outline-variant">
+      <h3 class="text-headline-md font-headline-md text-on-surface mb-stack-sm">About this data</h3>
+      <ul class="space-y-2 text-body-md text-on-surface-variant">
+        <li>
+          Top-3 ranking is by official vote count (from Election Commission of India + Wikipedia
+          cross-reference). When vote counts are unavailable for older cycles, we fall back to
+          listing all accepted candidates without ranking.
+        </li>
+        <li>
+          Total assets and pending criminal cases come from Form 26 affidavits filed with the ECI,
+          OCR'd via Google Cloud Vision and structured by Claude Gemini 2.5 Flash. We mark fields
+          as "not verified" when extraction confidence was low — better to be honest about
+          uncertainty than guess.
+        </li>
+        <li>
+          Click any candidate card to see their full disclosure: per-property and per-vehicle
+          breakdown, all pending and convicted cases, education, profession, and term-over-term
+          asset history.
+        </li>
+      </ul>
+    </section>
+
+  {% else %}
+    <p class="text-body-lg text-on-surface-variant italic py-stack-lg">
+      No election data on file for this constituency yet.
+    </p>
+  {% endif %}
+
+</main>
+{% endblock %}

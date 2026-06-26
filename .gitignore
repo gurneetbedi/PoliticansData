@@ -56,11 +56,24 @@ data/eci/vision_demo/
 data/eci/_akamai_state.json
 data/eci/_phase1_test/
 
+# Wikipedia results scrape cache (regenerable; large HTML files)
+data/eci/results/_wiki_*.html
+data/eci/results/delhi_*_results.json
+data/eci/for_ai/llm_extracted/
+
+# LLM cost-tracking sentinel
+data/eci/for_ai/_llm_run.log
+
 # Google Cloud service-account credentials — NEVER commit these
 **/*-service-account*.json
 **/gcp-key*.json
+**/lokvani-*-key.json
+**/lokvani-vision-key.json
 gcp/
 .gcp/
+# Entire secrets/ folder — anything in here stays local
+secrets/
+.secrets/
 
 # Fetcher caches / manifests / error pages / debug dumps
 data/eci/**/_*.html

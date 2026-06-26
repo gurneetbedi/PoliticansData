@@ -189,28 +189,41 @@
     <div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-3 gap-gutter">
       <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-stack-lg text-center">
         <p class="text-label-sm font-label-sm uppercase tracking-widest text-on-surface-variant">Total declared assets</p>
-        {% if kpis.total_wealth_cr %}
+        {% if kpis.count_verified_wealth and kpis.count_verified_wealth > 0 %}
           <p class="text-display-lg-mobile md:text-display-lg font-display-lg text-on-surface mt-2">₹{{ "{:,.1f}".format(kpis.total_wealth_cr / 100) }}K Cr</p>
-          <p class="text-[10px] italic text-on-surface-variant mt-1">Auto-extracted · not yet verified</p>
+          <p class="text-[10px] italic text-on-surface-variant mt-1">
+            From {{ "{:,}".format(kpis.count_verified_wealth) }} of {{ "{:,}".format(kpis.count) }} verified affidavits
+          </p>
         {% else %}
           <p class="text-headline-md font-headline-md text-on-surface-variant mt-2">Not yet verified</p>
-          <p class="text-[10px] italic text-on-surface-variant mt-1">Awaiting affidavit re-extraction</p>
+          <p class="text-[10px] italic text-on-surface-variant mt-1">0 of {{ "{:,}".format(kpis.count or 0) }} affidavits extracted</p>
         {% endif %}
       </div>
       <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-stack-lg text-center">
         <p class="text-label-sm font-label-sm uppercase tracking-widest text-on-surface-variant">With criminal cases</p>
-        {% if kpis.pct_with_cases %}
+        {% if kpis.count_verified_cases and kpis.count_verified_cases > 0 %}
           <p class="text-display-lg-mobile md:text-display-lg font-display-lg text-on-surface mt-2">{{ kpis.pct_with_cases|int }}%</p>
-          <p class="text-[10px] italic text-on-surface-variant mt-1">Auto-extracted · not yet verified</p>
+          <p class="text-[10px] italic text-on-surface-variant mt-1">
+            Across {{ "{:,}".format(kpis.count_verified_cases) }} of {{ "{:,}".format(kpis.count) }} verified affidavits
+          </p>
         {% else %}
           <p class="text-headline-md font-headline-md text-on-surface-variant mt-2">Not yet verified</p>
-          <p class="text-[10px] italic text-on-surface-variant mt-1">Awaiting affidavit re-extraction</p>
+          <p class="text-[10px] italic text-on-surface-variant mt-1">0 of {{ "{:,}".format(kpis.count or 0) }} affidavits extracted</p>
         {% endif %}
       </div>
       <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-stack-lg text-center">
         <p class="text-label-sm font-label-sm uppercase tracking-widest text-on-surface-variant">Candidates on file</p>
         <p class="text-display-lg-mobile md:text-display-lg font-display-lg text-on-surface mt-2">{{ "{:,}".format(kpis.count or 0) }}</p>
-        <p class="text-[10px] italic text-on-surface-variant mt-1">ECI-accepted affidavits · {{ state }} 2025</p>
+        {# Dynamically list every cycle we have data for, instead of
+           hard-coding '2025'. After the 2020 cycle landed this read
+           "Delhi 2025" which was stale. #}
+        {% set _cycle_years = cycles | map(attribute='year') | list | unique | sort %}
+        <p class="text-[10px] italic text-on-surface-variant mt-1">
+          ECI-accepted affidavits · {{ state }}
+          {% if _cycle_years %}
+            {{ _cycle_years | map('string') | join(' + ') }}
+          {% endif %}
+        </p>
       </div>
     </div>
   </section>
@@ -280,24 +293,47 @@
                     <span class="w-3 h-3 rounded-full" style="background: {{ zcolor }};"></span>
                     <span class="text-label-lg font-label-lg text-on-surface">{{ z.name }} Zone</span>
                   </div>
-                  {# In fallback mode (no winners flagged yet) the % is based
-                     on the candidate pool, not winners — show it as
-                     "indicative" so it doesn't read as a sitting-MLA stat. #}
-                  {% if z.fallback %}
+                  {# Transparency % is shown ONLY when we have verified data.
+                     Verified = candidates whose criminal_cases_count is
+                     actually populated (not NULL). When there's no
+                     verified subset yet, show 'Pending' rather than a
+                     misleading 100% Clean derived from NULL=0. #}
+                  {% if z.transparency is none %}
+                    <span class="text-label-sm font-bold text-on-surface-variant italic">Pending verification</span>
+                  {% elif z.fallback %}
                     <span class="text-label-sm font-bold text-on-surface-variant italic">{{ z.transparency|int }}% Clean*</span>
                   {% else %}
                     <span class="text-label-sm font-bold text-on-surface">{{ z.transparency|int }}% Clean</span>
                   {% endif %}
                 </div>
                 {% set _unit = z.label or 'MLAs' %}
+                {# Headline count: lead with VERIFIED candidates when partial
+                   coverage exists; show total only as the secondary number.
+                   That way the user sees "this stat is from N people" first,
+                   then "of M total on file" as context — not the other way
+                   around (which let the unverified majority dominate the
+                   visual impression). #}
                 <div class="flex items-center justify-between text-[10px] text-on-surface-variant">
-                  <span>{{ z.mlas }} {{ _unit }} · {{ z.states|length }} state{{ '' if z.states|length == 1 else 's' }}</span>
-                  <span>{{ z.avg_cases }} cases / {{ _unit[:-1] if _unit.endswith('s') else _unit }}</span>
+                  {% if z.verified is defined and z.verified < z.mlas %}
+                    <span>
+                      <strong class="text-on-surface">{{ z.verified }} verified</strong>
+                      · {{ z.mlas }} on file · {{ z.states|length }} state{{ '' if z.states|length == 1 else 's' }}
+                    </span>
+                  {% else %}
+                    <span>{{ z.mlas }} {{ _unit }} · {{ z.states|length }} state{{ '' if z.states|length == 1 else 's' }}</span>
+                  {% endif %}
+                  {% if z.avg_cases is not none %}
+                    <span>{{ z.avg_cases }} cases / verified</span>
+                  {% else %}
+                    <span class="italic">cases pending</span>
+                  {% endif %}
                 </div>
-                {# Transparency progress bar — visual cue at the bottom of each card #}
-                <div class="mt-2 h-1 w-full bg-outline-variant/40 rounded-full overflow-hidden">
-                  <div class="h-full rounded-full" style="background:{{ zcolor }}; width: {{ z.transparency|int }}%;"></div>
-                </div>
+                {# Transparency progress bar — only render when we have a real % #}
+                {% if z.transparency is not none %}
+                  <div class="mt-2 h-1 w-full bg-outline-variant/40 rounded-full overflow-hidden">
+                    <div class="h-full rounded-full" style="background:{{ zcolor }}; width: {{ z.transparency|int }}%;"></div>
+                  </div>
+                {% endif %}
               </a>
             {% endfor %}
           {% else %}
@@ -919,15 +955,14 @@ function renderDots() {
       });
       m.on('mouseout', () => tooltip.classList.add('hidden'));
       m.on('click', () => {
-        // Fallback dots represent the constituency, not a specific candidate
-        // — there's no politician slug to navigate to. Drop the user on the
-        // browse page filtered to this constituency instead.
-        if (d.fallback || !d.slug) {
-          window.location.href = '/browse?state=' + encodeURIComponent(CURRENT_STATE) +
-                                  '&constituency=' + encodeURIComponent(d.constituency);
-          return;
-        }
-        window.location.href = '/politician/' + d.slug;
+        // Always go to the constituency drill-down page. It shows top-3
+        // candidates per cycle, with the winner highlighted — and each
+        // candidate card links to that politician's detail page. This
+        // is the better UX than jumping straight to one candidate from
+        // a constituency-shaped dot. See app/templates/constituency_detail.html.
+        window.location.href = '/constituency/' +
+          encodeURIComponent(CURRENT_STATE) + '/' +
+          encodeURIComponent(d.constituency);
       });
       return m;
     });

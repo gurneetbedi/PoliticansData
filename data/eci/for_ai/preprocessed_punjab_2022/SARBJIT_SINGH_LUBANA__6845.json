@@ -1,0 +1,13 @@
+{
+  "source_pdf": "SARBJIT_SINGH_LUBANA__6845.pdf",
+  "page_count": 0,
+  "pages": [],
+  "stats": {
+    "pages_pdfplumber": 0,
+    "pages_cloud_vision": 0,
+    "elapsed_seconds": 0,
+    "cost_estimate_usd": 0,
+    "error": "PDFPageCountError: Unable to get page count.\nSyntax Error: Invalid XRef entry 0\nSyntax Error: Missing 'endstream' or incorrect stream length\nSyntax Error: Couldn't find trailer dictionary\nSyntax Error: Invalid XRef entr"
+  },
+  "corrupt": true
+}

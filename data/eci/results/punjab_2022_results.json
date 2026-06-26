@@ -1,0 +1,3744 @@
+[
+  {
+    "constituency_raw": "Sujanpur",
+    "constituency_norm": "SUJANPUR",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Naresh Puri",
+        "party_raw": "INC",
+        "votes": 46916,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1408,
+          "db_name": "NARESH PURI",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Dinesh Singh",
+        "party_raw": "BJP",
+        "votes": 42280,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1378,
+          "db_name": "DINESH SINGH (BABBU)",
+          "db_party": "BJP",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Bhoa (SC)",
+    "constituency_norm": "BHOA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Lal Chand",
+        "party_raw": "AAP",
+        "votes": 50339,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1701,
+          "db_name": "LAL CHAND",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Joginder Pal",
+        "party_raw": "INC",
+        "votes": 49135,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1712,
+          "db_name": "JOGINDER PAL",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Pathankot",
+    "constituency_norm": "PATHANKOT",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Ashwani Sharma",
+        "party_raw": "BJP",
+        "votes": 43132,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1591,
+          "db_name": "ASHWANI KUMAR SHARMA",
+          "db_party": "BJP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Amit Vij",
+        "party_raw": "INC",
+        "votes": 35373,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1367,
+          "db_name": "AMIT VIJ",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Gurdaspur",
+    "constituency_norm": "GURDASPUR",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Barindermeet Pahra",
+        "party_raw": "INC",
+        "votes": 43743,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1904,
+          "db_name": "BARINDERMEET SINGH PAHRA",
+          "db_party": "INC",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Gurbachan Babbehali",
+        "party_raw": "SAD",
+        "votes": 36408,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1902,
+          "db_name": "GURBACHAN SINGH BABEHALI",
+          "db_party": "SAD",
+          "fuzzy_score": 83.72093023255815
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Dina Nagar (SC)",
+    "constituency_norm": "DINANAGAR",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Aruna Chaudhary",
+        "party_raw": "INC",
+        "votes": 51133,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1846,
+          "db_name": "ARUNA CHAUDHARY",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Shamsher Singh",
+        "party_raw": "AAP",
+        "votes": 50002,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1810,
+          "db_name": "SHAMSHER SINGH",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Qadian",
+    "constituency_norm": "QADIAN",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Partap Singh Bajwa",
+        "party_raw": "INC",
+        "votes": 48679,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1386,
+          "db_name": "PARTAP SINGH BAJWA",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Guriqbal Singh Mahal",
+        "party_raw": "SAD",
+        "votes": 41505,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2122,
+          "db_name": "GURIQBAL SINGH MAHAL",
+          "db_party": "SAD",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Batala",
+    "constituency_norm": "BATALA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Amansher Singh",
+        "party_raw": "AAP",
+        "votes": 55570,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1862,
+          "db_name": "AMANSHER SINGH (SHERY KALSI)",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Ashwani Sekhri",
+        "party_raw": "INC",
+        "votes": 27098,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1726,
+          "db_name": "ASHWANI SEKHRI",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Sri Hargobindpur (SC)",
+    "constituency_norm": "SRIHARGOBINDPUR",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Amarpal Singh",
+        "party_raw": "AAP",
+        "votes": 53205,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1836,
+          "db_name": "AMARPAL SINGH",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Rajanbir Singh",
+        "party_raw": "SAD",
+        "votes": 36242,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1434,
+          "db_name": "RAJANBIR SINGH",
+          "db_party": "SAD",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Fatehgarh Churian",
+    "constituency_norm": "FATEHGARHCHURIAN",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Tripat Singh Bajwa",
+        "party_raw": "INC",
+        "votes": 46311,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2327,
+          "db_name": "TRIPT RAJINDER SINGH BAJWA",
+          "db_party": "INC",
+          "fuzzy_score": 83.87096774193549
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Lakhbir Lodhinangal",
+        "party_raw": "SAD",
+        "votes": 40766,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1423,
+          "db_name": "LAKHBIR SINGH LODHINANGAL",
+          "db_party": "SAD",
+          "fuzzy_score": 100.0
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Dera Baba Nanak",
+    "constituency_norm": "DERABABANANAK",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Sukhjinder Randhawa",
+        "party_raw": "INC",
+        "votes": 52555,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1382,
+          "db_name": "SUKHJINDER SINGH RANDHAWA",
+          "db_party": "INC",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Ravikaran Kahlon",
+        "party_raw": "SAD",
+        "votes": 52089,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1635,
+          "db_name": "RAVIKARAN SINGH KAHLON",
+          "db_party": "SAD",
+          "fuzzy_score": 100.0
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Ajnala",
+    "constituency_norm": "AJNALA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Kuldeep Dhaliwal",
+        "party_raw": "AAP",
+        "votes": 43555,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1680,
+          "db_name": "KULDEEP SINGH DHALIWAL",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Amarpal Ajnala",
+        "party_raw": "SAD",
+        "votes": 35712,
+        "vote_share_pct": null
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Rajasansi",
+    "constituency_norm": "RAJASANSI",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Sukhbinder Sarkaria",
+        "party_raw": "INC",
+        "votes": 46872,
+        "vote_share_pct": null
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Vir Singh Lopoke",
+        "party_raw": "SAD",
+        "votes": 41398,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1694,
+          "db_name": "VIR SINGH LOPOKE",
+          "db_party": "SAD",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Majitha",
+    "constituency_norm": "MAJITHA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Ganieve Majithia",
+        "party_raw": "SAD",
+        "votes": 57027,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1921,
+          "db_name": "GANIEVE KAUR MAJITHIA",
+          "db_party": "SAD",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Sukhjinder Raj Singh",
+        "party_raw": "AAP",
+        "votes": 30965,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1883,
+          "db_name": "SUKHJINDER RAJ SINGH (LALLI)",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Jandiala (SC)",
+    "constituency_norm": "JANDIALA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Harbhajan E.T.O.",
+        "party_raw": "AAP",
+        "votes": 59724,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1459,
+          "db_name": "HARBHAJAN SINGH E.T.O.",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Sukhwinder Singh",
+        "party_raw": "INC",
+        "votes": 34341,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1595,
+          "db_name": "SUKHWINDER SINGH \"DANNY\" BANDALA",
+          "db_party": "INC",
+          "fuzzy_score": 100.0
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Amritsar North",
+    "constituency_norm": "AMRITSARNORTH",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Vijay Pratap Singh",
+        "party_raw": "AAP",
+        "votes": 58133,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1839,
+          "db_name": "KUNWAR VIJAY PRATAP SINGH",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Anil Joshi",
+        "party_raw": "SAD",
+        "votes": 29815,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1816,
+          "db_name": "ANIL JOSHI",
+          "db_party": "SAD",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Amritsar West (SC)",
+    "constituency_norm": "AMRITSARWEST",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Jasbir Sandhu",
+        "party_raw": "AAP",
+        "votes": 69251,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1940,
+          "db_name": "DR. JASBIR SINGH SANDHU",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Raj Verka",
+        "party_raw": "INC",
+        "votes": 25338,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1581,
+          "db_name": "RAJ KUMAR VERKA",
+          "db_party": "INC",
+          "fuzzy_score": 100.0
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Amritsar Central",
+    "constituency_norm": "AMRITSARCENTRAL",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Ajay Gupta",
+        "party_raw": "AAP",
+        "votes": 40837,
+        "vote_share_pct": null
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Om Parkash Soni",
+        "party_raw": "INC",
+        "votes": 26811,
+        "vote_share_pct": null
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Amritsar East",
+    "constituency_norm": "AMRITSAREAST",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Jeevan Jyot Kaur",
+        "party_raw": "AAP",
+        "votes": 39679,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1521,
+          "db_name": "JEEVAN JYOT KAUR",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Navjot Singh Sidhu",
+        "party_raw": "INC",
+        "votes": 32929,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1514,
+          "db_name": "NAVJOT SINGH SIDHU",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Amritsar South",
+    "constituency_norm": "AMRITSARSOUTH",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Inderbir Nijjar",
+        "party_raw": "AAP",
+        "votes": 53053,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1903,
+          "db_name": "INDERBIR SINGH NIJJAR",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Talbir Singh Gill",
+        "party_raw": "SAD",
+        "votes": 25550,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1881,
+          "db_name": "TALBIR SINGH GILL",
+          "db_party": "SAD",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Attari (SC)",
+    "constituency_norm": "ATTARI",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Jaswinder Singh",
+        "party_raw": "AAP",
+        "votes": 56798,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1809,
+          "db_name": "JASWINDER SINGH",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Gulzar Ranike",
+        "party_raw": "SAD",
+        "votes": 37004,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1827,
+          "db_name": "GULZAR SINGH RANIKE",
+          "db_party": "SAD",
+          "fuzzy_score": 100.0
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Tarn Taran",
+    "constituency_norm": "TARNTARAN",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Kashmir Sohal",
+        "party_raw": "AAP",
+        "votes": 52935,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1797,
+          "db_name": "DR. KASHMIR SINGH SOHAL",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Harmeet Sandhu",
+        "party_raw": "SAD",
+        "votes": 39347,
+        "vote_share_pct": null
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Khem Karan",
+    "constituency_norm": "KHEMKARAN",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Sarvan Singh Dhun",
+        "party_raw": "AAP",
+        "votes": 64541,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1485,
+          "db_name": "SARVAN SINGH DHUN",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Virsa Singh Valtoha",
+        "party_raw": "SAD",
+        "votes": 52659,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1785,
+          "db_name": "VIRSA SINGH VALTOHA",
+          "db_party": "SAD",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Patti",
+    "constituency_norm": "PATTI",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Laljit Bhullar",
+        "party_raw": "AAP",
+        "votes": 57323,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1528,
+          "db_name": "LALJIT SINGH BHULLAR",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Adesh Partap Kairon",
+        "party_raw": "SAD",
+        "votes": 46324,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1955,
+          "db_name": "ADAISH PARTAP SINGH KAIRON",
+          "db_party": "SAD",
+          "fuzzy_score": 81.25
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Baba Bakala (SC)",
+    "constituency_norm": "BABABAKALA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Dalbir Singh Tong",
+        "party_raw": "AAP",
+        "votes": 52468,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1503,
+          "db_name": "DALBIR SINGH TONG",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Santokh Singh Bhalaipur",
+        "party_raw": "INC",
+        "votes": 32916,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1511,
+          "db_name": "SANTOKH SINGH BHALAIPUR",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Bholath",
+    "constituency_norm": "BHOLATH",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Sukhpal Singh Khaira",
+        "party_raw": "INC",
+        "votes": 37254,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1733,
+          "db_name": "SUKHPAL SINGH KHAIRA",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Jagir Kaur",
+        "party_raw": "SAD",
+        "votes": 28029,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1731,
+          "db_name": "BIBI JAGIR KAUR",
+          "db_party": "SAD",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Kapurthala",
+    "constituency_norm": "KAPURTHALA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Rana Gurjeet Singh",
+        "party_raw": "INC",
+        "votes": 44096,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1930,
+          "db_name": "RANA GURJEET SINGH",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Manju Rana",
+        "party_raw": "AAP",
+        "votes": 36792,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1938,
+          "db_name": "MANJU RANA",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Sultanpur Lodhi",
+    "constituency_norm": "SULTANPURLODHI",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Inder Pratap Singh",
+        "party_raw": "IND",
+        "votes": 41337,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2165,
+          "db_name": "RANA INDER PARTAP SINGH",
+          "db_party": "IND",
+          "fuzzy_score": 94.44444444444444
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Sajjan Singh Cheema",
+        "party_raw": "AAP",
+        "votes": 29903,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1346,
+          "db_name": "SAJJAN SINGH CHEEMA",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Phagwara (SC)",
+    "constituency_norm": "PHAGWARA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Balwinder Dhaliwal",
+        "party_raw": "INC",
+        "votes": 37217,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1335,
+          "db_name": "BALWINDER SINGH DHALIWAL",
+          "db_party": "INC",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Joginder Mann",
+        "party_raw": "AAP",
+        "votes": 34505,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1886,
+          "db_name": "JOGINDER SINGH MANN",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Phillaur (SC)",
+    "constituency_norm": "PHILLAUR",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Vikramjit Chaudhary",
+        "party_raw": "INC",
+        "votes": 48288,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2137,
+          "db_name": "VIKRAMJIT SINGH CHAUDHARY",
+          "db_party": "INC",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Baldev Singh Khaira",
+        "party_raw": "SAD",
+        "votes": 35985,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1776,
+          "db_name": "BALDEV SINGH KHAIRA",
+          "db_party": "SAD",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Nakodar",
+    "constituency_norm": "NAKODAR",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Inderjit Kaur Mann",
+        "party_raw": "AAP",
+        "votes": 42868,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1900,
+          "db_name": "INDERJIT KAUR MANN",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Gurpartap Wadala",
+        "party_raw": "SAD",
+        "votes": 39999,
+        "vote_share_pct": null
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Shahkot",
+    "constituency_norm": "SHAHKOT",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Hardev Singh Laddi",
+        "party_raw": "INC",
+        "votes": 51661,
+        "vote_share_pct": null
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Bachitar Singh Kohar",
+        "party_raw": "SAD",
+        "votes": 39582,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2253,
+          "db_name": "KASHMIR SINGH",
+          "db_party": "IND",
+          "fuzzy_score": 76.92307692307692
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Kartarpur (SC)",
+    "constituency_norm": "KARTARPUR",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Balkar Singh",
+        "party_raw": "AAP",
+        "votes": 41830,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1683,
+          "db_name": "BALKAR SINGH",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Ch. Surinder Singh",
+        "party_raw": "INC",
+        "votes": 37256,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1951,
+          "db_name": "CHAUDHARY SURINDER SINGH",
+          "db_party": "INC",
+          "fuzzy_score": 93.75
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Jalandhar West (SC)",
+    "constituency_norm": "JALANDHARWEST",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Sheetal Angural",
+        "party_raw": "AAP",
+        "votes": 39213,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1665,
+          "db_name": "SHEETAL ANGURAL",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Sushil Rinku",
+        "party_raw": "INC",
+        "votes": 34960,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1766,
+          "db_name": "SUSHIL KUMAR RINKU",
+          "db_party": "INC",
+          "fuzzy_score": 100.0
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Jalandhar Central",
+    "constituency_norm": "JALANDHARCENTRAL",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Raman Arora",
+        "party_raw": "AAP",
+        "votes": 33011,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1478,
+          "db_name": "RAMAN ARORA",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Rajinder Beri",
+        "party_raw": "INC",
+        "votes": 32764,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1638,
+          "db_name": "RAJINDER BERI",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Jalandhar North",
+    "constituency_norm": "JALANDHARNORTH",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Avtar Singh Jr.",
+        "party_raw": "INC",
+        "votes": 47338,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1426,
+          "db_name": "AVTAR SINGH JUNIOR",
+          "db_party": "INC",
+          "fuzzy_score": 96.2962962962963
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "K. D. Bhandari",
+        "party_raw": "BJP",
+        "votes": 37852,
+        "vote_share_pct": null
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Adampur (SC)",
+    "constituency_norm": "ADAMPUR",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Sukhwinder Kotli",
+        "party_raw": "INC",
+        "votes": 39554,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2248,
+          "db_name": "SUKHWINDER SINGH KOTLI",
+          "db_party": "INC",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Pawan Kumar Tinu",
+        "party_raw": "SAD",
+        "votes": 34987,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1698,
+          "db_name": "PAWAN KUMAR TINU",
+          "db_party": "SAD",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Mukerian",
+    "constituency_norm": "MUKERIAN",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Jangi Lal Mahajan",
+        "party_raw": "BJP",
+        "votes": 41044,
+        "vote_share_pct": null
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Gurdhian Multani",
+        "party_raw": "AAP",
+        "votes": 38353,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1420,
+          "db_name": "PROF. GURDHIAN SINGH MULTANI",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Dasuya",
+    "constituency_norm": "DASUYA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Karambir Singh",
+        "party_raw": "AAP",
+        "votes": 43272,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1925,
+          "db_name": "KARAMBIR SINGH",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Arun Dogra",
+        "party_raw": "INC",
+        "votes": 34685,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2200,
+          "db_name": "ARUN DOGRA",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Urmar",
+    "constituency_norm": "URMAR",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Jasvir Raja Gill",
+        "party_raw": "AAP",
+        "votes": 42576,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2145,
+          "db_name": "JASVIR SINGH RAJA GILL",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Sangat Gilzian",
+        "party_raw": "INC",
+        "votes": 38386,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2006,
+          "db_name": "SANGAT SINGH GILZIAN",
+          "db_party": "INC",
+          "fuzzy_score": 100.0
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Sham Chaurasi (SC)",
+    "constituency_norm": "SHAMCHAURASI",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Ravjot Singh",
+        "party_raw": "AAP",
+        "votes": 60730,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1496,
+          "db_name": "DR.RAVJOT SINGH",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Pawan Kumar Adia",
+        "party_raw": "INC",
+        "votes": 39374,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1759,
+          "db_name": "PAWAN KUMAR ADIA",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Hoshiarpur",
+    "constituency_norm": "HOSHIARPUR",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Brahm Shankar Jimpa",
+        "party_raw": "AAP",
+        "votes": 51112,
+        "vote_share_pct": null
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Sunder Sham Arora",
+        "party_raw": "INC",
+        "votes": 37253,
+        "vote_share_pct": null
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Chabbewal (SC)",
+    "constituency_norm": "CHABBEWAL",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Raj Kumar",
+        "party_raw": "INC",
+        "votes": 47375,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2004,
+          "db_name": "DR. RAJ KUMAR",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Harminder Singh",
+        "party_raw": "AAP",
+        "votes": 39729,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1844,
+          "db_name": "HARMINDER SINGH",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Garhshankar",
+    "constituency_norm": "GARHSHANKAR",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Jai Krishan Singh",
+        "party_raw": "AAP",
+        "votes": 32341,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1911,
+          "db_name": "JAI KRISHAN",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Amarpreet Singh Lally",
+        "party_raw": "INC",
+        "votes": 28162,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2024,
+          "db_name": "AMARPREET SINGH LALLY",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Banga (SC)",
+    "constituency_norm": "BANGA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Sukhwinder Kumar",
+        "party_raw": "SAD",
+        "votes": 37338,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1582,
+          "db_name": "SUKHWINDER KUMAR SUKHI DR.",
+          "db_party": "SAD",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Tarlochan Singh",
+        "party_raw": "INC",
+        "votes": 32269,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2050,
+          "db_name": "TARLOCHAN SINGH",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Nawan Shahr",
+    "constituency_norm": "NAWANSHAHR",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Nachhatar Pal",
+        "party_raw": "BSP",
+        "votes": 37031,
+        "vote_share_pct": null
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Lalit Mohan Ballu",
+        "party_raw": "AAP",
+        "votes": 31655,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1838,
+          "db_name": "LALIT MOHAN BALLU",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Balachaur",
+    "constituency_norm": "BALACHAUR",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Santosh Kataria",
+        "party_raw": "AAP",
+        "votes": 39633,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1722,
+          "db_name": "SANTOSH KUMARI KATARIAA",
+          "db_party": "AAP",
+          "fuzzy_score": 82.75862068965517
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Sunita Rani",
+        "party_raw": "SAD",
+        "votes": 35092,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1679,
+          "db_name": "SUNITA RANI",
+          "db_party": "SAD",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Anandpur Sahib",
+    "constituency_norm": "ANANDPURSAHIB",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Harjot Singh Bains",
+        "party_raw": "AAP",
+        "votes": 82132,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1461,
+          "db_name": "HARJOT SINGH BAINS",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Rana K. P. Singh",
+        "party_raw": "INC",
+        "votes": 36352,
+        "vote_share_pct": null
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Rupnagar",
+    "constituency_norm": "RUPNAGAR",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Dinesh Chadha",
+        "party_raw": "AAP",
+        "votes": 59903,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1916,
+          "db_name": "DINESH KUMAR CHADHA",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Brinder Dhillon",
+        "party_raw": "INC",
+        "votes": 36271,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2181,
+          "db_name": "BRINDER SINGH DHILLON",
+          "db_party": "INC",
+          "fuzzy_score": 100.0
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Chamkaur Sahib (SC)",
+    "constituency_norm": "CHAMKAURSAHIB",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Charanjit Singh",
+        "party_raw": "AAP",
+        "votes": 70248,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1483,
+          "db_name": "CHARANJIT SINGH",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Charanjit Channi",
+        "party_raw": "INC",
+        "votes": 62306,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2259,
+          "db_name": "CHARANJIT SINGH CHANNI",
+          "db_party": "INC",
+          "fuzzy_score": 100.0
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Kharar",
+    "constituency_norm": "KHARAR",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Anmol Gagan Maan",
+        "party_raw": "AAP",
+        "votes": 78273,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1368,
+          "db_name": "ANMOL GAGAN MAAN",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Ranjit Singh Gill",
+        "party_raw": "SAD",
+        "votes": 40388,
+        "vote_share_pct": null
+      }
+    ]
+  },
+  {
+    "constituency_raw": "S.A.S. Nagar",
+    "constituency_norm": "SASNAGAR",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Kulwant Singh",
+        "party_raw": "AAP",
+        "votes": 77134,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1589,
+          "db_name": "KULWANT SINGH",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Balbir Singh Sidhu",
+        "party_raw": "INC",
+        "votes": 43037,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1575,
+          "db_name": "BALBIR SINGH SIDHU",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Bassi Pathana (SC)",
+    "constituency_norm": "BASSIPATHANA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Rupinder Singh",
+        "party_raw": "AAP",
+        "votes": 54018,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1732,
+          "db_name": "RUPINDER SINGH",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Gurpreet Singh",
+        "party_raw": "INC",
+        "votes": 16177,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1587,
+          "db_name": "GURPREET SINGH",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Fatehgarh Sahib",
+    "constituency_norm": "FATEHGARHSAHIB",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Lakhbir Rai",
+        "party_raw": "AAP",
+        "votes": 57706,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1804,
+          "db_name": "LAKHBIR SINGH RAI",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Kuljit Nagra",
+        "party_raw": "INC",
+        "votes": 25507,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1650,
+          "db_name": "KULJIT SINGH NAGRA",
+          "db_party": "INC",
+          "fuzzy_score": 100.0
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Amloh",
+    "constituency_norm": "AMLOH",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Gurinder Singh",
+        "party_raw": "AAP",
+        "votes": 52912,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1695,
+          "db_name": "GURINDER SINGH GARRY BIRRING",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Gurpreet Singh Khanna",
+        "party_raw": "SAD",
+        "votes": 28249,
+        "vote_share_pct": null
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Khanna",
+    "constituency_norm": "KHANNA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Tarunpreet Sond",
+        "party_raw": "AAP",
+        "votes": 62425,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1597,
+          "db_name": "TARUNPREET SINGH SOND",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Jasdeep Kaur Yadu",
+        "party_raw": "SAD",
+        "votes": 26805,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1653,
+          "db_name": "JASDEEP KAUR YADU",
+          "db_party": "SAD",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Samrala",
+    "constituency_norm": "SAMRALA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Jagtar Singh",
+        "party_raw": "AAP",
+        "votes": 57557,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1736,
+          "db_name": "JAGTAR SINGH DIYALPURA",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Paramjit Singh Dhillon",
+        "party_raw": "SAD",
+        "votes": 26667,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1369,
+          "db_name": "PARAMJIT SINGH DHILLON",
+          "db_party": "SAD",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Sahnewal",
+    "constituency_norm": "SAHNEWAL",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Hardeep Mundian",
+        "party_raw": "AAP",
+        "votes": 61515,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1579,
+          "db_name": "HARDEEP SINGH MUNDIAN",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Vikram Singh Bajwa",
+        "party_raw": "INC",
+        "votes": 46322,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1741,
+          "db_name": "VIKRAM SINGH BAJWA",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Ludhiana East",
+    "constituency_norm": "LUDHIANAEAST",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Daljit Singh Grewal",
+        "party_raw": "AAP",
+        "votes": 68682,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1697,
+          "db_name": "DALJIT SINGH GREWAL (BHOLA)",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Sanjeev Talwar",
+        "party_raw": "INC",
+        "votes": 32760,
+        "vote_share_pct": null
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Ludhiana South",
+    "constituency_norm": "LUDHIANASOUTH",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Rajinder Pal Kaur",
+        "party_raw": "AAP",
+        "votes": 43811,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1754,
+          "db_name": "RAJINDER PAL KAUR",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Satinderpal Tajpuri",
+        "party_raw": "BJP",
+        "votes": 17673,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2170,
+          "db_name": "SATINDERPAL SINGH TAJPURI",
+          "db_party": "BJP",
+          "fuzzy_score": 100.0
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Atam Nagar",
+    "constituency_norm": "ATAMNAGAR",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Kulwant Singh Sidhu",
+        "party_raw": "AAP",
+        "votes": 44601,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1336,
+          "db_name": "KULWANT SINGH SIDHU",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Kamaljit Singh Karwal",
+        "party_raw": "INC",
+        "votes": 28247,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1866,
+          "db_name": "KAMALJIT SINGH KARWAL",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Ludhiana Central",
+    "constituency_norm": "LUDHIANACENTRAL",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Ashok Parashar Pappi",
+        "party_raw": "AAP",
+        "votes": 32789,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1564,
+          "db_name": "ASHOK PARASHAR (PAPPI)",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Gurdev Sharma Debi",
+        "party_raw": "BJP",
+        "votes": 27985,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1410,
+          "db_name": "GURDEV SHARMA DEBI",
+          "db_party": "BJP",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Ludhiana West",
+    "constituency_norm": "LUDHIANAWEST",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Gurpreet Gogi",
+        "party_raw": "AAP",
+        "votes": 40443,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1631,
+          "db_name": "GURPREET BASSI GOGI",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Bharat Bhushan Ashu",
+        "party_raw": "INC",
+        "votes": 32931,
+        "vote_share_pct": null
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Ludhiana North",
+    "constituency_norm": "LUDHIANANORTH",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Madan Lal Bagga",
+        "party_raw": "AAP",
+        "votes": 51104,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1676,
+          "db_name": "MADAN LAL BAGGA",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Parveen Bansal",
+        "party_raw": "BJP",
+        "votes": 35822,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1477,
+          "db_name": "PARVEEN BANSAL",
+          "db_party": "BJP",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Gill (SC)",
+    "constituency_norm": "GILL",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Jiwan Singh Sangowal",
+        "party_raw": "AAP",
+        "votes": 92696,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1358,
+          "db_name": "JIWAN SINGH SANGOWAL",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Darshan Singh Shivalik",
+        "party_raw": "SAD",
+        "votes": 35052,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1438,
+          "db_name": "DARSHAN SINGH",
+          "db_party": "ALPU",
+          "fuzzy_score": 100.0
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Payal (SC)",
+    "constituency_norm": "PAYAL",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Manwinder Singh",
+        "party_raw": "AAP",
+        "votes": 63633,
+        "vote_share_pct": null
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Lakhvir Singh",
+        "party_raw": "INC",
+        "votes": 30624,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2078,
+          "db_name": "LAKHVIR SINGH",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Dakha",
+    "constituency_norm": "DAKHA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Manpreet Singh Ayali",
+        "party_raw": "SAD",
+        "votes": 49909,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2425,
+          "db_name": "HARPREET SINGH MAKHU",
+          "db_party": "SSP-3",
+          "fuzzy_score": 77.77777777777779
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Sandeep Singh Sandhu",
+        "party_raw": "INC",
+        "votes": 44102,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1596,
+          "db_name": "SIMRANDEEP SINGH",
+          "db_party": "RSP-2",
+          "fuzzy_score": 89.65517241379311
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Raikot (SC)",
+    "constituency_norm": "RAIKOT",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Hakam Singh Thekedar",
+        "party_raw": "AAP",
+        "votes": 63659,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1552,
+          "db_name": "HAKAM SINGH THEKEDAR",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Kamil Amar Singh",
+        "party_raw": "INC",
+        "votes": 36015,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1357,
+          "db_name": "KAMIL AMAR SINGH",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Jagraon (SC)",
+    "constituency_norm": "JAGRAON",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Sarvjit Kaur Manuke",
+        "party_raw": "AAP",
+        "votes": 65195,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1639,
+          "db_name": "SARVJIT KAUR MANUKE",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "S.R. Kaler",
+        "party_raw": "SAD",
+        "votes": 25539,
+        "vote_share_pct": null
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Nihal Singh Wala (SC)",
+    "constituency_norm": "NIHALSINGHWALA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Manjit Singh Bilaspur",
+        "party_raw": "AAP",
+        "votes": 65156,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1468,
+          "db_name": "MANJIT SINGH BILASPUR",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Bhupinder Singh Sahoke",
+        "party_raw": "INC",
+        "votes": 27172,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1446,
+          "db_name": "BHUPINDER SINGH SAHOKE",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Bhagha Purana",
+    "constituency_norm": "BHAGHAPURANA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Amritpal Singh",
+        "party_raw": "AAP",
+        "votes": 67143,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2173,
+          "db_name": "AMRITPAL SINGH",
+          "db_party": "IND",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Tirath Singh Mahla",
+        "party_raw": "SAD",
+        "votes": 33384,
+        "vote_share_pct": null
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Moga",
+    "constituency_norm": "MOGA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Amandeep Arora",
+        "party_raw": "AAP",
+        "votes": 59149,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1488,
+          "db_name": "DR. AMANDEEP KAUR ARORA",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Malvika Sood",
+        "party_raw": "INC",
+        "votes": 38234,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1709,
+          "db_name": "MALVIKA SOOD",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Dharamkot",
+    "constituency_norm": "DHARAMKOT",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Devinderjeet Singh",
+        "party_raw": "AAP",
+        "votes": 65378,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1458,
+          "db_name": "DEVINDERJEET SINGH LADDI DHOSE",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Sukhjit Singh",
+        "party_raw": "INC",
+        "votes": 35406,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1615,
+          "db_name": "SUKHJIT SINGH KAKA LOHGARH",
+          "db_party": "INC",
+          "fuzzy_score": 100.0
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Zira",
+    "constituency_norm": "ZIRA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Naresh Kataria",
+        "party_raw": "AAP",
+        "votes": 64034,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1351,
+          "db_name": "NARESH KATARIA",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Janmeja Singh Sekhon",
+        "party_raw": "SAD",
+        "votes": 41258,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1353,
+          "db_name": "JANMEJA SINGH SEKHON",
+          "db_party": "SAD",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Firozpur City",
+    "constituency_norm": "FIROZPURCITY",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Ranbir Singh",
+        "party_raw": "AAP",
+        "votes": 48443,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1349,
+          "db_name": "RANBIR SINGH",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Parminder Singh Pinki",
+        "party_raw": "INC",
+        "votes": 28874,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1737,
+          "db_name": "PARMINDER SINGH PINKI",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Firozpur Rural (SC)",
+    "constituency_norm": "FIROZPURRURAL",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Rajneesh Kumar Dahiya",
+        "party_raw": "AAP",
+        "votes": 75293,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1692,
+          "db_name": "RAJNEESH KUMAR DAHIYA",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Joginder Singh Jindu",
+        "party_raw": "SAD",
+        "votes": 47547,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2419,
+          "db_name": "JOGINDER",
+          "db_party": "IND",
+          "fuzzy_score": 100.0
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Guru Har Sahai",
+    "constituency_norm": "GURUHARSAHAI",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Fauja Singh",
+        "party_raw": "AAP",
+        "votes": 68343,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1400,
+          "db_name": "FAUJA SINGH",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Vardev Singh",
+        "party_raw": "SAD",
+        "votes": 57769,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1422,
+          "db_name": "PARWINDER SINGH",
+          "db_party": "IND",
+          "fuzzy_score": 76.19047619047619
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Jalalabad",
+    "constituency_norm": "JALALABAD",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Jagdeep Kamboj",
+        "party_raw": "AAP",
+        "votes": 91455,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2300,
+          "db_name": "JAGDEEP KAMBOJ",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Sukhbir Singh Badal",
+        "party_raw": "SAD",
+        "votes": 60525,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1571,
+          "db_name": "SUKHBIR SINGH BADAL",
+          "db_party": "SAD",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Fazilka",
+    "constituency_norm": "FAZILKA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Narinder Pal Singh Sawna",
+        "party_raw": "AAP",
+        "votes": 63157,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1445,
+          "db_name": "NARINDER PAL SINGH SAWNA",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Surjit Kumar Jyani",
+        "party_raw": "BJP",
+        "votes": 35437,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1598,
+          "db_name": "SURJIT KUMAR JYANI",
+          "db_party": "BJP",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Abohar",
+    "constituency_norm": "ABOHAR",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Sandeep Jakhar",
+        "party_raw": "INC",
+        "votes": 49924,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1630,
+          "db_name": "SANDEEP JAKHAR",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Kuldeep Kumar",
+        "party_raw": "AAP",
+        "votes": 44453,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1455,
+          "db_name": "KULDEEP KUMAR ALIAS DEEP KAMBOJ",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Balluana (SC)",
+    "constituency_norm": "BALLUANA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Amandeep Singh Musafir",
+        "party_raw": "AAP",
+        "votes": 58893,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2389,
+          "db_name": "MANDEEP SINGH",
+          "db_party": "IND",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Vandana Sangwal",
+        "party_raw": "BJP",
+        "votes": 39720,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1632,
+          "db_name": "VANDANA SANGWAL",
+          "db_party": "BJP",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Lambi",
+    "constituency_norm": "LAMBI",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Gurmeet Singh Khudian",
+        "party_raw": "AAP",
+        "votes": 66313,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1524,
+          "db_name": "GURMEET SINGH KHUDIAN",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Parkash Singh Badal",
+        "party_raw": "SAD",
+        "votes": 54917,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1710,
+          "db_name": "PARKASH SINGH BADAL",
+          "db_party": "SAD",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Gidderbaha",
+    "constituency_norm": "GIDDERBAHA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Amrinder Singh Warring",
+        "party_raw": "INC",
+        "votes": 50998,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1390,
+          "db_name": "GURJINDER SINGH",
+          "db_party": "MLPIF",
+          "fuzzy_score": 82.75862068965517
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Hardeep Dhillon",
+        "party_raw": "SAD",
+        "votes": 49649,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1338,
+          "db_name": "HARDEEP SINGH DIMPY DHILLON",
+          "db_party": "SAD",
+          "fuzzy_score": 100.0
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Malout (SC)",
+    "constituency_norm": "MALOUT",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Dr. Baljit Kaur",
+        "party_raw": "AAP",
+        "votes": 77370,
+        "vote_share_pct": null
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Harpreet Singh",
+        "party_raw": "SAD",
+        "votes": 37109,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1762,
+          "db_name": "HARPREET SINGH",
+          "db_party": "SAD",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Muktsar",
+    "constituency_norm": "MUKTSAR",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Jagdeep Singh",
+        "party_raw": "AAP",
+        "votes": 76321,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1784,
+          "db_name": "JAGDEEP SINGH 'KAKA BRAR'",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Kanwarjit Singh",
+        "party_raw": "SAD",
+        "votes": 42127,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2377,
+          "db_name": "KANWARJIT SINGH",
+          "db_party": "SAD",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Faridkot",
+    "constituency_norm": "FARIDKOT",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Gurdit Singh Sekhon",
+        "party_raw": "AAP",
+        "votes": 53484,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1780,
+          "db_name": "GURDIT SINGH SEKHON",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Parambans Singh",
+        "party_raw": "SAD",
+        "votes": 36687,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2302,
+          "db_name": "AMANDEEP SINGH",
+          "db_party": "IND",
+          "fuzzy_score": 76.92307692307692
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Kotkapura",
+    "constituency_norm": "KOTKAPURA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Kultar Singh Sandhwan",
+        "party_raw": "AAP",
+        "votes": 54009,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1593,
+          "db_name": "KULTAR SINGH SANDHWAN",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Ajaipal Singh Sandhu",
+        "party_raw": "INC",
+        "votes": 32879,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1622,
+          "db_name": "AJAIPAL SINGH SANDHU",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Jaitu (SC)",
+    "constituency_norm": "JAITU",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Amolak Singh",
+        "party_raw": "AAP",
+        "votes": 60242,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1337,
+          "db_name": "AMOLAK SINGH",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Manjit Singh",
+        "party_raw": "SAD",
+        "votes": 27453,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1637,
+          "db_name": "MANJIT SINGH ALIAS SUBA SINGH",
+          "db_party": "SAD",
+          "fuzzy_score": 100.0
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Rampura Phul",
+    "constituency_norm": "RAMPURAPHUL",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Balkar Singh Sidhu",
+        "party_raw": "AAP",
+        "votes": 56155,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1404,
+          "db_name": "BALKAR SINGH SIDHU",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Sikander Singh Maluka",
+        "party_raw": "SAD",
+        "votes": 45745,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1356,
+          "db_name": "SIKANDER SINGH MALUKA",
+          "db_party": "SAD",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Bhucho Mandi (SC)",
+    "constituency_norm": "BHUCHOMANDI",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Jagsir Singh",
+        "party_raw": "AAP",
+        "votes": 85778,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2260,
+          "db_name": "JAGSEER SINGH",
+          "db_party": "IND",
+          "fuzzy_score": 88.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Darshan Singh Kotfatta",
+        "party_raw": "SAD",
+        "votes": 35566,
+        "vote_share_pct": null
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Bathinda Urban",
+    "constituency_norm": "BATHINDAURBAN",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Jagroop Singh Gill",
+        "party_raw": "AAP",
+        "votes": 93057,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1443,
+          "db_name": "JAGROOP SINGH GILL",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Manpreet Singh Badal",
+        "party_raw": "INC",
+        "votes": 29476,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1449,
+          "db_name": "MANPREET SINGH BADAL",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Bathinda Rural (SC)",
+    "constituency_norm": "BATHINDARURAL",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Amit Rattan Kotfatta",
+        "party_raw": "AAP",
+        "votes": 66096,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1605,
+          "db_name": "AMIT RATTAN KOTFATTA",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Parkash Singh Bhatti",
+        "party_raw": "SAD",
+        "votes": 30617,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1450,
+          "db_name": "PARKASH SINGH BHATTI",
+          "db_party": "SAD",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Talwandi Sabo",
+    "constituency_norm": "TALWANDISABO",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Prof. Baljinder Kaur",
+        "party_raw": "AAP",
+        "votes": 48753,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1517,
+          "db_name": "PROF. BALJINDER KAUR",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Jeetmohinder Sidhu",
+        "party_raw": "SAD",
+        "votes": 33501,
+        "vote_share_pct": null
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Maur",
+    "constituency_norm": "MAUR",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Sukhveer Maiserkhana",
+        "party_raw": "AAP",
+        "votes": 63099,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1460,
+          "db_name": "SUKHVEER SINGH MAISERKHANA",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Lakha Singh Sidhana",
+        "party_raw": "IND",
+        "votes": 28091,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1939,
+          "db_name": "LAKHA SINGH SIDHANA",
+          "db_party": "IND",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Mansa",
+    "constituency_norm": "MANSA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Dr. Vijay Singla",
+        "party_raw": "AAP",
+        "votes": 100023,
+        "vote_share_pct": null
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Sidhu Moose Wala",
+        "party_raw": "INC",
+        "votes": 36700,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1713,
+          "db_name": "SHUBHDEEP SINGH SIDHU MOOSE WALA",
+          "db_party": "INC",
+          "fuzzy_score": 100.0
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Sardulgarh",
+    "constituency_norm": "SARDULGARH",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Gurpreet Singh Banawali",
+        "party_raw": "AAP",
+        "votes": 75817,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1878,
+          "db_name": "GURPREET SINGH BANAWALI",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Bikram Singh",
+        "party_raw": "INC",
+        "votes": 34446,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1896,
+          "db_name": "BIKRAM SINGH",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Budhlada (SC)",
+    "constituency_norm": "BUDHLADA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Budh Ram",
+        "party_raw": "AAP",
+        "votes": 88282,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2265,
+          "db_name": "BUDH RAM",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Nishan Hakamwala",
+        "party_raw": "SAD",
+        "votes": 36591,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1365,
+          "db_name": "DR. NISHAN SINGH HAKAMWALA",
+          "db_party": "SAD",
+          "fuzzy_score": 100.0
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Lehra",
+    "constituency_norm": "LEHRA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Barinder Km. Goyal",
+        "party_raw": "AAP",
+        "votes": 60058,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1487,
+          "db_name": "BARINDER KUMAR GOYAL VAKEEL",
+          "db_party": "AAP",
+          "fuzzy_score": 90.3225806451613
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Parminder Dhindsa",
+        "party_raw": "SADS",
+        "votes": 33540,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1946,
+          "db_name": "PARMINDER SINGH DHINDSA",
+          "db_party": "SAD-2",
+          "fuzzy_score": 100.0
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Dirba (SC)",
+    "constituency_norm": "DIRBA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Harpal Singh Cheema",
+        "party_raw": "AAP",
+        "votes": 82630,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1942,
+          "db_name": "HARPAL SINGH CHEEMA",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Gulzar Singh Moonak",
+        "party_raw": "SAD",
+        "votes": 31975,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1348,
+          "db_name": "LAL SINGH",
+          "db_party": "IND",
+          "fuzzy_score": 77.77777777777779
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Sunam",
+    "constituency_norm": "SUNAM",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Aman Arora",
+        "party_raw": "AAP",
+        "votes": 94794,
+        "vote_share_pct": null
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Jaswinder Dhiman",
+        "party_raw": "INC",
+        "votes": 19517,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1770,
+          "db_name": "JASWINDER SINGH DHIMAN S/O AMARJIT SINGH",
+          "db_party": "INC",
+          "fuzzy_score": 100.0
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Bhadaur",
+    "constituency_norm": "BHADAUR",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Labh Singh Ugoke",
+        "party_raw": "AAP",
+        "votes": 63967,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1484,
+          "db_name": "LABH SINGH UGOKE",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Charanjit Singh Channi",
+        "party_raw": "INC",
+        "votes": 26409,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1937,
+          "db_name": "CHARANJIT SINGH CHANNI",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Barnala",
+    "constituency_norm": "BARNALA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Gurmeet Singh Hayer",
+        "party_raw": "AAP",
+        "votes": 64800,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1718,
+          "db_name": "GURMEET SINGH MEET HAYER",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Kulwant Singh Keetu",
+        "party_raw": "SAD",
+        "votes": 27178,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1585,
+          "db_name": "KULWANT SINGH KEETU",
+          "db_party": "SAD",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Mehal Kalan (SC)",
+    "constituency_norm": "MEHALKALAN",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Kulwant Singh Pandori",
+        "party_raw": "AAP",
+        "votes": 53714,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1384,
+          "db_name": "KULWANT SINGH PANDORI",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Gurjant Singh Kattu",
+        "party_raw": "SAD(M)",
+        "votes": 23367,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1612,
+          "db_name": "GURJANT SINGH KATTU",
+          "db_party": "SADSM",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Malerkotla",
+    "constituency_norm": "MALERKOTLA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Md. Jamil Rahman",
+        "party_raw": "AAP",
+        "votes": 65948,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1865,
+          "db_name": "MOHAMMAD JAMIL UR RAHMAN",
+          "db_party": "AAP",
+          "fuzzy_score": 88.88888888888889
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Razia Sultana",
+        "party_raw": "INC",
+        "votes": 44262,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1654,
+          "db_name": "RAZIA SULTANA",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Amargarh",
+    "constituency_norm": "AMARGARH",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Jaswant Gajjanmajra",
+        "party_raw": "AAP",
+        "votes": 44523,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1819,
+          "db_name": "PROF. JASWANT SINGH GAJJAN MAJRA",
+          "db_party": "AAP",
+          "fuzzy_score": 84.44444444444444
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Simranjit Singh Mann",
+        "party_raw": "SAD(M)",
+        "votes": 38480,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2089,
+          "db_name": "SIMRANJIT SINGH MANN",
+          "db_party": "SADSM",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Dhuri",
+    "constituency_norm": "DHURI",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Bhagwant Mann",
+        "party_raw": "AAP",
+        "votes": 82592,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1497,
+          "db_name": "BHAGWANT MANN",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Dalvir Singh Goldy",
+        "party_raw": "INC",
+        "votes": 24386,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1519,
+          "db_name": "DALVIR SINGH GOLDY",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Sangrur",
+    "constituency_norm": "SANGRUR",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Narinder Kaur Bharaj",
+        "party_raw": "AAP",
+        "votes": 74851,
+        "vote_share_pct": null
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Vijay Inder Singla",
+        "party_raw": "INC",
+        "votes": 38421,
+        "vote_share_pct": null
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Nabha (SC)",
+    "constituency_norm": "NABHA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Gurdev Singh Dev Maan",
+        "party_raw": "AAP",
+        "votes": 82053,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1822,
+          "db_name": "GURDEV SINGH DEV MAAN",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Kabir Dass",
+        "party_raw": "SAD",
+        "votes": 29453,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1515,
+          "db_name": "KABIR DASS",
+          "db_party": "SAD",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Patiala Rural",
+    "constituency_norm": "PATIALARURAL",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Dr. Balbir Singh",
+        "party_raw": "AAP",
+        "votes": 77155,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1629,
+          "db_name": "DR.BALBIR SINGH",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Mohit Mohindra",
+        "party_raw": "INC",
+        "votes": 23681,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1991,
+          "db_name": "MOHIT MOHINDRA",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Rajpura",
+    "constituency_norm": "RAJPURA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Neena Mittal",
+        "party_raw": "AAP",
+        "votes": 54834,
+        "vote_share_pct": null
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Jagdish Kumar Jagga",
+        "party_raw": "BJP",
+        "votes": 32341,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1560,
+          "db_name": "JAGDISH KUMAR JAGGA",
+          "db_party": "BJP",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Dera Bassi",
+    "constituency_norm": "DERABASSI",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Kuljit Singh Randhawa",
+        "party_raw": "AAP",
+        "votes": 70032,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1523,
+          "db_name": "KULJIT SINGH RANDHAWA",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Deepinder Singh Dhillon",
+        "party_raw": "INC",
+        "votes": 48311,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1788,
+          "db_name": "DEEPINDER SINGH DHILLON",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Ghanaur",
+    "constituency_norm": "GHANAUR",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Gurlal Ghanaur",
+        "party_raw": "AAP",
+        "votes": 62783,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 2042,
+          "db_name": "GURLAL GHANAUR",
+          "db_party": "AAP",
+          "fuzzy_score": 100
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Madan Lal",
+        "party_raw": "INC",
+        "votes": 31018,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1623,
+          "db_name": "MADAN LAL",
+          "db_party": "INC",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Sanour",
+    "constituency_norm": "SANOUR",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Harmeet Pathanmajra",
+        "party_raw": "AAP",
+        "votes": 83893,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1829,
+          "db_name": "HARMIT SINGH PATHANMAJRA",
+          "db_party": "AAP",
+          "fuzzy_score": 81.25
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Harinder Chandumajra",
+        "party_raw": "SAD",
+        "votes": 34771,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1870,
+          "db_name": "HARINDER PAL SINGH CHANDUMAJRA",
+          "db_party": "SAD",
+          "fuzzy_score": 100.0
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Patiala",
+    "constituency_norm": "PATIALA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Ajit Pal Kohli",
+        "party_raw": "AAP",
+        "votes": 48104,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1678,
+          "db_name": "AJIT PAL SINGH KOHLI",
+          "db_party": "AAP",
+          "fuzzy_score": 100.0
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Amarinder Singh",
+        "party_raw": "PLC",
+        "votes": 28231,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1700,
+          "db_name": "AMARINDER SINGH",
+          "db_party": "PLCP",
+          "fuzzy_score": 100
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Samana",
+    "constituency_norm": "SAMANA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Chetan Jauramajra",
+        "party_raw": "AAP",
+        "votes": 74375,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1855,
+          "db_name": "RACHHPAL SINGH JOURAMAJRA",
+          "db_party": "SSP-3",
+          "fuzzy_score": 75.86206896551724
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Surjit Rakhra",
+        "party_raw": "SAD",
+        "votes": 34662,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1764,
+          "db_name": "SURJIT SINGH RAKHRA",
+          "db_party": "SAD",
+          "fuzzy_score": 100.0
+        }
+      }
+    ]
+  },
+  {
+    "constituency_raw": "Shutrana (SC)",
+    "constituency_norm": "SHUTRANA",
+    "candidates": [
+      {
+        "rank": 1,
+        "is_winner": true,
+        "name": "Kw. Singh Bazigar",
+        "party_raw": "AAP",
+        "votes": 81751,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1466,
+          "db_name": "KULWANT SINGH BAZIGAR",
+          "db_party": "AAP",
+          "fuzzy_score": 93.33333333333333
+        }
+      },
+      {
+        "rank": 2,
+        "is_winner": false,
+        "name": "Vaninder Loomba",
+        "party_raw": "SAD",
+        "votes": 30197,
+        "vote_share_pct": null,
+        "_matched": {
+          "appearance_id": 1849,
+          "db_name": "NARINDER",
+          "db_party": "IND",
+          "fuzzy_score": 75.0
+        }
+      }
+    ]
+  }
+]
