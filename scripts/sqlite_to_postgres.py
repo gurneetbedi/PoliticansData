@@ -123,18 +123,26 @@ for table in table_order:
     print(f"{pad} {inserted:>6,} rows  ({time.time() - t0:.1f}s)")
 
 # 3. Reset Postgres sequences so future INSERTs don't try to reuse IDs.
+# Each reset runs on its OWN connection so a failure on one table
+# (e.g. it doesn't exist on the destination) doesn't abort the whole
+# transaction and cascade-fail every subsequent table.
 print("Resetting sequences...")
-with dst_engine.connect() as conn:
-    for table in table_order:
-        # Postgres auto-creates a sequence called <table>_id_seq for SERIAL columns.
-        # setval to MAX(id) so the next insert uses MAX+1.
-        try:
+for table in table_order:
+    # Skip tables that only live on the source SQLite side (e.g. the
+    # eci_candidates_provisional ingestion staging table isn't part
+    # of the production Postgres schema at all).
+    if table.name not in dst_meta.tables:
+        continue
+    try:
+        with dst_engine.connect() as conn:
             conn.execute(text(
                 f"SELECT setval(pg_get_serial_sequence('{table.name}', 'id'), "
                 f"COALESCE((SELECT MAX(id) FROM {table.name}), 1))"
             ))
             conn.commit()
-        except Exception as e:
-            print(f"  sequence reset skipped for {table.name}: {e}")
+    except Exception as e:
+        # Log short reason (not the full SQL blob) so the output stays readable
+        msg = str(e).splitlines()[0][:120]
+        print(f"  sequence reset skipped for {table.name}: {msg}")
 
 print("\nDone. Visit your Render service — the data should now be live.")
