@@ -331,7 +331,9 @@ ASSAM = StateConfig(
 # data state-by-state. Adding a state back is a one-line edit in this dict.
 ALL_STATES: dict[str, StateConfig] = {
     "delhi":        DELHI,
-    "punjab":       PUNJAB,   # 2022 + 2017 cycles, added during Punjab ingest
+    "punjab":       PUNJAB,       # 2022 cycle (2017 not on ECI portal)
+    "puducherry":   PUDUCHERRY,   # 2021 cycle — smallest-states batch
+    "goa":          GOA,          # 2022 cycle — smallest-states batch
 }
 
 # Internal-only — used by scripts/migrate scaffolding. Not surfaced in the UI.

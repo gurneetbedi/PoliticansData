@@ -48,9 +48,12 @@ logs/
 data/eci/raw_pdfs/
 data/eci/for_ai/pdfs/
 data/eci/for_ai/preprocessed/
-data/eci/for_ai/preprocessed_delhi_2020/
+data/eci/for_ai/preprocessed_*/     # per-state OCR outputs (regenerable, 25-50 MB each)
 data/eci/for_ai/output/
 data/eci/vision_demo/
+
+# Structured CSVs are regenerable from preprocessed JSONs — keep local only
+data/eci/for_ai/extracted/
 
 # Phase 1 test artifacts — sensitive (Akamai session cookies) or temporary
 data/eci/_akamai_state.json
@@ -58,7 +61,7 @@ data/eci/_phase1_test/
 
 # Wikipedia results scrape cache (regenerable; large HTML files)
 data/eci/results/_wiki_*.html
-data/eci/results/delhi_*_results.json
+data/eci/results/*_results.json    # per-state parsed Wikipedia data (regenerable)
 data/eci/for_ai/llm_extracted/
 
 # LLM cost-tracking sentinel
