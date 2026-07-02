@@ -190,6 +190,12 @@ class CriminalCase(Base):
     court = Column(String)
     charges_framed = Column(Boolean, default=False)
     is_serious = Column(Boolean, default=False)
-    status = Column(String(64))           # "pending" | "convicted" | "acquitted"
+    # Was String(64) — originally intended as a small enum ("pending" |
+    # "convicted" | "acquitted"). ECI LLM extractions include verbose
+    # prose statuses (up to ~120 chars, e.g. "Appeal/Application for
+    # revision filed against acquittal by DGP-cum-Commissioner"), so
+    # relaxed to unbounded String (maps to VARCHAR in Postgres, TEXT
+    # in SQLite).
+    status = Column(String)
 
     appearance = relationship("ElectionAppearance", back_populates="cases")
