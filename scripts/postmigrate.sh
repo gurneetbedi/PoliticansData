@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+#
+# post-migrate: re-apply everything the migration wipes.
+#
+# scripts/migrate_to_eci_only.py DELETEs every canonical table and
+# repopulates from provisional. That leaves:
+#   - Phase-0 NULL for all financial/criminal fields
+#   - won=False for every row
+#   - votes_received=NULL, vote_share_pct=NULL
+#
+# The LLM extractions and Wikipedia winner data need to be re-applied.
+# This script does that in the right order for every state we currently
+# have data for.
+#
+# Usage:
+#   bash scripts/postmigrate.sh
+#
+# Add new states as we ingest them (Sikkim, Mizoram, etc.).
+
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+echo "=========================================="
+echo "POST-MIGRATE: applying LLM + winner data"
+echo "=========================================="
+
+echo ""
+echo "-- Step 1: LLM extractions (financials + criminal cases) --"
+python scripts/apply_llm_extraction.py
+
+echo ""
+echo "-- Step 2: Wikipedia winner flags + vote counts --"
+echo ""
+echo "  Delhi (2020 + 2025)"
+python scripts/load_delhi_election_results.py
+
+echo ""
+echo "  Punjab (2022)"
+python scripts/load_punjab_election_results.py --year 2022
+
+echo ""
+echo "  Puducherry (2021)"
+python scripts/load_puducherry_election_results.py --year 2021
+
+echo ""
+echo "  Goa (2022)"
+python scripts/load_goa_election_results.py --year 2022
+
+echo ""
+echo "=========================================="
+echo "POST-MIGRATE DONE"
+echo "=========================================="
+echo ""
+echo "Verify per-state coverage:"
+python3 - <<'PYEOF'
+import sqlite3
+c = sqlite3.connect('politrack.db').cursor()
+print(f"  {'State':12s} {'total':>7s} {'winners':>8s} {'verified_LLM':>13s}")
+print(f"  {'-'*12} {'-'*7} {'-'*8} {'-'*13}")
+for row in c.execute("""
+    SELECT s.name,
+      COUNT(*) as total,
+      SUM(CASE WHEN ea.won = 1 THEN 1 ELSE 0 END) as winners,
+      SUM(CASE WHEN ea.criminal_cases_count IS NOT NULL THEN 1 ELSE 0 END) as verified
+    FROM election_appearances ea
+    JOIN elections e ON ea.election_id = e.id
+    JOIN states s ON e.state_id = s.id
+    GROUP BY s.name ORDER BY s.name
+"""):
+    state, total, wins, ver = row
+    print(f"  {state:12s} {total:>7d} {wins:>8d} {ver:>13d}")
+PYEOF
