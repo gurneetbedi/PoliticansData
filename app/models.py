@@ -133,6 +133,17 @@ class ElectionAppearance(Base):
     source_url = Column(String)        # link back to myneta candidate page
     scraped_at = Column(DateTime, default=datetime.utcnow)
 
+    # ECI LLM-extraction metadata (added by scripts/apply_llm_extraction.py).
+    # Free-text; used for data-quality warnings on the politician detail page
+    # and for internal auditing.
+    #   extraction_notes: free-text notes from the LLM (e.g. "PAN missing —
+    #     assumed no additional dependents"). NULL for non-ECI-sourced rows.
+    #   low_confidence_fields: comma-separated field names where the LLM
+    #     flagged low confidence in its extraction (e.g. "total_assets_inr,
+    #     immovable_assets_inr"). NULL for non-ECI or fully-confident rows.
+    extraction_notes = Column(Text, nullable=True)
+    low_confidence_fields = Column(Text, nullable=True)
+
     politician = relationship("Politician", back_populates="appearances")
     election = relationship("Election")
     constituency = relationship("Constituency")
