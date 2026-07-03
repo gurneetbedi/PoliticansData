@@ -334,6 +334,8 @@ ALL_STATES: dict[str, StateConfig] = {
     "punjab":       PUNJAB,       # 2022 cycle (2017 not on ECI portal)
     "puducherry":   PUDUCHERRY,   # 2021 cycle — smallest-states batch
     "goa":          GOA,          # 2022 cycle — smallest-states batch
+    "sikkim":       SIKKIM,       # 2019 cycle — smallest-states batch
+    "mizoram":      MIZORAM,      # 2023 (or 2019) cycle — smallest-states batch
 }
 
 # Internal-only — used by scripts/migrate scaffolding. Not surfaced in the UI.

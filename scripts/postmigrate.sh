@@ -47,6 +47,17 @@ echo "  Goa (2022)"
 python scripts/load_goa_election_results.py --year 2022
 
 echo ""
+echo "  Sikkim (2019)"
+# Loader falls back gracefully with a warning if SIKKIM_2019_COLS is
+# not yet tuned — so this line is safe to include even before we've
+# run --dump-tables and filled in the column map.
+python scripts/load_sikkim_election_results.py --year 2019 || true
+
+echo ""
+echo "  Mizoram (2023)"
+python scripts/load_mizoram_election_results.py --year 2023 || true
+
+echo ""
 echo "=========================================="
 echo "POST-MIGRATE DONE"
 echo "=========================================="
