@@ -58,6 +58,14 @@ echo "  Mizoram (2023)"
 python scripts/load_mizoram_election_results.py --year 2023 || true
 
 echo ""
+echo "  Nagaland (2023)"
+python scripts/load_nagaland_election_results.py --year 2023 || true
+
+echo ""
+echo "  Himachal Pradesh (2022)"
+python scripts/load_himachal_election_results.py --year 2022 || true
+
+echo ""
 echo "=========================================="
 echo "POST-MIGRATE DONE"
 echo "=========================================="

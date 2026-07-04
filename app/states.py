@@ -336,6 +336,8 @@ ALL_STATES: dict[str, StateConfig] = {
     "goa":          GOA,          # 2022 cycle — smallest-states batch
     "sikkim":       SIKKIM,       # 2019 cycle — smallest-states batch
     "mizoram":      MIZORAM,      # 2023 (or 2019) cycle — smallest-states batch
+    "nagaland":     NAGALAND,     # 2023 cycle — NE batch
+    "himachal":     HIMACHAL,     # 2022 cycle — north Indian hill state
 }
 
 # Internal-only — used by scripts/migrate scaffolding. Not surfaced in the UI.
