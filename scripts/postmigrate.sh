@@ -66,6 +66,14 @@ echo "  Himachal Pradesh (2022)"
 python scripts/load_himachal_election_results.py --year 2022 || true
 
 echo ""
+echo "  Haryana (2019)"
+python scripts/load_haryana_election_results.py --year 2019 || true
+
+echo ""
+echo "  Arunachal Pradesh (2024)"
+python scripts/load_arunachal_election_results.py --year 2024 || true
+
+echo ""
 echo "=========================================="
 echo "POST-MIGRATE DONE"
 echo "=========================================="
