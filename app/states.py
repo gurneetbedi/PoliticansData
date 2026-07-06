@@ -330,16 +330,24 @@ ASSAM = StateConfig(
 # are preserved in source so we can re-enable them as we backfill ECI
 # data state-by-state. Adding a state back is a one-line edit in this dict.
 ALL_STATES: dict[str, StateConfig] = {
-    "delhi":        DELHI,
-    "punjab":       PUNJAB,       # 2022 cycle (2017 not on ECI portal)
-    "puducherry":   PUDUCHERRY,   # 2021 cycle — smallest-states batch
-    "goa":          GOA,          # 2022 cycle — smallest-states batch
-    "sikkim":       SIKKIM,       # 2019 cycle — smallest-states batch
-    "mizoram":      MIZORAM,      # 2023 (or 2019) cycle — smallest-states batch
-    "nagaland":     NAGALAND,     # 2023 cycle — NE batch
-    "himachal":     HIMACHAL,     # 2022 cycle — north Indian hill state
-    "haryana":      HARYANA,      # 2019 cycle — north Indian mainstream
-    "arunachal":    ARUNACHAL,    # 2024 cycle — NE + hill state
+    "delhi":        DELHI,        # 2020 + 2025 cycles (current)
+    "punjab":       PUNJAB,       # 2022 cycle (current — next Feb 2027)
+    "puducherry":   PUDUCHERRY,   # 2021 cycle (current — next 2026)
+    "goa":          GOA,          # 2022 cycle (current — next 2027)
+    "mizoram":      MIZORAM,      # 2023 cycle (current — next 2028)
+    "nagaland":     NAGALAND,     # 2023 cycle (current — next 2028)
+    "himachal":     HIMACHAL,     # 2022 cycle (current — next 2027)
+    "arunachal":    ARUNACHAL,    # 2024 cycle (current — next 2029)
+}
+
+# States we ingested but hid pending latest-cycle data. Their rows are
+# still in the DB (canonical tables + Neon) but are excluded from every
+# stat and dropdown because the cycle we loaded is not the latest one
+# available. Re-enable by moving them back into ALL_STATES above once
+# we've loaded the current cycle.
+_HIDDEN_STATES: dict[str, StateConfig] = {
+    "sikkim":       SIKKIM,       # loaded 2019 — LATEST is 2024, not on our data
+    "haryana":      HARYANA,      # loaded 2019 — LATEST is Oct 2024
 }
 
 # Internal-only — used by scripts/migrate scaffolding. Not surfaced in the UI.

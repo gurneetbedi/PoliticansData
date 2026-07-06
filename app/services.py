@@ -214,10 +214,24 @@ def _latest_appearances(
     scope='all'      — every politician who ever won
     scope='current'  — only politicians who won in the latest cycle for this house
     state_name   — only consider appearances in the given state (e.g. "Punjab", "Bihar")
+
+    IMPORTANT — active-state allowlist:
+    When state_name is None (aggregate view), we restrict to states that
+    appear in app.states.ALL_STATES. This hides rows for states we've
+    ingested but haven't published (e.g., a state whose loaded cycle is
+    stale — see _HIDDEN_STATES in states.py). The rows still exist in
+    the DB, they just don't contribute to home/rankings/anomaly stats.
     """
+    active_state_names = {cfg.name for cfg in ALL_STATES.values()}
+
     def add_state_filter(q):
         if state_name:
             q = q.join(State, Election.state_id == State.id).filter(State.name == state_name)
+        else:
+            # Aggregate view: restrict to active (published) states.
+            q = q.join(State, Election.state_id == State.id).filter(
+                State.name.in_(active_state_names)
+            )
         return q
 
     if scope == "current":
@@ -226,6 +240,12 @@ def _latest_appearances(
             max_year_q = max_year_q.filter(Election.house == house)
         if state_name:
             max_year_q = max_year_q.join(State, Election.state_id == State.id).filter(State.name == state_name)
+        else:
+            # Same allowlist for the max_year lookup so we don't pick a
+            # year that only exists in a hidden state.
+            max_year_q = max_year_q.join(State, Election.state_id == State.id).filter(
+                State.name.in_(active_state_names)
+            )
         max_year = max_year_q.scalar()
         if not max_year:
             return []

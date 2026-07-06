@@ -226,6 +226,20 @@
         </p>
       </div>
     </div>
+
+    {# Latest-election-per-state disclaimer. Sits directly under the stat
+       strip so it explains the numbers immediately above. States whose
+       most recent cycle we haven't ingested are hidden from every
+       stat/dropdown via app/states.py's ALL_STATES allowlist and
+       services._latest_appearances(). #}
+    <div class="mt-stack-md flex items-start gap-3 p-stack-md bg-surface-container-low rounded-xl border border-outline-variant">
+      <span class="material-symbols-outlined text-on-surface-variant mt-0.5" style="font-size:18px;">info</span>
+      <p class="text-label-sm text-on-surface-variant">
+        Data shown reflects the <strong class="text-on-surface">most recent election cycle available on the ECI portal</strong>
+        for each state. States whose latest cycle we haven't ingested yet are excluded from these totals.
+        The ECI affidavit archive begins with the 2019 election year.
+      </p>
+    </div>
   </section>
 
   <!-- ============================================================ -->
