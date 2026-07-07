@@ -865,22 +865,42 @@ async def run(args) -> None:
                       f"no further tabs will open during the loop.",
                       file=sys.stderr)
 
-        # Download each. If the download_page dies mid-loop (TargetClosedError,
-        # browser crash, user accidentally closes the tab), recreate it on
-        # the fly so a single failure doesn't kill the rest of the run.
-        # We also retry the candidate that triggered the failure ONCE on the
-        # fresh page — most page-close events happen right after a download
-        # timeout, and retrying often succeeds.
-        #
-        # Per-key counter: walk the new listing in order, counting how many
-        # times each (name, constituency, party, status) tuple appears. Skip
-        # the Nth occurrence if we've already downloaded >= N affidavit_ids
-        # for that tuple. Avoids the profile-page visit entirely for
-        # already-known candidates.
+        # Errors that indicate the tab/frame died mid-download and we
+        # should recreate the page + retry the same candidate up to 2 more
+        # times before giving up. Common on Akamai-protected long runs.
+        _BROWSER_SIDE_ERRORS = (
+            "TargetClosedError",
+            "Target closed",
+            "has been closed",
+            "Frame has been detached",
+            "Frame was detached",
+            "NS_ERROR_ABORT",
+            "Execution context was destroyed",
+        )
+
+        # Per-key counter for the skip logic. Walk the listing in order,
+        # count how many times each (name, constituency, party, status)
+        # tuple appears. Skip the Nth occurrence if we've already
+        # downloaded >= N affidavit_ids for that tuple.
         encountered_per_key: dict[tuple, int] = defaultdict(int)
 
+        # First pass: determine which candidates actually need downloading.
+        # Sequential + cheap — just some dict lookups. Doing this BEFORE
+        # the concurrent download step avoids race conditions on the
+        # per-key counter and keeps the concurrent code simple.
+        #
+        # DEDUPE-LISTING policy: ECI lists candidates who filed MULTIPLE
+        # affidavits (initial + corrections + refilings) as separate rows.
+        # Each has a different profile_url. For our pipeline we only need
+        # ONE affidavit per (name, constituency, party, status) — we take
+        # the FIRST occurrence in the listing (ECI usually orders newest
+        # first for a given candidate). Saves ~40-50% of fetch time on
+        # states with lots of independents / party-hopping candidates.
+        # Set --no-dedupe-listing to disable if you want every filing.
+        already_seen_key: set[tuple] = set()
+        to_download: list[tuple[int, CandidateRow]] = []
+        dedupe_skips = 0
         for i, cand in enumerate(filtered, 1):
-            # Fast skip: by stable (name, constituency, party, status) tuple
             _key = (cand.name, cand.constituency, cand.party, cand.status)
             encountered_per_key[_key] += 1
             _done = len(done_affs_by_key.get(_key, set()))
@@ -889,48 +909,129 @@ async def run(args) -> None:
                       f"disk for {cand.name} / {cand.constituency})",
                       file=sys.stderr)
                 continue
-
-            # Legacy skip kept as belt-and-suspenders (rarely fires now
-            # because of the per-key skip above, but harmless).
+            # Dedupe: first-occurrence-wins per (name, constituency, party, status)
+            if args.dedupe_listing and _key in already_seen_key:
+                dedupe_skips += 1
+                continue
+            already_seen_key.add(_key)
             if cand.profile_url in seen and seen[cand.profile_url].download_succeeded:
                 print(f"[{i}/{len(filtered)}] (skip — profile_url matched manifest)",
                       file=sys.stderr)
                 continue
-            status_tag = f"  [{cand.status}]" if cand.status else ""
-            print(f"[{i}/{len(filtered)}] {cand.name} / {cand.party}{status_tag}",
+            to_download.append((i, cand))
+
+        if args.dedupe_listing and dedupe_skips:
+            print(f"Deduped {dedupe_skips} duplicate-filing rows "
+                  f"(same name/constituency/party/status). Use "
+                  f"--no-dedupe-listing to fetch every filing.",
                   file=sys.stderr)
 
-            # If our long-lived page died on the previous iteration,
-            # recreate it now before navigating.
-            if download_page.is_closed():
-                print(f"     ⟳ Download page was closed — recreating …",
-                      file=sys.stderr)
-                download_page = await context.new_page()
+        n_conc = max(1, int(args.concurrent_tabs))
+        total = len(to_download)
+        print(f"\n{total} candidates to download "
+              f"({len(filtered) - total} skipped as already-cached)",
+              file=sys.stderr)
+        if n_conc > 1:
+            print(f"Concurrent tabs: {n_conc} (asyncio + Playwright)",
+                  file=sys.stderr)
 
-            cand = await download_pdf(download_page, cand, pdf_dir)
+        # Serialize manifest writes so parallel workers don't corrupt each
+        # other's lines.
+        manifest_lock = asyncio.Lock()
 
-            # If the download died with TargetClosed / context-closed,
-            # recreate the page and retry this same candidate once.
-            if (not cand.download_succeeded and cand.error
-                    and ("TargetClosedError" in cand.error
-                         or "has been closed" in cand.error
-                         or "Target closed" in cand.error)):
-                print(f"     ⟳ Page lost mid-download — retrying on fresh page …",
-                      file=sys.stderr)
+        async def _try_download_once(page, cand):
+            """Attempt a single download, handling frame-detach retries."""
+            cand = await download_pdf(page, cand, pdf_dir)
+            _retries = 0
+            while (not cand.download_succeeded and cand.error
+                    and any(e in cand.error for e in _BROWSER_SIDE_ERRORS)
+                    and _retries < 2):
+                _retries += 1
+                print(f"     ⟳ Page lost mid-download — retry "
+                      f"{_retries}/2 on fresh page …", file=sys.stderr)
                 try:
-                    if not download_page.is_closed():
-                        await download_page.close()
+                    if not page.is_closed():
+                        await page.close()
                 except Exception:
                     pass
-                download_page = await context.new_page()
-                # Reset candidate flags for the retry
+                await asyncio.sleep(1.0 * _retries)
+                try:
+                    page = await context.new_page()
+                except Exception as page_err:
+                    print(f"     ✗ Fresh page creation failed: "
+                          f"{type(page_err).__name__}: "
+                          f"{str(page_err)[:120]}", file=sys.stderr)
+                    break
                 cand.error = ""
                 cand.download_attempted = False
                 cand.download_succeeded = False
-                cand = await download_pdf(download_page, cand, pdf_dir)
+                cand = await download_pdf(page, cand, pdf_dir)
+            return cand, page
 
-            append_manifest(manifest_path, cand)
-            await asyncio.sleep(args.delay)
+        # ---------------------------------------------------------------
+        # SEQUENTIAL mode — safest, backwards-compatible, default N=1.
+        # ---------------------------------------------------------------
+        if n_conc == 1:
+            for i, cand in to_download:
+                status_tag = f"  [{cand.status}]" if cand.status else ""
+                print(f"[{i}/{len(filtered)}] {cand.name} / "
+                      f"{cand.party}{status_tag}", file=sys.stderr)
+                if download_page.is_closed():
+                    print(f"     ⟳ Download page was closed — recreating …",
+                          file=sys.stderr)
+                    download_page = await context.new_page()
+                cand, download_page = await _try_download_once(
+                    download_page, cand)
+                async with manifest_lock:
+                    append_manifest(manifest_path, cand)
+                await asyncio.sleep(args.delay)
+
+        # ---------------------------------------------------------------
+        # CONCURRENT mode — N tabs process the to_download queue in
+        # parallel. Each worker owns one Page. Manifest writes locked.
+        # ---------------------------------------------------------------
+        else:
+            # Build a work queue and N tabs (workers).
+            queue: asyncio.Queue = asyncio.Queue()
+            for item in to_download:
+                queue.put_nowait(item)
+
+            async def _worker(worker_id: int):
+                """One worker owns one Page and drains the queue."""
+                page = None
+                try:
+                    page = await context.new_page()
+                except Exception as e:
+                    print(f"  ✗ worker {worker_id}: new_page() failed: {e}",
+                          file=sys.stderr)
+                    return
+                while not queue.empty():
+                    try:
+                        i, cand = queue.get_nowait()
+                    except asyncio.QueueEmpty:
+                        break
+                    status_tag = f"  [{cand.status}]" if cand.status else ""
+                    print(f"[w{worker_id} · {i}/{len(filtered)}] "
+                          f"{cand.name} / {cand.party}{status_tag}",
+                          file=sys.stderr)
+                    if page.is_closed():
+                        try:
+                            page = await context.new_page()
+                        except Exception:
+                            break
+                    cand, page = await _try_download_once(page, cand)
+                    async with manifest_lock:
+                        append_manifest(manifest_path, cand)
+                    await asyncio.sleep(args.delay)
+                # Best-effort close (leave listing tab alone in CDP mode)
+                try:
+                    if page and not page.is_closed():
+                        await page.close()
+                except Exception:
+                    pass
+
+            workers = [_worker(w + 1) for w in range(n_conc)]
+            await asyncio.gather(*workers)
 
         # In CDP-attach mode the Chrome belongs to the user; leave it
         # running so the next scrape can attach without --launch again.
@@ -1002,6 +1103,25 @@ def main():
                          "See scripts/phase1_test_cdp_attach.py for the "
                          "launch helper. When --cdp is used, --headless is "
                          "ignored (the existing Chrome's mode is used).")
+    ap.add_argument("--concurrent-tabs", type=int, default=1, metavar="N",
+                    help="Number of concurrent Chrome tabs to download with. "
+                         "Default 1 (sequential — safest). N>1 opens N tabs "
+                         "in the same context and processes candidates in "
+                         "parallel via asyncio, ~2-4x speedup depending on "
+                         "network + Akamai. Recommended: 3-5. Higher "
+                         "increases risk of Akamai rate-limiting.")
+    ap.add_argument("--dedupe-listing", action="store_true", default=True,
+                    help="(Default) Skip subsequent occurrences of the same "
+                         "(name, constituency, party, status) in the listing. "
+                         "ECI often lists candidates who filed multiple "
+                         "affidavits as separate rows; we only need one. "
+                         "Saves 40-50%% of fetch time on multi-independent "
+                         "states.")
+    ap.add_argument("--no-dedupe-listing", dest="dedupe_listing",
+                    action="store_false",
+                    help="Fetch every filing (including corrections and "
+                         "refilings). Only useful if you specifically want "
+                         "every affidavit_id per candidate.")
     args = ap.parse_args()
 
     # One mode must be picked

@@ -99,6 +99,10 @@ def main():
                          "Default 2 (winner + runner-up).")
     ap.add_argument("--match-threshold", type=int, default=70,
                     help="Fuzzy match score threshold (0-100). Default 70.")
+    ap.add_argument("--report", default="",
+                    help="Optional path — write a per-constituency report of "
+                         "how many candidates Wikipedia had vs how many we "
+                         "kept. Useful for spotting under-filled seats.")
     args = ap.parse_args()
 
     try:
@@ -176,13 +180,59 @@ def main():
     allowlist: set[str] = set()
     matched = 0
     unmatched: list[tuple] = []
+    # Per-constituency accounting for --report
+    per_const: dict[str, dict] = {}
+
+    # Pre-compute all manifest constituency keys for fuzzy fallback
+    manifest_const_keys = list(manifest_by_const.keys())
+
+    def _fuzzy_constituency_lookup(wiki_key: str) -> str | None:
+        """When a Wikipedia constituency has no exact match in the manifest
+        (Wikipedia and ECI often disagree on 1-2 letters: 'Chawamanu' vs
+        'Chawmanu', 'Pabiachhara' vs 'Pabiachara', 'Town Bordowali' vs
+        'Town Bardowali'), try fuzzy match. Threshold 85 catches typical
+        1-2 char spelling variations while avoiding false pairs."""
+        best = None
+        best_score = 0
+        for mc_key in manifest_const_keys:
+            score = max(
+                fuzz.ratio(wiki_key, mc_key),
+                fuzz.partial_ratio(wiki_key, mc_key),
+            )
+            if score > best_score:
+                best_score = score
+                best = mc_key
+        if best and best_score >= 85:
+            return best
+        return None
 
     for const_norm, wiki_cands in top_n_by_const.items():
         manifest_cands = manifest_by_const.get(const_norm, [])
+
+        # Fuzzy fallback: constituency name may have 1-2 letter variation
+        # between Wikipedia and ECI portal.
+        aliased_from = None
+        if not manifest_cands:
+            fuzzy_key = _fuzzy_constituency_lookup(const_norm)
+            if fuzzy_key:
+                manifest_cands = manifest_by_const[fuzzy_key]
+                aliased_from = fuzzy_key
+                print(f"  ⓘ constituency alias: Wiki {const_norm!r} → "
+                      f"manifest {fuzzy_key!r} ({len(manifest_cands)} cands)",
+                      file=sys.stderr)
+
+        per_const[const_norm] = {
+            "wiki_kept":       len(wiki_cands),
+            "manifest_size":   len(manifest_cands),
+            "matched":         0,
+            "unmatched_names": [],
+            "aliased_from":    aliased_from,
+        }
         if not manifest_cands:
             for wc in wiki_cands:
                 unmatched.append((const_norm, wc["name"],
                                    "no manifest candidates for constituency"))
+                per_const[const_norm]["unmatched_names"].append(wc["name"])
             continue
 
         for wc in wiki_cands:
@@ -209,9 +259,11 @@ def main():
             if best and best_score >= args.match_threshold:
                 allowlist.add(best["pdf_filename"])
                 matched += 1
+                per_const[const_norm]["matched"] += 1
             else:
                 unmatched.append((const_norm, wc["name"],
                                    f"best_score={best_score} for {best.get('name') if best else '(none)'!r}"))
+                per_const[const_norm]["unmatched_names"].append(wc["name"])
 
     # 4. Write allowlist
     out_path = Path(args.output)
@@ -235,6 +287,48 @@ def main():
             print(f"  {const:15s} {name!r:40s}  {reason}")
         if len(unmatched) > 10:
             print(f"  ... and {len(unmatched) - 10} more")
+
+    # 5. Optional: write per-constituency report
+    if args.report:
+        report_path = Path(args.report)
+        report_path.parent.mkdir(parents=True, exist_ok=True)
+        with report_path.open("w") as f:
+            f.write("Per-constituency allowlist report\n")
+            f.write(f"Top-N target: {args.top_n}\n")
+            f.write(f"Total constituencies: {len(per_const)}\n\n")
+            f.write(f"{'Constituency':30s} {'wiki':>5s} {'kept':>5s} "
+                    f"{'gap':>5s} {'manifest':>10s}   "
+                    f"Unmatched names\n")
+            f.write("-" * 80 + "\n")
+
+            # Sort: under-filled constituencies (gap > 0) first, then alpha
+            def sort_key(item):
+                const, d = item
+                gap = args.top_n - d["matched"]
+                return (-gap, const)
+
+            for const, d in sorted(per_const.items(), key=sort_key):
+                gap = args.top_n - d["matched"]
+                unm = ", ".join(d["unmatched_names"]) if d["unmatched_names"] else ""
+                f.write(f"{const:30s} {d['wiki_kept']:>5d} {d['matched']:>5d} "
+                        f"{gap:>5d} {d['manifest_size']:>10d}   {unm}\n")
+
+            # Summary counters
+            under = sum(1 for d in per_const.values()
+                        if args.top_n - d["matched"] > 0)
+            full = sum(1 for d in per_const.values()
+                       if d["matched"] >= args.top_n)
+            zero = sum(1 for d in per_const.values() if d["matched"] == 0)
+
+            f.write("\n")
+            f.write(f"Summary:\n")
+            f.write(f"  Full (matched >= top-{args.top_n}):  {full}\n")
+            f.write(f"  Under-filled (matched < top-{args.top_n}):  {under}\n")
+            f.write(f"    of which 0 matched (no data):        {zero}\n")
+
+        print()
+        print(f"Per-constituency report: {report_path}")
+        print(f"  Full: {full}  ·  Under-filled: {under}  ·  Zero-match: {zero}")
 
 
 if __name__ == "__main__":

@@ -69,7 +69,7 @@ from pathlib import Path
 # Constants
 # ---------------------------------------------------------------------------
 
-GCP_PROJECT = "lokvani-500314"
+GCP_PROJECT = "lokvani-501706"
 GCP_LOCATION = "us-central1"
 MODEL_NAME = "gemini-2.5-flash"
 
@@ -397,12 +397,16 @@ def load_preprocessed_text(json_path: Path) -> tuple[str, dict]:
     }
 
 
-def call_gemini(prompt: str, model):
-    """One Gemini call. Returns (response_text, usage_dict, finish_reason)."""
-    from vertexai.generative_models import GenerationConfig
-    resp = model.generate_content(
-        prompt,
-        generation_config=GenerationConfig(
+def call_gemini(prompt: str, client):
+    """One Gemini call. Returns (response_text, usage_dict, finish_reason).
+
+    Uses the google-genai SDK (not the removed vertexai.generative_models).
+    """
+    from google.genai import types
+    resp = client.models.generate_content(
+        model=MODEL_NAME,
+        contents=prompt,
+        config=types.GenerateContentConfig(
             temperature=0.1,
             response_mime_type="application/json",
             response_schema=RESPONSE_SCHEMA,
@@ -410,11 +414,12 @@ def call_gemini(prompt: str, model):
         ),
     )
     usage = {}
-    if hasattr(resp, "usage_metadata"):
+    if hasattr(resp, "usage_metadata") and resp.usage_metadata:
+        um = resp.usage_metadata
         usage = {
-            "prompt_token_count":     resp.usage_metadata.prompt_token_count,
-            "candidates_token_count": resp.usage_metadata.candidates_token_count,
-            "total_token_count":      resp.usage_metadata.total_token_count,
+            "prompt_token_count":     getattr(um, "prompt_token_count", 0) or 0,
+            "candidates_token_count": getattr(um, "candidates_token_count", 0) or 0,
+            "total_token_count":      getattr(um, "total_token_count", 0) or 0,
         }
     finish_reason = "UNKNOWN"
     try:
@@ -509,10 +514,11 @@ def main():
         )
 
     try:
-        import vertexai
-        from vertexai.generative_models import GenerativeModel
+        from google import genai  # noqa: F401
     except ImportError:
-        sys.exit("pip install google-cloud-aiplatform")
+        sys.exit("pip install google-genai\n"
+                 "(google-genai replaces the deprecated "
+                 "google-cloud-aiplatform vertexai.generative_models SDK)")
 
     ap = argparse.ArgumentParser(
         description=__doc__,
@@ -575,8 +581,15 @@ def main():
     print(f"Processing {len(todo)} of {len(inputs)} preprocessed JSONs "
           f"({len(inputs)-len(todo)} cached) ...", file=sys.stderr)
 
-    vertexai.init(project=GCP_PROJECT, location=GCP_LOCATION)
-    model = GenerativeModel(MODEL_NAME)
+    # New google-genai SDK client — replaces vertexai.init + GenerativeModel.
+    # Points at Vertex AI by passing vertexai=True (as opposed to the
+    # standalone Gemini API).
+    from google import genai
+    client = genai.Client(
+        vertexai=True,
+        project=GCP_PROJECT,
+        location=GCP_LOCATION,
+    )
 
     t_start = time.time()
     succeeded = corrupt_n = failed = 0
@@ -586,7 +599,7 @@ def main():
     with ThreadPoolExecutor(max_workers=args.workers) as executor:
         futures = {
             executor.submit(process_one, p, out_dir, args.state, args.year,
-                              model): p
+                              client): p
             for p in todo
         }
         for i, fut in enumerate(as_completed(futures), 1):

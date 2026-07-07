@@ -340,6 +340,9 @@ ALL_STATES: dict[str, StateConfig] = {
     "arunachal":    ARUNACHAL,    # 2024 cycle (current — next 2029)
     "sikkim":       SIKKIM,       # 2019 + 2024 cycles (current — cross-cycle potential)
     "haryana":      HARYANA,      # 2019 + 2024 cycles (current — cross-cycle potential)
+    "manipur":      MANIPUR,      # 2022 cycle — Tier 1 (smallest-to-biggest queue)
+    "tripura":      TRIPURA,      # 2023 cycle — Tier 1
+    "meghalaya":    MEGHALAYA,    # 2023 cycle — Tier 1
 }
 
 # States we ingested but hid pending latest-cycle data. Empty right now —

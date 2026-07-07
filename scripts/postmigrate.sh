@@ -52,6 +52,7 @@ echo "  Sikkim (2019)"
 # not yet tuned — so this line is safe to include even before we've
 # run --dump-tables and filled in the column map.
 python scripts/load_sikkim_election_results.py --year 2019 || true
+python scripts/load_sikkim_election_results.py --year 2024 || true
 
 echo ""
 echo "  Mizoram (2023)"
@@ -68,10 +69,23 @@ python scripts/load_himachal_election_results.py --year 2022 || true
 echo ""
 echo "  Haryana (2019)"
 python scripts/load_haryana_election_results.py --year 2019 || true
+python scripts/load_haryana_election_results.py --year 2024 || true
 
 echo ""
 echo "  Arunachal Pradesh (2024)"
 python scripts/load_arunachal_election_results.py --year 2024 || true
+
+echo ""
+echo "  Manipur (2022)"
+python scripts/load_manipur_election_results.py --year 2022 || true
+
+echo ""
+echo "  Tripura (2023)"
+python scripts/load_tripura_election_results.py --year 2023 || true
+
+echo ""
+echo "  Meghalaya (2023)"
+python scripts/load_meghalaya_election_results.py --year 2023 || true
 
 echo ""
 echo "=========================================="

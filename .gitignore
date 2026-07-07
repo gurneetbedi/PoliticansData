@@ -48,7 +48,8 @@ logs/
 data/eci/raw_pdfs/
 data/eci/for_ai/pdfs/
 data/eci/for_ai/preprocessed/
-data/eci/for_ai/preprocessed_*/     # per-state OCR outputs (regenerable, 25-50 MB each)
+# per-state OCR outputs (regenerable, 25-50 MB each)
+data/eci/for_ai/preprocessed_*/
 data/eci/for_ai/output/
 data/eci/vision_demo/
 
@@ -61,7 +62,8 @@ data/eci/_phase1_test/
 
 # Wikipedia results scrape cache (regenerable; large HTML files)
 data/eci/results/_wiki_*.html
-data/eci/results/*_results.json    # per-state parsed Wikipedia data (regenerable)
+# per-state parsed Wikipedia data (regenerable)
+data/eci/results/*_results.json
 data/eci/for_ai/llm_extracted/
 
 # LLM cost-tracking sentinel
