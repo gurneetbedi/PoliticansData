@@ -338,17 +338,14 @@ ALL_STATES: dict[str, StateConfig] = {
     "nagaland":     NAGALAND,     # 2023 cycle (current — next 2028)
     "himachal":     HIMACHAL,     # 2022 cycle (current — next 2027)
     "arunachal":    ARUNACHAL,    # 2024 cycle (current — next 2029)
+    "sikkim":       SIKKIM,       # 2019 + 2024 cycles (current — cross-cycle potential)
+    "haryana":      HARYANA,      # 2019 + 2024 cycles (current — cross-cycle potential)
 }
 
-# States we ingested but hid pending latest-cycle data. Their rows are
-# still in the DB (canonical tables + Neon) but are excluded from every
-# stat and dropdown because the cycle we loaded is not the latest one
-# available. Re-enable by moving them back into ALL_STATES above once
-# we've loaded the current cycle.
-_HIDDEN_STATES: dict[str, StateConfig] = {
-    "sikkim":       SIKKIM,       # loaded 2019 — LATEST is 2024, not on our data
-    "haryana":      HARYANA,      # loaded 2019 — LATEST is Oct 2024
-}
+# States we ingested but hid pending latest-cycle data. Empty right now —
+# move a state here when its loaded cycle is no longer the most recent one
+# available on the ECI portal.
+_HIDDEN_STATES: dict[str, StateConfig] = {}
 
 # Internal-only — used by scripts/migrate scaffolding. Not surfaced in the UI.
 _ALL_STATES_HISTORICAL: dict[str, StateConfig] = {

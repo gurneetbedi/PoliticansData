@@ -74,10 +74,27 @@ SIKKIM_2019_COLS = {
     },
 }
 
+# Filled in after --dump-tables diagnostic on 2026-06-27.
+# Table 8 is the master results table. Layout matches Mizoram/Nagaland
+# — no turnout column, single margin cell. 14-cell first row of
+# district, 13-cell subsequent rows.
 SIKKIM_2024_COLS = {
-    "table_index": None,
+    "table_index": 8,
     "header_rows": 2,
-    "cols": {},
+    "cols": {
+        "constituency": -12,   # 'Yangthang' / 'Maneybong-Dentam' / etc.
+        "winner_name":  -11,
+        # -10 = empty party color box
+        "winner_party":  -9,
+        "winner_votes":  -8,
+        "winner_pct":    -7,
+        "runner_name":   -6,
+        # -5 = empty party color box
+        "runner_party":  -4,
+        "runner_votes":  -3,
+        "runner_pct":    -2,
+        # -1 = margin (ignored)
+    },
 }
 
 COL_MAPS = {

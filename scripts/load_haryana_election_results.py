@@ -43,7 +43,30 @@ USER_AGENT = (
 # Table 14 is the master results table for 2019. Layout is identical
 # to Goa — no District column, no Turnout column, single margin cell.
 # All data rows are uniform 14 cells (no rowspan wrinkles).
-HARYANA_2024_COLS = {"table_index": None, "header_rows": 2, "cols": {}}
+HARYANA_2024_COLS = {
+    # Filled in after --dump-tables diagnostic on 2026-06-27.
+    # Table 11 is the master results table. Layout matches Puducherry
+    # 2021 / Sikkim 2019 — has a Turnout% column, 14-cell rows, single
+    # margin cell. District subheader rows have 1 cell each and are
+    # filtered out automatically.
+    "table_index": 11,
+    "header_rows": 2,
+    "cols": {
+        "constituency": -13,   # 'Kalka' / 'Panchkula' / etc.
+        # -12 = turnout % (ignored)
+        "winner_name":  -11,
+        # -10 = empty party color box
+        "winner_party":  -9,
+        "winner_votes":  -8,
+        "winner_pct":    -7,
+        "runner_name":   -6,
+        # -5 = empty party color box
+        "runner_party":  -4,
+        "runner_votes":  -3,
+        "runner_pct":    -2,
+        # -1 = margin (ignored)
+    },
+}
 HARYANA_2019_COLS = {
     "table_index": 14,
     "header_rows": 2,
@@ -184,6 +207,121 @@ def dump_tables(html: str) -> None:
             print(f"             row[{di}] ({len(sample)}): {sample}",
                   file=sys.stderr)
         print(file=sys.stderr)
+
+
+def parse_candidate_list_haryana_2024(html: str,
+                                        expected: set[str]) -> dict:
+    """Parse Wikipedia Table 5 for Haryana 2024 to get all major-party
+    candidates per constituency (BJP/INC/INLD/JJP/BSP/etc.). Returns a
+    dict {constituency_norm: [{name, party}, ...]}.
+
+    Table 5 layout (variable-length rows):
+      - First row of each district has 13-15 cells: district, #, name,
+        then (color, party, candidate) triples for each contesting party.
+      - Subsequent rows in a district have 12-14 cells (no district cell
+        due to rowspan).
+
+    We detect the row shape by whether cell[0] is numeric (subsequent
+    row) or alphabetic (first-of-district row).
+    """
+    from bs4 import BeautifulSoup
+    soup = BeautifulSoup(html, "html.parser")
+    tables = soup.find_all("table")
+    if 5 >= len(tables):
+        print(f"  ⚠ Table 5 not present (only {len(tables)} tables)",
+              file=sys.stderr)
+        return {}
+    table = tables[5]
+    rows = table.find_all("tr")
+
+    result: dict[str, list[dict]] = {}
+    for row in rows[1:]:   # skip the header row
+        cells = row.find_all(["th", "td"])
+        cells_text = [_cell_text(c) for c in cells]
+        if len(cells_text) < 5:
+            # Skip short subheaders like the row that only has 4 cells
+            continue
+
+        # Detect row shape: first-of-district has non-numeric cell[0]
+        if cells_text[0].isdigit():
+            # Subsequent row: [#, ConstName, then party triples]
+            const_name  = cells_text[1]
+            party_start = 2
+        else:
+            # First-of-district: [District, #, ConstName, then party triples]
+            const_name  = cells_text[2]
+            party_start = 3
+
+        const_norm = _normalize_constituency(const_name)
+        if const_norm not in expected:
+            continue
+
+        # Parse (color, party, name) triples for the rest of the row
+        candidates = []
+        i = party_start
+        while i + 2 < len(cells_text):
+            # cells[i]     = party-color box (usually empty)
+            party = cells_text[i + 1]
+            name  = cells_text[i + 2]
+            if party and name:
+                candidates.append({"name": name, "party": party})
+            i += 3
+
+        result[const_norm] = candidates
+
+    return result
+
+
+def merge_haryana_2024_top_3(results: list[dict],
+                              extra_candidates: dict) -> list[dict]:
+    """Merge extra major-party candidates from Table 5 into the winner/
+    runner-up results from Table 11. Adds them as rank=3+ (without vote
+    counts, since Table 5 doesn't carry them). Skips any name that's
+    already ranked 1 or 2 (fuzzy match via normalized name)."""
+    try:
+        from rapidfuzz import fuzz
+    except ImportError:
+        return results  # graceful degrade — no merge if lib missing
+
+    def _norm(s):
+        return _normalize_name(s)
+
+    added = 0
+    for row in results:
+        const_norm = row.get("constituency_norm", "")
+        extras = extra_candidates.get(const_norm, [])
+        if not extras:
+            continue
+        existing_norms = {_norm(c.get("name", ""))
+                          for c in row.get("candidates", [])}
+        next_rank = max((c.get("rank", 0)
+                         for c in row.get("candidates", [])), default=2) + 1
+        for ec in extras:
+            ec_norm = _norm(ec["name"])
+            if not ec_norm:
+                continue
+            # Skip if fuzzily matches any existing name
+            hit = False
+            for en in existing_norms:
+                if fuzz.token_set_ratio(ec_norm, en) >= 85:
+                    hit = True
+                    break
+            if hit:
+                continue
+            row.setdefault("candidates", []).append({
+                "rank":            next_rank,
+                "is_winner":       False,
+                "name":            ec["name"],
+                "party_raw":       ec["party"],
+                "votes":           None,
+                "vote_share_pct":  None,
+            })
+            existing_norms.add(ec_norm)
+            next_rank += 1
+            added += 1
+    print(f"  Merged {added} extra rank-3+ candidates from Table 5",
+          file=sys.stderr)
+    return results
 
 
 def parse_with_colmap(html: str, year: int,
@@ -386,6 +524,18 @@ def main():
             html = fetch_wiki_html(year, refetch=args.refetch)
             print(f"  Parsing constituency results ...", file=sys.stderr)
             results = parse_with_colmap(html, year, expected)
+
+            # Year-specific enhancement: for 2024, also parse Table 5
+            # (candidate list per party) so we have rank-3+ candidates
+            # from strong 3rd-party finishers (INLD, JJP, BSP, IND).
+            # This lets --top-n 3 in build_top_n_allowlist.py actually
+            # add data on interesting 3rd-place candidates.
+            if year == 2024:
+                print(f"  Enhancing with Table 5 (party-candidate list) ...",
+                      file=sys.stderr)
+                extra = parse_candidate_list_haryana_2024(html, expected)
+                results = merge_haryana_2024_top_3(results, extra)
+
             results_path.write_text(json.dumps(results, indent=2,
                                                  ensure_ascii=False))
             print(f"  Saved {len(results)} constituencies to "
