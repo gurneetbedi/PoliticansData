@@ -343,6 +343,10 @@ ALL_STATES: dict[str, StateConfig] = {
     "manipur":      MANIPUR,      # 2022 cycle — Tier 1 (smallest-to-biggest queue)
     "tripura":      TRIPURA,      # 2023 cycle — Tier 1
     "meghalaya":    MEGHALAYA,    # 2023 cycle — Tier 1
+    "uttarakhand":  UTTARAKHAND,  # 2022 cycle — Tier 2 (hill state)
+    "jharkhand":    JHARKHAND,    # 2024 cycle — Tier 2
+    "jk":           JK,           # 2024 cycle — historic first post-370 election
+    "chhattisgarh": CHHATTISGARH, # 2023 cycle — Tier 2
 }
 
 # States we ingested but hid pending latest-cycle data. Empty right now —

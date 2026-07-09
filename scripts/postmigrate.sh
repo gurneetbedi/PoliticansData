@@ -88,6 +88,22 @@ echo "  Meghalaya (2023)"
 python scripts/load_meghalaya_election_results.py --year 2023 || true
 
 echo ""
+echo "  Uttarakhand (2022)"
+python scripts/load_uttarakhand_election_results.py --year 2022 || true
+
+echo ""
+echo "  Jharkhand (2024)"
+python scripts/load_jharkhand_election_results.py --year 2024 || true
+
+echo ""
+echo "  Jammu and Kashmir (2024)"
+python scripts/load_jk_election_results.py --year 2024 || true
+
+echo ""
+echo "  Chhattisgarh (2023)"
+python scripts/load_chhattisgarh_election_results.py --year 2023 || true
+
+echo ""
 echo "=========================================="
 echo "POST-MIGRATE DONE"
 echo "=========================================="

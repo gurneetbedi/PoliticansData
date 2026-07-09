@@ -1,0 +1,81 @@
+Per-constituency allowlist report
+Top-N target: 3
+Total constituencies: 70
+
+Constituency                    wiki  kept   gap   manifest   Unmatched names
+--------------------------------------------------------------------------------
+DHANAULTI                          2     0     3          0   Pritam Singh Panwar, Jot Singh Bisht
+ALMORA                             2     2     1          9   
+BADRINATH                          2     2     1         11   
+BAGESHWAR                          2     2     1          8   
+BAJPUR                             2     2     1          6   
+BHAGWANPUR                         2     2     1          6   
+BHELRANIPUR                        2     2     1         12   
+BHIMTAL                            2     2     1         10   
+CHAKRATA                           2     2     1         10   
+CHAMPAWAT                          2     2     1          7   
+CHAUBATTAKHAL                      2     2     1          9   
+DEHRADUNCANTONMENT                 2     2     1         12   
+DEOPRAYAG                          2     2     1          5   
+DHARAMPUR                          2     2     1         19   
+DHARCHULA                          2     2     1          8   
+DIDIHAT                            2     2     1          6   
+DOIWALA                            2     2     1         12   
+DWARAHAT                           2     2     1         10   
+GADARPUR                           2     2     1          6   
+GANGOLIHAT                         2     2     1          6   
+GANGOTRI                           2     2     1          8   
+GHANSALI                           2     2     1          7   
+HALDWANI                           2     2     1         13   
+HARIDWAR                           2     2     1          9   
+HARIDWARRURAL                      2     2     1         13   
+JAGESHWAR                          2     2     1          7   
+JASPUR                             2     2     1         10   
+JHABRERA                           2     2     1         11   
+JWALAPUR                           2     2     1          8   
+KALADHUNGI                         2     2     1         11   
+KAPKOT                             2     2     1          6   
+KARANPRAYAG                        2     2     1         10   
+KASHIPUR                           2     2     1          8   
+KEDARNATH                          2     2     1         13   
+KHANPUR                            2     2     1         10   
+KHATIMA                            2     2     1          8   
+KICHHA                             2     2     1         11   
+KOTDWAR                            2     2     1         11   
+LAKSAR                             2     2     1         11   
+LALKUAN                            2     2     1         13   
+LANSDOWNE                          2     2     1          7   
+LOHAGHAT                           2     2     1          7   
+MANGLAUR                           2     2     1         11   
+MUSSOORIE                          2     2     1          7   
+NAINITAL                           2     2     1          5   
+NANAKMATTA                         2     2     1          6   
+NARENDRANAGAR                      2     2     1          6   
+PAURI                              2     2     1          8   
+PIRANKALIYAR                       2     2     1         10   
+PITHORAGARH                        2     2     1          7   
+PRATAPNAGAR                        2     2     1          6   
+PUROLA                             2     2     1          5   
+RAIPUR                             2     2     1         14   
+RAJPURROAD                         2     2     1          9   
+RAMNAGAR                           2     2     1         11   
+RANIKHET                           2     2     1          7   
+RISHIKESH                          2     2     1         12   
+ROORKEE                            2     2     1          9   
+RUDRAPRAYAG                        2     2     1         12   
+RUDRAPUR                           2     2     1          9   
+SAHASPUR                           2     2     1         11   
+SALT                               2     2     1          9   
+SITARGANJ                          2     2     1          7   
+SOMESHWAR                          2     2     1          8   
+SRINAGAR                           2     2     1          7   
+TEHRI                              2     2     1          7   
+THARALI                            2     2     1          9   
+VIKASNAGAR                         2     2     1         10   
+YAMKESHWAR                         2     2     1          5   
+YAMUNOTRI                          2     2     1          8   
+
+Summary:
+  Full (matched >= top-3):  0
+  Under-filled (matched < top-3):  70
+    of which 0 matched (no data):        1

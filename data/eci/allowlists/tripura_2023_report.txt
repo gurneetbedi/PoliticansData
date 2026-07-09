@@ -1,0 +1,71 @@
+Per-constituency allowlist report
+Top-N target: 3
+Total constituencies: 60
+
+Constituency                    wiki  kept   gap   manifest   Unmatched names
+--------------------------------------------------------------------------------
+CHAWAMANU                          2     0     3          8   Sambhu Lal Chakma, Hangsa Kumar Tripura
+AGARTALA                           2     2     1         11   
+AMARPUR                            2     2     1         10   
+AMBASSA                            2     2     1          9   
+AMPINAGAR                          2     2     1          8   
+ASHARAMBARI                        2     2     1          8   
+BADHARGHAT                         2     2     1         10   
+BAGBASSA                           2     2     1         11   
+BAGMA                              2     2     1          9   
+BAMUTIA                            2     2     1         11   
+BANAMALIPUR                        2     2     1         12   
+BARJALA                            2     2     1          7   
+BELONIA                            2     2     1          6   
+BISHALGARH                         2     2     1          8   
+BOXANAGAR                          2     2     1          7   
+CHANDIPUR                          2     2     1         10   
+CHARILAM                           2     2     1          8   
+DHANPUR                            2     2     1          6   
+DHARMANAGAR                        2     2     1         10   
+FATIKROY                           2     2     1         10   
+GOLAGHATI                          2     2     1          5   
+HRISHYAMUKH                        2     2     1          5   
+JOLAIBARI                          2     2     1          5   
+JUBARAJNAGAR                       2     2     1          7   
+KADAMTALAKURTI                     2     2     1         10   
+KAILASHAHAR                        2     2     1          8   
+KAKRABANSALGARH                    2     2     1          9   
+KALYANPURPRAMODNAGAR               2     2     1          7   
+KAMALASAGAR                        2     2     1          9   
+KAMALPUR                           2     2     1          9   
+KANCHANPUR                         2     2     1          7   
+KARAMCHERRA                        2     2     1          9   
+KARBOOK                            2     2     1          5   
+KHAYERPUR                          2     2     1         10   
+KHOWAI                             2     2     1          7   
+KRISHNAPUR                         2     2     1          9   
+MAJLISHPUR                         2     2     1          7   
+MANDAIBAZAR                        2     2     1          7   
+MANU                               2     2     1          8   
+MATARBARI                          2     2     1          7   
+MOHANPUR                           2     2     1         12   
+NALCHAR                            2     2     1          6   
+PABIACHHARA                        2     2     1          8   
+PANISAGAR                          2     2     1          8   
+PENCHARTHAL                        2     2     1          9   
+PRATAPGARH                         2     2     1         10   
+RADHAKISHORPUR                     2     2     1         11   
+RAIMAVALLEY                        2     2     1          4   
+RAJNAGAR                           2     2     1          7   
+RAMCHANDRAGHAT                     2     2     1          9   
+RAMNAGAR                           2     2     1          9   
+SABROOM                            2     2     1          7   
+SANTIRBAZAR                        2     2     1          5   
+SIMNA                              2     2     1          9   
+SONAMURA                           2     2     1          6   
+SURMA                              2     2     1         11   
+SURYAMANINAGAR                     2     2     1          8   
+TAKARJALA                          2     2     1          4   
+TELIAMURA                          2     2     1         10   
+TOWNBORDOWALI                      2     2     1         11   
+
+Summary:
+  Full (matched >= top-3):  0
+  Under-filled (matched < top-3):  60
+    of which 0 matched (no data):        1

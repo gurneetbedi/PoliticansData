@@ -1,18 +1,14 @@
 """
-Load Arunachal Pradesh election results (winners + vote counts) from Wikipedia.
+Load Uttarakhand election results (winners + vote counts) from Wikipedia.
 
-Sibling to the other state loaders.
+Sibling to the other state loaders — filter-first workflow supported.
 
 Reads:
-    https://en.wikipedia.org/wiki/2024_Arunachal_Pradesh_Legislative_Assembly_election
-    https://en.wikipedia.org/wiki/2019_Arunachal_Pradesh_Legislative_Assembly_election
+    https://en.wikipedia.org/wiki/2022_Uttarakhand_Legislative_Assembly_election
+    https://en.wikipedia.org/wiki/2017_Uttarakhand_Legislative_Assembly_election
 
-Arunachali naming: tribal-region names, often two-word patterns
-("Pema Khandu", "Chowna Mein"), minimal honorifics. Standard
-normalizer handles all cases; threshold=70 is generous.
-
-Note: 2024 had 8 uncontested seats. Those get no runner-up entry
-in Wikipedia and are counted as "skipped" rows — expected behavior.
+Uttarakhand naming: standard North Indian hill-state patterns
+(Rajput, Brahmin, Sikh in Terai belt). Standard normalizer handles.
 """
 from __future__ import annotations
 
@@ -27,11 +23,11 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DB_PATH      = PROJECT_ROOT / "politrack.db"
 RESULTS_DIR  = PROJECT_ROOT / "data/eci/results"
-STATE_NAME   = "Arunachal Pradesh"
+STATE_NAME   = "Uttarakhand"
 
 WIKI_URLS = {
-    2024: "https://en.wikipedia.org/wiki/2024_Arunachal_Pradesh_Legislative_Assembly_election",
-    2019: "https://en.wikipedia.org/wiki/2019_Arunachal_Pradesh_Legislative_Assembly_election",
+    2022: "https://en.wikipedia.org/wiki/2022_Uttarakhand_Legislative_Assembly_election",
+    2017: "https://en.wikipedia.org/wiki/2017_Uttarakhand_Legislative_Assembly_election",
 }
 
 USER_AGENT = (
@@ -41,17 +37,17 @@ USER_AGENT = (
 
 
 # Filled in after --dump-tables diagnostic.
-ARUNACHAL_2024_COLS = {
+UTTARAKHAND_2022_COLS = {
     # Filled in after --dump-tables diagnostic on 2026-06-27.
-    # Table 9 is the master results table. Layout matches NE standard —
-    # no turnout column, single margin cell. 13-cell rows uniformly
-    # (district shown only in subheader rows, filtered out). Note: AP
-    # 2024 had 10 unopposed seats which don't have runner-up rows;
-    # those are silently skipped by the parser.
-    "table_index": 9,
+    # Table 20 is the master results table. Layout matches Puducherry
+    # 2021 / Sikkim 2019 / Haryana 2024 — has a Turnout% column, 14-cell
+    # rows, single margin cell. District subheader rows have 1 cell
+    # and get filtered out.
+    "table_index": 20,
     "header_rows": 2,
     "cols": {
-        "constituency": -12,   # 'Lumla' / 'Tawang' / etc.
+        "constituency": -13,   # 'Purola (SC)' / 'Yamunotri' / etc.
+        # -12 = turnout % (ignored)
         "winner_name":  -11,
         # -10 = empty party color box
         "winner_party":  -9,
@@ -65,12 +61,9 @@ ARUNACHAL_2024_COLS = {
         # -1 = margin (ignored)
     },
 }
-ARUNACHAL_2019_COLS = {"table_index": None, "header_rows": 2, "cols": {}}
+UTTARAKHAND_2017_COLS = {"table_index": None, "header_rows": 2, "cols": {}}
 
-COL_MAPS = {
-    2024: ARUNACHAL_2024_COLS,
-    2019: ARUNACHAL_2019_COLS,
-}
+COL_MAPS = {2022: UTTARAKHAND_2022_COLS, 2017: UTTARAKHAND_2017_COLS}
 
 
 def _normalize_name(name: str) -> str:
@@ -80,7 +73,7 @@ def _normalize_name(name: str) -> str:
     for prefix in ("DR. ", "DR ", "ADV. ", "ADV ", "ADVOCATE ",
                     "SHRI ", "SHRIMATI ", "SMT. ", "SMT ",
                     "MR. ", "MR ", "MS. ", "MS ", "MRS. ", "MRS ",
-                    "PROF. ", "PROF "):
+                    "PROF. ", "PROF ", "PANDIT ", "PT. ", "PT "):
         if s.startswith(prefix):
             s = s[len(prefix):]
     if "@" in s:
@@ -115,7 +108,7 @@ def _normalize_constituency(name: str) -> str:
 
 
 def fetch_wiki_html(year: int, refetch: bool = False) -> str:
-    cache_path = RESULTS_DIR / f"_wiki_arunachal_{year}.html"
+    cache_path = RESULTS_DIR / f"_wiki_uttarakhand_{year}.html"
     if cache_path.exists() and not refetch:
         return cache_path.read_text()
     try:
@@ -193,7 +186,7 @@ def parse_with_colmap(html: str, year: int,
     if cfg.get("table_index") is None:
         print(f"  ⚠ No column map for {year} yet. Run --dump-tables first,",
               file=sys.stderr)
-        print(f"    update ARUNACHAL_{year}_COLS in this script, then re-run.",
+        print(f"    update UTTARAKHAND_{year}_COLS in this script, then re-run.",
               file=sys.stderr)
         return []
 
@@ -232,7 +225,11 @@ def parse_with_colmap(html: str, year: int,
             skipped += 1
             continue
         const_norm = _normalize_constituency(const)
-        if not const_norm or const_norm not in expected:
+        if not const_norm:
+            skipped += 1
+            continue
+        # Filter-first support: empty expected = accept all rows
+        if expected and const_norm not in expected:
             skipped += 1
             continue
 
@@ -340,7 +337,7 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     ap.add_argument("--year", type=int, default=0,
-                    help="2024 or 2019. Default: both.")
+                    help="2022 or 2017. Default: both.")
     ap.add_argument("--refetch", action="store_true")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--dump-tables", action="store_true")
@@ -351,7 +348,7 @@ def main():
     if not Path(args.db).exists():
         sys.exit(f"DB not found: {args.db}")
 
-    years = [args.year] if args.year else [2024, 2019]
+    years = [args.year] if args.year else [2022, 2017]
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
     con = sqlite3.connect(args.db)
@@ -363,25 +360,25 @@ def main():
         WHERE s.name = ?
     """, (STATE_NAME,))
     expected = {_normalize_constituency(r[0]) for r in cur.fetchall()}
-    print(f"Arunachal Pradesh constituencies in DB: {len(expected)}",
-          file=sys.stderr)
-    if not expected:
-        sys.exit("No Arunachal Pradesh constituencies in DB. "
-                 "Run migrate_to_eci_only.py first.")
+    print(f"Uttarakhand constituencies in DB: {len(expected)}", file=sys.stderr)
+
+    if not expected and not (args.dump_tables or args.dry_run):
+        sys.exit("No Uttarakhand constituencies in DB. "
+                 "Run migrate_to_eci_only.py first, OR use "
+                 "--dump-tables / --dry-run for filter-first workflow.")
 
     grand_total_matched = 0
     grand_total_unmatched = 0
 
     for year in years:
-        print(f"\n========== Arunachal Pradesh {year} ==========",
-              file=sys.stderr)
+        print(f"\n========== Uttarakhand {year} ==========", file=sys.stderr)
 
         if args.dump_tables:
             html = fetch_wiki_html(year, refetch=args.refetch)
             dump_tables(html)
             continue
 
-        results_path = RESULTS_DIR / f"arunachal_{year}_results.json"
+        results_path = RESULTS_DIR / f"uttarakhand_{year}_results.json"
         if results_path.exists() and not args.refetch:
             print(f"  Using cached parse: {results_path.name}", file=sys.stderr)
             results = json.loads(results_path.read_text())
@@ -400,7 +397,7 @@ def main():
             continue
 
         lookup = build_candidate_lookup(cur, year)
-        print(f"  Candidate lookup: {len(lookup)} AP appearances for {year}",
+        print(f"  Candidate lookup: {len(lookup)} Uttarakhand appearances for {year}",
               file=sys.stderr)
 
         winners_set = 0

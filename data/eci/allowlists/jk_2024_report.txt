@@ -1,0 +1,101 @@
+Per-constituency allowlist report
+Top-N target: 3
+Total constituencies: 90
+
+Constituency                    wiki  kept   gap   manifest   Unmatched names
+--------------------------------------------------------------------------------
+AKHNOOR                            2     2     1          3   
+ANANTNAG                           2     2     1         13   
+ANANTNAGWEST                       2     2     1          9   
+BAHU                               2     2     1         12   
+BANDIPORA                          2     2     1         19   
+BANI                               2     2     1          8   
+BANIHAL                            2     2     1          7   
+BARAMULLA                          2     2     1         25   
+BASOHLI                            2     2     1          4   
+BEERWAH                            2     2     1         12   
+BHADARWAH                          2     2     1         10   
+BILLAWAR                           2     2     1          4   
+BISHNAH                            2     2     1          9   
+BUDGAM                             2     2     1          8   
+BUDHAL                             2     2     1          4   
+CENTRALSHALTENG                    2     2     1         13   
+CHADOORA                           2     2     1          6   
+CHANAPORA                          2     2     1          8   
+CHARARISHARIEF                     2     2     1         10   
+CHENANI                            2     2     1          9   
+CHHAMB                             2     2     1          8   
+DEVSAR                             2     2     1          9   
+DHPORA                             2     2     1          6   
+DODA                               2     2     1          9   
+DODAWEST                           2     2     1          8   
+DOORU                              2     2     1         10   
+EIDGAH                             2     2     1         13   
+GANDERBAL                          2     2     1         15   
+GULABGARH                          2     2     1          6   
+GULMARG                            2     2     1         13   
+GUREZ                              2     2     1          5   
+HABBAKADAL                         2     2     1         16   
+HANDWARA                           2     2     1          7   
+HAZRATBAL                          2     2     1         12   
+HIRANAGAR                          2     2     1          6   
+INDERWAL                           2     2     1          9   
+JAMMUEAST                          2     2     1          8   
+JAMMUNORTH                         2     2     1         17   
+JAMMUWEST                          2     2     1         12   
+JASROTA                            2     2     1          8   
+KALAKOTESUNDERBANI                 2     2     1         11   
+KANGAN                             2     2     1          6   
+KARNAH                             2     2     1          8   
+KATHUA                             2     2     1          5   
+KHANSAHIB                          2     2     1         10   
+KHANYAR                            2     2     1         10   
+KISHTWAR                           2     2     1          7   
+KOKERNAG                           2     2     1         10   
+KULGAM                             2     2     1         10   
+KUPWARA                            2     2     1          8   
+LALCHOWK                           2     2     1         10   
+LANGATE                            2     2     1         15   
+LOLAB                              2     2     1         11   
+MARH                               2     2     1          6   
+MENDHAR                            2     2     1          9   
+NAGROTA                            2     2     1          8   
+NOWSHERA                           2     2     1          5   
+PADDERNAGSENI                      2     2     1          6   
+PAHALGAM                           2     2     1          6   
+PAMPORE                            2     2     1         14   
+PATTAN                             2     2     1         13   
+POONCHHAVELI                       2     2     1          8   
+PULWAMA                            2     2     1         12   
+RAFIABAD                           2     2     1         12   
+RAJOURI                            2     2     1          8   
+RAJPORA                            2     2     1         10   
+RAMBAN                             2     2     1          8   
+RAMGARH                            2     2     1          7   
+RAMNAGAR                           2     2     1          7   
+REASI                              2     2     1          7   
+RSPORAJAMMUSOUTH                   2     2     1         14   
+SAMBA                              2     2     1         14   
+SHANGUSANANTNAGEAST                2     2     1         13   
+SHOPIAN                            2     2     1         11   
+SHRIMATAVAISHNODEVI                2     2     1          7   
+SONAWARI                           2     2     1         18   
+SOPORE                             2     2     1         20   
+SRIGUFWARABIJBEHARA                2     2     1          3   
+SUCHETGARH                         2     2     1         11   
+SURANKOTE                          2     2     1          8   
+THANAMANDI                         2     2     1          6   
+TRAL                               2     2     1          9   
+TREHGAM                            2     2     1         10   
+UDHAMPUREAST                       2     2     1          9   
+UDHAMPURWEST                       2     2     1         12   
+URI                                2     2     1          6   
+VIJAYPUR                           2     2     1         11   
+WAGOORAKREERI                      2     2     1         12   
+ZADIBAL                            2     2     1         10   
+ZAINAPORA                          2     2     1         10   
+
+Summary:
+  Full (matched >= top-3):  0
+  Under-filled (matched < top-3):  90
+    of which 0 matched (no data):        0
