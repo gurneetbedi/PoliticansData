@@ -347,6 +347,7 @@ ALL_STATES: dict[str, StateConfig] = {
     "jharkhand":    JHARKHAND,    # 2024 cycle — Tier 2
     "jk":           JK,           # 2024 cycle — historic first post-370 election
     "chhattisgarh": CHHATTISGARH, # 2023 cycle — Tier 2
+    "telangana":    TELANGANA,    # 2023 cycle — Tier 2
 }
 
 # States we ingested but hid pending latest-cycle data. Empty right now —
