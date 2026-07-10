@@ -151,10 +151,22 @@ def coverage_summary(db: Session) -> list[dict]:
             status = "partial"
         else:
             status = "full"
+
+        # `latest_loaded` — is the state's most recent declared cycle in
+        # the DB? Used by the homepage to distinguish states showing the
+        # LATEST election (True) from states falling back to a PREVIOUS
+        # cycle because their latest hasn't been ingested (False). This
+        # is independent of `status` — `status` = full/partial reflects
+        # ALL declared cycles, but users care about "is this state's
+        # newest data current?".
+        latest_declared_year = max(declared_years) if declared_years else None
+        latest_loaded = latest_declared_year in loaded_years if latest_declared_year else False
+
         out.append({
             "key":    key,
             "name":   cfg.name,
             "status": status,
+            "latest_loaded": latest_loaded,
             "loaded":  sorted(loaded_years, reverse=True),
             "missing": sorted(missing_years, reverse=True),
             "notes":   cfg.coverage_notes,
@@ -743,6 +755,49 @@ def dots_by_year(db: Session, house: str = "Assembly", state_name: Optional[str]
     return dict(sorted(out.items()))
 
 
+def party_coverage_snapshot(db: Session, house: str = "Assembly",
+                             state_name: Optional[str] = None) -> list[dict]:
+    """Party-wise coverage report for the Coverage Snapshot panel.
+
+    For the given state's most recent election cycle, group MLAs by party
+    and return the count of MLAs vs the count with disclosure data
+    (total_assets_inr AND criminal_cases_count both non-NULL). Coverage
+    percentage lets the user see, at a glance, how complete our
+    affidavit-derived data is for each party.
+
+    Returns: list of dicts, sorted by mla_count descending, each:
+        - party:      party short_name (e.g. "BJP")
+        - color:      hex color from party_color()
+        - mla_count:  number of MLAs in the current cycle
+        - verified:   number of those MLAs with both assets + cases data
+        - coverage_pct: verified / mla_count as percent (rounded)
+    """
+    apps = _latest_appearances(db, house=house, scope="current",
+                                state_name=state_name)
+    from collections import defaultdict
+    buckets = defaultdict(lambda: {"total": 0, "verified": 0})
+    for a in apps:
+        name = a.party.short_name if a.party else "IND"
+        buckets[name]["total"] += 1
+        if (a.total_assets_inr is not None and
+                a.criminal_cases_count is not None):
+            buckets[name]["verified"] += 1
+
+    out = []
+    for name, counts in buckets.items():
+        pct = round(100 * counts["verified"] / counts["total"], 0) \
+            if counts["total"] else 0
+        out.append({
+            "party":        name,
+            "color":        party_color(name),
+            "mla_count":    counts["total"],
+            "verified":     counts["verified"],
+            "coverage_pct": int(pct),
+        })
+    out.sort(key=lambda x: (-x["mla_count"], x["party"]))
+    return out
+
+
 def party_wealth_by_cycle(db: Session, house: str = "Assembly", state_name: Optional[str] = None) -> dict:
     """
     Per-cycle average wealth per party (winning candidates only). Powers the
@@ -864,7 +919,12 @@ def hero_kpis(db: Session, house: str = "Assembly", scope: str = "all", state_na
                 "total_cases": 0, "avg_cases_per_mla": 0,
                 "count_verified_wealth": 0,
                 "count_verified_cases": 0,
+                "latest_year": None,
                 "house": house}
+
+    # Election cycle year the stats above are anchored to. Used by the
+    # India-map tooltip to show "MLAs elected in <year>".
+    latest_year = max((a.election.year for a in apps if a.election), default=None)
 
     # Split into verified vs unverified subsets so the stats are honest
     # about their denominator.
@@ -905,6 +965,8 @@ def hero_kpis(db: Session, house: str = "Assembly", scope: str = "all", state_na
         # Templates use these to show "N of M verified" caveats.
         "count_verified_wealth": len(wealth_verified),
         "count_verified_cases":  len(cases_verified),
+        # Election year the count/wealth/cases numbers reflect.
+        "latest_year":           latest_year,
     }
 
 

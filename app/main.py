@@ -145,18 +145,33 @@ KNOWN_STATES = set(_ALL_STATES.keys())
 TRACKED_STATE_NAMES = [s.name for s in _ALL_STATES.values()]
 
 def resolve_state(state: str | None = None) -> str:
-    """Return a canonical state name. Falls back to 'Delhi' for empty/unknown.
+    """Return a canonical state name matching ``states.name`` in the DB.
 
-    Delhi is the default because it is currently the only state with
-    ECI-sourced data in the canonical tables (post-migration). When more
-    states are added, this default can be revisited.
+    Accepts either the state key (``"arunachal"``) or the full name
+    (``"Arunachal Pradesh"``, ``"arunachal pradesh"``), case-insensitively.
+    Multi-word states (Uttar Pradesh, Jammu and Kashmir, etc.) are
+    handled correctly via ALL_STATES lookup — the previous
+    ``.capitalize()`` fallback broke them by lowercasing every word after
+    the first.
     """
     if not state:
         return "Delhi"
-    s = state.strip().lower()
-    if s not in KNOWN_STATES:
+
+    s = state.strip()
+    if not s:
         return "Delhi"
-    return s.capitalize()
+
+    # 1. Exact key match (e.g. ?state=arunachal)
+    key = s.lower()
+    if key in _ALL_STATES:
+        return _ALL_STATES[key].name
+
+    # 2. Full-name match, case-insensitive (e.g. ?state=Arunachal%20Pradesh)
+    for cfg in _ALL_STATES.values():
+        if cfg.name.lower() == key:
+            return cfg.name
+
+    return "Delhi"
 
 
 def resolve_year(year: str | None = None) -> int | None:
@@ -260,6 +275,7 @@ def home(
         "dots_by_year":     services.dots_by_year(db, house="Assembly", state_name=state),
         "party_seats":      services.party_seats_by_year(db, house="Assembly", state_name=state),
         "party_wealth_cycles": services.party_wealth_by_cycle(db, house="Assembly", state_name=state),
+        "party_coverage":      services.party_coverage_snapshot(db, house="Assembly", state_name=state),
         "facts":    services.did_you_know(db, state_name=state),
 
         # India-wide stats for the choropleth (one row per tracked state).

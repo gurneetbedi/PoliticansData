@@ -341,6 +341,21 @@ KERALA = StateConfig(
 )
 
 
+GUJARAT = StateConfig(
+    key="gujarat", name="Gujarat", code="GJ", zone="West",
+    assembly_cycles=[
+        {"year": 2022, "slug": "gujarat2022"},
+        {"year": 2017, "slug": "gujarat2017"},
+        {"year": 2012, "slug": "gujarat2012"},
+        {"year": 2007, "slug": "gujarat2007"},
+    ],
+    ls_pcs = {
+        "KACHCHH", "BANASKANTHA", "PATAN", "MAHESANA", "SABARKANTHA", "GANDHINAGAR", "AHMEDABAD EAST", "AHMEDABAD WEST", "SURENDRANAGAR",
+        "RAJKOT", "PORBANDAR", "JAMNAGAR", "JUNAGADH", "AMRELI", "BHAVNAGAR", "ANAND", "KHEDA", "PANCHMAHAL", "DAHOD",
+        "VADODARA", "CHHOTA UDAIPUR", "BHARUCH", "BARDOLI", "SURAT", "NAVSARI", "VALSAD",
+        },
+)
+
 # Active states — must have ECI affidavit data loaded for the listed
 # cycles before being added here. The other StateConfig objects above
 # are preserved in source so we can re-enable them as we backfill ECI
@@ -365,7 +380,8 @@ ALL_STATES: dict[str, StateConfig] = {
     "chhattisgarh": CHHATTISGARH, # 2023 cycle — Tier 2
     "telangana":    TELANGANA,    # 2023 cycle — Tier 2
     "assam":        ASSAM,        # 2026 cycle — Tier 2 (Northeast)
-    "kerala":       KERALA,       # 2026 cycle — Tier 2 (Northeast)
+    "kerala":       KERALA,       # 2026 cycle — Tier 2 (Sourh)
+    "gujurat":      GUJARAT,      # 2022 cycle — Tier 2 (West)
 }
 
 # States we ingested but hid pending latest-cycle data. Empty right now —

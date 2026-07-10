@@ -117,6 +117,9 @@ echo ""
 echo "  Kerala (2026)"
 python scripts/load_kerala_election_results.py --year 2026 || true
 
+echo ""
+echo "  Gujarat (2022)"
+python scripts/load_gujarat_election_results.py --year 2022 || true
 
 echo ""
 echo "=========================================="
