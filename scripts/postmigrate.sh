@@ -103,6 +103,21 @@ echo ""
 echo "  Chhattisgarh (2023)"
 python scripts/load_chhattisgarh_election_results.py --year 2023 || true
 
+
+echo "  Telangana (2023)"
+python scripts/load_telangana_election_results.py --year 2023 || true
+
+
+echo ""
+echo "  Assam (2026)"
+python scripts/load_assam_election_results.py --year 2026 || true
+
+
+echo ""
+echo "  Kerala (2026)"
+python scripts/load_kerala_election_results.py --year 2026 || true
+
+
 echo ""
 echo "=========================================="
 echo "POST-MIGRATE DONE"

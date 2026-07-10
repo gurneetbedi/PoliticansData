@@ -541,6 +541,24 @@ def main():
                     help="Re-extract even if output JSON already exists.")
     args = ap.parse_args()
 
+    # Normalize --state to TitleCase so LLM JSON's state field matches
+    # canonical states.name (loader convention). Downstream
+    # apply_llm_extraction reads this field and joins on states.name.
+    if args.state:
+        _SPECIAL = {
+            "jammu and kashmir": "Jammu and Kashmir",
+            "andhra pradesh":    "Andhra Pradesh",
+            "arunachal pradesh": "Arunachal Pradesh",
+            "himachal pradesh":  "Himachal Pradesh",
+            "madhya pradesh":    "Madhya Pradesh",
+            "tamil nadu":        "Tamil Nadu",
+            "uttar pradesh":     "Uttar Pradesh",
+            "west bengal":       "West Bengal",
+            "jk":                "Jammu and Kashmir",
+        }
+        lc = args.state.strip().lower()
+        args.state = _SPECIAL.get(lc, args.state.strip().title())
+
     project_root = Path(__file__).resolve().parent.parent
     in_dir  = Path(args.in_dir)
     out_dir = Path(args.out_dir)

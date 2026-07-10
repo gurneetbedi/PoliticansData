@@ -208,6 +208,25 @@ def main():
                          "fields can be as low as 50%% accurate.")
     args = ap.parse_args()
 
+    # Normalize --state to TitleCase so downstream joins are case-consistent.
+    # Every consumer (loader script's STATE_NAME, apply_llm_extraction's
+    # JOIN on states.name, LLM JSON's state field) expects TitleCase.
+    # Special case multi-word state names.
+    if args.state:
+        _SPECIAL = {
+            "jammu and kashmir": "Jammu and Kashmir",
+            "andhra pradesh":    "Andhra Pradesh",
+            "arunachal pradesh": "Arunachal Pradesh",
+            "himachal pradesh":  "Himachal Pradesh",
+            "madhya pradesh":    "Madhya Pradesh",
+            "tamil nadu":        "Tamil Nadu",
+            "uttar pradesh":     "Uttar Pradesh",
+            "west bengal":       "West Bengal",
+            "jk":                "Jammu and Kashmir",
+        }
+        lc = args.state.strip().lower()
+        args.state = _SPECIAL.get(lc, args.state.strip().title())
+
     # ── Optional manifest enrichment ──────────────────────────────────────
     # Build {affidavit_id: {name, party, constituency, status}} dict from
     # the fetcher's manifest.jsonl. These values come from the listing-

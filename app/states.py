@@ -312,15 +312,31 @@ TELANGANA = StateConfig(
 ASSAM = StateConfig(
     key="assam", name="Assam", code="AS", zone="Northeast",
     assembly_cycles=[
-        {"year": 2021, "slug": "Assam2021"},
+        {"year": 2026, "slug": "Assam2026"},
+        {"year": 2021, "slug": "assam2021"},
         {"year": 2016, "slug": "assam2016"},
         {"year": 2011, "slug": "assam2011"},
-        {"year": 2006, "slug": "assam2006"},
     ],
     ls_pcs={
         "KARIMGANJ", "SILCHAR", "AUTONOMOUS DISTRICT", "DHUBRI", "KOKRAJHAR",
         "BARPETA", "GAUHATI", "MANGALDOI", "TEZPUR", "NOWGONG", "KALIABOR",
         "JORHAT", "DIBRUGARH", "LAKHIMPUR",
+    },
+)
+
+KERALA = StateConfig(
+    key="kerala", name="Kerala", code="KL", zone="South",
+    assembly_cycles=[
+        {"year": 2026, "slug": "Kerala2026"},
+        {"year": 2021, "slug": "kerala2021"},
+        {"year": 2016, "slug": "kerala2016"},
+        {"year": 2011, "slug": "kerala2011"},
+    ],
+    ls_pcs = {
+    "KASARAGOD", "KANNUR", "VADAKARA", "WAYANAD", "KOZHIKODE",
+    "MALAPPURAM", "PONNANI", "PALAKKAD", "ALATHUR", "THRISSUR",
+    "CHALAKUDY", "ERNAKULAM", "IDUKKI", "KOTTAYAM", "ALAPPUZHA",
+    "MAVELIKKARA", "PATHANAMTHITTA", "KOLLAM", "ATTINGAL", "THIRUVANANTHAPURAM",
     },
 )
 
@@ -348,6 +364,8 @@ ALL_STATES: dict[str, StateConfig] = {
     "jk":           JK,           # 2024 cycle — historic first post-370 election
     "chhattisgarh": CHHATTISGARH, # 2023 cycle — Tier 2
     "telangana":    TELANGANA,    # 2023 cycle — Tier 2
+    "assam":        ASSAM,        # 2026 cycle — Tier 2 (Northeast)
+    "kerala":       KERALA,       # 2026 cycle — Tier 2 (Northeast)
 }
 
 # States we ingested but hid pending latest-cycle data. Empty right now —
