@@ -142,7 +142,7 @@ python scripts/parse_eci_affidavit.py \
     --out /tmp/parsed-first.json
 
 # 3. Spot-check: does the parsed total_assets match the existing DB row?
-#    (compare to the corresponding myneta_candidate_id in politrack.db)
+#    (compare to the corresponding myneta_candidate_id in lokvani.db)
 ```
 
 ## Full pull (only after the smoke test is clean)

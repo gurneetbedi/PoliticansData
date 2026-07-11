@@ -35,7 +35,7 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-DB = Path(__file__).resolve().parent.parent / "politrack.db"
+DB = Path(__file__).resolve().parent.parent / "lokvani.db"
 
 
 def _norm_name(s: str) -> str:

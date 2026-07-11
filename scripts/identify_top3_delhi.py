@@ -36,7 +36,7 @@ from collections import defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-DB = ROOT / "politrack.db"
+DB = ROOT / "lokvani.db"
 OUT = ROOT / "data/eci/for_ai/extracted/delhi_top3.csv"
 
 # Major-party fallback chain when picking runner-ups.

@@ -55,7 +55,7 @@ I'm happy to:
 **About me**
 
 I'm an independent developer (no commercial interest in this project). The
-codebase lives at <github.com/yourusername/politrack> and the
+codebase lives at <github.com/yourusername/lokvani> and the
 methodology page is at <yoursite.in/methodology>. Happy to share more
 detail or a live demo.
 

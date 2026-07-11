@@ -1,5 +1,5 @@
 """
-One-time cleanup: undo the cross-election candidate-id collisions in politrack.db.
+One-time cleanup: undo the cross-election candidate-id collisions in lokvani.db.
 
 Background
 ----------
@@ -43,7 +43,7 @@ from bs4 import BeautifulSoup
 from slugify import slugify
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-DB_PATH      = PROJECT_ROOT / "politrack.db"
+DB_PATH      = PROJECT_ROOT / "lokvani.db"
 CACHE_DIR    = PROJECT_ROOT / "data" / "cache" / "myneta"
 
 DRY_RUN = "--dry-run" in sys.argv

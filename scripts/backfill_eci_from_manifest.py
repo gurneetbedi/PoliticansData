@@ -33,7 +33,7 @@ from collections import defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-DB_DEFAULT = ROOT / "politrack.db"
+DB_DEFAULT = ROOT / "lokvani.db"
 MANIFEST = ROOT / "data/eci/raw_pdfs/delhi-2025/manifest.jsonl"
 
 
@@ -47,7 +47,7 @@ def _norm_const(s: str) -> str:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--db", default=str(DB_DEFAULT),
-                    help="SQLite DB path (default: politrack.db at repo root)")
+                    help="SQLite DB path (default: lokvani.db at repo root)")
     args = ap.parse_args()
     DB = Path(args.db)
 

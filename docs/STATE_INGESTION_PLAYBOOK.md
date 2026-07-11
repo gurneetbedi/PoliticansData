@@ -303,7 +303,7 @@ Bottom shows coverage table — confirm your state has non-zero `winners` and `v
 ```bash
 python3 -c "
 import sqlite3
-c = sqlite3.connect('politrack.db').cursor()
+c = sqlite3.connect('lokvani.db').cursor()
 r = c.execute('''SELECT COUNT(*), SUM(CASE WHEN ea.won=1 THEN 1 ELSE 0 END),
     SUM(CASE WHEN ea.total_assets_inr IS NOT NULL THEN 1 ELSE 0 END)
     FROM election_appearances ea JOIN elections e ON ea.election_id=e.id

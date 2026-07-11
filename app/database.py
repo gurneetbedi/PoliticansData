@@ -2,7 +2,7 @@
 
 Environment-based selection:
     - On Render (RENDER=true env var, set automatically by Render) → use DATABASE_URL (Neon).
-    - Local dev → use SQLite (politrack.db) regardless of a stray DATABASE_URL in the shell.
+    - Local dev → use SQLite (lokvani.db) regardless of a stray DATABASE_URL in the shell.
     - Escape hatch: set USE_NEON=1 locally to force Neon (for testing against prod DB).
 
 This prevents the common trap where a `secrets/.env` sourced into the local shell
@@ -12,7 +12,7 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-_LOCAL_SQLITE = "sqlite:///./politrack.db"
+_LOCAL_SQLITE = "sqlite:///./lokvani.db"
 _IS_PROD      = os.getenv("RENDER", "").lower() in ("true", "1", "yes")
 _FORCE_NEON   = os.getenv("USE_NEON", "").lower() in ("true", "1", "yes")
 

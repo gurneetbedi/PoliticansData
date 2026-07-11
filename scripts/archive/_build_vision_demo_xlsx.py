@@ -1,7 +1,7 @@
 """Build the Vision-vs-myneta comparison Excel for the Delhi 2025 demo.
 
 Each candidate row carries:
-  - DB columns (what myneta currently has, from politrack.db)
+  - DB columns (what myneta currently has, from lokvani.db)
   - ECI columns (what we just extracted from the affidavit PDF via vision)
   - Delta / Status / Notes columns
 
@@ -189,7 +189,7 @@ CANDIDATES = [
     # --------------------------------------------------------------
     # ASHISH SOOD — Independent (NOT the BJP candidate of same name)
     # --------------------------------------------------------------
-    # CRITICAL FINDING: the politrack DB has ASHISH SOOD = BJP, JANAKPURI,
+    # CRITICAL FINDING: the lokvani DB has ASHISH SOOD = BJP, JANAKPURI,
     # WON, ₹9.22 Cr. This affidavit is a DIFFERENT person of the same name
     # — an Independent who also contested AC-30 Janakpuri but declared
     # ₹22.6L. Total mismatch. Demonstrates the danger of name-only DB
@@ -286,7 +286,7 @@ CANDIDATES = [
         "eci_total_assets": 453885 + 1807257 + 0 + 0,
         "eci_total_liabilities": 0,
         "data_quality_notes": (
-            "⚠️ NAME COLLISION RISK: politrack DB has 'Ashish Sood' = BJP, "
+            "⚠️ NAME COLLISION RISK: lokvani DB has 'Ashish Sood' = BJP, "
             "WON, ₹9.22 Cr — that's the BJP candidate from same constituency "
             "(different person, different ECI filing). The affidavit we "
             "downloaded is for the INDEPENDENT contender. Vision parsed it "
@@ -306,7 +306,7 @@ CANDIDATES = [
 # DB lookup — pull the matching myneta row for each candidate
 # ---------------------------------------------------------------------------
 
-DB_PATH = "politrack.db"
+DB_PATH = "lokvani.db"
 
 
 def db_row_for(name: str) -> dict:

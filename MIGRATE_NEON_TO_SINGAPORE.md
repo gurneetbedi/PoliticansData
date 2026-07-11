@@ -22,13 +22,13 @@ can be deleted afterward.
 1. Sign in at https://console.neon.tech
 2. Click the project dropdown (top-left) → **Create project**
 3. Fill in:
-   - Project name: `politrack-sg`
+   - Project name: `lokvani-sg`
    - Postgres version: 16 (default)
    - Region: **AWS Asia Pacific (Singapore)** — `ap-southeast-1`
-   - Database name: `politrack`
+   - Database name: `lokvani`
 4. After creation, copy the new connection string. It will look like:
    ```
-   postgresql://neondb_owner:xxxx@ep-something-12345.ap-southeast-1.aws.neon.tech/politrack?sslmode=require
+   postgresql://neondb_owner:xxxx@ep-something-12345.ap-southeast-1.aws.neon.tech/lokvani?sslmode=require
    ```
    Notice the `.ap-southeast-1.` in the host — that's how you know it's Singapore.
 
@@ -41,7 +41,7 @@ cd /path/to/PoliticansData
 source .venv/bin/activate
 
 # Point the loader at the NEW Singapore Neon
-export DATABASE_URL="postgresql://neondb_owner:xxxx@ep-something-12345.ap-southeast-1.aws.neon.tech/politrack?sslmode=require"
+export DATABASE_URL="postgresql://neondb_owner:xxxx@ep-something-12345.ap-southeast-1.aws.neon.tech/lokvani?sslmode=require"
 
 python scripts/sqlite_to_postgres.py --reset
 ```
@@ -68,7 +68,7 @@ page load after the redeploy will be noticeably faster — sometimes 5x.
 
 Once the new setup is confirmed working:
 
-1. Neon dashboard → click the **politrack** project (the old us-east-1 one)
+1. Neon dashboard → click the **lokvani** project (the old us-east-1 one)
 2. **Settings → Delete project**
 
 Free tier lets you keep both, but tidiness counts.

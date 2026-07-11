@@ -1,5 +1,5 @@
 """
-Reconcile a folder of ECI affidavit PDFs against the live politrack.db.
+Reconcile a folder of ECI affidavit PDFs against the live lokvani.db.
 
 For each candidate identified by dedup_affidavits.py, this script:
 
@@ -26,7 +26,7 @@ Then run this reconciliation:
 
     python scripts/reconcile_eci_vs_db.py \\
         --dedup data/eci/dedup_delhi2025.json \\
-        --db politrack.db \\
+        --db lokvani.db \\
         --election-year 2025 \\
         --state-name "NCT of Delhi" \\
         --out data/eci/reconcile_delhi2025.jsonl
@@ -231,7 +231,7 @@ def parse_and_compare(candidate: dict, con: sqlite3.Connection,
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dedup", required=True, help="Path to dedup_affidavits.py output JSON")
-    ap.add_argument("--db", default="politrack.db", help="SQLite DB path")
+    ap.add_argument("--db", default="lokvani.db", help="SQLite DB path")
     ap.add_argument("--election-year", type=int, required=True)
     ap.add_argument("--state-name", required=True,
                     help="State name as it appears in states.name (e.g. 'NCT of Delhi')")

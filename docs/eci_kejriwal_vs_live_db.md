@@ -8,7 +8,7 @@ indistinguishable from what's already in production (myneta-sourced).
 
 - **ECI**: `Affadivit/Affidavit-1780926334.pdf` — eStamp `IN-DL19131279062636X`
   (canonical filing per `data/eci/dedup.json`)
-- **Live DB**: `politrack.db`, `politicians.id=136451`, `election_appearances.id=9820`
+- **Live DB**: `lokvani.db`, `politicians.id=136451`, `election_appearances.id=9820`
   (`myneta_candidate_id=180`, slug `arvind-kejriwal-delhi2025-180`)
 
 ## Side-by-side

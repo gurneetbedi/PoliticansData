@@ -7,7 +7,7 @@
 
 services:
   - type: web
-    name: politrack-india
+    name: lokvani-india
     runtime: python
     plan: free                       # free tier; flip to "starter" ($7/mo) to remove cold starts
     region: singapore                # closest to India in Render's regions

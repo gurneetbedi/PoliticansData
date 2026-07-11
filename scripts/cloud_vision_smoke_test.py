@@ -19,7 +19,7 @@ on 670.
 
 USAGE
 =====
-    export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp/politrack-vision-key.json"
+    export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp/lokvani-vision-key.json"
     cd "/path/to/Politicians Project"
     source .venv-eci/bin/activate
 
@@ -39,7 +39,7 @@ def main():
         sys.exit(
             "GOOGLE_APPLICATION_CREDENTIALS env var is not set.\n"
             "Add this line to ~/.zshrc and re-source it:\n"
-            '   export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp/politrack-vision-key.json"'
+            '   export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp/lokvani-vision-key.json"'
         )
 
     try:

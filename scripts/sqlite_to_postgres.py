@@ -5,9 +5,9 @@ to re-scrape myneta.
 
 Usage:
     # 1. Set the Neon connection string (postgres://... or postgresql://...)
-    export DATABASE_URL="postgresql://user:pass@ep-xyz.neon.tech/politrack?sslmode=require"
+    export DATABASE_URL="postgresql://user:pass@ep-xyz.neon.tech/lokvani?sslmode=require"
 
-    # 2. Run it. The SQLite source path defaults to ./politrack.db
+    # 2. Run it. The SQLite source path defaults to ./lokvani.db
     python scripts/sqlite_to_postgres.py
 
 The script:
@@ -34,7 +34,7 @@ from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.orm import sessionmaker
 
 # Default SQLite path is relative to the project root, not the cwd.
-SQLITE_PATH = os.getenv("SQLITE_PATH", str(PROJECT_ROOT / "politrack.db"))
+SQLITE_PATH = os.getenv("SQLITE_PATH", str(PROJECT_ROOT / "lokvani.db"))
 PG_URL      = os.getenv("DATABASE_URL")
 
 if not PG_URL:

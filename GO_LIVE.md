@@ -3,7 +3,7 @@
 This walks you from "code on GitHub" to "live public URL" in about 20 minutes.
 Everything stays on free tiers; no credit card required.
 
-**End result:** your site at `https://politrack-india.onrender.com` (or
+**End result:** your site at `https://lokvani-india.onrender.com` (or
 whichever subdomain Render assigns), reading from a hosted Postgres at Neon.
 
 ---
@@ -12,13 +12,13 @@ whichever subdomain Render assigns), reading from a hosted Postgres at Neon.
 
 1. Sign up at https://neon.tech with your GitHub account (free, no card).
 2. After login you'll be in the **Console**. Click **Create Project**.
-   - Project name: `politrack`
+   - Project name: `lokvani`
    - Postgres version: leave default (16)
    - Region: **AWS Asia Pacific (Singapore)** — closest to India.
-   - Database name: `politrack`
+   - Database name: `lokvani`
 3. After creation, Neon shows a **Connection string**. It looks like:
    ```
-   postgresql://neondb_owner:abc123@ep-xyz-123.ap-southeast-1.aws.neon.tech/politrack?sslmode=require
+   postgresql://neondb_owner:abc123@ep-xyz-123.ap-southeast-1.aws.neon.tech/lokvani?sslmode=require
    ```
    Click the **Show password** toggle, then copy the whole string. Keep this
    tab open — you'll paste it into two places.
@@ -30,7 +30,7 @@ whichever subdomain Render assigns), reading from a hosted Postgres at Neon.
 
 ## Step 2 — Upload your local data into Neon (5 min)
 
-Your scraped data is currently in `politrack.db` on your laptop. Push it once
+Your scraped data is currently in `lokvani.db` on your laptop. Push it once
 to Neon so the live site has data on day one.
 
 ```bash
@@ -41,7 +41,7 @@ source .venv/bin/activate
 pip install -r requirements.txt   # picks up the new psycopg2-binary
 
 # Paste the Neon connection string here, in quotes
-export DATABASE_URL="postgresql://neondb_owner:...@ep-xyz.neon.tech/politrack?sslmode=require"
+export DATABASE_URL="postgresql://neondb_owner:...@ep-xyz.neon.tech/lokvani?sslmode=require"
 
 # Run the one-time loader
 python scripts/sqlite_to_postgres.py
@@ -66,7 +66,7 @@ minute. The script is **idempotent** — safe to re-run if it dies partway.
    `gunicorn ... app.main:app`. Takes 3–5 minutes. You'll see logs stream
    live in the Render dashboard.
 7. When the status flips to **Live**, click the URL at the top of the page
-   (something like `https://politrack-india.onrender.com`).
+   (something like `https://lokvani-india.onrender.com`).
 
 That's the live site.
 
@@ -101,7 +101,7 @@ launch. Two ways to fix when you're ready:
 
 ## Updating data later
 
-When you re-scrape (e.g. new affidavits) your local `politrack.db` updates.
+When you re-scrape (e.g. new affidavits) your local `lokvani.db` updates.
 To push the new rows to Neon, just re-run the loader:
 
 ```bash
@@ -119,9 +119,9 @@ SQL editor first, then re-run the loader.
 
 ## Attaching a real domain later
 
-Once you buy `politrack.in` (or whatever):
+Once you buy `lokvani.in` (or whatever):
 
-1. In Render: Service → **Settings** → **Custom Domains** → add `politrack.in`.
+1. In Render: Service → **Settings** → **Custom Domains** → add `lokvani.in`.
 2. Render gives you a CNAME target. Add that CNAME in your domain registrar's
    DNS panel.
 3. Wait 5–60 minutes for DNS to propagate. Render auto-issues a free SSL cert.

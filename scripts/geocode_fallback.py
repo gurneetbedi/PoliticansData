@@ -206,7 +206,7 @@ def main():
 
     # Get missing constituencies from the DB
     import sqlite3
-    con = sqlite3.connect(ROOT / "politrack.db")
+    con = sqlite3.connect(ROOT / "lokvani.db")
     cur = con.cursor()
 
     total_added = 0

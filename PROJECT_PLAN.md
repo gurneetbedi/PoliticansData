@@ -104,7 +104,7 @@ GET  /api/stats                       homepage aggregate stats
 ## 7. Project Structure
 
 ```
-politrack/
+lokvani/
   backend/
     app/
       api/              FastAPI routes

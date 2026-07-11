@@ -220,7 +220,7 @@ HIMACHAL = StateConfig(
 )
 
 UTTARAKHAND = StateConfig(
-    key="uttarakhand", name="Uttarakhand", code="UK", zone="Central",
+    key="uttarakhand", name="Uttarakhand", code="UK", zone="North",
     assembly_cycles=[
         {"year": 2022, "slug": "Uttarakhand2022"},
         {"year": 2017, "slug": "uttarakhand2017"},
@@ -259,7 +259,7 @@ HARYANA = StateConfig(
 )
 
 CHHATTISGARH = StateConfig(
-    key="chhattisgarh", name="Chhattisgarh", code="CG", zone="Central",
+    key="chhattisgarh", name="Chhattisgarh", code="CG", zone="East",
     assembly_cycles=[
         {"year": 2023, "slug": "Chhattisgarh2023"},
         {"year": 2018, "slug": "chhattisgarh2018"},
@@ -356,6 +356,29 @@ GUJARAT = StateConfig(
         },
 )
 
+
+
+TAMIL_NADU = StateConfig(
+    key="tamil_nadu", name="Tamil Nadu", code="TN", zone="South",
+    assembly_cycles=[
+        {"year": 2026, "slug": "tamilnadu2026"},
+        {"year": 2021, "slug": "tamilnadu2021"},
+        {"year": 2016, "slug": "tamilnadu2016"},
+        {"year": 2011, "slug": "tamilnadu2011"},
+    ],
+    ls_pcs={
+        "THIRUVALLUR", "CHENNAI NORTH", "CHENNAI SOUTH", "CHENNAI CENTRAL",
+        "SRIPERUMBUDUR", "KANCHEEPURAM", "ARAKKONAM", "VELLORE",
+        "KRISHNAGIRI", "DHARMAPURI", "TIRUVANNAMALAI", "ARANI",
+        "VILUPPURAM", "KALLAKURICHI", "SALEM", "NAMAKKAL",
+        "ERODE", "TIRUPPUR", "NILGIRIS", "COIMBATORE",
+        "POLLACHI", "DINDIGUL", "KARUR", "TIRUCHIRAPPALLI",
+        "PERAMBALUR", "CUDDALORE", "CHIDAMBARAM", "MAYILADUTHURAI",
+        "NAGAPATTINAM", "THANJAVUR", "SIVAGANGA", "MADURAI",
+        "THENI", "VIRUDHUNAGAR", "RAMANATHAPURAM", "THOOTHUKKUDI",
+        "TENKASI", "TIRUNELVELI", "KANNIYAKUMARI",
+    },
+)
 # Active states — must have ECI affidavit data loaded for the listed
 # cycles before being added here. The other StateConfig objects above
 # are preserved in source so we can re-enable them as we backfill ECI
@@ -380,8 +403,9 @@ ALL_STATES: dict[str, StateConfig] = {
     "chhattisgarh": CHHATTISGARH, # 2023 cycle — Tier 2
     "telangana":    TELANGANA,    # 2023 cycle — Tier 2
     "assam":        ASSAM,        # 2026 cycle — Tier 2 (Northeast)
-    "kerala":       KERALA,       # 2026 cycle — Tier 2 (Sourh)
-    "gujurat":      GUJARAT,      # 2022 cycle — Tier 2 (West)
+    "kerala":       KERALA,       # 2026 cycle — Tier 2 (South)
+    "gujarat":      GUJARAT,      # 2022 cycle — Tier 2 (West)
+    "tamil_nadu":   TAMIL_NADU,   # 2026 cycle — Tier 2 (South)
 }
 
 # States we ingested but hid pending latest-cycle data. Empty right now —

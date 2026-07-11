@@ -1,5 +1,5 @@
 """Parse all 3 Akhilesh Pati Tripathi PDFs on the pages we know matter
-and compare the headline numbers against politrack.db."""
+and compare the headline numbers against lokvani.db."""
 import json, subprocess, sys, tempfile
 from pathlib import Path
 

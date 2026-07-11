@@ -82,7 +82,7 @@ USER_AGENT = (
     "AppleWebKit/537.36 (KHTML, like Gecko) "
     "Chrome/126.0.0.0 Safari/537.36"
 )
-CONTACT_HEADER = {"X-Project-Contact": "politrack-test"}
+CONTACT_HEADER = {"X-Project-Contact": "lokvani-test"}
 PORTAL_HOME = "https://affidavit.eci.gov.in/"
 NAV_TIMEOUT_MS = 60_000
 

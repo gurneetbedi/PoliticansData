@@ -4,7 +4,7 @@ An open-source civic-transparency platform that surfaces declared net worth, cri
 
 > *Lokvani* (Hindi: लोकवाणी) means "voice of the people" — the name reflects the project's purpose of making the legally-public disclosures of India's elected officials accessible to the voters they answer to.
 
-The project was previously named **PolitiTrack India**; references throughout older documentation may still use that name. The internal database file (`politrack.db`) and Python module names retain the original name to avoid disrupting the data pipeline.
+The project was previously named **PolitiTrack India**; references throughout older documentation may still use that name. The internal database file (`lokvani.db`) and Python module names retain the original name to avoid disrupting the data pipeline.
 
 **Current coverage on the live site** (ingested from myneta historically):
 
@@ -192,7 +192,7 @@ PDFs on ECI portal
    data/eci/for_ai/output/<seq>_<NAME>.json     ← structured records
        │
        ▼
-   (TODO) Loader → eci_* parallel tables in politrack.db
+   (TODO) Loader → eci_* parallel tables in lokvani.db
 ```
 
 ### Quick start

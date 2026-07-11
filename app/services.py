@@ -100,10 +100,17 @@ def zone_summary(db: Session) -> list[dict]:
             "verified_label":    (f"{verified} of {d['mlas']} verified"
                                    if verified < d["mlas"] else None),
         })
-    # Sort by transparency descending — None last so unverified zones
-    # sink to the bottom of the list.
-    out.sort(key=lambda z: (z["transparency"] is None,
-                              -(z["transparency"] or 0)))
+    # Sort by geographic zone order (North → South, matching the standard
+    # regional layout the user sees on the India map).
+    ZONE_ORDER = {
+        "North":     0,
+        "West":      1,
+        "Central":   2,   # "Middle" per the reference regional map
+        "East":      3,
+        "Northeast": 4,
+        "South":     5,
+    }
+    out.sort(key=lambda z: ZONE_ORDER.get(z["name"], 99))
     return out
 
 

@@ -1,5 +1,5 @@
 """
-Load the structured CSV from extract_structured.py into politrack.db's
+Load the structured CSV from extract_structured.py into lokvani.db's
 `eci_candidates_provisional` table.
 
 Each row carries a `quality_status`:
@@ -19,7 +19,7 @@ USAGE
     python scripts/load_eci_to_db.py
         --csv data/eci/for_ai/extracted/delhi_2025_structured.csv
         --state Delhi --election-year 2025 --election-type Assembly
-        --db politrack.db
+        --db lokvani.db
 """
 from __future__ import annotations
 
@@ -189,7 +189,7 @@ def main():
                                   formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--csv", default="data/eci/for_ai/extracted/delhi_2025_structured.csv",
                     help="Path to the structured CSV from extract_structured.py")
-    ap.add_argument("--db", default="politrack.db", help="SQLite DB path")
+    ap.add_argument("--db", default="lokvani.db", help="SQLite DB path")
     ap.add_argument("--state", default="Delhi",
                     help="State name (must match states.name in the DB)")
     ap.add_argument("--election-year", type=int, default=2025)

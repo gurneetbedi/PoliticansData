@@ -40,7 +40,7 @@ Then on GitHub:
 
 While you're in Settings, you may also want to:
 
-- Repo name: consider renaming to `politrack-india` (more descriptive than
+- Repo name: consider renaming to `lokvani-india` (more descriptive than
   `PoliticansData`). Settings → top of page → rename.
 - About panel (top of repo page, gear icon): add a one-line description
   ("Open-source transparency for Indian elected representatives"), website

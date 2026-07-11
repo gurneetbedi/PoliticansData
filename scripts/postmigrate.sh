@@ -121,6 +121,12 @@ echo ""
 echo "  Gujarat (2022)"
 python scripts/load_gujarat_election_results.py --year 2022 || true
 
+
+echo ""
+echo "  Tamil Nadu (2026)"
+python scripts/load_tamilnadu_election_results.py --year 2026 || true
+
+
 echo ""
 echo "=========================================="
 echo "POST-MIGRATE DONE"
@@ -129,7 +135,7 @@ echo ""
 echo "Verify per-state coverage:"
 python3 - <<'PYEOF'
 import sqlite3
-c = sqlite3.connect('politrack.db').cursor()
+c = sqlite3.connect('lokvani.db').cursor()
 print(f"  {'State':12s} {'total':>7s} {'winners':>8s} {'verified_LLM':>13s}")
 print(f"  {'-'*12} {'-'*7} {'-'*8} {'-'*13}")
 for row in c.execute("""

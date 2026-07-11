@@ -17,9 +17,9 @@ and the data it would have produced is gone.
 
 BACKUP FIRST
 ------------
-The script automatically copies politrack.db → politrack.db.bak before
+The script automatically copies lokvani.db → lokvani.db.bak before
 making any changes. If anything looks wrong after, restore with:
-    cp politrack.db.bak politrack.db
+    cp lokvani.db.bak lokvani.db
 
 USAGE
 -----
@@ -37,7 +37,7 @@ from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
 
-DB_DEFAULT = Path(__file__).resolve().parent.parent / "politrack.db"
+DB_DEFAULT = Path(__file__).resolve().parent.parent / "lokvani.db"
 
 
 def _slugify(s: str) -> str:
@@ -53,7 +53,7 @@ def main():
     ap.add_argument("--dry-run", action="store_true",
                     help="Report what would happen without writing")
     ap.add_argument("--skip-backup", action="store_true",
-                    help="Skip the politrack.db.bak step (faster re-runs)")
+                    help="Skip the lokvani.db.bak step (faster re-runs)")
     args = ap.parse_args()
 
     db = Path(args.db)
@@ -75,7 +75,7 @@ def main():
     # app's models so we don't duplicate it here.
     #
     # The DATABASE_URL env var is consulted by app/database.py; if not
-    # set, it defaults to sqlite:///./politrack.db. To target a different
+    # set, it defaults to sqlite:///./lokvani.db. To target a different
     # path, set DATABASE_URL accordingly. Most users don't need to.
     if not args.dry_run:
         try:

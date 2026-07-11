@@ -108,7 +108,7 @@ where the candidate filed a corrected affidavit later):
 ```bash
 python scripts/reconcile_eci_vs_db.py \
     --extracted-dir data/eci/for_ai/output \
-    --db politrack.db \
+    --db lokvani.db \
     --election-year 2025 --state Delhi \
     --out data/eci/reconcile_delhi2025.jsonl
 ```

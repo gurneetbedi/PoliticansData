@@ -39,7 +39,7 @@ if (
     print(
         "\nERROR: DATABASE_URL is pointing at a remote Postgres database:\n"
         f"  {_DB_URL_NOW.split('@')[-1]}\n"
-        "\nIngest is meant to run against local SQLite (./politrack.db). Scraping\n"
+        "\nIngest is meant to run against local SQLite (./lokvani.db). Scraping\n"
         "into a remote DB is slow and crashes on idle-connection drops.\n"
         "\nFix:\n"
         "  1.  unset DATABASE_URL\n"
