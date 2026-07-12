@@ -127,6 +127,13 @@ echo "  Tamil Nadu (2026)"
 python scripts/load_tamilnadu_election_results.py --year 2026 || true
 
 
+
+echo ""
+echo "  West Bengal (2026)"
+python scripts/load_westbengal_election_results.py --year 2026 || true
+
+
+
 echo ""
 echo "=========================================="
 echo "POST-MIGRATE DONE"

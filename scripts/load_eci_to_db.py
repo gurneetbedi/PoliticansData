@@ -213,16 +213,28 @@ def main():
     # JOIN on states.name, LLM JSON's state field) expects TitleCase.
     # Special case multi-word state names.
     if args.state:
+        # Both spaced and no-space forms map to canonical multi-word names.
+        # Without the no-space entries, `westbengal` fell through to
+        # `.title()` → "Westbengal", which then didn't match `states.name`
+        # ("West Bengal") in the DB and required a manual UPDATE.
         _SPECIAL = {
             "jammu and kashmir": "Jammu and Kashmir",
-            "andhra pradesh":    "Andhra Pradesh",
-            "arunachal pradesh": "Arunachal Pradesh",
-            "himachal pradesh":  "Himachal Pradesh",
-            "madhya pradesh":    "Madhya Pradesh",
-            "tamil nadu":        "Tamil Nadu",
-            "uttar pradesh":     "Uttar Pradesh",
-            "west bengal":       "West Bengal",
+            "jammuandkashmir":   "Jammu and Kashmir",
             "jk":                "Jammu and Kashmir",
+            "andhra pradesh":    "Andhra Pradesh",
+            "andhrapradesh":     "Andhra Pradesh",
+            "arunachal pradesh": "Arunachal Pradesh",
+            "arunachalpradesh":  "Arunachal Pradesh",
+            "himachal pradesh":  "Himachal Pradesh",
+            "himachalpradesh":   "Himachal Pradesh",
+            "madhya pradesh":    "Madhya Pradesh",
+            "madhyapradesh":     "Madhya Pradesh",
+            "tamil nadu":        "Tamil Nadu",
+            "tamilnadu":         "Tamil Nadu",
+            "uttar pradesh":     "Uttar Pradesh",
+            "uttarpradesh":      "Uttar Pradesh",
+            "west bengal":       "West Bengal",
+            "westbengal":        "West Bengal",
         }
         lc = args.state.strip().lower()
         args.state = _SPECIAL.get(lc, args.state.strip().title())

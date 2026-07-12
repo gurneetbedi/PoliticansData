@@ -786,12 +786,14 @@ function modeColor(item, mode) {
 
   if (mode === 'party')  return item.party_color || item.color || '#7f8c8d';
   if (mode === 'wealth') {
-    const pct = Math.min(1, (item.wealth_cr || 0) / maxWealth);
-    // Pale → orange gradient for wealth (so the eye reads "bigger = darker")
-    const r = Math.round(252 - 35 * pct);
-    const g = Math.round(238 - 130 * pct);
-    const b = Math.round(231 - 152 * pct);
-    return `rgb(${r}, ${g}, ${b})`;
+    // Discrete bands so the reader can compare across constituencies
+    // without doing gradient arithmetic in their head. Thresholds in ₹Cr.
+    const w = item.wealth_cr || 0;
+    if (w < 1)   return '#fceee7';   // modest — pale peach
+    if (w < 5)   return '#f4bc9a';   // middle — light orange
+    if (w < 25)  return '#e2864f';   // wealthy — orange
+    if (w < 50)  return '#b25a26';   // ultra — dark orange
+    return '#7a2f0a';                 // crorepati elite — deep brown
   }
   if (mode === 'cases') {
     // Discrete bands so 0/1-2/3+ cases each get a clear color
@@ -1175,10 +1177,16 @@ function renderDots() {
       html += '</div>';
       legendBody.innerHTML = html;
     } else if (ctMode === 'wealth') {
-      legendTitle.textContent = 'Wealth';
+      legendTitle.textContent = 'Wealth (₹Cr)';
       legendBody.innerHTML =
-        '<div class="flex items-center gap-2"><span class="w-8 h-1.5 rounded" style="background:linear-gradient(90deg,#fceee7,#9d4300);"></span><span>Low → High ₹Cr</span></div>' +
-        '<div class="text-[9px] italic text-on-surface-variant mt-1">Dot size scales with wealth</div>';
+        '<div class="space-y-0.5">' +
+        '<div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full" style="background:#fceee7;border:1px solid #e0d5cc;"></span><span>&lt; 1 — Modest</span></div>' +
+        '<div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full" style="background:#f4bc9a;"></span><span>1 – 5 — Middle</span></div>' +
+        '<div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full" style="background:#e2864f;"></span><span>5 – 25 — Wealthy</span></div>' +
+        '<div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full" style="background:#b25a26;"></span><span>25 – 50 — Ultra</span></div>' +
+        '<div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full" style="background:#7a2f0a;"></span><span>50+ — Elite</span></div>' +
+        '</div>' +
+        '<div class="text-[9px] italic text-on-surface-variant mt-1">Dot size still scales with wealth</div>';
     } else if (ctMode === 'cases') {
       legendTitle.textContent = 'Cases';
       legendBody.innerHTML =

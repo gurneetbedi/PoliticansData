@@ -1,8 +1,19 @@
-# State Ingestion Playbook (v3)
+# State Ingestion Playbook (v4)
 
-Definitive step-by-step guide for adding a new Indian state's assembly election data to Lokvani. Reflects all the case-handling and template-leak bugs we've hit and fixed.
+Definitive step-by-step guide for adding a new Indian state's assembly election data to Lokvani. Reflects every bug, edge case, and refactor we've hit through Delhi → West Bengal.
 
 **Read this once. Then follow it top-to-bottom for every state.**
+
+---
+
+## What changed in v4
+
+- **ECI official results replace Wikipedia scraping.** New scripts `fetch_eci_results.py` + `load_eci_results.py` pull vote counts for every candidate per constituency (not just top 2), directly from `results.eci.gov.in`. The per-state Wikipedia loaders (`load_<state>_election_results.py`) are no longer used for winner marking on new states — they're kept only to generate the `--dry-run` diagnostic JSON if you need it as a sanity check.
+- **DB renamed** from `politrack.db` → `lokvani.db`. Every script now defaults to the new name.
+- **Local dev locked to SQLite.** `app/database.py` ignores any stray `DATABASE_URL` in your shell unless `USE_NEON=1`. Prod continues using Neon via Render's `RENDER=true` env var.
+- **Multi-word state names now work everywhere.** `resolve_state` in `app/main.py` was rewritten to match against `ALL_STATES` config, and `load_eci_to_db.py` + `llm_extract_via_gemini.py` normalize `--state` to TitleCase internally.
+- **Chrome CDP launcher.** For any script that needs to bypass Akamai (fetch_eci_affidavits, fetch_eci_results), use the dedicated launcher `python scripts/phase1_test_cdp_attach.py --launch` — this opens a fresh Chrome with a separate profile that Playwright can attach to.
+- **`build_top_n_allowlist.py` accepts both schemas.** Wikipedia-style flat list AND ECI-results-style dict. Auto-detects.
 
 ---
 
@@ -12,145 +23,76 @@ Definitive step-by-step guide for adding a new Indian state's assembly election 
 cd "/Users/gurneetbedi/Desktop/Claude/Project 1/Politicians Project"
 source .venv-eci/bin/activate
 export GOOGLE_APPLICATION_CREDENTIALS=secrets/lokvani-501706-a3b68700fa4a.json
-/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222 &
+
+# Launch dedicated Chrome (only needed if you don't already have it running).
+# Opens a separate profile so it doesn't clash with your everyday Chrome.
+python scripts/phase1_test_cdp_attach.py --launch
 ```
+
+**Manually in that Chrome window:** navigate to `https://affidavit.eci.gov.in/` once to warm Akamai. Minimize the window; leave it running.
 
 Set these per-state variables (used throughout):
 
 ```bash
-STATE=Gujarat                        # TitleCase — passed to --state flags
-STATE_LC=gujarat                     # lowercase — file paths and directory names
-YEAR=2022
-ECI_URL="https://affidavit.eci.gov.in/CandidateCustomFilter?...SXX..."
+STATE="West Bengal"          # TitleCase, quoted if multi-word
+STATE_LC=westbengal           # lowercase single-word — file paths + dir names
+YEAR=2026
+STATE_CODE=S25                # ECI state code (see registry below)
+AFFIDAVIT_URL="https://affidavit.eci.gov.in/CandidateCustomFilter?electionType=32-AC-GENERAL-3-60&election=32-AC-GENERAL-3-60&states=S25&submitName=100&page=2"
+RESULTS_BASE="https://results.eci.gov.in/ResultAcGenMay2026/"
 ```
 
-**Multi-word states** (Uttar Pradesh, Jammu and Kashmir, etc.): use full TitleCase for `STATE`, lowercase-with-underscores for `STATE_LC`.
+**Multi-word states** (Uttar Pradesh, Jammu and Kashmir, Andhra Pradesh, Madhya Pradesh, Tamil Nadu, Himachal Pradesh, Arunachal Pradesh, West Bengal): use quoted TitleCase for `STATE`, lowercase-with-no-spaces for `STATE_LC` (e.g. `uttarpradesh`, `westbengal`).
 
 ---
 
-## Step 1 — Create the loader script
+## Step 1 — Scrape official ECI results (NEW)
+
+Directly replaces the old Wikipedia loader. Pulls all 3220-ish candidates for West Bengal (or whatever fits your state) with real vote counts.
 
 ```bash
-cp scripts/load_chhattisgarh_election_results.py \
-   scripts/load_${STATE_LC}_election_results.py
+mkdir -p data/eci/results
 
-# Three-case sed (uppercase, TitleCase, lowercase)
-sed -i '' "s/CHHATTISGARH/$(echo $STATE_LC | tr a-z A-Z)/g; \
-           s/Chhattisgarh/$STATE/g; \
-           s/chhattisgarh/$STATE_LC/g" \
-  scripts/load_${STATE_LC}_election_results.py
+python scripts/fetch_eci_results.py \
+  --state "$STATE" \
+  --year $YEAR \
+  --state-code $STATE_CODE \
+  --results-base $RESULTS_BASE \
+  --out data/eci/results/${STATE_LC}_${YEAR}_eci_results.json
 ```
 
-**Then manually edit the file:**
-- Update `WIKI_URLS` dict with the correct Wikipedia URL (verify by opening in browser).
-- Reset `<STATE>_<YEAR>_COLS` to:
-  ```python
-  { "table_index": None, "header_rows": 2, "cols": {} }
-  ```
-
-**Verify template didn't leak:**
-```bash
-grep -i chhattisgarh scripts/load_${STATE_LC}_election_results.py   # should return nothing
-grep STATE_NAME scripts/load_${STATE_LC}_election_results.py        # should show TitleCase state name
-grep -A2 "if not expected" scripts/load_${STATE_LC}_election_results.py  # must have the bypass clause
-```
-
-The bypass clause must look like:
-```python
-if not expected and not (args.dump_tables or args.dry_run):
-    sys.exit(...)
-```
-
-If missing, apply this fix:
-```bash
-python3 -c "
-import re
-p = 'scripts/load_${STATE_LC}_election_results.py'
-s = open(p).read()
-s = re.sub(r'if not expected:\s*\n(\s+)sys\.exit',
-           r'if not expected and not (args.dump_tables or args.dry_run):\n\1sys.exit', s)
-open(p, 'w').write(s)
-"
-```
-
-Also verify the row filter is not overly strict:
-```bash
-grep "not in expected" scripts/load_${STATE_LC}_election_results.py
-```
-Must be `if expected and const_norm not in expected:` — NOT `if not const_norm or const_norm not in expected:`.
-
----
-
-## Step 2 — Fill the column map
-
-**Auto-fill (fast path):**
-```bash
-python scripts/auto_fill_column_map.py --state $STATE_LC --year $YEAR
-```
-
-Look for `Parsed N ✓`. If it says "Rescued" or a low count, verify manually.
-
-**Manual fallback (3 min):**
-
-1. Dump all tables and find the one matching your assembly size:
-   ```bash
-   python scripts/load_${STATE_LC}_election_results.py --year $YEAR \
-     --dump-tables --refetch 2>&1 | grep -E "^  Table [0-9]+:"
-   ```
-
-2. Pick the table whose row count matches assembly size (±2) AND whose header 0 is like `['District', 'Constituency', 'Winner', 'Runner up', 'Margin']`.
-
-3. Look at sample rows via:
-   ```bash
-   python scripts/load_${STATE_LC}_election_results.py --year $YEAR \
-     --dump-tables --refetch 2>&1 | grep -A5 "^  Table <N>:"
-   ```
-
-4. For the standard **NE-13-cell layout** (90% of states — subsequent rows have 13 cells), use:
-   ```python
-   <STATE>_<YEAR>_COLS = {
-       "table_index": <N>,
-       "header_rows": 2,
-       "cols": {
-           "constituency": -12,
-           "winner_name":  -11,
-           "winner_party":  -9,
-           "winner_votes":  -8,
-           "winner_pct":    -7,
-           "runner_name":   -6,
-           "runner_party":  -4,
-           "runner_votes":  -3,
-           "runner_pct":    -2,
-       },
-   }
-   ```
-
-5. **Variants** (check header row 1):
-   - **Turnout column** (Haryana, Sikkim 2019): shift `constituency` to `-13`; other offsets unchanged.
-   - **Two Votes/% pairs at end** (Goa 2022, Jharkhand 2024): shift `constituency` to `-13`; other offsets unchanged.
+Runs ~5 min (294 constituencies × ~1 sec each). Requires the dedicated Chrome from Preflight to be running. Output JSON has `constituencies[].candidates[]` with rank, party, EVM votes, postal votes, total votes, vote %, and a `won` flag.
 
 **Verify:**
 ```bash
-python scripts/load_${STATE_LC}_election_results.py --year $YEAR --dry-run --refetch
+python3 -c "
+import json
+d = json.load(open('data/eci/results/${STATE_LC}_${YEAR}_eci_results.json'))
+c = sum(len(x['candidates']) for x in d['constituencies'])
+print(f'Constituencies: {len(d[\"constituencies\"])} · Candidates: {c}')
+"
 ```
-Expect `Parsed <assembly-size> constituencies (0 skipped)`. If not, offsets are wrong — recount from the right on a 13-cell sample row.
+
+Expected: constituency count = assembly size; candidates = 3-8 × assembly size (varies by state).
 
 ---
 
-## Step 3 — Fetch all PDFs (30-60 min)
+## Step 2 — Fetch all candidate affidavits from ECI (30-60 min)
+
+The affidavit fetcher uses the same dedicated Chrome as Step 1.
 
 ```bash
 mkdir -p data/eci/raw_pdfs/${STATE_LC}-${YEAR}
 
 python scripts/fetch_eci_affidavits.py \
-  --listing-url "$ECI_URL" \
+  --listing-url "$AFFIDAVIT_URL" \
   --output data/eci/raw_pdfs/${STATE_LC}-${YEAR} \
   --concurrent-tabs 3 --dedupe-listing
 ```
 
-If Chrome dies mid-run, re-run same command (resume-safe via manifest.jsonl).
+If Chrome dies mid-run, re-run the same command (resume-safe via manifest.jsonl).
 
-**Flatten if the fetcher put PDFs in a subdirectory:**
+**Flatten if PDFs land in a subdirectory:**
 ```bash
 [ -d data/eci/raw_pdfs/${STATE_LC}-${YEAR}/raw_pdfs ] && \
   mv data/eci/raw_pdfs/${STATE_LC}-${YEAR}/raw_pdfs/*.pdf \
@@ -159,7 +101,7 @@ If Chrome dies mid-run, re-run same command (resume-safe via manifest.jsonl).
 
 ---
 
-## Step 4 — Corrupt PDF sweep (only if > 2% corruption)
+## Step 3 — Corrupt PDF sweep (only if > 2% corruption)
 
 ```bash
 find data/eci/raw_pdfs/${STATE_LC}-${YEAR} -name "*_corrupt.txt" | wc -l
@@ -169,40 +111,47 @@ If under 2% of total, skip. Otherwise:
 ```bash
 find data/eci/raw_pdfs/${STATE_LC}-${YEAR} -name "*_corrupt.txt" -delete
 python scripts/refetch_corrupt_pdfs.py --state ${STATE_LC}-${YEAR}
-python scripts/fetch_eci_affidavits.py --listing-url "$ECI_URL" \
+python scripts/fetch_eci_affidavits.py --listing-url "$AFFIDAVIT_URL" \
   --output data/eci/raw_pdfs/${STATE_LC}-${YEAR} \
   --concurrent-tabs 1 --dedupe-listing
 ```
 
 ---
 
-## Step 5 — Build top-4 allowlist
+## Step 4 — Build top-N allowlist
+
+The builder auto-detects the ECI-results JSON schema and skips NOTA entries.
 
 ```bash
 mkdir -p data/allowlists
 
+# For cost control: top-2 (winner + runner-up) → ~588 PDFs for WB.
 python scripts/build_top_n_allowlist.py \
-  --results data/eci/results/${STATE_LC}_${YEAR}_results.json \
+  --results data/eci/results/${STATE_LC}_${YEAR}_eci_results.json \
   --manifest data/eci/raw_pdfs/${STATE_LC}-${YEAR}/manifest.jsonl \
-  --output data/allowlists/${STATE_LC}_${YEAR}_top4.txt \
-  --top-n 4
+  --output data/allowlists/${STATE_LC}_${YEAR}_top2.txt \
+  --top-n 2
+
+# For richer coverage: top-4 → ~1176 PDFs. Use later if desired.
 ```
+
+Expected log line: `(detected ECI-results schema, converted N constituencies)`.
 
 ---
 
-## Step 6 — OCR only the allowlist (~10-15 min)
+## Step 5 — OCR only the allowlist (~10-15 min, ~$0.75 for top-2)
 
 ```bash
 python scripts/cloud_vision_preprocess.py \
   --pdf-dir data/eci/raw_pdfs/${STATE_LC}-${YEAR} \
   --out-dir data/eci/for_ai/preprocessed_${STATE_LC}_${YEAR} \
-  --pdf-allowlist data/allowlists/${STATE_LC}_${YEAR}_top4.txt \
+  --pdf-allowlist data/allowlists/${STATE_LC}_${YEAR}_top2.txt \
   --workers 4
 ```
 
 ---
 
-## Step 7 — Structured extract → CSV
+## Step 6 — Structured extract → CSV
 
 ```bash
 python scripts/extract_structured.py \
@@ -213,7 +162,7 @@ python scripts/extract_structured.py \
 
 ---
 
-## Step 8 — Load to provisional table
+## Step 7 — Load to provisional table
 
 ```bash
 python scripts/load_eci_to_db.py \
@@ -224,17 +173,39 @@ python scripts/load_eci_to_db.py \
   --manifest data/eci/raw_pdfs/${STATE_LC}-${YEAR}/manifest.jsonl
 ```
 
-The script now normalizes `--state` to TitleCase internally (multi-word states included), so any case works.
+`--state` is normalized to TitleCase internally, so any case works — but stay consistent by passing the exact `$STATE` variable.
 
 ---
 
-## Step 9 — Migrate provisional → canonical
+## Step 8 — Migrate provisional → canonical
 
 ```bash
 env -u DATABASE_URL python scripts/migrate_to_eci_only.py
 ```
 
-This creates the `constituencies` and initial `election_appearances` rows for your state.
+Creates `constituencies` + initial `election_appearances` rows for your state.
+
+**Verify DB state:**
+```bash
+python3 -c "
+import sqlite3
+c = sqlite3.connect('lokvani.db').cursor()
+for r in c.execute('SELECT s.name, COUNT(c.id) FROM states s LEFT JOIN constituencies c ON c.state_id=s.id WHERE lower(s.name) LIKE \"%$STATE_LC%\" GROUP BY s.name'):
+    print(r)
+"
+```
+Should show `('$STATE', <assembly-size>)`.
+
+---
+
+## Step 9 — Apply ECI results (marks winners + votes)
+
+```bash
+python scripts/load_eci_results.py \
+  --results data/eci/results/${STATE_LC}_${YEAR}_eci_results.json
+```
+
+Fuzzy-matches candidate names in the DB to the ECI results and sets `won`, `votes_received`, `vote_share_pct`. Expected: `Winners flagged: <assembly-size>, Updated: <top-N × assembly-size>`.
 
 ---
 
@@ -251,54 +222,38 @@ python scripts/llm_extract_via_gemini.py \
   --workers 4
 ```
 
-Idempotent — re-run to pick up any PDFs that failed. Pass `--refresh` to force re-extraction.
+Idempotent — re-run to pick up any files that failed. Pass `--refresh` to force re-extraction.
 
 ---
 
-## Step 11 — Apply LLM extraction to canonical DB
+## Step 11 — Apply LLM extraction
 
 ```bash
 python scripts/apply_llm_extraction.py --cycles ${STATE_LC}_${YEAR}
 ```
 
----
-
-## Step 12 — Run the loader (marks winners + vote counts)
-
-```bash
-python scripts/load_${STATE_LC}_election_results.py --year $YEAR
-```
-
-Expect `Winners set: ~<assembly-size>, Runners-up: ~<assembly-size>, Unmatched: <few>`.
+Fills in financials (assets, liabilities, movable/immovable) + criminal case counts on the appearance rows.
 
 ---
 
-## Step 13 — Register state in the app
+## Step 12 — Register state in the app
 
 **Edit `app/states.py`:**
-- Add your state entry to `ALL_STATES` (the visible dict), NOT `_ALL_STATES_HISTORICAL` (internal-only).
+- Add `"${STATE_LC}": ${STATE_UC}_CONFIG,` to the `ALL_STATES` dict (the visible one) — NOT `_ALL_STATES_HISTORICAL`.
 - Remove from `_HIDDEN_STATES` if present.
 
 **Edit `scripts/postmigrate.sh`** — append before the verification block:
 ```bash
 echo ""
 echo "  $STATE ($YEAR)"
-python scripts/load_${STATE_LC}_election_results.py --year $YEAR || true
+python scripts/load_eci_results.py --results data/eci/results/${STATE_LC}_${YEAR}_eci_results.json || true
 ```
+
+Note: replaces the old `load_<state>_election_results.py` line.
 
 ---
 
-## Step 14 — Re-run postmigrate (verifies everything is wired)
-
-```bash
-bash scripts/postmigrate.sh
-```
-
-Bottom shows coverage table — confirm your state has non-zero `winners` and `verified_LLM`.
-
----
-
-## Step 15 — Verify locally
+## Step 13 — Verify locally
 
 ```bash
 python3 -c "
@@ -312,22 +267,22 @@ print(f'total={r[0]} winners={r[1]} with_assets={r[2]}')
 "
 ```
 
-All three should be non-zero. If any is zero, DO NOT proceed to sync.
+All three should be non-zero. **If any is zero, DO NOT proceed to sync.**
 
-**Then restart the server (uses local SQLite):**
+Restart the server (uses local SQLite):
 ```bash
 pkill -9 -f uvicorn
 uvicorn app.main:app --reload
 ```
 
-Hard-refresh the browser (Cmd+Shift+R), hover the state on the map — should show MLA count and financial data.
+Hard-refresh the browser (Cmd+Shift+R), hover the state on the map — should show correct MLA count and financial data.
 
 ---
 
-## Step 16 — Sync to Neon + deploy
+## Step 14 — Sync to Neon + deploy
 
 ```bash
-# Neon connection needed for sync only
+# Neon connection needed for sync only. Sourced in subshell to avoid polluting.
 (set -a; source secrets/.env; set +a; python scripts/sqlite_to_postgres.py --reset)
 
 git add -A
@@ -346,9 +301,9 @@ Render auto-deploys. Wait ~2 min, then open the prod site and spot-check 3 const
 | State | Seats | Priority |
 |---|---|---|
 | Puducherry | 30 | Small (done) |
+| Sikkim | 32 | Small (done) |
 | Goa | 40 | Small (done) |
 | Mizoram | 40 | Small (done) |
-| Sikkim | 32 | Small (done) |
 | Meghalaya | 60 | Small (done) |
 | Nagaland | 60 | Small (done) |
 | Manipur | 60 | Small (done) |
@@ -363,57 +318,29 @@ Render auto-deploys. Wait ~2 min, then open the prod site and spot-check 3 const
 | Chhattisgarh | 90 | Small (done) |
 | Punjab | 117 | Small (done) |
 | Telangana | 119 | Small (done) |
-| **Assam** | **126** | Mid (done) |
-| **Kerala** | **140** | Mid |
+| Assam | 126 | Mid (done) |
+| Kerala | 140 | Mid (done) |
+| Gujarat | 182 | Mid (done) |
+| **Tamil Nadu** | **234** | Large (in progress) |
+| **West Bengal** | **294** | Large (in progress) |
 | **Odisha** | **147** | Mid |
 | **Andhra Pradesh** | **175** | Mid |
-| **Gujarat** | **182** | Mid |
 | **Rajasthan** | **200** | Mid |
 | **Karnataka** | **224** | Mid |
 | **Madhya Pradesh** | **230** | Mid |
-| **Tamil Nadu** | **234** | Large |
 | **Bihar** | **243** | Large |
 | **Maharashtra** | **288** | Large |
-| **West Bengal** | **294** | Large |
 | **Uttar Pradesh** | **403** | Large |
 
-Do small first, UP last.
+## ECI results portal URLs (registry)
 
-## Priority order for remaining states
-
-Kerala → Odisha → Andhra Pradesh → Gujarat → Rajasthan → Karnataka → Madhya Pradesh → Tamil Nadu → Bihar → Maharashtra → West Bengal → Uttar Pradesh
-
-## Script flag cheatsheet
-
-| Script | Required flags |
-|---|---|
-| `auto_fill_column_map.py` | `--state --year` |
-| `load_<state>_election_results.py` | `--year` (add `--dry-run --dump-tables --refetch` for testing) |
-| `fetch_eci_affidavits.py` | `--listing-url --output` |
-| `refetch_corrupt_pdfs.py` | `--state` (hyphenated form: `gujarat-2022`) |
-| `build_top_n_allowlist.py` | `--results --manifest --output --top-n` |
-| `cloud_vision_preprocess.py` | `--pdf-dir --out-dir` (opt: `--pdf-allowlist --workers --limit`) |
-| `extract_structured.py` | `--in-dir --out-dir --prefix` |
-| `load_eci_to_db.py` | `--csv --state --election-year --election-type --manifest` |
-| `migrate_to_eci_only.py` | none (prepend `env -u DATABASE_URL`) |
-| `llm_extract_via_gemini.py` | `--in-dir --out-dir --state --year --workers` |
-| `apply_llm_extraction.py` | `--cycles` (underscored form: `gujarat_2022`) |
-| `sqlite_to_postgres.py` | `--reset` (requires `DATABASE_URL` set inline) |
-
-## Naming conventions
-
-Four name forms coexist:
-
-| Form | Where | Example |
+| Election window | States held | Base URL |
 |---|---|---|
-| **TitleCase** | `--state` flag values, `states.name` in DB, LLM JSON's state field, loader's `STATE_NAME` | `Gujarat`, `Uttar Pradesh` |
-| **lowercase** | Directory suffixes for OCR/allowlist, filenames, ALL_STATES key | `gujarat`, `uttar_pradesh` |
-| **hyphenated** | Directory suffix under `raw_pdfs/`, `--state` for `refetch_corrupt_pdfs.py` | `gujarat-2022` |
-| **underscored** | Directory suffix under `preprocessed_/llm_extracted/`, `--cycles` for `apply_llm_extraction.py` | `gujarat_2022` |
+| **May 2026** | Assam, Kerala, West Bengal, Tamil Nadu, Puducherry | `https://results.eci.gov.in/ResultAcGenMay2026/` |
+| **Nov 2024** | Maharashtra, Jharkhand | `https://results.eci.gov.in/ResultAcGenNov2024/` (verify) |
+| **Older** | To be probed as encountered | Grep from `results.eci.gov.in` archive |
 
-## ECI state codes
-
-For the URL's `states=SXX` parameter:
+## ECI state codes (for `--state-code` and affidavit URL `states=SXX`)
 
 | State | Code | State | Code |
 |---|---|---|---|
@@ -431,8 +358,34 @@ For the URL's `states=SXX` parameter:
 | MP | S12 | West Bengal | S25 |
 | Maharashtra | S13 | Chhattisgarh | S26 |
 | Jharkhand | S27 | Uttarakhand | S28 |
-| Delhi | U05 | Telangana | S29 |
+| Telangana | S29 | Delhi | U05 |
 | Puducherry | U06 | | |
+
+## Script flag cheatsheet
+
+| Script | Required flags |
+|---|---|
+| `fetch_eci_results.py` | `--state --year --state-code --results-base --out` |
+| `load_eci_results.py` | `--results` |
+| `fetch_eci_affidavits.py` | `--listing-url --output` |
+| `refetch_corrupt_pdfs.py` | `--state` (hyphenated: `westbengal-2026`) |
+| `build_top_n_allowlist.py` | `--results --manifest --output --top-n` (auto-detects schema) |
+| `cloud_vision_preprocess.py` | `--pdf-dir --out-dir` (opt: `--pdf-allowlist --workers --limit`) |
+| `extract_structured.py` | `--in-dir --out-dir --prefix` |
+| `load_eci_to_db.py` | `--csv --state --election-year --election-type --manifest` |
+| `migrate_to_eci_only.py` | none (prepend `env -u DATABASE_URL`) |
+| `llm_extract_via_gemini.py` | `--in-dir --out-dir --state --year --workers` |
+| `apply_llm_extraction.py` | `--cycles` (underscored: `westbengal_2026`) |
+| `sqlite_to_postgres.py` | `--reset` (requires `DATABASE_URL` set inline) |
+
+## Naming conventions
+
+| Form | Where | Example |
+|---|---|---|
+| **TitleCase quoted** | `--state` values, `states.name`, LLM JSON's state field, loader's STATE_NAME, ECI results scraper | `"West Bengal"`, `"Uttar Pradesh"` |
+| **lowercase single-word** | Directory suffixes, filenames, ALL_STATES key | `westbengal`, `uttarpradesh` |
+| **hyphenated** | Directory suffix under `raw_pdfs/`, `--state` for `refetch_corrupt_pdfs.py` | `westbengal-2026` |
+| **underscored** | Directory suffix under `preprocessed_/llm_extracted/`, `--cycles` for `apply_llm_extraction.py` | `westbengal_2026` |
 
 ---
 
@@ -440,39 +393,37 @@ For the URL's `states=SXX` parameter:
 
 | Symptom | Cause | Fix |
 |---|---|---|
-| Loader: `Parsed 0 (N skipped)` | Column map wrong | Recount from right in Step 2 |
-| Loader: `Parsed 0 (N unrecognized)` | Filter rejects when DB empty | Fix line: `if expected and const_norm not in expected:` |
-| Loader: `<state> constituencies in DB: 0` (with --dump-tables) | Missing bypass clause | Fix: `if not expected and not (args.dump_tables or args.dry_run):` |
-| Loader: `Saved 0 to chhattisgarh_...json` | sed missed lowercase state | Three-case sed with `s/chhattisgarh/$STATE_LC/g` |
+| `fetch_eci_results.py`: 403 Forbidden | Akamai TLS-fingerprinting | Use CDP-attached Chrome via `phase1_test_cdp_attach.py --launch`, warm it manually |
+| `Could not attach to Chrome on port 9222` | Chrome not launched with debug port | Kill Chrome, run `phase1_test_cdp_attach.py --launch` |
 | Fetcher: "Frame has been detached" | Chrome instability | Re-run — auto-retries |
-| Fetcher: 5-15% corrupt PDFs | `--concurrent-tabs` too high | Step 4 with `--concurrent-tabs 1` |
-| OCR: `No PDFs in <dir>` | Fetcher put files in subdir | `mv <dir>/raw_pdfs/*.pdf <dir>/` |
+| Fetcher: 5-15% corrupt PDFs | `--concurrent-tabs` too high | Step 3 with `--concurrent-tabs 1` |
+| Allowlist: `'str' object has no attribute 'get'` | Old build_top_n_allowlist.py without schema detection | Update to latest — check line 121 has `# Detect schema` |
+| OCR: `No PDFs in <dir>` | Fetcher put files in subdir | Run flatten command from Step 2 |
 | Gemini: 403 | Wrong GCP creds | Re-export `GOOGLE_APPLICATION_CREDENTIALS` |
-| Migrate: `YOUR_USER` errors | `.env` has placeholders | Fix `secrets/.env` with real Neon URL |
-| Postmigrate coverage shows 0 winners | Loader missing from postmigrate.sh | Add loader line (Step 13) |
-| Map shows "Data Not Available" locally | State not in `ALL_STATES` or server not restarted | Verify Step 13 + `pkill -9 -f uvicorn` |
-| Map shows "0 MLAs" locally | `DATABASE_URL` in shell → server hits Neon | `unset DATABASE_URL` before uvicorn |
-| Map shows 0 MLAs on prod | Neon not synced | Step 16 |
-| `Gujarat Pradesh` in URLs/vars | Template leak from *Pradesh loader | `sed -i '' 's/Gujarat Pradesh/Gujarat/g' <file>` |
-| `WIKI_URLS = {}` empty | Manual edit skipped | Add `2022: "https://en.wikipedia.org/wiki/2022_Gujarat_Legislative_Assembly_election"` |
-| `STATE_NAME = "gujarat"` lowercase | sed only did lowercase | `sed -i '' 's/STATE_NAME   = "gujarat"/STATE_NAME   = "Gujarat"/' <file>` |
-| Loader: cache path has old state name | Missed lowercase replacement | `sed -i '' 's/<old>/<new>/g' <file>` — verify with `grep -i <old>` |
+| `load_eci_results.py`: `No appearances in DB` | Haven't run Steps 7-8 yet | Complete affidavit pipeline first |
+| Loader/results: 0 matches | State-name case mismatch | Verify DB with query; update `states.name` if needed |
+| Site shows "Data Not Available" locally | State not in `ALL_STATES` or server not restarted | Verify Step 12 + `pkill -9 -f uvicorn` |
+| Site queries hit Neon locally | `DATABASE_URL` in shell | Fixed automatically by `app/database.py` — no manual unset needed |
+| Site shows 0 MLAs on prod | Neon not synced | Step 14 |
+| DB has `states.name = 'Tamilnadu'` but loader queries `'Tamil Nadu'` | `load_eci_to_db.py` TitleCased single-word input | `UPDATE states SET name='Tamil Nadu' WHERE name='Tamilnadu'`; always pass quoted TitleCase |
 
 ---
 
 # Key rules
 
-1. **`--state` value = TitleCase** everywhere: `Gujarat`, `Uttar Pradesh`, `Jammu and Kashmir`. The scripts normalize internally, but stay consistent for readability.
-2. **File paths + directory suffixes = lowercase**: `gujarat-2022`, `gujarat_2022`.
-3. **Add to `ALL_STATES`, not `_ALL_STATES_HISTORICAL`** in `app/states.py`.
-4. **postmigrate.sh must contain your state's loader line**, otherwise migrate wipes winners on next run.
-5. **After DB changes**: hard-kill uvicorn (`pkill -9 -f uvicorn`) then restart. `--reload` isn't reliable for DB changes.
-6. **`DATABASE_URL` is now shielded from local dev** by `app/database.py`. Local always uses SQLite. Escape hatch: `USE_NEON=1 uvicorn app.main:app`.
-7. **Verify locally before syncing**: winners > 0 AND with_assets > 0 in SQLite. If not, don't push.
-8. **Sync command needs DATABASE_URL inline**:
+1. **`--state` value = TitleCase, quoted if multi-word.** Never `--state westbengal` or `--state west bengal`.
+2. **Assembly cycle URL** discoveries go into the registry — commit the update as you learn them.
+3. **The dedicated Chrome must stay running** during any step that touches ECI portals (Steps 1, 2, 3).
+4. **`app/states.py`** — add to `ALL_STATES`, not `_ALL_STATES_HISTORICAL`.
+5. **`postmigrate.sh`** must contain your state's `load_eci_results.py` line, not the old Wikipedia loader.
+6. **`lokvani.db`** is the DB file. Never manually create `politrack.db` — that's the old name.
+7. **After DB changes**: hard-kill uvicorn (`pkill -9 -f uvicorn`) then restart.
+8. **Verify locally before syncing**: winners > 0 AND with_assets > 0 in SQLite. If not, don't push.
+9. **Sync command needs DATABASE_URL inline**:
    ```bash
    (set -a; source secrets/.env; set +a; python scripts/sqlite_to_postgres.py --reset)
    ```
+10. **`top-N` in the allowlist** controls OCR + Gemini cost. Top-2 is cheapest (~$0.75 for WB). Top-4 costs ~2x and gives more candidates on the site. You can re-run Step 4-11 later with a higher N.
 
 ---
 
@@ -481,12 +432,9 @@ For the URL's `states=SXX` parameter:
 After committing + Render deploy completes:
 
 1. Open `https://lokvani.example.com/state/${STATE_LC}` — should render with correct constituency count.
-2. Click 3 random constituencies — winner names should match Wikipedia.
+2. Click 3 random constituencies — winner names should match ECI results portal.
 3. Check the India map — state should be shaded appropriately (green/tan) with correct MLA count.
-4. Check hero-strip stats page — MLA count, avg wealth, avg cases should all be non-zero.
+4. Hover the state on the map — tooltip should show correct MLA count + election year.
+5. Check the coverage snapshot — party-wise coverage table should populate.
 
-If any check fails, roll back the sync:
-```bash
-(set -a; source secrets/.env; set +a; python scripts/sqlite_to_postgres.py --reset)
-# followed by another sync once fixed locally
-```
+If any check fails, fix locally, re-run the affected step, re-sync, re-push.

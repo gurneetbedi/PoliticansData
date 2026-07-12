@@ -114,9 +114,32 @@ def main():
     results_path = Path(args.results)
     if not results_path.exists():
         sys.exit(f"Results file not found: {results_path}")
-    results = json.loads(results_path.read_text())
-    if not results:
+    raw = json.loads(results_path.read_text())
+    if not raw:
         sys.exit("Results JSON is empty. Did the state loader parse anything?")
+
+    # Detect schema — Wikipedia-style is a flat list; the newer ECI-results
+    # schema is a dict with a "constituencies" key. Normalize to a flat list.
+    if isinstance(raw, dict) and "constituencies" in raw:
+        results = []
+        for c in raw["constituencies"]:
+            row = {
+                "constituency_raw": c.get("name", ""),
+                "candidates": [],
+            }
+            for cand in c.get("candidates", []):
+                if cand.get("name", "").strip().upper() == "NOTA":
+                    continue  # skip NOTA — no affidavit to allowlist
+                row["candidates"].append({
+                    "name":  cand.get("name", ""),
+                    "rank":  cand.get("rank", 999),
+                    "votes": cand.get("total_votes"),
+                })
+            results.append(row)
+        print(f"  (detected ECI-results schema, "
+              f"converted {len(results)} constituencies)", file=sys.stderr)
+    else:
+        results = raw
 
     # Build wiki index: {const_norm: [{name, rank, votes}, ...]}
     wiki_by_const: dict[str, list[dict]] = {}

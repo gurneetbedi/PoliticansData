@@ -430,11 +430,14 @@ def heatmap(
     state: str = Depends(resolve_state),
 ):
     """State-wise Transparency Heatmap — India choropleth + selected-state constituency grid."""
+    # Build a {state_name: zone_label} lookup so the sidebar can group by zone.
+    state_zones = {cfg.name: cfg.zone for cfg in _ALL_STATES.values() if cfg.zone}
     return templates.TemplateResponse("heatmap.html", {
         "request": request,
         "state":   state,
         "tiles":   services.constituency_tiles(db, state_name=state),
         "kpis":    services.hero_kpis(db, house="Assembly", scope="current", state_name=state),
+        "state_zones": state_zones,
         "india_states": [
             {"name": s_name, "kpi": services.hero_kpis(db, house="Assembly", scope="current", state_name=s_name)}
             for s_name in TRACKED_STATE_NAMES

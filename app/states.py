@@ -379,6 +379,31 @@ TAMIL_NADU = StateConfig(
         "TENKASI", "TIRUNELVELI", "KANNIYAKUMARI",
     },
 )
+
+
+
+WEST_BENGAL = StateConfig(
+    key="west_bengal", name="West Bengal", code="WB", zone="East",
+    assembly_cycles=[
+        {"year": 2026, "slug": "westbengal2026"},
+        {"year": 2021, "slug": "westbengal2021"},
+        {"year": 2016, "slug": "westbengal2016"},
+        {"year": 2011, "slug": "westbengal2011"},
+    ],
+    ls_pcs={
+        "COOCH BEHAR", "ALIPURDUARS", "JALPAIGURI", "DARJEELING",
+        "RAIGANJ", "BALURGHAT", "MALDAHA UTTAR", "MALDAHA DAKSHIN",
+        "JANGIPUR", "MURSHIDABAD", "BAHARAMPUR", "KRISHNANAGAR",
+        "RANAGHAT", "BANGAON", "BARRACKPORE", "DUM DUM",
+        "BARASAT", "BASIRHAT", "JAYNAGAR", "MATHURAPUR",
+        "DIAMOND HARBOUR", "JADAVPUR", "KOLKATA DAKSHIN", "KOLKATA UTTAR",
+        "HOWRAH", "ULUBERIA", "SREERAMPUR", "HOOGHLY",
+        "ARAMBAGH", "TAMLUK", "KANTHI", "GHATAL",
+        "JHARGRAM", "MEDINIPUR", "PURULIA", "BANKURA",
+        "BISHNUPUR", "BARDHAMAN PURBA", "BARDHAMAN-DURGAPUR",
+        "ASANSOL", "BOLPUR", "BIRBHUM",
+    },
+)
 # Active states — must have ECI affidavit data loaded for the listed
 # cycles before being added here. The other StateConfig objects above
 # are preserved in source so we can re-enable them as we backfill ECI
@@ -406,6 +431,7 @@ ALL_STATES: dict[str, StateConfig] = {
     "kerala":       KERALA,       # 2026 cycle — Tier 2 (South)
     "gujarat":      GUJARAT,      # 2022 cycle — Tier 2 (West)
     "tamil_nadu":   TAMIL_NADU,   # 2026 cycle — Tier 2 (South)
+    "westbengal":   WEST_BENGAL,   # 2026 cycle — Tier 2 (South)
 }
 
 # States we ingested but hid pending latest-cycle data. Empty right now —

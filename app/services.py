@@ -181,28 +181,129 @@ def coverage_summary(db: Session) -> list[dict]:
     return out
 
 
-# Brand colors for major Punjab parties. Used in badges, the scatter chart,
-# and constituency tiles. Falls back to grey for unknown parties.
+# Brand colors for major parties across India. Used in badges, the scatter
+# chart, and constituency tiles. Falls back to a party-hash color for
+# unknown short_names (so nothing shows up as grey by default).
 PARTY_COLORS: dict[str, str] = {
-    "AAP":  "#019cdf",
-    "INC":  "#19aaed",
-    "BJP":  "#ff9933",
-    "SAD":  "#1a3399",
-    "BSP":  "#22336d",
-    "SAD(B)": "#1a3399",
-    "CPI":  "#c0392b",
-    "CPM":  "#c0392b",
-    "IND":  "#7f8c8d",
-    "NOTA": "#34495e",
+    # National parties
+    "BJP":     "#ff9933",   # saffron
+    "INC":     "#19aaed",   # sky blue (was official cyan; matches AICC)
+    "AAP":     "#019cdf",   # AAP electric blue
+    "BSP":     "#22336d",   # deep indigo
+    "CPI":     "#c0392b",   # red
+    "CPM":     "#c0392b",   # red
+    "CPI(M)":  "#c0392b",
+    "CPI(ML)": "#8b0000",
+    "NCP":     "#00bfff",   # cyan
+    "NCP(SP)": "#00bfff",
+    "NCP(SCP)":"#0080ff",
+
+    # Regional — East / West Bengal / Odisha / Bihar
+    "AITC":    "#20b2aa",   # TMC teal
+    "TMC":     "#20b2aa",
+    "AJUP":    "#8fbc8f",
+    "AISF":    "#dc143c",
+    "BJD":     "#3cb371",   # Biju Janata Dal green
+    "RJD":     "#006400",   # RJD dark green
+    "JDU":     "#004225",
+    "JD(U)":   "#004225",
+    "JD(S)":   "#7ac74f",
+    "LJP":     "#4682b4",
+    "LJP(RV)": "#4682b4",
+    "HAM":     "#b8860b",
+
+    # Regional — South
+    "DMK":     "#e63946",   # DMK red
+    "AIADMK":  "#046a38",   # AIADMK green
+    "ADMK":    "#046a38",
+    "TVK":     "#8e44ad",   # Vijay's party TVK purple
+    "PMK":     "#f6b800",   # PMK yellow
+    "IUML":    "#008000",   # green
+    "MDMK":    "#c62828",
+    "DMDK":    "#ff6f00",
+    "VCK":     "#0f9d58",
+    "TDP":     "#ffd700",   # TDP yellow
+    "YSRCP":   "#4b0082",   # YSR indigo
+    "YSRC":    "#4b0082",
+    "JSP":     "#e91e63",   # Jana Sena pink
+    "BRS":     "#ec407a",   # BRS pink
+    "TRS":     "#ec407a",
+    "KEC":     "#00695c",
+    "KC":      "#00695c",
+    "KC(M)":   "#00695c",
+    "LDF":     "#b71c1c",
+    "UDF":     "#0288d1",
+    "AIMIM":   "#004d40",   # dark green
+    "AINRC":   "#ffab00",   # Puducherry
+
+    # Regional — North / Central
+    "SP":      "#ff0000",   # Samajwadi Party red
+    "SAD":     "#1a3399",   # Shiromani Akali Dal navy
+    "SAD(B)":  "#1a3399",
+    "RLD":     "#b1a11e",
+    "SS":      "#f39c12",   # Shiv Sena
+    "SHS":     "#f39c12",
+    "SHS(UBT)":"#e67e22",   # Sena UBT
+    "SS(UBT)": "#e67e22",
+    "MNS":     "#e74c3c",
+    "JKPDP":   "#0f57b6",
+    "JKN":     "#dc143c",   # National Conference J&K
+    "JKNC":    "#dc143c",
+    "NPP":     "#8b4513",
+    "NPF":     "#800080",
+    "NDPP":    "#8b0000",
+    "MPP":     "#e91e63",
+    "SKM":     "#7cb342",
+    "SDF":     "#33691e",
+    "MGP":     "#ff7043",
+    "RGP":     "#00acc1",
+
+    # Grouping labels used in some tooltips
+    "NDA":     "#ff9933",
+    "UPA":     "#19aaed",
+    "INDIA":   "#19aaed",
+
+    # Sentinel values
+    "IND":     "#607d8b",   # Independents — cool slate (not neutral grey)
+    "IUS":     "#607d8b",
+    "OTH":     "#546e7a",
+    "NOTA":    "#34495e",
 }
+
+
+def _hash_color(name: str) -> str:
+    """Deterministic color for a party we don't have a brand color for.
+    Uses HSL with fixed saturation/lightness so the palette stays coherent
+    (no pastel-on-pastel or neon shocks). Same name → same color across
+    all pages and reloads.
+    """
+    if not name:
+        return "#607d8b"
+    h = 0
+    for ch in name.upper():
+        h = (h * 31 + ord(ch)) & 0xffffffff
+    hue = h % 360
+    return f"hsl({hue}, 60%, 45%)"
 
 CRORE = 10_000_000  # 1 crore = 10 million rupees
 
 
 def party_color(short_name: Optional[str]) -> str:
+    """Return a hex/HSL color for a party short_name.
+
+    Order of precedence:
+      1. Explicit brand color in PARTY_COLORS
+      2. Independent / NOTA / Other → cool slate
+      3. Deterministic hash color (never grey)
+    """
     if not short_name:
-        return "#7f8c8d"
-    return PARTY_COLORS.get(short_name.upper(), "#7f8c8d")
+        return "#607d8b"
+    key = short_name.upper().strip()
+    if key in PARTY_COLORS:
+        return PARTY_COLORS[key]
+    # Fallback to a name-hashed color so obscure parties still get a
+    # distinguishable, stable hue rather than defaulting to grey.
+    return _hash_color(key)
 
 
 # ---------------- Leaderboards ------------------------------------------------
@@ -497,9 +598,25 @@ def constituency_tiles(db: Session, year: Optional[int] = None, state_name: Opti
             }
 
     # ---- Per-constituency MLA snapshots --------------------------------------
-    apps = _latest_appearances(db, house="Assembly", state_name=state_name)
+    # scope="current" → winners only (won=True) for the state's latest cycle.
+    # Without this filter every runner-up and losing candidate would produce
+    # a duplicate tile per constituency (Delhi 2020 + 2025 = ~1224 rows), which
+    # is what the heatmap grid was showing before this fix.
+    apps = _latest_appearances(db, house="Assembly", scope="current",
+                                state_name=state_name)
     if year:
         apps = [a for a in apps if a.election and a.election.year == year]
+
+    # Dedupe by constituency in case two elections tied a seat via re-poll —
+    # keep the most recent year.
+    by_const: dict[str, "ElectionAppearance"] = {}
+    for a in apps:
+        if not a.constituency or not a.election:
+            continue
+        key = a.constituency.name.upper().strip()
+        if key not in by_const or a.election.year > by_const[key].election.year:
+            by_const[key] = a
+    apps = list(by_const.values())
 
     tiles = []
     for a in apps:
