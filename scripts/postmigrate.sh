@@ -142,6 +142,9 @@ echo ""
 echo "  Andra Pardesh (2024)"
 python scripts/load_odisha_election_results.py --year 2024 || true
 
+echo ""
+echo "  Rajasthan (2023)"
+python scripts/load_rajasthan_election_results.py --year 2023 || true
 
 echo ""
 echo "=========================================="

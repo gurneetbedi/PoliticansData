@@ -442,6 +442,26 @@ ANDHRA_PRADESH = StateConfig(
         "CHITTOOR",
     },
 )
+
+
+RAJASTHAN = StateConfig(
+    key="rajasthan", name="Rajasthan", code="RJ", zone="North",
+    assembly_cycles=[
+        {"year": 2023, "slug": "rajasthan2023"},
+        {"year": 2018, "slug": "rajasthan2018"},
+        {"year": 2013, "slug": "rajasthan2013"},
+        {"year": 2008, "slug": "rajasthan2008"},
+    ],
+    ls_pcs={
+        "GANGANAGAR", "BIKANER", "CHURU", "JHUNJHUNU",
+        "SIKAR", "JAIPUR RURAL", "JAIPUR", "ALWAR",
+        "BHARATPUR", "KARAULI-DHOLPUR", "DAUSA", "TONK-SAWAI MADHOPUR",
+        "AJMER", "NAGAUR", "PALI", "JODHPUR",
+        "BARMER", "JALORE", "UDAIPUR", "BANSWARA",
+        "CHITTORGARH", "RAJSAMAND", "BHILWARA", "KOTA",
+        "JHALAWAR-BARAN",
+    },
+)
 # Active states — must have ECI affidavit data loaded for the listed
 # cycles before being added here. The other StateConfig objects above
 # are preserved in source so we can re-enable them as we backfill ECI
@@ -472,6 +492,7 @@ ALL_STATES: dict[str, StateConfig] = {
     "westbengal":   WEST_BENGAL,   # 2026 cycle — Tier 2 (South)
     "odisha":       ODISHA,       # 2024 cycle — Tier 2 (East)
     "andhra_pradesh": ANDHRA_PRADESH, # 2024 cycle — Tier 2 (South)
+    "rajasthan":    RAJASTHAN,    # 2023 cycle — Tier 2 (North)
 }
 
 # States we ingested but hid pending latest-cycle data. Empty right now —
