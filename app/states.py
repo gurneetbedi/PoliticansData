@@ -404,6 +404,44 @@ WEST_BENGAL = StateConfig(
         "ASANSOL", "BOLPUR", "BIRBHUM",
     },
 )
+
+
+ODISHA = StateConfig(
+    key="odisha", name="Odisha", code="OD", zone="East",
+    assembly_cycles=[
+        {"year": 2024, "slug": "odisha2024"},
+        {"year": 2019, "slug": "odisha2019"},
+        {"year": 2014, "slug": "odisha2014"},
+        {"year": 2009, "slug": "odisha2009"},
+    ],
+    ls_pcs={
+        "BARGARH", "SUNDARGARH", "SAMBALPUR", "KEONJHAR",
+        "MAYURBHANJ", "BALASORE", "BHADRAK", "JAJPUR",
+        "DHENKANAL", "BOLANGIR", "KALAHANDI", "NABARANGPUR",
+        "KANDHAMAL", "CUTTACK", "KENDRAPARA", "JAGATSINGHPUR",
+        "PURI", "BHUBANESWAR", "ASKA", "BERHAMPUR",
+        "KORAPUT",
+    },
+)
+
+
+ANDHRA_PRADESH = StateConfig(
+    key="andhra_pradesh", name="Andhra Pradesh", code="AP", zone="South",
+    assembly_cycles=[
+        {"year": 2024, "slug": "andhrapradesh2024"},
+        {"year": 2019, "slug": "andhrapradesh2019"},
+        {"year": 2014, "slug": "andhrapradesh2014"},
+    ],
+    ls_pcs={
+        "ARAKU", "SRIKAKULAM", "VIZIANAGARAM", "VISAKHAPATNAM",
+        "ANAKAPALLI", "KAKINADA", "AMALAPURAM", "RAJAHMUNDRY",
+        "NARASAPURAM", "ELURU", "MACHILIPATNAM", "VIJAYAWADA",
+        "GUNTUR", "NARASARAOPET", "BAPATLA", "ONGOLE",
+        "NANDYAL", "KURNOOL", "ANANTAPUR", "HINDUPUR",
+        "KADAPA", "NELLORE", "TIRUPATI", "RAJAMPET",
+        "CHITTOOR",
+    },
+)
 # Active states — must have ECI affidavit data loaded for the listed
 # cycles before being added here. The other StateConfig objects above
 # are preserved in source so we can re-enable them as we backfill ECI
@@ -432,6 +470,8 @@ ALL_STATES: dict[str, StateConfig] = {
     "gujarat":      GUJARAT,      # 2022 cycle — Tier 2 (West)
     "tamil_nadu":   TAMIL_NADU,   # 2026 cycle — Tier 2 (South)
     "westbengal":   WEST_BENGAL,   # 2026 cycle — Tier 2 (South)
+    "odisha":       ODISHA,       # 2024 cycle — Tier 2 (East)
+    "andhra_pradesh": ANDHRA_PRADESH, # 2024 cycle — Tier 2 (South)
 }
 
 # States we ingested but hid pending latest-cycle data. Empty right now —

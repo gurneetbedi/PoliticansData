@@ -132,6 +132,15 @@ echo ""
 echo "  West Bengal (2026)"
 python scripts/load_westbengal_election_results.py --year 2026 || true
 
+echo ""
+echo "  Odisha (2024)"
+python scripts/load_odisha_election_results.py --year 2024 || true
+
+
+
+echo ""
+echo "  Andra Pardesh (2024)"
+python scripts/load_odisha_election_results.py --year 2024 || true
 
 
 echo ""

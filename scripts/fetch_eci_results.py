@@ -196,7 +196,8 @@ def parse_constituency_page(html: str) -> list[dict]:
 
 
 async def scrape_state_async(base_url: str, state_code: str, state_name: str,
-                              year: int, delay: float = 0.5) -> dict:
+                              year: int, delay: float = 0.5,
+                              assembly_size: int = 0) -> dict:
     pw, browser, context = await _connect_playwright()
     page = await context.new_page()
 
@@ -210,17 +211,31 @@ async def scrape_state_async(base_url: str, state_code: str, state_name: str,
     except Exception as e:
         print(f"  warm-up warning: {e}", file=sys.stderr)
 
-    # Enumerate constituencies from the party-wise page
+    # Enumerate constituencies. Two strategies:
+    #   1. Parse the "All Constituencies" list off partywiseresult-<code>.htm
+    #      (works for 2026 URLs).
+    #   2. If that yields nothing (2024 pages omit that list), iterate
+    #      1..assembly_size directly. The caller supplies --assembly-size.
     list_url = urljoin(base_url, f"partywiseresult-{state_code}.htm")
     print(f"→ Listing constituencies from {list_url}", file=sys.stderr)
     html = await _fetch_html(page, list_url)
     constituencies = list_constituencies_from_html(html)
-    print(f"  found {len(constituencies)} constituencies", file=sys.stderr)
+    print(f"  found {len(constituencies)} in partywise list", file=sys.stderr)
     if not constituencies:
-        await page.close()
-        await browser.close()
-        await pw.stop()
-        sys.exit("No constituencies found — check --state-code and --results-base URL")
+        if assembly_size <= 0:
+            await page.close()
+            await browser.close()
+            await pw.stop()
+            sys.exit(
+                "No constituencies found on the partywise page and "
+                "--assembly-size not set. Pass --assembly-size <N> where N "
+                "is the number of seats (e.g. 147 for Odisha, 175 for AP)."
+            )
+        print(f"  falling back to iteration 1..{assembly_size} — "
+              f"names will be scraped from each constituency page",
+              file=sys.stderr)
+        constituencies = [{"number": n, "name": ""}
+                            for n in range(1, assembly_size + 1)]
 
     out = {
         "state": state_name,
@@ -237,9 +252,28 @@ async def scrape_state_async(base_url: str, state_code: str, state_name: str,
         url = urljoin(base_url, f"Constituencywise{state_code}{num}.htm")
         try:
             html = await _fetch_html(page, url)
+            # Dump the very first fetched page for debugging when caller
+            # asks for it — helpful when a new URL pattern uses a
+            # different table layout and parse_constituency_page returns 0.
+            if i == 1:
+                dump_path = Path("_eci_first_page_debug.html")
+                dump_path.write_text(html)
+                print(f"  (saved first page to {dump_path} for debugging)",
+                      file=sys.stderr)
             cands = parse_constituency_page(html)
+            # If the caller didn't pre-populate a name (iteration fallback),
+            # extract "Assembly Constituency NNN - NAME (State)" from the
+            # page's H2 heading.
+            if not c["name"]:
+                nm = re.search(
+                    r"Assembly\s+Constituency\s+\d+\s*-\s*(.+?)\s*\(",
+                    html)
+                if nm:
+                    c["name"] = nm.group(1).strip().upper()
+                else:
+                    c["name"] = f"AC-{num}"
         except Exception as e:
-            print(f"  ! {c['name']} ({num}): {e}", file=sys.stderr)
+            print(f"  ! {c.get('name') or num}: {e}", file=sys.stderr)
             cands = []
 
         out["constituencies"].append({
@@ -274,6 +308,11 @@ def main():
                     help="Output JSON path")
     ap.add_argument("--delay", type=float, default=0.5,
                     help="Delay between per-constituency fetches (seconds)")
+    ap.add_argument("--assembly-size", type=int, default=0,
+                    help="State assembly size (e.g. 147 for Odisha). "
+                         "Only needed for URLs where the partywise page "
+                         "doesn't include the constituency dropdown "
+                         "(most 2024 elections). 2026 URLs auto-discover.")
     args = ap.parse_args()
 
     base = args.results_base
@@ -282,7 +321,8 @@ def main():
 
     result = asyncio.run(scrape_state_async(
         base_url=base, state_code=args.state_code,
-        state_name=args.state, year=args.year, delay=args.delay))
+        state_name=args.state, year=args.year, delay=args.delay,
+        assembly_size=args.assembly_size))
 
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)

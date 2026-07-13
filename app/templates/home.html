@@ -638,6 +638,30 @@ function findKpiForState(geoName) {
   return null;
 }
 
+// UTs that have NO legislative assembly (directly administered by the
+// Centre or the Lieutenant Governor). Distinguished on the map tooltip
+// from states we simply haven't ingested yet. Delhi, Puducherry, and
+// J&K are UTs *with* assemblies — they're absent from this list.
+// Variants included to cover different GeoJSON naming conventions.
+const NO_ASSEMBLY_UTS = new Set([
+  'ladakh',
+  'chandigarh',
+  'dadra and nagar haveli and daman and diu',
+  'dadra and nagar haveli',
+  'daman and diu',
+  'dadara and nagar havelli',
+  'lakshadweep',
+  'andaman and nicobar islands',
+  'andaman and nicobar',
+  'andaman & nicobar',
+]);
+
+function isNoAssemblyUT(geoName) {
+  if (!geoName) return false;
+  const n = normalizeStateName(geoName).toLowerCase();
+  return NO_ASSEMBLY_UTS.has(n);
+}
+
 const indiaMapEl = document.getElementById('indiaMap');
 const indiaMapMissing = document.getElementById('indiaMapMissing');
 const imTooltip = document.getElementById('indiaMapTooltip');
@@ -664,13 +688,20 @@ function styleFeature(feature) {
   const name = props.NAME_1 || props.ST_NM || props.name || props.STATE || props.State || props.st_nm || '';
   const kpi = findKpiForState(name);
   const hasData = !!kpi;
+  const noAssembly = isNoAssemblyUT(name);
   const isSelected = (normalizeStateName(name).toLowerCase() === normalizeStateName(CURRENT_STATE).toLowerCase());
   const bucket = bucketForMetric(kpi);
+  // No-assembly UTs get a distinct warm taupe fill so they're
+  // clearly a different visual category from "not yet ingested" states
+  // (which stay in the pale cool grey bucket color). This reads as
+  // "administrative territory" rather than "pending".
+  const fillColor = noAssembly ? '#a89684' : bucket.color;
   return {
-    fillColor: bucket.color,
+    fillColor: fillColor,
     weight: isSelected ? 2.5 : 0.75,
     color: isSelected ? '#131b2e' : '#ffffff',
-    fillOpacity: hasData ? 0.92 : 0.6,
+    fillOpacity: hasData ? 0.92 : (noAssembly ? 0.75 : 0.6),
+    dashArray: noAssembly && !isSelected ? '3,3' : null,
   };
 }
 
@@ -696,8 +727,14 @@ function onEachFeature(feature, layer) {
           ? `<br><span class="text-[10px] text-on-surface-variant">Election held in <strong>${kpi.latest_year}</strong></span>`
           : '';
         imtData.innerHTML = `<span class="text-on-surface-variant"><strong style="color:${b.color}">${b.label}</strong> · ${metricLine} · ${kpi.count} MLAs</span>${yearLine}<br><span class="text-[10px] italic text-on-surface-variant">Cases = self-declared, pending. Not convictions.</span>`;
+      } else if (isNoAssemblyUT(name)) {
+        // Union Territories without a legislative assembly — no data
+        // will ever be ingestible because the UT is directly administered
+        // by the Centre (or the Lieutenant Governor). Distinguish these
+        // from states we simply haven't loaded yet.
+        imtData.innerHTML = `<span class="text-on-surface"><strong>Union Territory</strong> · No Legislative Assembly</span><br><span class="text-[10px] italic text-on-surface-variant">Directly administered — no elected state legislature to track.</span>`;
       } else {
-        imtData.innerHTML = `<span class="text-on-surface-variant italic">Data Not Available</span>`;
+        imtData.innerHTML = `<span class="text-on-surface-variant italic">Data Not Available <span class="text-[10px]">(assembly election data not yet ingested)</span></span>`;
       }
       const rect = indiaMapEl.getBoundingClientRect();
       imTooltip.style.left = (e.originalEvent.clientX - rect.left + 12) + 'px';
