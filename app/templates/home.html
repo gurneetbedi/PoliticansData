@@ -678,10 +678,182 @@ const indiaMap = L.map('indiaMap', {
   keyboard: false,
 }).setView([22.5, 80], 5);
 
-// Plain background — no tile layer (keeps the map clean and on-brand)
+// Plain lavender background — no tile layer (keeps the map clean and on-brand).
 indiaMap.getContainer().style.background = '#eff4ff';
 
+// Custom pane so state labels always render on top of the polygons.
+indiaMap.createPane('stateLabelsPane');
+indiaMap.getPane('stateLabelsPane').style.zIndex = 620;
+
 let indiaLayer = null;
+// ─────────────────────────────────────────────────────────────────────
+// State-label helpers
+// ─────────────────────────────────────────────────────────────────────
+
+// 2-letter codes used by the ECI (matches app/states.py .code fields).
+// When the polygon is too narrow to fit the full name, we fall back to
+// the abbreviation so the label still fits inside the state.
+const STATE_ABBR = {
+  "Andhra Pradesh": "AP",   "Arunachal Pradesh": "AR",
+  "Assam": "AS",            "Bihar": "BR",
+  "Chhattisgarh": "CG",     "Delhi": "DL",
+  "NCT of Delhi": "DL",     "Goa": "GA",
+  "Gujarat": "GJ",          "Haryana": "HR",
+  "Himachal Pradesh": "HP", "Jharkhand": "JH",
+  "Jammu & Kashmir": "J&K", "Jammu and Kashmir": "J&K",
+  "Karnataka": "KA",        "Kerala": "KL",
+  "Ladakh": "LA",           "Lakshadweep": "LD",
+  "Madhya Pradesh": "MP",   "Maharashtra": "MH",
+  "Manipur": "MN",          "Meghalaya": "ML",
+  "Mizoram": "MZ",          "Nagaland": "NL",
+  "Odisha": "OD",           "Punjab": "PB",
+  "Rajasthan": "RJ",        "Sikkim": "SK",
+  "Tamil Nadu": "TN",       "Telangana": "TG",
+  "Tripura": "TR",          "Uttar Pradesh": "UP",
+  "Uttarakhand": "UK",      "West Bengal": "WB",
+  "Andaman & Nicobar": "A&N", "Andaman and Nicobar": "A&N",
+  "Andaman & Nicobar Islands": "A&N",
+  "Chandigarh": "CH",
+  "Dadra and Nagar Haveli and Daman and Diu": "DN&DD",
+  "Puducherry": "PY",
+};
+
+// Compute the visual centroid of a GeoJSON polygon/multipolygon.
+// For MultiPolygons we use the largest sub-polygon (main landmass) to
+// avoid the label landing on an outlying island. Falls back to
+// bounding-box center on any parsing weirdness.
+function polygonCentroid(feature, fallbackBounds) {
+  try {
+    const geom = feature.geometry;
+    if (!geom) throw 0;
+    let rings = null;
+    if (geom.type === 'Polygon') {
+      rings = geom.coordinates[0];   // outer ring
+    } else if (geom.type === 'MultiPolygon') {
+      // Pick the polygon with the largest outer ring
+      let best = null, bestArea = -1;
+      for (const poly of geom.coordinates) {
+        const r = poly[0];
+        // Approximate area via bounding-box diagonal
+        let minX=Infinity,minY=Infinity,maxX=-Infinity,maxY=-Infinity;
+        for (const [x,y] of r) {
+          if (x<minX) minX=x; if (y<minY) minY=y;
+          if (x>maxX) maxX=x; if (y>maxY) maxY=y;
+        }
+        const a = (maxX-minX) * (maxY-minY);
+        if (a > bestArea) { bestArea = a; best = r; }
+      }
+      rings = best;
+    }
+    if (!rings || rings.length === 0) throw 0;
+    // Simple vertex average — good enough for most Indian states.
+    let sx=0, sy=0, n=0;
+    for (const [x,y] of rings) { sx += x; sy += y; n++; }
+    return [sy/n, sx/n];    // Leaflet expects [lat, lng]
+  } catch (e) {
+    const c = fallbackBounds.getCenter();
+    return [c.lat, c.lng];
+  }
+}
+
+// Hand-picked centroids for states where the geometric average lands
+// awkwardly (L-shapes, offshore islands pulling the centroid, coastal
+// slivers, or NE cluster crowding). Add / tune as we notice bad
+// placements.
+const LABEL_OVERRIDES = {
+  "Maharashtra":       [19.6, 76.0],   // pull inland (default lands near Nagpur outlier)
+  "Karnataka":         [15.0, 76.3],
+  "Andhra Pradesh":    [15.9, 79.5],
+  "Odisha":            [20.6, 84.4],
+  "Bihar":             [25.6, 85.7],
+  "Gujarat":           [22.7, 71.5],   // avoid Kutch pulling west
+  "Kerala":            [10.4, 76.4],
+  "West Bengal":       [23.3, 87.8],
+  "Assam":             [26.4, 93.0],
+  "Jammu and Kashmir": [33.9, 75.5],
+  "Himachal Pradesh":  [31.8, 77.0],
+  "Uttarakhand":       [30.1, 79.3],
+  "Chhattisgarh":      [21.0, 82.2],
+  "Jharkhand":         [23.5, 85.5],
+  "Madhya Pradesh":    [23.5, 78.5],
+  "Rajasthan":         [26.5, 73.8],
+  "Tamil Nadu":        [11.0, 78.5],
+  "Telangana":         [17.9, 79.2],
+  "Arunachal Pradesh": [28.4, 94.5],
+  // NE cluster — spread them out so labels don't collide.
+  "Sikkim":            [27.6, 88.5],
+  "Meghalaya":         [25.6, 91.5],
+  "Manipur":           [24.6, 94.0],
+  "Mizoram":           [23.2, 92.9],
+  "Nagaland":          [26.1, 94.4],
+  "Tripura":           [23.7, 91.7],
+};
+
+// States that should ALWAYS use their 2-letter abbreviation regardless
+// of polygon width — because the full name reliably overflows the
+// state boundary or crashes into a neighbouring state's label.
+//   • MADHYA / ANDHRA / ARUNACHAL PRADESH: 14-17 chars, always overflow
+//   • NE cluster + Delhi/Goa: physically tiny states
+//   • Haryana / HP / Uttarakhand / J&K: narrow northern belt
+//   • Chhattisgarh / Jharkhand / Telangana: medium states where the
+//     full name still bleeds into neighbours
+const FORCE_ABBR = new Set([
+  "Madhya Pradesh", "Andhra Pradesh", "Arunachal Pradesh",
+  "Sikkim", "Meghalaya", "Manipur", "Mizoram", "Nagaland", "Tripura",
+  "Delhi", "Goa", "Haryana", "Himachal Pradesh", "Uttarakhand",
+  "Jammu and Kashmir", "Chhattisgarh", "Jharkhand", "Telangana",
+]);
+
+function addStateLabel(feature, layer, name) {
+  try {
+    // Skip micro-UTs unconditionally — even the 2-letter code overlaps
+    // neighbours (Lakshadweep and Chandigarh are pixel-sized on this
+    // map, Puducherry has scattered enclaves).
+    const SKIP = new Set(['Lakshadweep', 'Chandigarh', 'Puducherry',
+                          'Dadra and Nagar Haveli and Daman and Diu',
+                          'Dadra & Nagar Haveli and Daman and Diu']);
+    if (SKIP.has(name)) return;
+
+    // Label eligibility:
+    //  • Regular states / UTs with an assembly → labelled if they have
+    //    KPI data (i.e. we've ingested them). Skipped otherwise.
+    //  • No-assembly UTs like Ladakh → always labelled as a geographic
+    //    reference (they never have KPI data by definition, but the
+    //    user still needs to know where they are).
+    const kpi = findKpiForState(name);
+    const isUT = isNoAssemblyUT(name);
+    if (!kpi && !isUT) return;
+
+    const bounds = layer.getBounds();
+    const widthDeg = Math.abs(bounds.getEast() - bounds.getWest());
+
+    // Rough char-width heuristic: 0.55 deg ≈ 1 uppercase character of
+    // 10px Inter at portrait zoom. If the full name won't fit inside
+    // the polygon width, use the 2-letter code. States in FORCE_ABBR
+    // always use the abbreviation regardless of polygon width (used
+    // for the NE cluster and other places where full names collide).
+    const approxCharDeg = 0.55;
+    const fitsFull = !FORCE_ABBR.has(name)
+                     && (name.length * approxCharDeg) <= widthDeg;
+    const label = fitsFull ? name : (STATE_ABBR[name] || name);
+
+    const center = LABEL_OVERRIDES[name]
+      || polygonCentroid(feature, bounds);
+
+    L.marker(center, {
+      icon: L.divIcon({
+        className: 'state-label-marker',
+        html: `<span class="state-label-text">${label.toUpperCase()}</span>`,
+        iconSize: null,           // let CSS size it
+        iconAnchor: [0, 0],       // centered via CSS transform
+      }),
+      interactive: false,          // don't intercept clicks
+      keyboard: false,
+      pane: 'stateLabelsPane',     // ensures state labels sit on top
+    }).addTo(indiaMap);
+  } catch (e) { /* geometry glitch — skip labelling silently */ }
+}
+
 function styleFeature(feature) {
   // GeoJSON property name varies — try common ones
   const props = feature.properties || {};
@@ -709,6 +881,14 @@ function onEachFeature(feature, layer) {
   const props = feature.properties || {};
   const name = props.NAME_1 || props.ST_NM || props.name || props.STATE || props.State || props.st_nm || 'Unknown';
   const kpi = findKpiForState(name);
+
+  // Permanent label at the polygon's visual centroid. Uses the full
+  // state name when the polygon is wide enough; falls back to the
+  // 2-letter ECI abbreviation when it's not. Skips only the tiniest
+  // UTs (Lakshadweep, Chandigarh) where even the abbreviation would
+  // overlap something.
+  addStateLabel(feature, layer, name);
+
   layer.on({
     mousemove: (e) => {
       layer.setStyle({ weight: 2, color: '#131b2e' });
@@ -757,6 +937,14 @@ fetch('/static/india_states.geojson')
   .then(geo => {
     indiaLayer = L.geoJSON(geo, { style: styleFeature, onEachFeature }).addTo(indiaMap);
     try { indiaMap.fitBounds(indiaLayer.getBounds(), { padding: [12, 12] }); } catch(e) {}
+    // Publish the current zoom level to the container element so the
+    // .state-label CSS can hide labels below zoom 4. Kept in sync on
+    // every zoom event.
+    const updateZoomAttr = () => {
+      indiaMapEl.setAttribute('data-zoom-level', Math.round(indiaMap.getZoom()));
+    };
+    updateZoomAttr();
+    indiaMap.on('zoomend', updateZoomAttr);
   })
   .catch(() => {
     indiaMapEl.style.display = 'none';

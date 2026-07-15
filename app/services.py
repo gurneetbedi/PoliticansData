@@ -13,7 +13,7 @@ from sqlalchemy.orm import Session, joinedload
 from app.models import (
     Politician, ElectionAppearance, Election, Party, Constituency, State,
 )
-from app.states import ALL_STATES
+from app.states import ALL_STATES, visible_states
 
 
 def zone_summary(db: Session) -> list[dict]:
@@ -34,7 +34,7 @@ def zone_summary(db: Session) -> list[dict]:
     "South Zone — 0 MLAs" placeholder until at least one southern state ships.
     """
     by_zone = {}
-    for key, cfg in ALL_STATES.items():
+    for key, cfg in visible_states().items():
         if not cfg.zone:
             continue
         # Primary path: winners only ("MLAs"). ECI source has no win flag
@@ -148,7 +148,7 @@ def coverage_summary(db: Session) -> list[dict]:
         have.setdefault(name, set()).add(year)
 
     out = []
-    for key, cfg in ALL_STATES.items():
+    for key, cfg in visible_states().items():
         declared_years = {c["year"] for c in cfg.assembly_cycles}
         loaded_years = have.get(cfg.name, set()) & declared_years
         missing_years = declared_years - loaded_years
@@ -342,7 +342,7 @@ def _latest_appearances(
     stale — see _HIDDEN_STATES in states.py). The rows still exist in
     the DB, they just don't contribute to home/rankings/anomaly stats.
     """
-    active_state_names = {cfg.name for cfg in ALL_STATES.values()}
+    active_state_names = {cfg.name for cfg in visible_states().values()}
 
     def add_state_filter(q):
         if state_name:

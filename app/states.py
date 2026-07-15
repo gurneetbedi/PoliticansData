@@ -51,6 +51,7 @@ BIHAR = StateConfig(
     zone="East",
     # myneta uses lowercase short names for Bihar cycles
     assembly_cycles=[
+        {"year": 2025, "slug": "Bihar2025"},
         {"year": 2020, "slug": "bihar2020"},
         {"year": 2015, "slug": "bihar2015"},
         {"year": 2010, "slug": "bihar2010"},
@@ -503,6 +504,63 @@ KARNATAKA = StateConfig(
         "BANGALORE CENTRAL", "BANGALORE SOUTH", "CHIKKBALLAPUR", "KOLAR",
     },
 )
+
+# Maharashtra — 288 assembly seats, 48 Lok Sabha seats.
+# 2024 cycle: Nov 2024 (Mahayuti landslide).
+MAHARASHTRA = StateConfig(
+    key="maharashtra", name="Maharashtra", code="MH", zone="West",
+    assembly_cycles=[
+        {"year": 2024, "slug": "Maharashtra2024"},
+        {"year": 2019, "slug": "maharashtra2019"},
+        {"year": 2014, "slug": "maharashtra2014"},
+        {"year": 2009, "slug": "maharashtra2009"},
+    ],
+    ls_pcs={
+        "NANDURBAR", "DHULE", "JALGAON", "RAVER", "BULDHANA",
+        "AKOLA", "AMRAVATI", "WARDHA", "RAMTEK", "NAGPUR",
+        "BHANDARA-GONDIYA", "GADCHIROLI-CHIMUR", "CHANDRAPUR", "YAVATMAL-WASHIM",
+        "HINGOLI", "NANDED", "PARBHANI", "JALNA", "AURANGABAD",
+        "DINDORI", "NASHIK", "PALGHAR", "BHIWANDI", "KALYAN",
+        "THANE", "MUMBAI NORTH", "MUMBAI NORTH WEST", "MUMBAI NORTH EAST",
+        "MUMBAI NORTH CENTRAL", "MUMBAI SOUTH CENTRAL", "MUMBAI SOUTH",
+        "RAIGAD", "MAVAL", "PUNE", "BARAMATI", "SHIRUR",
+        "AHMEDNAGAR", "SHIRDI", "BEED", "OSMANABAD", "LATUR",
+        "SOLAPUR", "MADHA", "SANGLI", "SATARA", "RATNAGIRI-SINDHUDURG",
+        "KOLHAPUR", "HATKANANGLE",
+    },
+)
+
+# Uttar Pradesh — 403 assembly seats, 80 Lok Sabha seats (largest state).
+# 2022 cycle: BJP re-elected under Yogi Adityanath.
+UTTAR_PRADESH = StateConfig(
+    key="uttarpradesh", name="Uttar Pradesh", code="UP", zone="North",
+    assembly_cycles=[
+        {"year": 2022, "slug": "UttarPradesh2022"},
+        {"year": 2017, "slug": "uttarpradesh2017"},
+        {"year": 2012, "slug": "uttarpradesh2012"},
+        {"year": 2007, "slug": "uttarpradesh2007"},
+    ],
+    # 80 Lok Sabha PCs — kept partial for brevity; extend as needed.
+    ls_pcs={
+        "SAHARANPUR", "KAIRANA", "MUZAFFARNAGAR", "BIJNOR", "NAGINA",
+        "MORADABAD", "RAMPUR", "SAMBHAL", "AMROHA", "MEERUT",
+        "BAGHPAT", "GHAZIABAD", "GAUTAM BUDDHA NAGAR", "BULANDSHAHR",
+        "ALIGARH", "HATHRAS", "MATHURA", "AGRA", "FATEHPUR SIKRI",
+        "FIROZABAD", "MAINPURI", "ETAWAH", "KANNAUJ", "KANPUR",
+        "AKBARPUR", "JALAUN", "JHANSI", "HAMIRPUR", "BANDA",
+        "FATEHPUR", "KAUSHAMBI", "PHULPUR", "ALLAHABAD", "BARABANKI",
+        "FAIZABAD", "AMBEDKAR NAGAR", "BAHRAICH", "KAISERGANJ",
+        "SHRAWASTI", "GONDA", "DOMARIYAGANJ", "BASTI", "SANT KABIR NAGAR",
+        "MAHARAJGANJ", "GORAKHPUR", "KUSHI NAGAR", "DEORIA", "BANSGAON",
+        "LALGANJ", "AZAMGARH", "GHOSI", "SALEMPUR", "BALLIA",
+        "JAUNPUR", "MACHHLISHAHR", "GHAZIPUR", "CHANDAULI", "VARANASI",
+        "BHADOHI", "MIRZAPUR", "ROBERTSGANJ", "PILIBHIT", "SHAHJAHANPUR",
+        "KHERI", "DHAURAHRA", "SITAPUR", "HARDOI", "MISRIKH",
+        "UNNAO", "MOHANLALGANJ", "LUCKNOW", "RAE BARELI", "AMETHI",
+        "SULTANPUR", "PRATAPGARH", "FARRUKHABAD", "ETAH", "BADAUN",
+        "AONLA", "BAREILLY",
+    },
+)
 # Active states — must have ECI affidavit data loaded for the listed
 # cycles before being added here. The other StateConfig objects above
 # are preserved in source so we can re-enable them as we backfill ECI
@@ -536,6 +594,9 @@ ALL_STATES: dict[str, StateConfig] = {
     "rajasthan":    RAJASTHAN,    # 2023 cycle — Tier 2 (North)
     "madhya-pradesh": MADHYA_PRADESH, # 2023 cycle — Tier 2 (Central)
     "karnataka":     KARNATAKA,     # 2023 cycle — Tier 2 (South)
+    "bihar":         BIHAR,         # 2025 cycle — Tier 3 (East, 243 seats)
+    "maharashtra":   MAHARASHTRA,   # 2024 cycle — Tier 3 (West, 288 seats)
+    "uttarpradesh":  UTTAR_PRADESH, # 2022 cycle — Tier 3 (North, 403 seats — largest)
 }
 
 # States we ingested but hid pending latest-cycle data. Empty right now —
@@ -565,9 +626,86 @@ _ALL_STATES_HISTORICAL: dict[str, StateConfig] = {
     "jk":           JK,
     "telangana":    TELANGANA,
     "assam":        ASSAM,
+    "maharashtra":  MAHARASHTRA,
+    "uttarpradesh": UTTAR_PRADESH,
 }
 
 
 def get_state(key: str) -> StateConfig:
     """Lookup helper — raises KeyError for unknown state."""
     return ALL_STATES[key.lower()]
+
+
+# ──────────────────────────────────────────────────────────────────────────
+# Data-driven visibility
+# ──────────────────────────────────────────────────────────────────────────
+# A state is "visible" if the DB has at least one flagged winner (won=1)
+# for its latest declared assembly cycle. States registered in ALL_STATES
+# but not yet loaded (winners = 0) are auto-hidden. This means we can
+# register a state's config the moment we have its Statistical Report,
+# and it stays hidden until the affidavit pipeline lands winners in the
+# DB — no manual toggling here required.
+#
+# Cached at module import (site restart re-computes). The query is
+# lightweight (one aggregation on election_appearances).
+
+_VISIBLE_STATES_CACHE: dict[str, StateConfig] | None = None
+
+
+def _compute_visible_states() -> dict[str, StateConfig]:
+    """Return ALL_STATES minus any state with 0 loaded winners for its
+    latest cycle. Fails soft: if the DB isn't reachable (e.g. during a
+    fresh setup before migrations), returns ALL_STATES unchanged.
+    """
+    import sqlite3
+    from pathlib import Path
+
+    db_path = Path(__file__).resolve().parent.parent / "lokvani.db"
+    if not db_path.exists():
+        return dict(ALL_STATES)
+
+    try:
+        con = sqlite3.connect(str(db_path))
+        cur = con.cursor()
+        loaded_states = set()
+        for key, cfg in ALL_STATES.items():
+            if not cfg.assembly_cycles:
+                continue
+            latest_year = cfg.assembly_cycles[0]["year"]
+            wins = cur.execute("""
+                SELECT COUNT(*) FROM election_appearances ea
+                JOIN elections e ON ea.election_id = e.id
+                JOIN states s    ON e.state_id     = s.id
+                WHERE s.name = ? AND e.year = ? AND ea.won = 1
+            """, (cfg.name, latest_year)).fetchone()[0]
+            if wins > 0:
+                loaded_states.add(key)
+        con.close()
+        return {k: v for k, v in ALL_STATES.items() if k in loaded_states}
+    except Exception:
+        # If anything goes wrong (schema missing, DB locked, etc.) fall
+        # back to showing everything — better a crowded map than a blank
+        # one during setup.
+        return dict(ALL_STATES)
+
+
+def visible_states() -> dict[str, StateConfig]:
+    """States that should be surfaced in the UI (map, dropdown, listings).
+
+    Auto-derived from the DB: only states with loaded winners appear.
+    Callers should prefer this over `ALL_STATES` for any user-facing render.
+    Result is cached on first call — restart the server to pick up newly
+    loaded states.
+    """
+    global _VISIBLE_STATES_CACHE
+    if _VISIBLE_STATES_CACHE is None:
+        _VISIBLE_STATES_CACHE = _compute_visible_states()
+    return _VISIBLE_STATES_CACHE
+
+
+def clear_visibility_cache() -> None:
+    """Force `visible_states()` to re-query on next call. Useful during
+    development after running a fresh load, or if you add an admin
+    'refresh visibility' button later."""
+    global _VISIBLE_STATES_CACHE
+    _VISIBLE_STATES_CACHE = None

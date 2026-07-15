@@ -25,7 +25,7 @@ from app.models import (
 )
 from app import services
 from app.data.punjab_rs import PUNJAB_RS_MEMBERS
-from app.states import ALL_STATES as _ALL_STATES
+from app.states import ALL_STATES as _ALL_STATES, visible_states as _visible_states
 
 # The /eci/* router is parked. After the ECI data was migrated into the
 # canonical politicians/election_appearances tables, the entire site became
@@ -55,7 +55,7 @@ templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
 # enumerate states). This way adding a new state in app/states.py
 # automatically shows up everywhere without per-template edits.
 templates.env.globals["TRACKED_STATES"] = [
-    {"name": _ALL_STATES[k].name, "key": k} for k in _ALL_STATES
+    {"name": _visible_states()[k].name, "key": k} for k in _visible_states()
 ]
 
 
@@ -142,7 +142,7 @@ KNOWN_STATES = set(_ALL_STATES.keys())
 # all canonical tables now come from ECI (Delhi 2025 Assembly) after the
 # migration. When more states get ECI coverage, list them here in the
 # preferred display order.
-TRACKED_STATE_NAMES = [s.name for s in _ALL_STATES.values()]
+TRACKED_STATE_NAMES = [s.name for s in _visible_states().values()]
 
 def resolve_state(state: str | None = None) -> str:
     """Return a canonical state name matching ``states.name`` in the DB.
@@ -169,6 +169,23 @@ def resolve_state(state: str | None = None) -> str:
     # 2. Full-name match, case-insensitive (e.g. ?state=Arunachal%20Pradesh)
     for cfg in _ALL_STATES.values():
         if cfg.name.lower() == key:
+            return cfg.name
+
+    # 3. Ampersand ↔ "and" normalization. `Jammu & Kashmir` is a common
+    # display form users type or arrives via mangled dropdown links; the
+    # canonical DB name is `Jammu and Kashmir`. Try both directions.
+    key_amp_to_and = key.replace(" & ", " and ").replace("&", "and")
+    key_and_to_amp = key.replace(" and ", " & ")
+    for cfg in _ALL_STATES.values():
+        cn = cfg.name.lower()
+        if cn == key_amp_to_and or cn == key_and_to_amp:
+            return cfg.name
+
+    # 4. Loose substring match — last-resort. Handles cases where the
+    # user types the abbreviation ("J&K") or a truncated form.
+    for cfg in _ALL_STATES.values():
+        cn = cfg.name.lower()
+        if key in cn or cn in key:
             return cfg.name
 
     return "Delhi"
@@ -431,7 +448,7 @@ def heatmap(
 ):
     """State-wise Transparency Heatmap — India choropleth + selected-state constituency grid."""
     # Build a {state_name: zone_label} lookup so the sidebar can group by zone.
-    state_zones = {cfg.name: cfg.zone for cfg in _ALL_STATES.values() if cfg.zone}
+    state_zones = {cfg.name: cfg.zone for cfg in _visible_states().values() if cfg.zone}
     return templates.TemplateResponse("heatmap.html", {
         "request": request,
         "state":   state,

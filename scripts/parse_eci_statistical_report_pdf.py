@@ -160,9 +160,12 @@ def parse_pdf(path: Path) -> list[dict]:
     # this to 1 so runaway symbol/footer text isn't mistaken for name.
     post_name_slots: int = 0
 
-    # Regex to detect a constituency header line
+    # Regex to detect a constituency header line. ECI is inconsistent
+    # about the separator between AC number and name: most PDFs use "-",
+    # UP 2022 uses ".", some cycles use en/em dashes.
     RE_CONST = re.compile(
-        r"Constituency\s+(\d+)\s*-\s*(.+?)\s+TOTAL\s+ELECTORS", re.IGNORECASE)
+        r"Constituency\s+(\d+)\s*[-.–—]\s*(.+?)\s+TOTAL\s+ELECTORS",
+        re.IGNORECASE)
 
     # Regex to detect a candidate data line — end-anchored on the 4-number
     # signature (general votes, postal votes, total votes, %). Party and
