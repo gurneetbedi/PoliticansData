@@ -31,6 +31,12 @@ import sqlite3
 import sys
 from pathlib import Path
 
+# Local unified error-log writer — every unmatched candidate becomes an
+# entry in data/eci/errors/pipeline_errors.jsonl so we have one place to
+# look for pipeline health.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from pipeline_errors import log_error  # noqa: E402
+
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DB_PATH      = PROJECT_ROOT / "lokvani.db"
@@ -83,33 +89,57 @@ def build_appearance_lookup(cur, state_name: str, year: int) -> dict:
 
 
 def fuzzy_match(candidate_name: str, const_norm: str,
-                 lookup: dict, threshold: int = 75) -> int | None:
-    """Find appearance_id in the given constituency whose name fuzzy-matches."""
+                 lookup: dict, threshold: int = 75,
+                 exclude: set[int] | None = None) -> tuple[int | None, int, str]:
+    """Find appearance_id in the given constituency whose name fuzzy-matches.
+
+    Returns (appearance_id, score, method) where method is one of:
+      - "exact"       — normalized names match exactly (score = 100)
+      - "fuzzy"       — best fuzz score above threshold
+      - "no_match"    — nothing above threshold (id will be None)
+
+    `exclude` is a set of appearance IDs already claimed by another
+    candidate in this run — the matcher will not return any of them,
+    so no two ECI candidates share the same DB politician.
+    """
     try:
         from rapidfuzz import fuzz
     except ImportError:
         sys.exit("pip install rapidfuzz")
 
+    exclude = exclude or set()
     cand_norm = _normalize_name(candidate_name)
     if not cand_norm:
-        return None
+        return (None, 0, "no_match")
 
     # Exact match first
     hit = lookup.get((const_norm, cand_norm))
-    if hit:
-        return hit
+    if hit and hit not in exclude:
+        return (hit, 100, "exact")
 
     # Fuzzy fallback within the same constituency
     best_id, best_score = None, 0
     for (c, n), aid in lookup.items():
-        if c != const_norm:
+        if c != const_norm or aid in exclude:
             continue
         s = max(fuzz.partial_ratio(cand_norm, n),
                 fuzz.token_set_ratio(cand_norm, n),
                 fuzz.token_sort_ratio(cand_norm, n))
         if s > best_score:
             best_score, best_id = s, aid
-    return best_id if best_score >= threshold else None
+    if best_score >= threshold:
+        return (best_id, int(best_score), "fuzzy")
+    return (None, int(best_score), "no_match")
+
+
+def _ensure_match_columns(cur) -> None:
+    """Add match_score + match_method columns to election_appearances if
+    they don't exist yet. Idempotent — safe to call every run."""
+    cols = {r[1] for r in cur.execute("PRAGMA table_info(election_appearances)").fetchall()}
+    if "match_score" not in cols:
+        cur.execute("ALTER TABLE election_appearances ADD COLUMN match_score INTEGER")
+    if "match_method" not in cols:
+        cur.execute("ALTER TABLE election_appearances ADD COLUMN match_method TEXT")
 
 
 def main():
@@ -135,6 +165,7 @@ def main():
     con = sqlite3.connect(args.db)
     cur = con.cursor()
 
+    _ensure_match_columns(cur)
     lookup = build_appearance_lookup(cur, state_name, year)
     print(f"  DB appearances lookup: {len(lookup)} rows", file=sys.stderr)
     if not lookup:
@@ -144,23 +175,57 @@ def main():
     winners = 0
     updated = 0
     unmatched = []
+    nota_skipped = 0
+    # Track already-consumed appearance IDs so a single DB politician can't
+    # be matched to two ECI candidates in the same constituency (which
+    # caused winner UPDATEs to be silently overwritten by later runner-up
+    # matches — see the "flagged 197, audit shows 161" delta bug).
+    used_aids: set[int] = set()
 
     for const in payload["constituencies"]:
         const_norm = _normalize_constituency(const["name"])
-        for cand in const["candidates"]:
-            aid = fuzzy_match(cand["name"], const_norm, lookup,
-                                args.match_threshold)
+        # Process candidates in RANK order so winners get first pick when
+        # names in a constituency fuzzy-collide.
+        cands_sorted = sorted(
+            const["candidates"],
+            key=lambda c: c.get("rank", 999)
+        )
+        for cand in cands_sorted:
+            # NOTA is "None of the Above" — a ballot option, not a person.
+            # No politician row to update.
+            if (cand.get("name") or "").strip().upper() == "NOTA":
+                nota_skipped += 1
+                continue
+            aid, score, method = fuzzy_match(
+                cand["name"], const_norm, lookup,
+                args.match_threshold,
+                exclude=used_aids,
+            )
             if not aid:
                 unmatched.append((const["name"], cand["name"],
                                      cand.get("total_votes"), cand.get("rank")))
+                # Log to unified pipeline error log
+                log_error(
+                    stage="match_results",
+                    state=state_name, year=year,
+                    candidate=cand["name"],
+                    constituency=const["name"],
+                    error_type="fuzzy_no_match",
+                    message=f"Best fuzz score was {score} (threshold {args.match_threshold})",
+                    extra={"rank": cand.get("rank"),
+                            "votes": cand.get("total_votes"),
+                            "party": cand.get("party", "")},
+                )
                 continue
+            used_aids.add(aid)
             if not args.dry_run:
                 cur.execute("""
                     UPDATE election_appearances
-                    SET won = ?, votes_received = ?, vote_share_pct = ?
+                    SET won = ?, votes_received = ?, vote_share_pct = ?,
+                        match_score = ?, match_method = ?
                     WHERE id = ?
                 """, (bool(cand.get("won")), cand.get("total_votes"),
-                       cand.get("vote_pct"), aid))
+                       cand.get("vote_pct"), score, method, aid))
             updated += 1
             if cand.get("won"):
                 winners += 1
@@ -172,7 +237,28 @@ def main():
     print(f"\n========== APPLY SUMMARY ==========", file=sys.stderr)
     print(f"  Updated appearances: {updated}", file=sys.stderr)
     print(f"  Winners flagged:     {winners}", file=sys.stderr)
+    print(f"  NOTA skipped:        {nota_skipped}", file=sys.stderr)
     print(f"  Unmatched candidates: {len(unmatched)}", file=sys.stderr)
+
+    # Post-run confidence breakdown — surfaces matches that ran below 85
+    # (worth a manual look) or exactly at 100 (exact, safe).
+    if not args.dry_run:
+        con2 = sqlite3.connect(args.db)
+        cur2 = con2.cursor()
+        conf = cur2.execute("""
+            SELECT
+              SUM(CASE WHEN match_score = 100 THEN 1 ELSE 0 END) AS exact_,
+              SUM(CASE WHEN match_score >= 85 AND match_score < 100 THEN 1 ELSE 0 END) AS strong,
+              SUM(CASE WHEN match_score >= 75 AND match_score < 85 THEN 1 ELSE 0 END) AS uncertain
+            FROM election_appearances ea
+            JOIN elections e ON ea.election_id = e.id
+            JOIN states s    ON e.state_id     = s.id
+            WHERE s.name = ? AND e.year = ? AND ea.match_score IS NOT NULL
+        """, (state_name, year)).fetchone()
+        con2.close()
+        e, s, u = (conf[0] or 0, conf[1] or 0, conf[2] or 0)
+        print(f"  Match confidence — exact:{e}  strong(≥85):{s}  uncertain(75-84):{u}",
+              file=sys.stderr)
     if unmatched:
         print(f"  First 10 unmatched:", file=sys.stderr)
         for c, n, v, r in unmatched[:10]:

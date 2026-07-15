@@ -144,6 +144,15 @@ class ElectionAppearance(Base):
     extraction_notes = Column(Text, nullable=True)
     low_confidence_fields = Column(Text, nullable=True)
 
+    # ECI Statistical Report → DB fuzzy-match confidence, populated by
+    # scripts/load_eci_results.py. Used to surface uncertain matches
+    # (score < 85) for manual review, and to distinguish exact matches
+    # (score = 100) from fuzzy ones.
+    #   match_score:  0-100 (100 = exact normalized-name match)
+    #   match_method: "exact" | "fuzzy" | "no_match"
+    match_score = Column(Integer, nullable=True)
+    match_method = Column(String, nullable=True)
+
     politician = relationship("Politician", back_populates="appearances")
     election = relationship("Election")
     constituency = relationship("Constituency")

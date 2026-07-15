@@ -32,16 +32,19 @@ from pathlib import Path
 
 # Column indices — from row 3 (the header row) of the standard ECI
 # "Detailed Results" Excel template.
-COL_STATE   = 0
-COL_AC_NO   = 1
-COL_AC_NAME = 2
-COL_CAND    = 3
-COL_PARTY   = 7
-COL_SYMBOL  = 8
-COL_EVM     = 9
-COL_POSTAL  = 10
-COL_TOTAL   = 11
-COL_PCT     = 12
+COL_STATE    = 0
+COL_AC_NO    = 1
+COL_AC_NAME  = 2
+COL_CAND     = 3
+COL_SEX      = 4   # MALE / FEMALE / OTHERS
+COL_AGE      = 5
+COL_CATEGORY = 6   # GENERAL / SC / ST / OBC
+COL_PARTY    = 7
+COL_SYMBOL   = 8
+COL_EVM      = 9
+COL_POSTAL   = 10
+COL_TOTAL    = 11
+COL_PCT      = 12
 
 
 def _norm_name(raw: str | None) -> str:
@@ -110,6 +113,9 @@ def parse_excel(path: Path) -> list[dict]:
                 continue
             ac_name = str(row[COL_AC_NAME] or "").strip()
             candidate = _norm_name(row[COL_CAND])
+            gender = str(row[COL_SEX] or "").strip().upper()
+            age = _to_int(row[COL_AGE])
+            category = str(row[COL_CATEGORY] or "").strip().upper()
             party = str(row[COL_PARTY] or "").strip().upper()
             evm = _to_int(row[COL_EVM])
             postal = _to_int(row[COL_POSTAL])
@@ -126,6 +132,9 @@ def parse_excel(path: Path) -> list[dict]:
         # matching NOTA to any real politician).
         if candidate == "NOTA":
             party = "NOTA"
+            gender = ""
+            age = None
+            category = ""
 
         c = constituencies.setdefault(ac_no, {
             "number": ac_no,
@@ -135,6 +144,9 @@ def parse_excel(path: Path) -> list[dict]:
         c["candidates"].append({
             "name":         candidate,
             "party":        party,
+            "gender":       gender,
+            "age":          age,
+            "category":     category,
             "evm_votes":    evm,
             "postal_votes": postal,
             "total_votes":  total,

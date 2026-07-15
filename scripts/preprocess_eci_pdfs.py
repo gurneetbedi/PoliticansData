@@ -267,6 +267,11 @@ def main():
                     help="Re-process even if output JSON already exists")
     ap.add_argument("--only", action="append",
                     help="Restrict to specific filenames (can repeat). Smoke test on Akhilesh etc.")
+    ap.add_argument("--allowlist", default="",
+                    help="Path to a file with one PDF filename per line. "
+                         "Only PDFs matching an allowlist entry are processed. "
+                         "Use this to run top-N-per-constituency runs (see "
+                         "scripts/build_top_n_allowlist.py).")
     ap.add_argument("--gpu", action="store_true",
                     help="Enable GPU for EasyOCR if a CUDA card is available")
     args = ap.parse_args()
@@ -283,6 +288,20 @@ def main():
     if args.only:
         keeper = set(args.only)
         pdfs = [p for p in pdfs if p.name in keeper]
+    if args.allowlist:
+        alist_path = Path(args.allowlist)
+        if not alist_path.exists():
+            sys.exit(f"Allowlist file not found: {alist_path}")
+        # Read one filename per line, strip whitespace, ignore blanks/comments.
+        with alist_path.open() as f:
+            keeper = {
+                line.strip() for line in f
+                if line.strip() and not line.startswith("#")
+            }
+        pre_count = len(pdfs)
+        pdfs = [p for p in pdfs if p.name in keeper]
+        print(f"Allowlist {alist_path.name}: {len(keeper)} entries, "
+              f"{len(pdfs)}/{pre_count} PDFs matched", file=sys.stderr)
     if args.limit:
         pdfs = pdfs[:args.limit]
     if not pdfs:

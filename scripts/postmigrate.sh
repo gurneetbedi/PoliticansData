@@ -146,6 +146,16 @@ echo ""
 echo "  Rajasthan (2023)"
 python scripts/load_rajasthan_election_results.py --year 2023 || true
 
+
+echo ""
+echo "  Madhya Pradesh (2023)"
+python scripts/load_madhyapradesh_election_results.py --year 2023 || true
+
+echo ""
+echo "  Karnataka (2023)"
+python scripts/load_karnataka_election_results.py --year 2023 || true
+
+
 echo ""
 echo "=========================================="
 echo "POST-MIGRATE DONE"

@@ -462,6 +462,47 @@ RAJASTHAN = StateConfig(
         "JHALAWAR-BARAN",
     },
 )
+
+
+MADHYA_PRADESH = StateConfig(
+    key="madhya-pradesh", name="Madhya Pradesh", code="MP", zone="Central",
+    assembly_cycles=[
+        {"year": 2023, "slug": "madhyapradesh2023"},
+        {"year": 2018, "slug": "madhyapradesh2018"},
+        {"year": 2013, "slug": "madhyapradesh2013"},
+        {"year": 2008, "slug": "madhyapradesh2008"},
+    ],
+    ls_pcs={
+        "MORENA", "BHIND", "GWALIOR", "GUNA",
+        "SAGAR", "TIKAMGARH", "DAMOH", "KHAJURAHO",
+        "SATNA", "REWA", "SIDHI", "SHAHDOL",
+        "JABALPUR", "MANDLA", "BALAGHAT", "CHHINDWARA",
+        "HOSHANGABAD", "VIDISHA", "BHOPAL", "RAJGARH",
+        "DEWAS", "UJJAIN", "MANDSAUR", "RATLAM",
+        "DHAR", "INDORE", "KHARGONE", "KHANDWA",
+        "BETUL",
+    },
+)
+
+
+KARNATAKA = StateConfig(
+    key="karnataka", name="Karnataka", code="KA", zone="South",
+    assembly_cycles=[
+        {"year": 2023, "slug": "karnataka2023"},
+        {"year": 2018, "slug": "karnataka2018"},
+        {"year": 2013, "slug": "karnataka2013"},
+        {"year": 2008, "slug": "karnataka2008"},
+    ],
+    ls_pcs={
+        "CHIKKODI", "BELGAUM", "BAGALKOT", "BIJAPUR",
+        "KALABURAGI", "RAICHUR", "BIDAR", "KOPPAL",
+        "BELLARY", "HAVERI", "DHARWAD", "UTTARA KANNADA",
+        "DAVANAGERE", "SHIMOGA", "UDUPI CHIKMAGALUR", "HASSAN",
+        "DAKSHINA KANNADA", "CHITRADURGA", "TUMKUR", "MANDYA",
+        "MYSORE", "CHAMARAJANAGAR", "BANGALORE RURAL", "BANGALORE NORTH",
+        "BANGALORE CENTRAL", "BANGALORE SOUTH", "CHIKKBALLAPUR", "KOLAR",
+    },
+)
 # Active states — must have ECI affidavit data loaded for the listed
 # cycles before being added here. The other StateConfig objects above
 # are preserved in source so we can re-enable them as we backfill ECI
@@ -493,6 +534,8 @@ ALL_STATES: dict[str, StateConfig] = {
     "odisha":       ODISHA,       # 2024 cycle — Tier 2 (East)
     "andhra_pradesh": ANDHRA_PRADESH, # 2024 cycle — Tier 2 (South)
     "rajasthan":    RAJASTHAN,    # 2023 cycle — Tier 2 (North)
+    "madhya-pradesh": MADHYA_PRADESH, # 2023 cycle — Tier 2 (Central)
+    "karnataka":     KARNATAKA,     # 2023 cycle — Tier 2 (South)
 }
 
 # States we ingested but hid pending latest-cycle data. Empty right now —
