@@ -228,6 +228,7 @@ PARTY_COLORS: dict[str, str] = {
     "JSP":     "#e91e63",   # Jana Sena pink
     "BRS":     "#ec407a",   # BRS pink
     "TRS":     "#ec407a",
+    "TVK":     "#e11d48",   # Tamilaga Vettri Kazhagam — actor Vijay's party
     "KEC":     "#00695c",
     "KC":      "#00695c",
     "KC(M)":   "#00695c",

@@ -1,0 +1,224 @@
+{
+  "_meta": {
+    "description": "Current Chief Ministers of Indian states/UTs. Update when a state has a fresh election or a CM changes.",
+    "last_updated": "2026-07-16",
+    "note": "wiki_page is the Wikipedia article slug. Photos downloaded once via scripts/fetch_cm_photos.py and served from app/static/cms/."
+  },
+  "Andhra Pradesh": {
+    "name": "N. Chandrababu Naidu",
+    "party": "TDP",
+    "sworn_in": "Jun 2024",
+    "constituency": "Kuppam",
+    "wiki_page": "N._Chandrababu_Naidu"
+  },
+  "Arunachal Pradesh": {
+    "name": "Pema Khandu",
+    "party": "BJP",
+    "sworn_in": "Jul 2016",
+    "constituency": "Mukto",
+    "wiki_page": "Pema_Khandu"
+  },
+  "Assam": {
+    "name": "Himanta Biswa Sarma",
+    "party": "BJP",
+    "sworn_in": "May 2021",
+    "constituency": "Jalukbari",
+    "wiki_page": "Himanta_Biswa_Sarma"
+  },
+  "Bihar": {
+    "name": "Samrat Choudhary",
+    "party": "BJP",
+    "sworn_in": "Apr 2026",
+    "constituency": "Legislative Council",
+    "wiki_page": "Samrat_Choudhary"
+  },
+  "Chhattisgarh": {
+    "name": "Vishnu Deo Sai",
+    "party": "BJP",
+    "sworn_in": "Dec 2023",
+    "constituency": "Kunkuri",
+    "wiki_page": "Vishnu_Deo_Sai"
+  },
+  "Delhi": {
+    "name": "Rekha Gupta",
+    "party": "BJP",
+    "sworn_in": "Feb 2025",
+    "constituency": "Shalimar Bagh",
+    "wiki_page": "Rekha_Gupta_(politician)"
+  },
+  "Goa": {
+    "name": "Pramod Sawant",
+    "party": "BJP",
+    "sworn_in": "Mar 2019",
+    "constituency": "Sanquelim",
+    "wiki_page": "Pramod_Sawant"
+  },
+  "Gujarat": {
+    "name": "Bhupendra Patel",
+    "party": "BJP",
+    "sworn_in": "Sep 2021",
+    "constituency": "Ghatlodia",
+    "wiki_page": "Bhupendra_Patel"
+  },
+  "Haryana": {
+    "name": "Nayab Singh Saini",
+    "party": "BJP",
+    "sworn_in": "Oct 2024",
+    "constituency": "Ladwa",
+    "wiki_page": "Nayab_Singh_Saini"
+  },
+  "Himachal Pradesh": {
+    "name": "Sukhvinder Singh Sukhu",
+    "party": "INC",
+    "sworn_in": "Dec 2022",
+    "constituency": "Nadaun",
+    "wiki_page": "Sukhvinder_Singh_Sukhu"
+  },
+  "Jammu and Kashmir": {
+    "name": "Omar Abdullah",
+    "party": "JKN",
+    "sworn_in": "Oct 2024",
+    "constituency": "Ganderbal & Budgam",
+    "wiki_page": "Omar_Abdullah"
+  },
+  "Jharkhand": {
+    "name": "Hemant Soren",
+    "party": "JMM",
+    "sworn_in": "Nov 2024",
+    "constituency": "Barhait",
+    "wiki_page": "Hemant_Soren"
+  },
+  "Karnataka": {
+    "name": "Siddaramaiah",
+    "party": "INC",
+    "sworn_in": "May 2023",
+    "constituency": "Varuna",
+    "wiki_page": "Siddaramaiah"
+  },
+  "Kerala": {
+    "name": "Pinarayi Vijayan",
+    "party": "CPI(M)",
+    "sworn_in": "May 2016",
+    "constituency": "Dharmadam",
+    "wiki_page": "Pinarayi_Vijayan"
+  },
+  "Madhya Pradesh": {
+    "name": "Mohan Yadav",
+    "party": "BJP",
+    "sworn_in": "Dec 2023",
+    "constituency": "Ujjain South",
+    "wiki_page": "Mohan_Yadav"
+  },
+  "Maharashtra": {
+    "name": "Devendra Fadnavis",
+    "party": "BJP",
+    "sworn_in": "Dec 2024",
+    "constituency": "Nagpur South West",
+    "wiki_page": "Devendra_Fadnavis"
+  },
+  "Manipur": {
+    "name": "President's Rule",
+    "party": "—",
+    "sworn_in": "Feb 2025",
+    "constituency": "—",
+    "wiki_page": "President's_rule"
+  },
+  "Meghalaya": {
+    "name": "Conrad Sangma",
+    "party": "NPP",
+    "sworn_in": "Mar 2018",
+    "constituency": "South Tura",
+    "wiki_page": "Conrad_Sangma"
+  },
+  "Mizoram": {
+    "name": "Lalduhoma",
+    "party": "ZPM",
+    "sworn_in": "Dec 2023",
+    "constituency": "Serchhip",
+    "wiki_page": "Lalduhoma"
+  },
+  "Nagaland": {
+    "name": "Neiphiu Rio",
+    "party": "NDPP",
+    "sworn_in": "Mar 2018",
+    "constituency": "Northern Angami-II",
+    "wiki_page": "Neiphiu_Rio"
+  },
+  "Odisha": {
+    "name": "Mohan Charan Majhi",
+    "party": "BJP",
+    "sworn_in": "Jun 2024",
+    "constituency": "Keonjhar",
+    "wiki_page": "Mohan_Charan_Majhi"
+  },
+  "Puducherry": {
+    "name": "N. Rangaswamy",
+    "party": "AINRC",
+    "sworn_in": "May 2021",
+    "constituency": "Thattanchavady",
+    "wiki_page": "N._Rangasamy"
+  },
+  "Punjab": {
+    "name": "Bhagwant Mann",
+    "party": "AAP",
+    "sworn_in": "Mar 2022",
+    "constituency": "Dhuri",
+    "wiki_page": "Bhagwant_Mann"
+  },
+  "Rajasthan": {
+    "name": "Bhajan Lal Sharma",
+    "party": "BJP",
+    "sworn_in": "Dec 2023",
+    "constituency": "Sanganer",
+    "wiki_page": "Bhajan_Lal_Sharma"
+  },
+  "Sikkim": {
+    "name": "Prem Singh Tamang",
+    "party": "SKM",
+    "sworn_in": "May 2019",
+    "constituency": "Rhenock",
+    "wiki_page": "Prem_Singh_Tamang"
+  },
+  "Tamil Nadu": {
+    "name": "C. Joseph Vijay",
+    "party": "TVK",
+    "sworn_in": "May 2026",
+    "constituency": "—",
+    "wiki_page": "Vijay_(actor)"
+  },
+  "Telangana": {
+    "name": "A. Revanth Reddy",
+    "party": "INC",
+    "sworn_in": "Dec 2023",
+    "constituency": "Kodangal",
+    "wiki_page": "A._Revanth_Reddy"
+  },
+  "Tripura": {
+    "name": "Manik Saha",
+    "party": "BJP",
+    "sworn_in": "May 2022",
+    "constituency": "Town Bardowali",
+    "wiki_page": "Manik_Saha"
+  },
+  "Uttar Pradesh": {
+    "name": "Yogi Adityanath",
+    "party": "BJP",
+    "sworn_in": "Mar 2017",
+    "constituency": "Gorakhpur Urban",
+    "wiki_page": "Yogi_Adityanath"
+  },
+  "Uttarakhand": {
+    "name": "Pushkar Singh Dhami",
+    "party": "BJP",
+    "sworn_in": "Jul 2021",
+    "constituency": "Champawat",
+    "wiki_page": "Pushkar_Singh_Dhami"
+  },
+  "West Bengal": {
+    "name": "Suvendu Adhikari",
+    "party": "BJP",
+    "sworn_in": "May 2026",
+    "constituency": "Nandigram",
+    "wiki_page": "Suvendu_Adhikari"
+  }
+}

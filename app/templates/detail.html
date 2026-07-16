@@ -156,7 +156,11 @@
       <div class="relative h-64"><canvas id="growthChart"></canvas></div>
 
       <!-- Sub-asset breakdown -->
-      <div class="mt-stack-lg grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="mt-stack-lg grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div class="p-4 border border-primary/40 bg-primary/5 rounded-lg">
+          <p class="text-label-sm text-on-surface-variant mb-1">Total Assets</p>
+          <p class="text-body-lg font-bold text-primary">₹{{ "{:,.2f}".format((latest_app.total_assets_inr or 0) / 10000000) if latest_app else '0' }} Cr</p>
+        </div>
         <div class="p-4 border border-outline-variant rounded-lg">
           <p class="text-label-sm text-on-surface-variant mb-1">Movable</p>
           <p class="text-body-lg font-bold">₹{{ "{:,.2f}".format((latest_app.movable_assets_inr or 0) / 10000000) if latest_app else '0' }} Cr</p>
@@ -171,7 +175,7 @@
         </div>
         <div class="p-4 border border-outline-variant rounded-lg">
           <p class="text-label-sm text-on-surface-variant mb-1">Source</p>
-          <p class="text-label-sm font-bold text-primary">{% if latest_app and latest_app.source_url %}<a href="{{ latest_app.source_url }}" target="_blank">ADR · myneta ↗</a>{% else %}ADR / ECI{% endif %}</p>
+          <p class="text-label-sm font-bold text-primary">{% if latest_app and latest_app.source_url %}<a href="{{ latest_app.source_url }}" target="_blank" rel="noopener">ECI Affidavit ↗</a>{% else %}ECI Affidavit{% endif %}</p>
         </div>
       </div>
     </div>
@@ -262,31 +266,189 @@
     </div>
     {% endif %}
 
+    <!-- WEALTH BREAKDOWN — Self / Spouse / HUF / Dependents -->
+    {% if latest_app and (latest_app.assets_self_inr or latest_app.assets_spouse_inr or latest_app.assets_huf_inr or latest_app.assets_dependents_inr) %}
+    {# Only render when at least one relative sub-total is populated —
+       older Delhi rows and any Wikipedia-loaded appearances won't have
+       this data and shouldn't get an empty card. #}
+    {% set _grand = (latest_app.total_assets_inr or 0) %}
+    <div class="mb-stack-md p-4 bg-surface-container-low rounded-xl border border-outline-variant">
+      <h4 class="text-label-lg font-bold text-on-surface mb-3">
+        Wealth breakdown by relative
+        <span class="text-label-sm font-normal text-on-surface-variant">— reconciles to net worth</span>
+      </h4>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {% for label, val, icon in [
+            ('Self',       latest_app.assets_self_inr,       'person'),
+            ('Spouse',     latest_app.assets_spouse_inr,     'family_restroom'),
+            ('HUF',        latest_app.assets_huf_inr,        'diversity_3'),
+            ('Dependents', latest_app.assets_dependents_inr, 'family_home'),
+        ] %}
+        <div class="p-3 bg-surface-container-lowest rounded-lg border border-outline-variant">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="material-symbols-outlined text-primary" style="font-size:16px;">{{ icon }}</span>
+            <span class="text-label-sm text-on-surface-variant">{{ label }}</span>
+          </div>
+          <p class="text-body-lg font-bold text-on-surface">
+            {% if val %}₹{{ "{:,.2f}".format(val / 10000000) }} Cr{% else %}—{% endif %}
+          </p>
+          {% if val and _grand %}
+          <p class="text-[10px] text-on-surface-variant mt-0.5">
+            {{ "{:.0f}".format(100 * val / _grand) }}% of net worth
+          </p>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+      <p class="text-label-sm text-on-surface-variant mt-3">
+        Grand total: <strong class="text-on-surface">₹{{ "{:,.2f}".format(_grand / 10000000) }} Cr</strong>
+        {% set _sum_subs = (latest_app.assets_self_inr or 0) + (latest_app.assets_spouse_inr or 0) + (latest_app.assets_huf_inr or 0) + (latest_app.assets_dependents_inr or 0) %}
+        {% if _sum_subs and _grand and (_grand - _sum_subs)|abs > 100000 %}
+        <span class="ml-2 text-warning">· Note: subtotals differ from grand by ₹{{ "{:,.2f}".format((_grand - _sum_subs) / 10000000) }} Cr (LLM extraction rounding).</span>
+        {% endif %}
+      </p>
+    </div>
+    {% endif %}
+
     <!-- LATEST CATEGORIES (grid) -->
     <div class="{% if asset_trend_series|length and asset_trend_years|length >= 2 %}border-t border-outline-variant pt-stack-md{% endif %}">
-      <h3 class="text-headline-md font-headline-md text-on-surface mb-stack-md">Sources of income &amp; assets <span class="text-label-sm font-normal text-on-surface-variant">— latest affidavit</span></h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
-        {% for asset in lat_assets %}
+      <h3 class="text-headline-md font-headline-md text-on-surface mb-stack-md">Sources of income &amp; assets <span class="text-label-sm font-normal text-on-surface-variant">— latest affidavit (grouped by category)</span></h3>
+      {# Group all line items by subcategory and sort by total value desc.
+         Affidavits often declare each vehicle / land parcel / house as a
+         separate row — showing 15 "Vehicle" rows makes the section
+         useless. Grouped view is one row per category with count + total. #}
+      {% set _by_subcat = {} %}
+      {% for a in lat_assets %}
+        {% set _sc = (a.subcategory or 'Other').strip() %}
+        {% set _cat = (a.category or '').capitalize() %}
+        {% set _v = a.value_inr or 0 %}
+        {% if _sc in _by_subcat %}
+          {% set _cur = _by_subcat[_sc] %}
+          {% set _ = _by_subcat.update({_sc: {
+              'subcategory': _sc,
+              'category':    _cur.category or _cat,
+              'total':       _cur.total + _v,
+              'count':       _cur.count + 1
+          }}) %}
+        {% else %}
+          {% set _ = _by_subcat.update({_sc: {
+              'subcategory': _sc,
+              'category':    _cat,
+              'total':       _v,
+              'count':       1
+          }}) %}
+        {% endif %}
+      {% endfor %}
+      {% set _grouped = _by_subcat.values() | sort(attribute='total', reverse=True) | list %}
+      {# The LLM extraction only itemises vehicles (movable) and immovable
+         properties. Cash / bank / jewellery / investments / bonds all
+         roll into movable_assets_inr as an aggregate. Same story on the
+         immovable side for anything the extractor didn't classify.
+         Fill any gap between the reported grand total and the sum of the
+         itemised rows with a synthetic "Other …" row so the section
+         reconciles to the top card. #}
+      {% set _sum_movable = _grouped | selectattr('category', 'equalto', 'Movable')   | sum(attribute='total') %}
+      {% set _sum_immovable = _grouped | selectattr('category', 'equalto', 'Immovable') | sum(attribute='total') %}
+      {% set _grand_movable = latest_app.movable_assets_inr or 0 %}
+      {% set _grand_immovable = latest_app.immovable_assets_inr or 0 %}
+      {% set _other_movable = _grand_movable - _sum_movable %}
+      {% set _other_immovable = _grand_immovable - _sum_immovable %}
+      {# Only synthesise the "Other" row if there's a meaningful delta
+         (>= ₹1 lakh) — small deltas are just LLM rounding noise. #}
+      {% if _other_movable >= 100000 %}
+        {% set _ = _grouped.append({
+          'subcategory': 'Other movable (cash, bank, jewellery, investments)',
+          'category':    'Movable',
+          'total':       _other_movable,
+          'count':       0,
+        }) %}
+      {% endif %}
+      {% if _other_immovable >= 100000 %}
+        {% set _ = _grouped.append({
+          'subcategory': 'Other immovable',
+          'category':    'Immovable',
+          'total':       _other_immovable,
+          'count':       0,
+        }) %}
+      {% endif %}
+      {# Split into two columns — all movable stacked on the left, all
+         immovable stacked on the right. Sorted by value desc within each
+         column. Much easier to scan than the previous mixed grid. #}
+      {% set _movable   = _grouped | selectattr('category', 'equalto', 'Movable')   | sort(attribute='total', reverse=True) | list %}
+      {% set _immovable = _grouped | selectattr('category', 'equalto', 'Immovable') | sort(attribute='total', reverse=True) | list %}
+      {% set _other     = _grouped | rejectattr('category', 'equalto', 'Movable') | rejectattr('category', 'equalto', 'Immovable') | list %}
+
+      {% macro asset_card(grp) %}
+        {% set _sc_lower = grp.subcategory|lower %}
         <div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-lg">
           <span class="material-symbols-outlined text-secondary-container">
-            {% if 'cash' in asset.subcategory.lower() %}payments
-            {% elif 'bank' in asset.subcategory.lower() or 'deposit' in asset.subcategory.lower() %}savings
-            {% elif 'land' in asset.subcategory.lower() %}terrain
-            {% elif 'building' in asset.subcategory.lower() or 'house' in asset.subcategory.lower() %}home
-            {% elif 'vehicle' in asset.subcategory.lower() or 'car' in asset.subcategory.lower() %}directions_car
-            {% elif 'jewel' in asset.subcategory.lower() or 'gold' in asset.subcategory.lower() %}diamond
-            {% elif 'invest' in asset.subcategory.lower() or 'bond' in asset.subcategory.lower() or 'share' in asset.subcategory.lower() %}trending_up
+            {% if 'cash' in _sc_lower %}payments
+            {% elif 'bank' in _sc_lower or 'deposit' in _sc_lower %}savings
+            {% elif 'land' in _sc_lower %}terrain
+            {% elif 'building' in _sc_lower or 'house' in _sc_lower %}home
+            {% elif 'vehicle' in _sc_lower or 'car' in _sc_lower %}directions_car
+            {% elif 'jewel' in _sc_lower or 'gold' in _sc_lower %}diamond
+            {% elif 'invest' in _sc_lower or 'bond' in _sc_lower or 'share' in _sc_lower or 'mutual' in _sc_lower %}trending_up
+            {% elif 'loan' in _sc_lower or 'lend' in _sc_lower %}account_balance
+            {% elif 'insurance' in _sc_lower or 'policy' in _sc_lower %}shield
             {% else %}category
             {% endif %}
           </span>
           <div class="flex-1 min-w-0">
-            <p class="font-bold text-on-surface truncate">{{ asset.subcategory }}</p>
-            <p class="text-label-sm text-on-surface-variant">{{ asset.category|capitalize }}</p>
+            <p class="font-bold text-on-surface truncate">
+              {{ grp.subcategory }}
+              {% if grp.count > 1 %}
+              <span class="ml-1 text-label-sm font-normal text-on-surface-variant">({{ grp.count }} items)</span>
+              {% endif %}
+            </p>
+            {% if grp.count == 0 %}
+            <p class="text-label-sm text-on-surface-variant italic">not itemised in affidavit</p>
+            {% endif %}
           </div>
-          <p class="font-bold text-on-surface">₹{{ "{:,.2f}".format((asset.value_inr or 0) / 10000000) }} Cr</p>
+          <p class="font-bold text-on-surface whitespace-nowrap">₹{{ "{:,.2f}".format(grp.total / 10000000) }} Cr</p>
         </div>
-        {% endfor %}
+      {% endmacro %}
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-stack-lg">
+        <!-- MOVABLE column -->
+        <div>
+          <div class="flex items-center justify-between mb-stack-sm pb-2 border-b border-outline-variant">
+            <h4 class="text-label-lg font-bold uppercase tracking-wider text-on-surface-variant">Movable</h4>
+            <span class="text-body-md font-bold text-on-surface">₹{{ "{:,.2f}".format(_grand_movable / 10000000) }} Cr</span>
+          </div>
+          <div class="space-y-stack-sm">
+            {% for grp in _movable %}{{ asset_card(grp) }}{% endfor %}
+            {% if not _movable %}
+            <p class="text-label-sm text-on-surface-variant italic p-3">No movable assets declared.</p>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- IMMOVABLE column -->
+        <div>
+          <div class="flex items-center justify-between mb-stack-sm pb-2 border-b border-outline-variant">
+            <h4 class="text-label-lg font-bold uppercase tracking-wider text-on-surface-variant">Immovable</h4>
+            <span class="text-body-md font-bold text-on-surface">₹{{ "{:,.2f}".format(_grand_immovable / 10000000) }} Cr</span>
+          </div>
+          <div class="space-y-stack-sm">
+            {% for grp in _immovable %}{{ asset_card(grp) }}{% endfor %}
+            {% if not _immovable %}
+            <p class="text-label-sm text-on-surface-variant italic p-3">No immovable assets declared.</p>
+            {% endif %}
+          </div>
+        </div>
       </div>
+
+      {# Catch-all for anything that isn't movable/immovable (rare — but
+         guards against LLM extractions with a mislabelled category). #}
+      {% if _other %}
+      <div class="mt-stack-md">
+        <h4 class="text-label-lg font-bold uppercase tracking-wider text-on-surface-variant mb-stack-sm pb-2 border-b border-outline-variant">Other</h4>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-stack-sm">
+          {% for grp in _other %}{{ asset_card(grp) }}{% endfor %}
+        </div>
+      </div>
+      {% endif %}
     </div>
   </section>
   {% else %}
@@ -351,7 +513,7 @@
                 <span class="px-2 py-1 bg-error-container text-on-error-container rounded text-label-sm font-bold uppercase">Lost</span>
               {% endif %}
             </td>
-            <td class="py-4 px-4">{% if a.source_url %}<a href="{{ a.source_url }}" target="_blank" class="text-primary text-label-sm hover:underline">myneta ↗</a>{% endif %}</td>
+            <td class="py-4 px-4">{% if a.source_url %}<a href="{{ a.source_url }}" target="_blank" rel="noopener" class="text-primary text-label-sm hover:underline">ECI Affidavit ↗</a>{% endif %}</td>
           </tr>
           {% endfor %}
         </tbody>
@@ -360,7 +522,7 @@
   </section>
 
   <p class="text-center text-label-sm text-on-surface-variant mt-stack-md">
-    Source: <a href="https://myneta.info/" target="_blank" class="text-primary hover:underline">myneta.info</a> (ADR) · Originally from Election Commission of India affidavits.
+    Source: <a href="https://affidavit.eci.gov.in/" target="_blank" rel="noopener" class="text-primary hover:underline">Election Commission of India — Affidavit Portal</a>. Data extracted from Form 26 self-declarations.
   </p>
 </main>
 

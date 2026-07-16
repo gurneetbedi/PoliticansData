@@ -46,6 +46,62 @@ app = FastAPI(title="PoliTrack India", version="0.1.0")
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
 
+
+# Chief Ministers + Lok Sabha 2024 data — loaded once at boot, small
+# static JSONs shipped in app/static/. Powers the right-hand "Currently
+# viewing" panel on the homepage. Hot-reload uvicorn will re-import
+# this file if the JSON changes; production restarts on git push anyway.
+def _load_static_json(name: str) -> dict:
+    try:
+        import json
+        return json.loads((STATIC_DIR / name).read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+CHIEF_MINISTERS  = _load_static_json("chief_ministers.json")
+LOK_SABHA_2024   = _load_static_json("lok_sabha_2024.json")
+
+
+def _party_seats_for_state(db, state_name: str, top_n: int = 6) -> dict:
+    """Return top N parties by seat count in the state's latest assembly
+    cycle. Structure: {"year": 2025, "rows": [{"party":"BJP","seats":48},…]}.
+
+    Used by the homepage right-hand sidebar to render the party-bar
+    widget when the user hovers a state.
+    """
+    from app.models import State, Election, ElectionAppearance, Party
+    from sqlalchemy import func
+    # Latest cycle year for this state (Assembly)
+    latest_row = (
+        db.query(func.max(Election.year))
+        .join(State, State.id == Election.state_id)
+        .filter(State.name == state_name, Election.house == "Assembly")
+        .scalar()
+    )
+    if not latest_row:
+        return {"year": None, "rows": []}
+    # Aggregate winning seats by party for that year
+    rows = (
+        db.query(Party.short_name, func.count(ElectionAppearance.id).label("s"))
+        .join(ElectionAppearance, ElectionAppearance.party_id == Party.id)
+        .join(Election, Election.id == ElectionAppearance.election_id)
+        .join(State, State.id == Election.state_id)
+        .filter(
+            State.name == state_name,
+            Election.year == latest_row,
+            Election.house == "Assembly",
+            ElectionAppearance.won == True,  # noqa: E712
+        )
+        .group_by(Party.short_name)
+        .order_by(func.count(ElectionAppearance.id).desc())
+        .limit(top_n)
+        .all()
+    )
+    return {
+        "year": latest_row,
+        "rows": [{"party": p or "IND", "seats": s} for p, s in rows],
+    }
+
 # (Removed: app.include_router(eci_router))
 # After the migration, the canonical routes are the ECI routes; no separate
 # /eci/* prefix is needed.
@@ -296,14 +352,35 @@ def home(
         "facts":    services.did_you_know(db, state_name=state),
 
         # India-wide stats for the choropleth (one row per tracked state).
-        # Goa is included so once ingested it auto-appears on the map.
+        # Respects the current view (Assembly vs LokSabha) so switching
+        # State ↔ Central Election actually recolors the map. When no LS
+        # data exists, every state's KPI comes back empty and the map
+        # renders as all-grey — the template shows a "no data" banner
+        # in that case.
         "india_states": [
             {
                 "name": s_name,
-                "kpi": services.hero_kpis(db, house="Assembly", scope="current", state_name=s_name),
+                "kpi": services.hero_kpis(db, house=house_for_kpis, scope="current", state_name=s_name),
             }
             for s_name in TRACKED_STATE_NAMES
         ],
+
+        # Static reference data for the right-hand "Currently viewing"
+        # panel: Chief Ministers by state (State Election mode) and
+        # Prime Minister + LS 2024 seat share (Central Election mode).
+        # See app/static/chief_ministers.json + lok_sabha_2024.json.
+        "chief_ministers":  CHIEF_MINISTERS,
+        "lok_sabha_2024":   LOK_SABHA_2024,
+
+        # Per-state top-party-seat map for the sidebar's party-bar
+        # widget. Structure:
+        #   { "Delhi": {"year": 2025,
+        #               "rows": [{"party":"BJP","seats":48}, ...]}, ... }
+        # Only latest cycle per state; top 6 parties by seats.
+        "party_seats": {
+            s_name: _party_seats_for_state(db, s_name)
+            for s_name in TRACKED_STATE_NAMES
+        },
 
         # Per-state coverage status for the Data Coverage banner. Computed
         # fresh on each load so the banner always reflects what's actually
@@ -651,6 +728,17 @@ def politician_detail(slug: str, request: Request, db: Session = Depends(get_db)
                 state_name = state_row.name.lower()
                 break
 
+    # Header state selector should show THIS politician's state, not
+    # whatever state the user last visited on the dashboard. Falls back
+    # to the URL param on 404s / edge cases via base.html's default.
+    politician_state_display = None
+    for a in appearances_sorted:
+        if a.election and a.election.state_id:
+            _row = db.query(State).filter(State.id == a.election.state_id).first()
+            if _row:
+                politician_state_display = _row.name
+                break
+
     return templates.TemplateResponse("detail.html", {
         "request": request, "politician": politician,
         "appearances": appearances_sorted,
@@ -658,6 +746,8 @@ def politician_detail(slug: str, request: Request, db: Session = Depends(get_db)
         "asset_trend_years": asset_trend_years,
         "asset_trend_series": trend_series,
         "ingest_target": f"{state_name}_detail",
+        # base.html reads this for the header dropdown badge.
+        "state": politician_state_display,
     })
 
 

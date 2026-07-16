@@ -1,0 +1,39 @@
+{
+  "_meta": {
+    "description": "Prime Minister + Lok Sabha 2024 party seat share. Static — updates only when a new general election happens (next expected 2029).",
+    "last_updated": "2026-07-16"
+  },
+  "prime_minister": {
+    "name": "Narendra Modi",
+    "party": "BJP",
+    "coalition": "NDA",
+    "sworn_in": "Jun 2024",
+    "term": "3rd term",
+    "constituency": "Varanasi",
+    "wiki_page": "Narendra_Modi"
+  },
+  "lok_sabha_seats_total": 543,
+  "election_year": 2024,
+  "election_month": "June",
+  "party_seats": [
+    { "party": "BJP",       "seats": 240, "coalition": "NDA" },
+    { "party": "INC",       "seats":  99, "coalition": "INDIA" },
+    { "party": "SP",        "seats":  37, "coalition": "INDIA" },
+    { "party": "AITC",      "seats":  29, "coalition": "INDIA" },
+    { "party": "DMK",       "seats":  22, "coalition": "INDIA" },
+    { "party": "TDP",       "seats":  16, "coalition": "NDA" },
+    { "party": "JD(U)",     "seats":  12, "coalition": "NDA" },
+    { "party": "SHS(UBT)",  "seats":   9, "coalition": "INDIA" },
+    { "party": "NCP(SP)",   "seats":   8, "coalition": "INDIA" },
+    { "party": "SHS",       "seats":   7, "coalition": "NDA" },
+    { "party": "LJP(RV)",   "seats":   5, "coalition": "NDA" },
+    { "party": "YSRCP",     "seats":   4, "coalition": "OTHER" },
+    { "party": "RJD",       "seats":   4, "coalition": "INDIA" },
+    { "party": "CPI(M)",    "seats":   4, "coalition": "INDIA" },
+    { "party": "IUML",      "seats":   3, "coalition": "INDIA" },
+    { "party": "AAP",       "seats":   3, "coalition": "INDIA" },
+    { "party": "JMM",       "seats":   3, "coalition": "INDIA" },
+    { "party": "JKN",       "seats":   2, "coalition": "INDIA" },
+    { "party": "Others",    "seats":  36, "coalition": "MIXED" }
+  ]
+}

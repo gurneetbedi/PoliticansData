@@ -66,6 +66,24 @@
   <!-- ============================================================ -->
   <section class="px-margin-mobile md:px-margin-desktop">
     <div class="max-w-container-max mx-auto">
+      {# When the user picks "Central Election" (view=mp) but no
+         LokSabha data has been loaded, warn upfront instead of
+         letting them stare at an all-grey map. Detected by summing
+         KPI counts across every state — if all zero, no LS data. #}
+      {% set _has_house_data = india_states | map(attribute='kpi') | map(attribute='count') | sum > 0 %}
+      {% if view == 'mp' and not _has_house_data %}
+      <div class="mb-stack-md bg-warning-container/30 border border-warning rounded-xl px-4 py-3 flex items-start gap-3">
+        <span class="material-symbols-outlined text-warning">info</span>
+        <div>
+          <p class="text-label-lg font-bold text-on-surface">Central election data not available yet</p>
+          <p class="text-label-sm text-on-surface-variant mt-1">
+            We're currently tracking Assembly (state) elections only.
+            Lok Sabha (Parliament) coverage is on the roadmap.
+            Switch back to <strong>State Election</strong> to see the map with data.
+          </p>
+        </div>
+      </div>
+      {% endif %}
       <div class="relative bg-surface-container-low rounded-2xl border border-outline-variant overflow-hidden" style="height: 560px;">
         <!-- Map canvas -->
         <div id="indiaMap" class="absolute inset-0"></div>
@@ -101,6 +119,123 @@
         <!-- Title -->
         <div class="absolute top-stack-md right-stack-md text-label-sm font-label-sm uppercase tracking-widest text-on-surface-variant/70 z-[400] bg-surface-container-lowest/80 backdrop-blur px-2 py-1 rounded">
           National Integrity Map · India
+        </div>
+
+        <!-- ═════════════════════════════════════════════════════════════
+             CM / PM sidebar — uses the empty right margin of the map.
+             Two variants (state / central), toggled by the view URL param
+             (view=mla → state, view=mp → central). Server renders both;
+             JS shows the right one on load and on tab click.
+             ═════════════════════════════════════════════════════════════ -->
+        <div id="mapSidebar"
+             class="absolute z-[400] bg-surface-container-lowest/95 backdrop-blur rounded-xl border border-outline-variant shadow-lg p-4 w-[260px]"
+             style="top: 60px; right: 12px;">
+
+          {# ---------- STATE MODE ---------- #}
+          <div id="mapSidebarState" class="{% if view == 'mp' %}hidden{% endif %}">
+            <p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant mb-1" id="cmSidebarStateLabel">Currently viewing</p>
+            <h4 class="text-headline-sm font-bold text-on-surface mb-3" id="cmSidebarStateName">{{ state }}</h4>
+
+            <!-- CM CARD -->
+            <div class="border-t border-outline-variant pt-3 mb-4">
+              <div class="flex items-baseline justify-between mb-2">
+                <p class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Chief Minister</p>
+                {% if chief_ministers and chief_ministers._meta and chief_ministers._meta.last_updated %}
+                <span class="text-[9px] text-on-surface-variant/60">as of {{ chief_ministers._meta.last_updated }}</span>
+                {% endif %}
+              </div>
+              <div class="flex items-center gap-3">
+                <div id="cmPhotoBox"
+                     class="w-14 h-14 rounded-full bg-surface-container-high border border-outline-variant flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <!-- filled by JS with img or initials -->
+                  <span id="cmInitials" class="text-body-lg font-bold text-on-surface-variant">—</span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="font-bold text-on-surface truncate" id="cmName">—</p>
+                  <p class="text-label-sm" id="cmPartyLine">
+                    <span id="cmParty" class="font-bold">—</span>
+                    <span class="text-on-surface-variant"> · sworn in <span id="cmSwornIn">—</span></span>
+                  </p>
+                  <p class="text-[10px] text-on-surface-variant mt-0.5" id="cmConstLine">
+                    From <span id="cmConst">—</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- PARTY SEAT BAR -->
+            <div class="border-t border-outline-variant pt-3">
+              <p class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant mb-2">
+                Assembly seats <span class="font-normal text-on-surface-variant/70" id="cmSeatsYear"></span>
+              </p>
+              <div id="cmPartyBar" class="space-y-1.5">
+                <!-- filled by JS -->
+                <p class="text-[10px] text-on-surface-variant italic">Loading…</p>
+              </div>
+            </div>
+
+            <!-- EXPLORE STATE BUTTON — actual drill-through -->
+            <a id="cmExploreBtn" href="#"
+               class="mt-3 flex items-center justify-center gap-1 w-full bg-primary text-on-primary rounded-lg px-3 py-2 text-label-sm font-bold hover:opacity-90 transition-opacity">
+              Explore state
+              <span class="material-symbols-outlined" style="font-size:16px;">arrow_forward</span>
+            </a>
+          </div>
+
+          {# ---------- CENTRAL MODE ---------- #}
+          {% if lok_sabha_2024 and lok_sabha_2024.prime_minister %}
+          <div id="mapSidebarCentral" class="{% if view != 'mp' %}hidden{% endif %}">
+            <p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant mb-1">Currently viewing</p>
+            <h4 class="text-headline-sm font-bold text-on-surface mb-3">Union Government</h4>
+
+            <!-- PM CARD -->
+            <div class="border-t border-outline-variant pt-3 mb-4">
+              <p class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant mb-2">Prime Minister</p>
+              <div class="flex items-center gap-3">
+                <div id="pmPhotoBox"
+                     class="w-14 h-14 rounded-full bg-surface-container-high border border-outline-variant flex items-center justify-center overflow-hidden flex-shrink-0"
+                     data-wiki-page="{{ lok_sabha_2024.prime_minister.wiki_page }}"
+                     data-name="{{ lok_sabha_2024.prime_minister.name }}">
+                  <span class="text-body-lg font-bold text-on-surface-variant" id="pmInitials">
+                    {% set _parts = lok_sabha_2024.prime_minister.name.split() %}
+                    {{ (_parts[0][0] if _parts else '') ~ (_parts[-1][0] if _parts|length > 1 else '') }}
+                  </span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="font-bold text-on-surface truncate">{{ lok_sabha_2024.prime_minister.name }}</p>
+                  <p class="text-label-sm">
+                    <span class="font-bold" style="color: {{ party_color(lok_sabha_2024.prime_minister.party) }}">{{ lok_sabha_2024.prime_minister.party }}</span>
+                    <span class="text-on-surface-variant"> · {{ lok_sabha_2024.prime_minister.coalition }} · {{ lok_sabha_2024.prime_minister.term }}</span>
+                  </p>
+                  <p class="text-[10px] text-on-surface-variant mt-0.5">
+                    From {{ lok_sabha_2024.prime_minister.constituency }} · sworn in {{ lok_sabha_2024.prime_minister.sworn_in }}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- LS 2024 PARTY BAR -->
+            <div class="border-t border-outline-variant pt-3">
+              <p class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant mb-2">
+                Lok Sabha {{ lok_sabha_2024.election_year }} <span class="font-normal text-on-surface-variant/70">· 543 seats</span>
+              </p>
+              <div class="space-y-1.5">
+                {% for row in lok_sabha_2024.party_seats[:8] %}
+                {% set _pct = (row.seats * 100 / lok_sabha_2024.lok_sabha_seats_total) %}
+                <div class="flex items-center gap-2 text-[11px]">
+                  <span class="font-bold text-on-surface w-14 truncate" title="{{ row.party }}">{{ row.party }}</span>
+                  <div class="flex-1 h-2 bg-surface-container-high rounded overflow-hidden">
+                    <div class="h-full rounded"
+                         style="width: {{ _pct }}%; background: {{ party_color(row.party) }};"></div>
+                  </div>
+                  <span class="tabular-nums text-on-surface font-bold w-6 text-right">{{ row.seats }}</span>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
         </div>
 
         <!-- Hover tooltip -->
@@ -576,6 +711,10 @@
 <script id="india-states" type="application/json">{{ india_states|tojson }}</script>
 <script id="party-wealth-cycles" type="application/json">{{ party_wealth_cycles|tojson }}</script>
 <script id="tiles-data" type="application/json">{{ tiles|tojson }}</script>
+<script id="chief-ministers-data" type="application/json">{{ chief_ministers|tojson }}</script>
+{# Per-state party seat count for the sidebar bar chart. Small object:
+   {"Delhi": [{"party":"BJP","seats":48}, ...], ...} #}
+<script id="party-seats-data" type="application/json">{{ party_seats|tojson }}</script>
 <script id="dots-data" type="application/json">{{ constituency_dots|tojson }}</script>
 
 <script>
@@ -615,7 +754,10 @@ function bucketForAvgWealth(crores) {
 }
 
 function bucketForMetric(kpi) {
-  if (!kpi) return { color: '#e6ebf1', label: 'Data not available' };
+  // Treat kpi.count == 0 as "no data" — otherwise a state with 0 MLAs
+  // loaded (e.g. Central Election tab where LS data is empty) lands in
+  // the "clean" green bucket because avg_cases_per_mla defaults to 0.
+  if (!kpi || !kpi.count) return { color: '#e6ebf1', label: 'Data not available' };
   return MAP_MODE === 'wealth'
     ? bucketForAvgWealth(kpi.avg_wealth_cr)
     : bucketForAvgCases(kpi.avg_cases_per_mla);
@@ -685,14 +827,19 @@ indiaMap.getContainer().style.background = '#eff4ff';
 indiaMap.createPane('stateLabelsPane');
 indiaMap.getPane('stateLabelsPane').style.zIndex = 620;
 
+// Wire up the shared state-labels overlay (defined in
+// app/static/state_labels.js, loaded via base.html). It gives us the
+// state-labels pane, abbreviation logic, and centroid overrides.
+LokvaniStateLabels.setupStateLabelsPane(indiaMap);
+
 let indiaLayer = null;
+
 // ─────────────────────────────────────────────────────────────────────
-// State-label helpers
+// LEGACY: earlier inline copies of the state-label helpers. Kept below
+// this line ONLY as reference; nothing calls them any more. Safe to
+// delete on the next cleanup pass.
 // ─────────────────────────────────────────────────────────────────────
 
-// 2-letter codes used by the ECI (matches app/states.py .code fields).
-// When the polygon is too narrow to fit the full name, we fall back to
-// the abbreviation so the label still fits inside the state.
 const STATE_ABBR = {
   "Andhra Pradesh": "AP",   "Arunachal Pradesh": "AR",
   "Assam": "AS",            "Bihar": "BR",
@@ -882,12 +1029,11 @@ function onEachFeature(feature, layer) {
   const name = props.NAME_1 || props.ST_NM || props.name || props.STATE || props.State || props.st_nm || 'Unknown';
   const kpi = findKpiForState(name);
 
-  // Permanent label at the polygon's visual centroid. Uses the full
-  // state name when the polygon is wide enough; falls back to the
-  // 2-letter ECI abbreviation when it's not. Skips only the tiniest
-  // UTs (Lakshadweep, Chandigarh) where even the abbreviation would
-  // overlap something.
-  addStateLabel(feature, layer, name);
+  // Permanent state name label (shared helper — see state_labels.js).
+  LokvaniStateLabels.addStateLabel(feature, layer, name, indiaMap, {
+    findKpi: findKpiForState,
+    isUT:    isNoAssemblyUT,
+  });
 
   layer.on({
     mousemove: (e) => {
@@ -927,10 +1073,146 @@ function onEachFeature(feature, layer) {
       if (prompt) prompt.style.opacity = '1';
     },
     click: () => {
-      if (kpi) window.location.href = '/?state=' + encodeURIComponent(name);
+      // Click selects the state → updates the sidebar. Navigation to the
+      // state's dashboard now happens via the "Explore state →" button
+      // rendered in the sidebar, so users can preview CM/party info
+      // without leaving the page.
+      updateStateSidebar(name);
     },
   });
 }
+
+// ─────────────────────────────────────────────────────────────────────
+// Right-hand sidebar: CM card + party seat bar
+// ─────────────────────────────────────────────────────────────────────
+const CM_DATA          = JSON.parse(document.getElementById('chief-ministers-data').textContent || '{}');
+const PARTY_SEATS_DATA = JSON.parse(document.getElementById('party-seats-data').textContent || '{}');
+
+// Party colors — kept in sync with services.py PARTY_COLORS. Anything
+// not in this map falls back to a neutral slate.
+const PARTY_COLORS = {
+  "BJP": "#f97316", "INC": "#10b981", "AAP": "#3b82f6", "AAAP": "#3b82f6",
+  "TMC": "#22c55e", "AITC": "#22c55e", "SP": "#eab308", "BSP": "#0ea5e9",
+  "NCP": "#4f46e5", "NCP(SP)": "#7c3aed", "SHS": "#f97316", "SHS(UBT)": "#dc2626",
+  "SHSUBT": "#dc2626", "DMK": "#dc2626", "AIADMK": "#059669", "TDP": "#eab308",
+  "YSRCP": "#0ea5e9", "BRS": "#f43f5e", "TRS": "#f43f5e", "BJD": "#059669",
+  "TVK": "#e11d48",   // Tamilaga Vettri Kazhagam — actor Vijay's party
+
+  "RJD": "#84cc16", "JMM": "#16a34a", "JD(U)": "#22d3ee", "JDU": "#22d3ee",
+  "JD(S)": "#22d3ee", "JDS": "#22d3ee", "CPI": "#dc2626", "CPI(M)": "#dc2626",
+  "CPM": "#dc2626", "NPP": "#dc2626", "NDPP": "#f97316", "NPF": "#84cc16",
+  "SKM": "#f43f5e", "SDF": "#4ade80", "JKN": "#dc2626", "JKNC": "#dc2626",
+  "MGP": "#f59e0b", "IND": "#94a3b8", "OTH": "#94a3b8", "Others": "#94a3b8",
+  "ZPM": "#7c3aed", "AGP": "#059669", "AIUDF": "#22c55e", "LJP(RV)": "#eab308",
+  "IUML": "#059669", "PRSHP": "#f97316", "AINRC": "#f97316",
+};
+function partyColor(p) { return PARTY_COLORS[p] || '#64748b'; }
+
+// Initials from a full name — "Rekha Gupta" → "RG".
+function initialsOf(name) {
+  const parts = (name || '').trim().split(/\s+/).filter(Boolean);
+  if (!parts.length) return '?';
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
+// Convert a state name to the slug used by scripts/fetch_cm_photos.py.
+// Must stay in sync with that script's slugify() function.
+function photoSlug(name) {
+  return (name || '')
+    .toLowerCase()
+    .replace(/ and /g, '-')
+    .replace(/ & /g, '-')
+    .replace(/\s+/g, '-')
+    .replace(/[()]/g, '');
+}
+
+// Local photo URL for a given state. Returns /static/cms/<slug>.jpg.
+// If the file isn't there (never downloaded), the <img onerror> handler
+// falls back to the initials avatar.
+function localPhotoUrl(stateName) {
+  return `/static/cms/${photoSlug(stateName)}.jpg`;
+}
+
+// Populate the CM sidebar for a specific state. Runs on hover and on
+// initial page load. No-op in Central mode.
+function updateStateSidebar(stateName) {
+  const centralPane = document.getElementById('mapSidebarCentral');
+  if (centralPane && !centralPane.classList.contains('hidden')) return;
+
+  const cm = CM_DATA[stateName];
+  const seats = PARTY_SEATS_DATA[stateName];
+  const nameEl = document.getElementById('cmSidebarStateName');
+  if (nameEl) nameEl.textContent = stateName;
+  // Update the "Explore state" button target
+  const exploreBtn = document.getElementById('cmExploreBtn');
+  if (exploreBtn) exploreBtn.href = '/?state=' + encodeURIComponent(stateName);
+
+  // CM block
+  const photoBox = document.getElementById('cmPhotoBox');
+  const nameOut = document.getElementById('cmName');
+  const partyOut = document.getElementById('cmParty');
+  const swornOut = document.getElementById('cmSwornIn');
+  const constOut = document.getElementById('cmConst');
+
+  if (!cm) {
+    if (nameOut) nameOut.textContent = 'CM data not on file';
+    if (partyOut) partyOut.textContent = '—';
+    if (swornOut) swornOut.textContent = '—';
+    if (constOut) constOut.textContent = '—';
+    photoBox.innerHTML = '<span class="text-body-lg font-bold text-on-surface-variant">—</span>';
+  } else {
+    if (nameOut) nameOut.textContent = cm.name;
+    if (partyOut) {
+      partyOut.textContent = cm.party;
+      partyOut.style.color = partyColor(cm.party);
+    }
+    if (swornOut) swornOut.textContent = cm.sworn_in;
+    if (constOut) constOut.textContent = cm.constituency;
+    // Try local /static/cms/<slug>.jpg first; on error, show initials.
+    const initials = initialsOf(cm.name);
+    photoBox.innerHTML = `<img src="${localPhotoUrl(stateName)}" alt="${cm.name}"
+                              class="w-full h-full object-cover"
+                              onerror="this.parentElement.innerHTML='<span class=\\'text-body-lg font-bold text-on-surface-variant\\'>${initials}</span>'">`;
+  }
+
+  // Party seat bar
+  const bar = document.getElementById('cmPartyBar');
+  const yearOut = document.getElementById('cmSeatsYear');
+  if (bar) {
+    if (!seats || !seats.rows || !seats.rows.length) {
+      bar.innerHTML = '<p class="text-[10px] text-on-surface-variant italic">No seat data.</p>';
+      if (yearOut) yearOut.textContent = '';
+    } else {
+      const max = Math.max(...seats.rows.map(r => r.seats));
+      bar.innerHTML = seats.rows.map(r => {
+        const pct = Math.max(2, (r.seats * 100 / max));
+        return `<div class="flex items-center gap-2 text-[11px]">
+          <span class="font-bold text-on-surface w-12 truncate" title="${r.party}">${r.party}</span>
+          <div class="flex-1 h-2 bg-surface-container-high rounded overflow-hidden">
+            <div class="h-full rounded" style="width:${pct}%; background:${partyColor(r.party)};"></div>
+          </div>
+          <span class="tabular-nums text-on-surface font-bold w-6 text-right">${r.seats}</span>
+        </div>`;
+      }).join('');
+      if (yearOut) yearOut.textContent = seats.year ? `· ${seats.year}` : '';
+    }
+  }
+
+  // Load PM photo once (Central mode)
+  const pmBox = document.getElementById('pmPhotoBox');
+  if (pmBox && !pmBox.dataset.loaded) {
+    pmBox.dataset.loaded = '1';
+    const nm = pmBox.dataset.name || '';
+    const ini = initialsOf(nm);
+    pmBox.innerHTML = `<img src="/static/cms/pm.jpg" alt="${nm}"
+                            class="w-full h-full object-cover"
+                            onerror="this.parentElement.innerHTML='<span class=\\'text-body-lg font-bold text-on-surface-variant\\'>${ini}</span>'">`;
+  }
+}
+
+// Initial population — use the currently-selected state (from URL param).
+updateStateSidebar(CURRENT_STATE || 'Delhi');
 
 fetch('/static/india_states.geojson')
   .then(r => { if (!r.ok) throw new Error('no geojson'); return r.json(); })

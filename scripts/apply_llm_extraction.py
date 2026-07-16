@@ -111,6 +111,17 @@ def ensure_llm_columns(cur: sqlite3.Cursor):
                     "ADD COLUMN low_confidence_fields TEXT")
         print("  Added column: election_appearances.low_confidence_fields",
               file=sys.stderr)
+    # Per-relative wealth breakdown — powers the "Self / Spouse / HUF /
+    # Dependents" reconciliation card on the politician detail page.
+    for col in [
+        "assets_self_inr", "assets_spouse_inr",
+        "assets_huf_inr",  "assets_dependents_inr",
+        "liabilities_self_inr", "liabilities_spouse_inr",
+        "liabilities_huf_inr",  "liabilities_dependents_inr",
+    ]:
+        if col not in cols:
+            cur.execute(f"ALTER TABLE election_appearances ADD COLUMN {col} INTEGER")
+            print(f"  Added column: election_appearances.{col}", file=sys.stderr)
 
 
 # ---------------------------------------------------------------------------
@@ -217,6 +228,30 @@ def apply_one(cur: sqlite3.Cursor, llm_json: dict,
     if mov_total is not None or imm_total is not None:
         total_assets = (mov_total or 0) + (imm_total or 0)
 
+    # Per-relative breakdown = movable_<who> + immovable_<who>. Populated
+    # so the detail page can show a Self / Spouse / HUF / Dependents card
+    # that reconciles the itemised assets to the grand total.
+    def _sum_pair(m_key, i_key):
+        m = _i_or_none(movable.get(m_key))
+        i = _i_or_none(immovable.get(i_key))
+        if m is None and i is None:
+            return None
+        return (m or 0) + (i or 0)
+
+    assets_self       = _sum_pair("total_movable_assets_self_inr",
+                                    "total_immovable_assets_self_inr")
+    assets_spouse     = _sum_pair("total_movable_assets_spouse_inr",
+                                    "total_immovable_assets_spouse_inr")
+    assets_huf        = _sum_pair("total_movable_assets_huf_inr",
+                                    "total_immovable_assets_huf_inr")
+    assets_dependents = _sum_pair("total_movable_assets_dependents_inr",
+                                    "total_immovable_assets_dependents_inr")
+
+    liab_self       = _i_or_none(liab.get("total_liabilities_self_inr"))
+    liab_spouse     = _i_or_none(liab.get("total_liabilities_spouse_inr"))
+    liab_huf        = _i_or_none(liab.get("total_liabilities_huf_inr"))
+    liab_dependents = _i_or_none(liab.get("total_liabilities_dependents_inr"))
+
     pending_count  = _i_or_none(crim_pend.get("pending_cases_count")) or 0
     convicted_count = _i_or_none(crim_past.get("convicted_cases_count")) or 0
     # "Serious" cases = convicted (Section 8 disqualification trigger) +
@@ -252,7 +287,15 @@ def apply_one(cur: sqlite3.Cursor, llm_json: dict,
             profession            = COALESCE(?, profession),
             age                   = COALESCE(?, age),
             extraction_notes      = ?,
-            low_confidence_fields = ?
+            low_confidence_fields = ?,
+            assets_self_inr       = ?,
+            assets_spouse_inr     = ?,
+            assets_huf_inr        = ?,
+            assets_dependents_inr = ?,
+            liabilities_self_inr       = ?,
+            liabilities_spouse_inr     = ?,
+            liabilities_huf_inr        = ?,
+            liabilities_dependents_inr = ?
         WHERE id = ?
     """, (
         total_assets, mov_total, imm_total, liab_total,
@@ -260,6 +303,8 @@ def apply_one(cur: sqlite3.Cursor, llm_json: dict,
         education, profession, age,
         " | ".join(notes) if notes else None,
         ",".join(low_conf) if low_conf else None,
+        assets_self, assets_spouse, assets_huf, assets_dependents,
+        liab_self,   liab_spouse,   liab_huf,   liab_dependents,
         appearance_id,
     ))
 

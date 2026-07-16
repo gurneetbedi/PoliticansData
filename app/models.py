@@ -153,6 +153,20 @@ class ElectionAppearance(Base):
     match_score = Column(Integer, nullable=True)
     match_method = Column(String, nullable=True)
 
+    # Wealth breakdown by relative — powers the detail-page card that
+    # reconciles line-itemised assets with the grand-total net worth.
+    # Populated by scripts/apply_llm_extraction.py from the Gemini
+    # extraction's assets_movable / assets_immovable / liabilities
+    # sections. Each is the movable+immovable sum for that relative.
+    assets_self_inr       = Column(BigInteger, nullable=True)
+    assets_spouse_inr     = Column(BigInteger, nullable=True)
+    assets_huf_inr        = Column(BigInteger, nullable=True)
+    assets_dependents_inr = Column(BigInteger, nullable=True)
+    liabilities_self_inr       = Column(BigInteger, nullable=True)
+    liabilities_spouse_inr     = Column(BigInteger, nullable=True)
+    liabilities_huf_inr        = Column(BigInteger, nullable=True)
+    liabilities_dependents_inr = Column(BigInteger, nullable=True)
+
     politician = relationship("Politician", back_populates="appearances")
     election = relationship("Election")
     constituency = relationship("Constituency")

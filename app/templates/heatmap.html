@@ -241,12 +241,30 @@ const indiaMap = L.map('indiaMap', {
 }).setView([22.5, 80], 5);
 indiaMap.getContainer().style.background = '#eff4ff';
 
+// Shared state-labels overlay — same helpers used on the Dashboard map.
+// Adds a pane, then addStateLabel gets called in onEachFeature below.
+LokvaniStateLabels.setupStateLabelsPane(indiaMap);
+
+// Heatmap does not currently differentiate no-assembly UTs (Ladakh etc.)
+// in its styleFeature — treat "has KPI" as the sole signal. If we later
+// add a warm-taupe fill for Ladakh here too, wire in a real isUT hook.
+function isNoAssemblyUT_heatmap(name) {
+  const NO_ASSEMBLY = new Set([
+    'ladakh', 'chandigarh',
+    'dadra and nagar haveli and daman and diu',
+    'lakshadweep',
+    'andaman and nicobar', 'andaman and nicobar islands',
+  ]);
+  return NO_ASSEMBLY.has(String(name || '').toLowerCase().trim());
+}
+
 let indiaLayer = null;
 function styleFeature(feature) {
   const props = feature.properties || {};
   const name = props.NAME_1 || props.ST_NM || props.name || props.STATE || props.State || props.st_nm || '';
   const kpi = findKpiForState(name);
-  const hasData = !!kpi;
+  // Treat kpi.count == 0 as "no data" — same reasoning as home.html.
+  const hasData = !!(kpi && kpi.count);
   const isSelected = (normalizeStateName(name).toLowerCase() === normalizeStateName(CURRENT_STATE).toLowerCase());
   const bucket = hasData ? bucketForAvgCases(kpi.avg_cases_per_mla) : { color: '#e6ebf1' };
   return {
@@ -260,6 +278,13 @@ function onEachFeature(feature, layer) {
   const props = feature.properties || {};
   const name = props.NAME_1 || props.ST_NM || props.name || props.STATE || props.State || props.st_nm || 'Unknown';
   const kpi = findKpiForState(name);
+
+  // Permanent state name label (shared helper — see state_labels.js).
+  LokvaniStateLabels.addStateLabel(feature, layer, name, indiaMap, {
+    findKpi: findKpiForState,
+    isUT:    isNoAssemblyUT_heatmap,
+  });
+
   layer.on({
     mousemove: (e) => {
       layer.setStyle({ weight: 2, color: '#131b2e' });
