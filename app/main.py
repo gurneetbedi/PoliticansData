@@ -110,9 +110,10 @@ def _party_seats_for_state(db, state_name: str, top_n: int = 6) -> dict:
 # State Selector dropdown in base.html and any other UI that needs to
 # enumerate states). This way adding a new state in app/states.py
 # automatically shows up everywhere without per-template edits.
-templates.env.globals["TRACKED_STATES"] = [
-    {"name": _visible_states()[k].name, "key": k} for k in _visible_states()
-]
+templates.env.globals["TRACKED_STATES"] = sorted(
+    ({"name": _visible_states()[k].name, "key": k} for k in _visible_states()),
+    key=lambda entry: entry["name"].lower(),
+)
 
 
 # ---------------- Jinja filters for case-description cleanup ----------------
@@ -752,6 +753,69 @@ def politician_detail(slug: str, request: Request, db: Session = Depends(get_db)
 
 
 # ----- JSON API ---------------------------------------------------------------
+
+@app.get("/api/search-index")
+def api_search_index(db: Session = Depends(get_db)):
+    """Compact JSON index of every searchable entity — loaded once by the
+    home-page search bar, then all filtering happens client-side.
+
+    Response shape (kept flat + short-keyed to minimize download size):
+      {
+        "politicians":   [{"n": name, "s": slug, "p": party, "c": const, "st": state}, ...],
+        "constituencies": [{"n": name, "st": state}, ...],
+        "parties":       [{"n": short_name, "f": full_name}, ...],
+        "states":        [{"n": name}, ...],
+      }
+    """
+    from .models import Politician, ElectionAppearance, Party, Constituency, State
+    # Politicians — join through latest appearance for party/constituency/state.
+    # De-duplicate by slug (a politician can have multiple appearances).
+    pol_rows = (
+        db.query(Politician, Party, Constituency, State)
+        .join(ElectionAppearance, ElectionAppearance.politician_id == Politician.id)
+        .outerjoin(Party, ElectionAppearance.party_id == Party.id)
+        .outerjoin(Constituency, ElectionAppearance.constituency_id == Constituency.id)
+        .outerjoin(State, Constituency.state_id == State.id)
+        .all()
+    )
+    seen_slugs: set[str] = set()
+    politicians = []
+    for pol, party, const, state in pol_rows:
+        key = pol.slug or str(pol.id)
+        if key in seen_slugs:
+            continue
+        seen_slugs.add(key)
+        politicians.append({
+            "n":  pol.name,
+            "s":  key,
+            "p":  (party.short_name if party else "") or "",
+            "c":  (const.name if const else "") or "",
+            "st": (state.name if state else "") or "",
+        })
+
+    # Constituencies — one row per (name, state). house field lets clients
+    # link to /constituency/<state>/<name>. Default to Assembly.
+    const_rows = (
+        db.query(Constituency, State)
+        .join(State, Constituency.state_id == State.id)
+        .filter(Constituency.house == "Assembly")
+        .all()
+    )
+    constituencies = [{"n": c.name, "st": s.name} for c, s in const_rows]
+
+    parties = [
+        {"n": p.short_name, "f": p.full_name or ""}
+        for p in db.query(Party).order_by(Party.short_name).all()
+    ]
+    states = [{"n": s.name} for s in db.query(State).order_by(State.name).all()]
+
+    return {
+        "politicians": politicians,
+        "constituencies": constituencies,
+        "parties": parties,
+        "states": states,
+    }
+
 
 @app.get("/api/politicians")
 def api_list(

@@ -128,32 +128,54 @@ def ensure_llm_columns(cur: sqlite3.Cursor):
 # Lookup tables — build once, query many
 # ---------------------------------------------------------------------------
 
+def _normalize_party(name: str) -> str:
+    """Party normalization — lowercase, non-alnum stripped."""
+    import re
+    return re.sub(r"[^a-z0-9]+", "", (name or "").lower())
+
+
 def build_appearance_lookup(cur: sqlite3.Cursor, year: int) -> dict:
-    """Return {(norm_name, norm_const): appearance_id} for the given year."""
+    """Return TWO lookups:
+      by_full: {(norm_name, norm_const, norm_party): appearance_id}
+      by_nc:   {(norm_name, norm_const): [(appearance_id, party), ...]}
+
+    The primary match uses `by_full` — party is a tiebreaker for
+    same-name / same-constituency collisions (which happen when 2+
+    candidates in one constituency share a normalized name).
+
+    `by_nc` is the fallback for cases where the Gemini/provisional row
+    lacks party information — we return a list so callers can decide
+    whether it's ambiguous."""
     cur.execute("""
-        SELECT ea.id, p.name, c.name
+        SELECT ea.id, p.name, c.name, COALESCE(par.short_name, '')
         FROM election_appearances ea
-        JOIN politicians  p ON ea.politician_id   = p.id
-        JOIN constituencies c ON ea.constituency_id = c.id
-        JOIN elections     e ON ea.election_id     = e.id
+        JOIN politicians    p   ON ea.politician_id   = p.id
+        JOIN constituencies c   ON ea.constituency_id = c.id
+        JOIN elections      e   ON ea.election_id     = e.id
+        LEFT JOIN parties   par ON ea.party_id        = par.id
         WHERE e.year = ?
     """, (year,))
-    out: dict[tuple[str, str], int] = {}
-    for app_id, name, const in cur.fetchall():
-        key = (_normalize_name(name), _normalize_constituency(const))
-        out[key] = app_id
-    return out
+    by_full: dict[tuple[str, str, str], int] = {}
+    by_nc: dict[tuple[str, str], list[tuple[int, str]]] = {}
+    for app_id, name, const, party in cur.fetchall():
+        n = _normalize_name(name)
+        c = _normalize_constituency(const)
+        p = _normalize_party(party)
+        by_full[(n, c, p)] = app_id
+        by_nc.setdefault((n, c), []).append((app_id, p))
+    return {"by_full": by_full, "by_nc": by_nc}
 
 
 def get_provisional_lookup(cur: sqlite3.Cursor, state: str, year: int) -> dict:
-    """Return {affidavit_id: (name, constituency)} from provisional table."""
+    """Return {affidavit_id: (name, constituency, party)} from provisional."""
     cur.execute("""
-        SELECT affidavit_id, candidate_name, constituency
+        SELECT affidavit_id, candidate_name, constituency, party
         FROM eci_candidates_provisional
         WHERE state = ? AND election_year = ?
               AND affidavit_status = 'Accepted'
     """, (state, year))
-    return {row[0]: (row[1], row[2]) for row in cur.fetchall()}
+    return {row[0]: (row[1], row[2], row[3] if len(row) > 3 else "")
+            for row in cur.fetchall()}
 
 
 # ---------------------------------------------------------------------------
@@ -202,15 +224,46 @@ def apply_one(cur: sqlite3.Cursor, llm_json: dict,
     if not extraction or llm_json.get("skipped_corrupt"):
         return "skipped_no_extraction"
 
-    # Match the LLM row to its election_appearance via provisional
+    # Match the LLM row to its election_appearance via provisional.
+    # Primary key: (name, const, party). Fallback: (name, const) if
+    # provisional has no party or the party-keyed lookup misses.
     prov = provisional_lookup.get(aff_id)
     if not prov:
         return "no_provisional_row"
-    name, const = prov
-    key = (_normalize_name(name), _normalize_constituency(const))
-    appearance_id = appearance_lookup.get(key)
+    # Backward-compat: old provisional format returned 2-tuple. Detect
+    # length before unpacking.
+    if len(prov) == 3:
+        name, const, party = prov
+    else:
+        name, const = prov
+        party = ""
+    n = _normalize_name(name)
+    c = _normalize_constituency(const)
+    p = _normalize_party(party)
+
+    by_full = appearance_lookup["by_full"] if isinstance(appearance_lookup, dict) and "by_full" in appearance_lookup else appearance_lookup
+    by_nc   = appearance_lookup.get("by_nc", {}) if isinstance(appearance_lookup, dict) else {}
+
+    appearance_id = None
+    # Primary: name+const+party
+    if p:
+        appearance_id = by_full.get((n, c, p))
+    # Fallback: name+const only. If exactly one appearance row matches,
+    # use it. If multiple, we can't safely pick — leave unmatched to
+    # avoid attaching wealth to the wrong candidate.
     if not appearance_id:
-        return f"no_appearance_match ({name} / {const})"
+        candidates = by_nc.get((n, c), [])
+        if len(candidates) == 1:
+            appearance_id = candidates[0][0]
+        elif len(candidates) > 1 and p:
+            # Try fuzzy party matching (e.g. "BJP" vs "Bharatiya Janata Party")
+            for aid, ap in candidates:
+                if ap and (ap in p or p in ap):
+                    appearance_id = aid
+                    break
+
+    if not appearance_id:
+        return f"no_appearance_match ({name} / {const} / {party})"
 
     # ---- Compute headline fields ----------------------------------------
     movable    = extraction.get("assets_movable")   or {}
@@ -438,6 +491,12 @@ def main():
     ap.add_argument("--db", default=str(DB_PATH))
     ap.add_argument("--dry-run", action="store_true",
                     help="Compute matches and print stats; don't write.")
+    ap.add_argument("--allowlist-scope", action="store_true",
+                    help="Restrict each cycle to its top-N allowlist "
+                         "(data/allowlists/<slug_year>[_topN].txt). "
+                         "Extractions of fringe candidates outside the "
+                         "allowlist are skipped. Recommended for quality "
+                         "control — matches the state_status_report scope.")
     args = ap.parse_args()
 
     db = Path(args.db)
@@ -483,12 +542,38 @@ def main():
 
         appearance_lookup  = build_appearance_lookup(cur, year)
         provisional_lookup = get_provisional_lookup(cur, state, year)
-        print(f"  Appearance rows in DB for {year}: {len(appearance_lookup)}",
+        _by_full = appearance_lookup.get("by_full", {}) \
+            if isinstance(appearance_lookup, dict) else {}
+        print(f"  Appearance rows in DB for {year}: {len(_by_full)}",
               file=sys.stderr)
         print(f"  Provisional rows: {len(provisional_lookup)}",
               file=sys.stderr)
 
+        # Optional: restrict to the top-N allowlist for this cycle
+        allow_stems: set[str] | None = None
+        if args.allowlist_scope:
+            allow_dir = PROJECT_ROOT / "data/allowlists"
+            slug_year = cycle_dir.name   # e.g. rajasthan_2023
+            allow_path = allow_dir / f"{slug_year}.txt"
+            if not allow_path.exists():
+                matches = sorted(allow_dir.glob(f"{slug_year}_top*.txt"))
+                allow_path = matches[0] if matches else None
+            if allow_path and allow_path.exists():
+                allow_stems = {ln.strip()[:-4]
+                               for ln in allow_path.read_text().splitlines()
+                               if ln.strip().endswith(".pdf")}
+                print(f"  Allowlist scope: {allow_path.name} "
+                      f"({len(allow_stems)} candidates)", file=sys.stderr)
+            else:
+                print(f"  ⚠ --allowlist-scope requested but no allowlist "
+                      f"file for {slug_year} — skipping this cycle",
+                      file=sys.stderr)
+                continue
+
         for llm_path in sorted(cycle_dir.glob("*.json")):
+            if allow_stems is not None and llm_path.stem not in allow_stems:
+                # Out of scope for this run — silently skip
+                continue
             try:
                 llm_json = json.loads(llm_path.read_text())
             except json.JSONDecodeError as e:
@@ -497,18 +582,38 @@ def main():
                 continue
 
             if args.dry_run:
-                # Just probe the match
+                # Just probe the match — mirrors apply_one's 3-tuple key
+                # with name+const fallback, so dry-run stats match what
+                # commit would actually do.
                 aff_id = llm_json.get("affidavit_id")
                 prov = provisional_lookup.get(aff_id)
                 if not prov:
                     counts["no_provisional_row"] += 1
                     continue
-                key = (_normalize_name(prov[0]),
-                       _normalize_constituency(prov[1]))
-                if key not in appearance_lookup:
-                    counts["no_appearance_match"] += 1
-                else:
+                name = prov[0]
+                const = prov[1]
+                party = prov[2] if len(prov) >= 3 else ""
+                n = _normalize_name(name)
+                c = _normalize_constituency(const)
+                p = _normalize_party(party)
+                by_full = appearance_lookup.get("by_full", appearance_lookup) \
+                    if isinstance(appearance_lookup, dict) else {}
+                by_nc = appearance_lookup.get("by_nc", {}) \
+                    if isinstance(appearance_lookup, dict) else {}
+                hit_id = by_full.get((n, c, p)) if p else None
+                if not hit_id:
+                    cands = by_nc.get((n, c), [])
+                    if len(cands) == 1:
+                        hit_id = cands[0][0]
+                    elif len(cands) > 1 and p:
+                        for aid, ap in cands:
+                            if ap and (ap in p or p in ap):
+                                hit_id = aid
+                                break
+                if hit_id:
                     counts["would_apply"] += 1
+                else:
+                    counts["no_appearance_match"] += 1
                 continue
 
             try:

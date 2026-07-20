@@ -7,6 +7,47 @@
 {% set party_colors = {'AAP':'#019cdf','INC':'#19aaed','BJP':'#ff9933','SAD':'#1a3399','BSP':'#22336d','IND':'#7f8c8d'} %}
 {% set party_clr = party_colors.get(latest_party, '#7f8c8d') %}
 
+{# Display-name mapping — the DB stores short codes (INC, IND, etc.)
+   but a public-facing detail page reads better with full names.
+   Extend this map as we hit new short codes worth expanding. #}
+{% set party_display_names = {
+    'INC': 'Congress',
+    'IND': 'Independent',
+    'BJP': 'BJP',
+    'AAP': 'AAP',
+    'AAAP': 'AAP',
+    'SP':  'Samajwadi Party',
+    'BSP': 'BSP',
+    'AITC': 'Trinamool Congress',
+    'DMK': 'DMK',
+    'AIADMK': 'AIADMK',
+    'CPI(M)': 'CPI (Marxist)',
+    'CPI':  'CPI',
+    'JD(U)': 'Janata Dal (United)',
+    'JD(S)': 'Janata Dal (Secular)',
+    'NCP':  'NCP',
+    'NCP(SP)': 'NCP (Sharad Pawar)',
+    'SHS':  'Shiv Sena',
+    'SHS(UBT)': 'Shiv Sena (UBT)',
+    'BJD': 'BJD',
+    'RJD': 'RJD',
+    'JMM': 'JMM',
+    'TDP': 'TDP',
+    'YSRCP': 'YSRCP',
+    'BRS': 'BRS',
+    'TVK': 'TVK (Vijay)',
+    'JKN': 'National Conference',
+    'NPP': 'NPP',
+    'NDPP': 'NDPP',
+    'ZPM': 'ZPM',
+    'SKM': 'SKM',
+    'AINRC': 'AINRC',
+    'LJPRV': 'LJP (Ram Vilas)',
+} %}
+{% macro party_full(code) -%}
+  {{ party_display_names.get(code, code) }}
+{%- endmacro %}
+
 <main class="flex-1 max-w-container-max w-full mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
 
   <!-- PROFILE HEADER -->
@@ -33,7 +74,7 @@
         <div class="flex flex-wrap justify-center md:justify-start gap-4 mb-6">
           <div class="flex items-center gap-2">
             <span class="material-symbols-outlined text-primary">flag</span>
-            <span class="text-body-lg font-body-lg font-semibold">{{ latest_party }}</span>
+            <span class="text-body-lg font-body-lg font-semibold">{{ party_full(latest_party) }}</span>
           </div>
           {% if latest_app and latest_app.constituency %}
             <div class="flex items-center gap-2">
@@ -42,10 +83,16 @@
             </div>
           {% endif %}
         </div>
-        {% if politician.profession or politician.age %}
+        {# Suppress profession strings that look like OCR / LLM extraction
+           junk — anything shorter than 5 chars or matching known garbage
+           tails (e.g. "BLE" from "IMMOVABLE"). Real professions are
+           always word-like and >= 5 chars. #}
+        {% set _prof = politician.profession or '' %}
+        {% set _prof_clean = _prof if (_prof|length >= 5 and _prof|lower not in ['none', 'null', 'n/a', 'nil', '—', 'unknown']) else '' %}
+        {% if _prof_clean or politician.age %}
           <p class="text-headline-md font-headline-md text-secondary mb-6">
-            {% if politician.profession %}{{ politician.profession[:60] }}{% endif %}
-            {% if politician.age %} · Age {{ politician.age }}{% endif %}
+            {% if _prof_clean %}{{ _prof_clean[:60] }}{% endif %}
+            {% if politician.age %}{% if _prof_clean %} · {% endif %}Age {{ politician.age }}{% endif %}
           </p>
         {% endif %}
         <div class="flex flex-wrap justify-center md:justify-start gap-3">
@@ -93,9 +140,24 @@
         <span class="material-symbols-outlined text-primary bg-primary-fixed p-2 rounded-lg">calendar_month</span>
       </div>
       <p class="text-headline-md font-headline-md text-on-surface">{{ appearances|length }}</p>
+      {# Cycle year summary — show years in ascending order.
+         • 1 cycle: "2025"
+         • Contiguous multi (no gaps): "2013 – 2025"
+         • Multi with gaps: "2010, 2020, 2025" so returning-after-break is visible. #}
+      {% set _years = appearances | map(attribute='election') | selectattr('year') | map(attribute='year') | list | sort | unique | list %}
+      {% set _year_range = _years[-1] - _years[0] if _years|length >= 2 else 0 %}
+      {% set _expected_gap_span = (_years|length - 1) * 5 %}
+      {# Politicians typically serve full 5-year assembly terms. If the span
+         between first and last cycle equals (count-1)*5, they served
+         consecutive terms → show as a range. Otherwise, list each year. #}
       <p class="text-label-sm font-label-sm text-on-surface-variant mt-1">
-        {{ appearances[-1].election.year if appearances and appearances[-1].election else '' }}
-        – {{ appearances[0].election.year if appearances and appearances[0].election else '' }}
+        {% if _years|length == 1 %}
+          {{ _years[0] }}
+        {% elif _year_range == _expected_gap_span %}
+          {{ _years[0] }} – {{ _years[-1] }}
+        {% else %}
+          {{ _years | join(', ') }}
+        {% endif %}
       </p>
     </div>
 
@@ -126,7 +188,7 @@
             {% if a.party and a.election %}
               {% set pclr = party_colors.get(a.party.short_name, '#7f8c8d') %}
               <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded text-white font-bold" style="background:{{ pclr }}" title="{{ a.constituency.name if a.constituency else '' }}">
-                {{ a.party.short_name }}
+                {{ party_full(a.party.short_name) }}
                 <span class="text-[11px] opacity-90">· {{ a.election.year }}</span>
               </span>
               {% if not loop.last %}
@@ -143,10 +205,12 @@
   </section>
   {% endif %}
 
-  <!-- ASYMMETRIC: ASSETS GROWTH + LEGAL DISCLOSURE -->
-  <section class="grid grid-cols-1 lg:grid-cols-3 gap-gutter mb-stack-lg">
-    <!-- Financial assets growth (2/3) -->
-    <div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm">
+  <!-- FINANCIAL ASSETS GROWTH — full width now that Legal Disclosure
+       moved below (was crammed as an asymmetric side-by-side that left
+       lots of empty space under the chart when a candidate had many
+       cases stretching the right column tall). -->
+  <section class="mb-stack-lg">
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm">
       <div class="flex justify-between items-center mb-6">
         <h3 class="text-headline-md font-headline-md text-on-surface">Financial assets across cycles</h3>
         <span class="flex items-center gap-1 text-label-sm font-label-sm text-on-surface-variant">
@@ -180,18 +244,26 @@
       </div>
     </div>
 
-    <!-- Legal Disclosure (1/3) -->
-    <div class="lg:col-span-1 bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm">
-      <div class="flex justify-between items-center mb-6">
-        <h3 class="text-headline-md font-headline-md text-on-surface">Legal disclosure</h3>
-        {% if latest_app and (latest_app.criminal_cases_count or 0) > 0 %}
-          <span class="material-symbols-outlined text-error">warning</span>
-        {% else %}
-          <span class="material-symbols-outlined text-on-tertiary-container">verified</span>
-        {% endif %}
-      </div>
-      <div class="space-y-stack-md">
-        {% set lat_cases = (latest_app.cases if latest_app else []) | reject_empty_cases | list %}
+    <!-- (Legal Disclosure moved out — now its own full-width section below.) -->
+  </section>
+
+  <!-- LEGAL DISCLOSURE — full width, 2-column card grid so many-case
+       candidates lay out horizontally instead of a tall thin column
+       that leaves the chart above with awkward whitespace. -->
+  {% set lat_cases = (latest_app.cases if latest_app else []) | reject_empty_cases | list %}
+  <section class="mb-stack-lg bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-md shadow-sm">
+    <div class="flex justify-between items-center mb-6">
+      <h3 class="text-headline-md font-headline-md text-on-surface">
+        Legal disclosure
+        {% if lat_cases %}<span class="ml-2 text-label-sm font-normal text-on-surface-variant">({{ lat_cases|length }} pending case{{ '' if lat_cases|length == 1 else 's' }})</span>{% endif %}
+      </h3>
+      {% if latest_app and (latest_app.criminal_cases_count or 0) > 0 %}
+        <span class="material-symbols-outlined text-error">warning</span>
+      {% else %}
+        <span class="material-symbols-outlined text-on-tertiary-container">verified</span>
+      {% endif %}
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
         {% if lat_cases %}
           {% for c in lat_cases %}
           {% set clean = c.description | clean_case_desc %}
@@ -241,10 +313,9 @@
           </div>
         {% endif %}
       </div>
-      <p class="text-label-sm text-on-surface-variant italic mt-stack-md pt-stack-md border-t border-outline-variant">
-        Cases listed are pending. Candidates presumed innocent until proven guilty.
-      </p>
-    </div>
+    <p class="text-label-sm text-on-surface-variant italic mt-stack-md pt-stack-md border-t border-outline-variant">
+      Cases listed are pending. Candidates presumed innocent until proven guilty.
+    </p>
   </section>
 
   <!-- INCOME SOURCES + TREND (moved below Financial Assets, with trend chart) -->
@@ -488,7 +559,7 @@
             <td class="py-4 px-4 font-bold">{{ a.election.year if a.election else '' }}</td>
             <td class="py-4 px-4">{{ a.election.house if a.election else '' }}</td>
             <td class="py-4 px-4">{{ a.constituency.name if a.constituency else '' }}</td>
-            <td class="py-4 px-4">{% if a.party %}<span class="px-2 py-1 rounded text-label-sm font-bold text-white" style="background:{{ color }}">{{ a.party.short_name }}</span>{% endif %}</td>
+            <td class="py-4 px-4">{% if a.party %}<span class="px-2 py-1 rounded text-label-sm font-bold text-white" style="background:{{ color }}">{{ party_full(a.party.short_name) }}</span>{% endif %}</td>
             <td class="py-4 px-4 font-medium">₹{{ "{:,.1f}".format((a.total_assets_inr or 0) / 10000000) }} Cr</td>
             <td class="py-4 px-4">
               {% set d = deltas.get(a.id) %}

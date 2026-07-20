@@ -4,20 +4,12 @@
 <main class="flex-grow">
 
   <!-- ============================================================ -->
-  <!-- HERO — "Visualizing Political Integrity"                    -->
+  <!-- Election-type toggle — hero removed; wordmark now lives in    -->
+  <!-- the top nav. Toggle sits alone on a slim row.                -->
   <!-- ============================================================ -->
-  <section class="px-margin-mobile md:px-margin-desktop pt-stack-lg pb-stack-md relative" style="z-index: 1000;">
+  <section class="px-margin-mobile md:px-margin-desktop pt-stack-md pb-stack-sm relative" style="z-index: 1000;">
     <div class="max-w-container-max mx-auto">
-      {# Hero text spans the full row; the Election-type toggle moves to its own
-         row below so the global State Selector dropdown does not overlap it. #}
-      <div class="max-w-2xl">
-        <h1 class="text-display-lg-mobile md:text-display-lg font-display-lg text-on-surface mb-stack-md">
-          Visualizing Political Integrity
-        </h1>
-      </div>
-
-      <!-- Election-type toggle on its own row, right-aligned and clear of the State Selector dropzone -->
-      <div class="flex justify-end mt-stack-md">
+      <div class="flex justify-end">
         <div class="bg-surface-container-low rounded-xl p-1 flex gap-1">
           <a href="/?state={{ state }}&view=mla&scope={{ scope }}"
              class="px-4 py-2 rounded-lg text-label-lg font-label-lg {% if view == 'mla' %}bg-surface-container-lowest text-on-surface font-bold shadow-sm border border-outline-variant{% else %}text-on-surface-variant hover:text-on-surface{% endif %} transition-all">
@@ -32,34 +24,11 @@
     </div>
   </section>
 
-  <!-- ============================================================ -->
-  <!-- DATA COVERAGE NOTICE — top-2/3 candidates + latest/previous  -->
-  <!-- election categorization per state.                            -->
-  <!-- ============================================================ -->
-  {% set _latest   = coverage | selectattr('latest_loaded') | list %}
-  {% set _previous = coverage | rejectattr('latest_loaded') | selectattr('loaded') | list %}
-  <section class="px-margin-mobile md:px-margin-desktop mt-stack-md">
-    <div class="max-w-container-max mx-auto">
-      <div class="flex items-start gap-3 p-stack-md bg-surface-container-low rounded-xl border border-outline-variant">
-        <span class="material-symbols-outlined text-on-surface-variant mt-0.5" style="font-size:18px;">info</span>
-        <div class="text-label-sm text-on-surface-variant space-y-1">
-          <p><strong class="text-on-surface">We currently have data for the top 2–3 candidates per constituency.</strong></p>
-          {% if _latest %}
-          <p>
-            <strong class="text-on-surface">Latest election</strong> —
-            {% for s in _latest %}{{ s.name }} ({{ s.loaded[0] }}){% if not loop.last %} · {% endif %}{% endfor %}
-          </p>
-          {% endif %}
-          {% if _previous %}
-          <p>
-            <strong class="text-on-surface">Previous election</strong> —
-            {% for s in _previous %}{{ s.name }} ({{ s.loaded[0] }}){% if not loop.last %} · {% endif %}{% endfor %}
-          </p>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </section>
+  {# Data-coverage banner removed — the concise "top 2–3 per constituency"
+     note now lives inside the map's left-hand legend card (below the
+     Cases/Wealth toggle). The per-state Latest/Previous election list
+     is dropped from the home page entirely (users can see per-state
+     detail on the state page). #}
 
   <!-- ============================================================ -->
   <!-- REAL INDIA MAP (Leaflet + GeoJSON) — Political Integrity     -->
@@ -91,7 +60,7 @@
         <!-- Map legend — gradient bar with a Cases ↔ Wealth tab toggle.
              Clicking a tab swaps the metric that drives the map coloring and
              the hover tooltip. -->
-        <div class="absolute top-stack-md left-stack-md bg-surface-container-lowest/95 backdrop-blur rounded-xl border border-outline-variant px-3 py-2 shadow-sm z-[400] min-w-[180px]">
+        <div class="absolute top-stack-md left-stack-md bg-surface-container-lowest/95 backdrop-blur rounded-xl border border-outline-variant px-3 py-2 shadow-sm z-[400]" style="width: 200px;">
           {# Mode tabs — wired to JS via data-mode attribute. The currently-selected
              tab gets the bg-surface-container-lowest highlight. #}
           <div class="flex bg-surface-container-high p-1 rounded-lg border border-outline-variant mb-2">
@@ -111,9 +80,15 @@
             <span id="mapLegendHigh">High</span>
           </div>
           <div class="flex items-center gap-2 mt-2 pt-2 border-t border-outline-variant">
-            <span class="w-3 h-3 rounded-sm bg-[#e6ebf1] border border-outline-variant"></span>
+            <span class="w-3 h-3 rounded-sm bg-[#e6ebf1] border border-outline-variant flex-shrink-0"></span>
             <span class="text-[10px] text-on-surface-variant">Data not available</span>
           </div>
+          {# Coverage note — small caption under the legend so the top-of-page
+             banner can be dropped without losing this disclosure. No divider
+             above it (keeps the card visually tight). #}
+          <p class="text-[10px] text-on-surface-variant/70 italic mt-2 leading-tight">
+            Data covers the top 2–3 candidates per constituency.
+          </p>
         </div>
 
         <!-- Title -->
@@ -282,6 +257,63 @@
   </section>
 
   <!-- ============================================================ -->
+  <!-- UNIFIED SEARCH BAR — MLA / constituency / party / state.     -->
+  <!-- Loads /api/search-index once (client-side cached), does      -->
+  <!-- fuzzy match in JS as the user types, shows top-8 grouped     -->
+  <!-- results. Scope defaults to All India; when the header state  -->
+  <!-- dropdown is set to a specific state, results filter to that  -->
+  <!-- state (user can toggle back to All India).                    -->
+  <!-- ============================================================ -->
+  <section class="px-margin-mobile md:px-margin-desktop mt-stack-lg">
+    <div class="max-w-container-max mx-auto">
+      <div class="relative max-w-3xl mx-auto" id="siteSearchWrap">
+
+        {# Rounded pill container. Left = search icon; middle = input;
+           right = prominent Search button. Matches the reference image
+           the user shared. Larger padding + text than the earlier draft. #}
+        <div class="flex items-center gap-2 bg-surface-container-lowest border border-outline-variant rounded-full pl-6 pr-2 py-2 shadow-sm focus-within:border-primary focus-within:shadow transition-all">
+          <span class="material-symbols-outlined text-on-surface-variant flex-shrink-0" style="font-size:26px;">search</span>
+          <input id="siteSearchInput"
+                 type="text"
+                 autocomplete="off"
+                 placeholder="Search MP/MLA by name, constituency, or party..."
+                 class="flex-1 bg-transparent outline-none text-body-lg text-on-surface placeholder:text-on-surface-variant py-2">
+          {# Scope pill — subtle, sits between input and Search button.
+             Click toggles between All India and CURRENT_STATE. #}
+          <button id="siteSearchScope" type="button"
+                  class="hidden md:inline-block text-[11px] font-bold uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors border border-outline-variant rounded-full px-3 py-1.5 whitespace-nowrap"
+                  title="Toggle search scope (All India ↔ selected state)">
+            All India
+          </button>
+          <button id="siteSearchGo" type="button"
+                  class="bg-on-surface text-surface-container-lowest font-bold rounded-full px-6 py-2.5 hover:opacity-90 transition-opacity text-body-md flex-shrink-0">
+            Search
+          </button>
+        </div>
+
+        {# Trending / popular row — clickable pills that jump straight
+           to the entity. Populated by JS from the loaded index (current
+           state's CM + top-2 politicians by wealth). Shows nothing until
+           the index has loaded so we never dangle empty markup. #}
+        <div id="siteSearchTrending"
+             class="mt-3 flex items-center justify-center gap-3 flex-wrap text-body-md hidden">
+          <span class="text-label-sm text-on-surface-variant font-medium">Trending:</span>
+          <div id="siteSearchTrendingList" class="flex items-center gap-3 flex-wrap"></div>
+        </div>
+
+        {# Autocomplete dropdown — hidden until user types 2+ chars. #}
+        <div id="siteSearchDropdown"
+             class="absolute left-0 right-0 top-full mt-2 bg-surface-container-lowest border border-outline-variant rounded-2xl shadow-lg overflow-hidden z-[500] hidden">
+          <div id="siteSearchResults"></div>
+          <div id="siteSearchEmpty" class="hidden px-4 py-6 text-center text-label-sm text-on-surface-variant">
+            No matches. Try a different spelling.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
   <!-- STAT STRIP — three big numbers                              -->
   <!--                                                              -->
   <!-- POST-ECI-MIGRATION POLICY                                    -->
@@ -402,31 +434,23 @@
                  title="{{ z.states|join(', ') }}"
                  class="block p-stack-md rounded-xl border transition-all
                         {% if _is_active_zone %}border-primary bg-surface-container-low{% else %}border-outline-variant hover:bg-surface-container-low{% endif %}">
+                {# TOP LINE — zone name (left) + headline % (right) #}
                 <div class="flex items-center justify-between mb-2">
                   <div class="flex items-center gap-2">
                     <span class="w-3 h-3 rounded-full" style="background: {{ zcolor }};"></span>
                     <span class="text-label-lg font-label-lg text-on-surface">{{ z.name }} Zone</span>
                   </div>
-                  {# Transparency % is shown ONLY when we have verified data.
-                     Verified = candidates whose criminal_cases_count is
-                     actually populated (not NULL). When there's no
-                     verified subset yet, show 'Pending' rather than a
-                     misleading 100% Clean derived from NULL=0. #}
-                  {% if z.transparency is none %}
+                  {% if z.pct_with_cases is none %}
                     <span class="text-label-sm font-bold text-on-surface-variant italic">Pending verification</span>
                   {% elif z.fallback %}
-                    <span class="text-label-sm font-bold text-on-surface-variant italic">{{ z.transparency|int }}% Clean*</span>
+                    <span class="text-label-sm font-bold text-on-surface-variant italic">{{ z.pct_with_cases|int }}% have cases*</span>
                   {% else %}
-                    <span class="text-label-sm font-bold text-on-surface">{{ z.transparency|int }}% Clean</span>
+                    <span class="text-label-sm font-bold text-on-surface">{{ z.pct_with_cases|int }}% have cases</span>
                   {% endif %}
                 </div>
+
+                {# MIDDLE LINE — verified count (left) + cases/MLA (right) #}
                 {% set _unit = z.label or 'MLAs' %}
-                {# Headline count: lead with VERIFIED candidates when partial
-                   coverage exists; show total only as the secondary number.
-                   That way the user sees "this stat is from N people" first,
-                   then "of M total on file" as context — not the other way
-                   around (which let the unverified majority dominate the
-                   visual impression). #}
                 <div class="flex items-center justify-between text-[10px] text-on-surface-variant">
                   {% if z.verified is defined and z.verified < z.mlas %}
                     <span>
@@ -437,15 +461,23 @@
                     <span>{{ z.mlas }} {{ _unit }} · {{ z.states|length }} state{{ '' if z.states|length == 1 else 's' }}</span>
                   {% endif %}
                   {% if z.avg_cases is not none %}
-                    <span>{{ z.avg_cases }} cases / verified</span>
+                    <span>{{ z.avg_cases }} cases / MLA</span>
                   {% else %}
                     <span class="italic">cases pending</span>
                   {% endif %}
                 </div>
-                {# Transparency progress bar — only render when we have a real % #}
+
+                {# SMALL FOOTER — clean % reassurance line #}
                 {% if z.transparency is not none %}
+                  <p class="mt-1 text-[10px] text-on-surface-variant leading-snug">
+                    <strong class="text-on-surface">{{ z.transparency|int }}% of MLAs have a clean record.</strong>
+                  </p>
+                {% endif %}
+
+                {# Progress bar — width = % with cases, color = zone bullet color #}
+                {% if z.pct_with_cases is not none %}
                   <div class="mt-2 h-1 w-full bg-outline-variant/40 rounded-full overflow-hidden">
-                    <div class="h-full rounded-full" style="background:{{ zcolor }}; width: {{ z.transparency|int }}%;"></div>
+                    <div class="h-full rounded-full" style="background: {{ zcolor }}; width: {{ z.pct_with_cases|int }}%;"></div>
                   </div>
                 {% endif %}
               </a>
@@ -719,6 +751,9 @@
 
 <script>
 const CURRENT_STATE = {{ state|tojson }};
+// 'mla' (State Election) or 'mp' (Central Election). Drives which map
+// geography loads: state polygons vs LS constituency polygons.
+const VIEW_MODE = {{ view|tojson }};
 
 // (Hero state selector moved to the global nav in base.html)
 
@@ -1026,14 +1061,30 @@ function styleFeature(feature) {
 
 function onEachFeature(feature, layer) {
   const props = feature.properties || {};
-  const name = props.NAME_1 || props.ST_NM || props.name || props.STATE || props.State || props.st_nm || 'Unknown';
-  const kpi = findKpiForState(name);
+  // State polygons expose NAME_1 / ST_NM / etc.
+  // LS-constituency polygons (DataMeet) expose pc_name / st_name / pc_no.
+  // In LS mode we identify the feature by its constituency name; state
+  // remains available via props.st_name for the sidebar / navigation.
+  const isLsFeature = VIEW_MODE === 'mp' && (props.pc_name || props.pc_no);
+  const name = isLsFeature
+    ? props.pc_name
+    : (props.NAME_1 || props.ST_NM || props.name || props.STATE || props.State || props.st_nm || 'Unknown');
+  const stateForKpi = isLsFeature ? (props.st_name || '') : name;
+  // For now, aggregate KPIs by state even in LS view — swap to a
+  // per-constituency KPI lookup once LS data is ingested and the
+  // ls_constituency_kpi() service is added.
+  const kpi = findKpiForState(stateForKpi);
 
-  // Permanent state name label (shared helper — see state_labels.js).
-  LokvaniStateLabels.addStateLabel(feature, layer, name, indiaMap, {
-    findKpi: findKpiForState,
-    isUT:    isNoAssemblyUT,
-  });
+  // Permanent state name label: only render in state view. LS view has
+  // 543 constituencies which are far too dense to label at India-wide
+  // zoom; labels will come back at higher zoom levels once we add a
+  // zoom-based show/hide.
+  if (!isLsFeature) {
+    LokvaniStateLabels.addStateLabel(feature, layer, name, indiaMap, {
+      findKpi: findKpiForState,
+      isUT:    isNoAssemblyUT,
+    });
+  }
 
   layer.on({
     mousemove: (e) => {
@@ -1044,6 +1095,11 @@ function onEachFeature(feature, layer) {
       const prompt = document.getElementById('mapClickPrompt');
       if (prompt) prompt.style.opacity = '0';
       imtName.textContent = name;
+      {# CM sidebar is NOT updated on hover — it stays locked to the
+         currently-viewed state (CURRENT_STATE) and changes only when
+         the user commits with a click. Previewing on hover made the
+         CM/photo/party seat bar swap around while the mouse was moving
+         (Assam, TN, UP etc.) which was distracting and misleading. #}
       if (kpi) {
         const b = bucketForMetric(kpi);
         const metricLine = MAP_MODE === 'wealth'
@@ -1071,13 +1127,21 @@ function onEachFeature(feature, layer) {
       indiaLayer.resetStyle(layer);
       const prompt = document.getElementById('mapClickPrompt');
       if (prompt) prompt.style.opacity = '1';
+      {# Sidebar no longer needs to "snap back" — since we no longer
+         update it on hover, it was never desynced in the first place. #}
     },
     click: () => {
-      // Click selects the state → updates the sidebar. Navigation to the
-      // state's dashboard now happens via the "Explore state →" button
-      // rendered in the sidebar, so users can preview CM/party info
-      // without leaving the page.
-      updateStateSidebar(name);
+      if (isLsFeature) {
+        // LS view: clicking a constituency drills into its detail page.
+        // Route expects /constituency/<state>/<constituency>.
+        window.location.href = '/constituency/'
+          + encodeURIComponent(props.st_name || '')
+          + '/' + encodeURIComponent(name);
+      } else {
+        // State view: full navigation so the header dropdown, URL, all
+        // page sections update to that state — not just the sidebar.
+        window.location.href = '/?state=' + encodeURIComponent(name);
+      }
     },
   });
 }
@@ -1214,8 +1278,22 @@ function updateStateSidebar(stateName) {
 // Initial population — use the currently-selected state (from URL param).
 updateStateSidebar(CURRENT_STATE || 'Delhi');
 
-fetch('/static/india_states.geojson')
-  .then(r => { if (!r.ok) throw new Error('no geojson'); return r.json(); })
+// State-view uses state polygons (33 boundaries). Central-view uses LS
+// constituency polygons (543 boundaries). If the LS geojson isn't
+// present on disk (initial rollout), fall back to state polygons.
+const _mapGeoUrl = (VIEW_MODE === 'mp')
+  ? '/static/india_ls_constituencies.geojson'
+  : '/static/india_states.geojson';
+fetch(_mapGeoUrl)
+  .then(r => {
+    if (!r.ok) {
+      // LS file may not be installed yet — fall back to state polygons
+      // (rendered in grey via bucketForMetric's "no data" branch).
+      console.warn('Falling back to india_states.geojson — ', _mapGeoUrl, 'not found');
+      return fetch('/static/india_states.geojson').then(r2 => r2.json());
+    }
+    return r.json();
+  })
   .then(geo => {
     indiaLayer = L.geoJSON(geo, { style: styleFeature, onEachFeature }).addTo(indiaMap);
     try { indiaMap.fitBounds(indiaLayer.getBounds(), { padding: [12, 12] }); } catch(e) {}
@@ -1764,6 +1842,264 @@ if (partyWealthCycles && partyWealthCycles.years && partyWealthCycles.years.leng
     }
   });
 }
+
+// ============================================================
+// UNIFIED SEARCH BAR — MLA / constituency / party / state
+// ============================================================
+// Loads the full search index once (cached by the browser), then all
+// filtering runs in-memory. Scope defaults to "All India" but flips to
+// the currently-selected state (CURRENT_STATE) on toggle.
+(function initSiteSearch() {
+  const wrap     = document.getElementById('siteSearchWrap');
+  const input    = document.getElementById('siteSearchInput');
+  const scopeBtn = document.getElementById('siteSearchScope');
+  const goBtn    = document.getElementById('siteSearchGo');
+  const dropdown = document.getElementById('siteSearchDropdown');
+  const results  = document.getElementById('siteSearchResults');
+  const emptyEl  = document.getElementById('siteSearchEmpty');
+  const trending = document.getElementById('siteSearchTrending');
+  const trendingList = document.getElementById('siteSearchTrendingList');
+  if (!wrap || !input) return;
+
+  // "all" (default) or the state name matching CURRENT_STATE.
+  let scope = 'all';
+  let INDEX = null;   // filled by fetch below
+  let cursor = -1;    // keyboard-nav highlight index
+
+  scopeBtn.addEventListener('click', () => {
+    scope = (scope === 'all') ? CURRENT_STATE : 'all';
+    scopeBtn.textContent = (scope === 'all') ? 'All India' : scope;
+    render();
+    input.focus();
+  });
+
+  // Load index once. Cache in-memory for this page view; browser cache
+  // handles subsequent page loads via HTTP headers.
+  fetch('/api/search-index')
+    .then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .then(idx => { INDEX = idx; render(); populateTrending(); })
+    .catch(err => console.warn('search-index load failed:', err));
+
+  // "Trending" pills — show 3 well-known politicians scoped to the
+  // current state. We don't have real click-through analytics yet, so
+  // we use a simple heuristic: prefer the state's Chief Minister if we
+  // can find them in the index, then two other politicians from the
+  // same state alphabetically. Falls back to the first 3 politicians
+  // globally if scope=all.
+  function populateTrending() {
+    if (!INDEX || !trending || !trendingList) return;
+    // CM_DATA is loaded near the top of the page from the
+    // chief-ministers-data JSON script tag. Falls back gracefully if
+    // the variable isn't defined yet (e.g. race with page load).
+    const cmMap = (typeof CM_DATA === 'object' && CM_DATA) ? CM_DATA : {};
+    const cmName = (cmMap[CURRENT_STATE] && cmMap[CURRENT_STATE].name) || '';
+    const candidates = [];
+    if (cmName) {
+      const cm = INDEX.politicians.find(p =>
+        norm(p.n) === norm(cmName) && (!CURRENT_STATE || p.st === CURRENT_STATE));
+      if (cm) candidates.push(cm);
+    }
+    // Fill remaining slots with other politicians from the current state.
+    const pool = INDEX.politicians.filter(p =>
+      p.st === CURRENT_STATE && !candidates.includes(p));
+    for (const p of pool) {
+      if (candidates.length >= 3) break;
+      candidates.push(p);
+    }
+    // Ultimate fallback — any 3 politicians.
+    for (const p of INDEX.politicians) {
+      if (candidates.length >= 3) break;
+      if (!candidates.includes(p)) candidates.push(p);
+    }
+    if (!candidates.length) return;
+    trending.classList.remove('hidden');
+    trendingList.innerHTML = candidates.map(p => `
+      <a href="/politician/${encodeURIComponent(p.s)}"
+         class="text-on-surface hover:text-primary font-medium transition-colors">${escapeHtml(p.n)}</a>
+    `).join('<span class="text-on-surface-variant">·</span>');
+  }
+
+  // Normalize: lowercase + strip non-alphanumeric so "Yogi Adityanath"
+  // matches "yogi", "yogi ", "YOGI-A", etc.
+  function norm(s) {
+    return (s || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
+  }
+
+  // Score a candidate: 3 = exact prefix, 2 = word-boundary hit, 1 = contains.
+  // Higher is better; 0 means no match.
+  function score(text, q) {
+    if (!text) return 0;
+    const nt = norm(text), nq = norm(q);
+    if (!nq) return 0;
+    if (nt.startsWith(nq)) return 3;
+    // word-boundary: check any word in the original text
+    const words = text.toLowerCase().split(/\s+/).map(norm);
+    if (words.some(w => w.startsWith(nq))) return 2;
+    return nt.includes(nq) ? 1 : 0;
+  }
+
+  function scopedFilter(items, stateKey) {
+    if (scope === 'all') return items;
+    return items.filter(it => (it[stateKey] || it.st || it.n) === scope);
+  }
+
+  function search(q) {
+    if (!INDEX || q.length < 2) return [];
+    const hits = [];
+    // Politicians
+    for (const p of scopedFilter(INDEX.politicians, 'st')) {
+      const s = Math.max(score(p.n, q), score(p.p, q), score(p.c, q));
+      if (s > 0) hits.push({ type: 'politician', score: s, item: p });
+    }
+    // Constituencies (scope by st)
+    for (const c of scopedFilter(INDEX.constituencies, 'st')) {
+      const s = score(c.n, q);
+      if (s > 0) hits.push({ type: 'constituency', score: s, item: c });
+    }
+    // Parties (no scope — parties span states)
+    for (const pa of INDEX.parties) {
+      const s = Math.max(score(pa.n, q), score(pa.f, q));
+      if (s > 0) hits.push({ type: 'party', score: s, item: pa });
+    }
+    // States (only in "all" scope — otherwise the current state IS the scope)
+    if (scope === 'all') {
+      for (const st of INDEX.states) {
+        const s = score(st.n, q);
+        if (s > 0) hits.push({ type: 'state', score: s, item: st });
+      }
+    }
+    hits.sort((a, b) => b.score - a.score);
+    return hits.slice(0, 8);
+  }
+
+  function urlFor(hit) {
+    const t = hit.type, i = hit.item;
+    if (t === 'politician')   return '/politician/' + encodeURIComponent(i.s);
+    if (t === 'constituency') return '/constituency/' + encodeURIComponent(i.st) + '/' + encodeURIComponent(i.n);
+    if (t === 'party')        return '/browse?party=' + encodeURIComponent(i.n);
+    if (t === 'state')        return '/?state=' + encodeURIComponent(i.n);
+    return '#';
+  }
+
+  function iconFor(type) {
+    return {
+      politician:   'person',
+      constituency: 'location_on',
+      party:        'flag',
+      state:        'public',
+    }[type] || 'search';
+  }
+
+  function subtitleFor(hit) {
+    const i = hit.item, t = hit.type;
+    if (t === 'politician')   return [i.p, i.c, i.st].filter(Boolean).join(' · ');
+    if (t === 'constituency') return i.st;
+    if (t === 'party')        return i.f || 'Political party';
+    if (t === 'state')        return 'State / UT';
+    return '';
+  }
+
+  function typeLabel(type) {
+    return { politician: 'MLA', constituency: 'Constituency',
+             party: 'Party', state: 'State' }[type] || '';
+  }
+
+  function render() {
+    const q = input.value.trim();
+    if (q.length < 2) {
+      dropdown.classList.add('hidden');
+      results.innerHTML = '';
+      cursor = -1;
+      return;
+    }
+    const hits = search(q);
+    if (hits.length === 0) {
+      dropdown.classList.remove('hidden');
+      results.innerHTML = '';
+      emptyEl.classList.remove('hidden');
+      cursor = -1;
+      return;
+    }
+    emptyEl.classList.add('hidden');
+    dropdown.classList.remove('hidden');
+    results.innerHTML = hits.map((h, i) => `
+      <a href="${urlFor(h)}"
+         data-idx="${i}"
+         class="site-search-row flex items-center gap-3 px-4 py-2.5 hover:bg-surface-container-low transition-colors">
+        <span class="material-symbols-outlined text-on-surface-variant flex-shrink-0" style="font-size:18px;">${iconFor(h.type)}</span>
+        <div class="flex-1 min-w-0">
+          <div class="text-body-md text-on-surface truncate">${escapeHtml(h.item.n)}</div>
+          <div class="text-label-sm text-on-surface-variant truncate">${escapeHtml(subtitleFor(h))}</div>
+        </div>
+        <span class="text-[10px] uppercase tracking-wider text-on-surface-variant flex-shrink-0">${typeLabel(h.type)}</span>
+      </a>
+    `).join('');
+    cursor = -1;
+  }
+
+  function escapeHtml(s) {
+    return String(s || '').replace(/[&<>"']/g, c => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  // Debounced input handler
+  let t = null;
+  input.addEventListener('input', () => {
+    clearTimeout(t);
+    t = setTimeout(render, 80);
+  });
+
+  // Keyboard nav — up/down/enter/escape
+  input.addEventListener('keydown', (e) => {
+    const rows = results.querySelectorAll('.site-search-row');
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      cursor = Math.min(cursor + 1, rows.length - 1);
+      highlight(rows);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      cursor = Math.max(cursor - 1, 0);
+      highlight(rows);
+    } else if (e.key === 'Enter') {
+      if (cursor >= 0 && rows[cursor]) {
+        e.preventDefault();
+        window.location.href = rows[cursor].getAttribute('href');
+      }
+    } else if (e.key === 'Escape') {
+      dropdown.classList.add('hidden');
+      input.blur();
+    }
+  });
+
+  function highlight(rows) {
+    rows.forEach((r, i) => {
+      if (i === cursor) r.classList.add('bg-surface-container-low');
+      else r.classList.remove('bg-surface-container-low');
+    });
+  }
+
+  // Click-outside closes dropdown
+  document.addEventListener('click', (e) => {
+    if (!wrap.contains(e.target)) {
+      dropdown.classList.add('hidden');
+    }
+  });
+
+  // Search button — if there's exactly one clear top hit, go straight
+  // to it; otherwise focus the input so the dropdown is visible.
+  if (goBtn) {
+    goBtn.addEventListener('click', () => {
+      const q = input.value.trim();
+      if (q.length < 2) { input.focus(); return; }
+      const hits = search(q);
+      if (hits.length > 0) {
+        window.location.href = urlFor(hits[0]);
+      } else {
+        input.focus();
+      }
+    });
+  }
+})();
 </script>
 
 {% endblock %}

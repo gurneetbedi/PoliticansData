@@ -1,0 +1,35 @@
+cycle,state,year,allowlist,in_db,with_wealth,with_edu,missing_wealth,missing_edu,wealth_pct
+andhrapradesh-2024,Andhra Pradesh,2024,349,315,303,300,46,49,86
+arunachal-2024,Arunachal Pradesh,2024,94,94,90,90,4,4,95
+assam-2026,Assam,2026,242,242,242,242,0,0,100
+bihar-2025,Bihar,2025,479,479,443,418,36,61,92
+chhattisgarh-2023,Chhattisgarh,2023,169,169,156,129,13,40,92
+delhi-2020,Delhi,2020,136,109,103,106,33,30,75
+delhi-2025,Delhi,2025,138,137,136,131,2,7,98
+goa-2022,Goa,2022,79,79,75,76,4,3,94
+gujarat-2022,Gujarat,2022,332,332,308,261,24,71,92
+haryana-2019,Haryana,2019,178,145,139,137,39,41,78
+haryana-2024,Haryana,2024,173,173,171,166,2,7,98
+himachal-2022,Himachal Pradesh,2022,132,132,129,127,3,5,97
+jharkhand-2024,Jharkhand,2024,161,160,154,139,7,22,95
+jk-2024,Jammu and Kashmir,2024,180,148,147,147,33,33,81
+karnataka-2023,Karnataka,2023,441,441,422,390,19,51,95
+kerala-2026,Kerala,2026,266,266,248,224,18,42,93
+madhyapradesh-2023,Madhya Pradesh,2023,452,452,426,358,26,94,94
+maharashtra-2024,Maharashtra,2024,552,552,518,488,34,64,93
+manipur-2022,Manipur,2022,120,110,109,109,11,11,90
+meghalaya-2023,Meghalaya,2023,119,119,119,119,0,0,100
+mizoram-2023,Mizoram,2023,58,58,55,55,3,3,94
+nagaland-2023,Nagaland,2023,102,102,102,102,0,0,100
+odisha-2024,Odisha,2024,292,292,282,279,10,13,96
+puducherry-2021,Puducherry,2021,53,53,50,45,3,8,94
+punjab-2022,Punjab,2022,208,207,201,197,7,11,96
+rajasthan-2023,Rajasthan,2023,394,391,340,280,54,114,86
+sikkim-2019,Sikkim,2019,56,56,55,56,1,0,98
+sikkim-2024,Sikkim,2024,32,32,32,32,0,0,100
+tamilnadu-2026,Tamil Nadu,2026,438,438,424,420,14,18,96
+telangana-2023,Telangana,2023,235,235,225,224,10,11,95
+tripura-2023,Tripura,2023,117,117,113,112,4,5,96
+uttarakhand-2022,Uttarakhand,2022,137,136,124,105,13,32,90
+uttarpradesh-2022,Uttar Pradesh,2022,799,0,0,0,799,799,0
+westbengal-2026,West Bengal,2026,583,583,576,577,7,6,98

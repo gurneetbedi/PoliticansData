@@ -98,6 +98,12 @@
     "Sikkim", "Meghalaya", "Manipur", "Mizoram", "Nagaland", "Tripura",
     "Delhi", "Goa", "Haryana", "Himachal Pradesh", "Uttarakhand",
     "Jammu and Kashmir", "Chhattisgarh", "Jharkhand", "Telangana",
+    // UP: "UTTAR PRADESH" spills into Rajasthan; use "UP".
+    "Uttar Pradesh",
+    // Odisha: narrow polygon; "ODISHA" collides with WB label; use "OD".
+    "Odisha",
+    // Assam: "ASSAM" was crashing into ML/NL labels in the NE cluster; use "AS".
+    "Assam",
   ]);
 
   // Skip labels for micro-UTs entirely.

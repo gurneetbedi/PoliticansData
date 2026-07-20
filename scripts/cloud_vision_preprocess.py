@@ -107,6 +107,89 @@ COST_PER_PAGE_USD = 0.0015
 # Pages below this threshold fall through to OCR.
 PDFPLUMBER_MIN_CHARS = 150
 
+# Set by main() from CLI --languages or inferred from cycle name.
+# Kept as module-level so ThreadPoolExecutor workers see the same value.
+LANG_HINTS: list[str] = ["hi", "en"]
+
+# ---------------------------------------------------------------------------
+# Cycle → OCR language hint map
+# ---------------------------------------------------------------------------
+# ECI affidavits are usually filed in the state's primary regional language.
+# Without a language hint Cloud Vision often mis-reads Indic scripts as
+# Roman gibberish. Each entry is a list of ISO 639-1 codes passed to
+# Vision as image_context.language_hints. English ("en") is included
+# everywhere because financial figures + form labels are English-language
+# even in regional-script affidavits.
+#
+# Cycle-name matching is prefix-based (e.g. "kerala-2026" matches "kerala").
+CYCLE_LANG_HINTS: dict[str, list[str]] = {
+    # Hindi belt (Devanagari)
+    "uttarpradesh":  ["hi", "en"],
+    "bihar":         ["hi", "en"],
+    "madhyapradesh": ["hi", "en"],
+    "rajasthan":     ["hi", "en"],
+    "chhattisgarh":  ["hi", "en"],
+    "haryana":       ["hi", "en"],
+    "uttarakhand":   ["hi", "en"],
+    "himachal":      ["hi", "en"],
+    "delhi":         ["hi", "en"],
+    "jk":            ["hi", "en", "ur"],
+    "jammu":         ["hi", "en", "ur"],
+    "ladakh":        ["hi", "en"],
+    # Marathi (also Devanagari but distinct)
+    "maharashtra":   ["mr", "hi", "en"],
+    "goa":           ["mr", "en"],
+    # South
+    "kerala":        ["ml", "en"],       # Malayalam
+    "tamilnadu":     ["ta", "en"],       # Tamil
+    "puducherry":    ["ta", "en"],
+    "andhrapradesh": ["te", "en"],       # Telugu
+    "telangana":     ["te", "en"],
+    "karnataka":     ["kn", "en"],       # Kannada
+    # East
+    "westbengal":    ["bn", "en"],       # Bengali
+    "tripura":       ["bn", "en"],
+    "odisha":        ["or", "en"],       # Odia
+    "jharkhand":     ["hi", "en"],       # Predominantly Hindi
+    # West
+    "gujarat":       ["gu", "en"],       # Gujarati
+    "punjab":        ["pa", "en"],       # Punjabi (Gurmukhi)
+    # Northeast
+    "assam":         ["as", "bn", "en"], # Assamese (with Bengali fallback)
+    "sikkim":        ["ne", "en"],       # Nepali
+    "meghalaya":     ["en"],             # Mostly English
+    "mizoram":       ["en"],
+    "nagaland":      ["en"],
+    "manipur":       ["en", "bn"],
+    "arunachal":     ["en", "hi"],
+    # Lok Sabha (multi-state; use hi+en; individual state fetches
+    # could override via CLI --languages)
+    "loksabha":      ["hi", "en"],
+}
+
+
+def infer_lang_hints(pdf_dir: Path, out_dir: Path,
+                      cli_override: str = "") -> list[str]:
+    """Pick language hints for this run.
+
+    Priority:
+      1. Explicit --languages CLI flag (comma-separated ISO codes)
+      2. Match --pdf-dir or --out-dir against CYCLE_LANG_HINTS by prefix
+      3. Default to ["hi", "en"] (conservative fallback covers most states)
+    """
+    if cli_override:
+        return [c.strip() for c in cli_override.split(",") if c.strip()]
+    for probe in (pdf_dir, out_dir):
+        # Get the containing cycle folder name — e.g. from
+        # "data/eci/raw_pdfs/kerala-2026/raw_pdfs" pick "kerala-2026".
+        parts = probe.parts
+        for p in reversed(parts):
+            p_low = p.lower().replace("_", "").replace("-", "")
+            for slug, hints in CYCLE_LANG_HINTS.items():
+                if p_low.startswith(slug):
+                    return hints
+    return ["hi", "en"]
+
 
 # ---------------------------------------------------------------------------
 # Lazy imports (validated up front)
@@ -178,6 +261,10 @@ def vision_ocr_pages(pdf_bytes: bytes, page_numbers: list[int],
     and downstream code doesn't trip on missing keys).
     """
     from google.cloud import vision
+    # Language hints come from the module-level LANG_HINTS global set by
+    # main(). Vision needs the right script hint per state
+    # (Malayalam/Tamil/Telugu/Kannada/Bengali/Gujarati/etc.); without it
+    # degraded Indic scans get mis-OCR'd as Roman gibberish.
     request = {
         "input_config": {
             "content": pdf_bytes,
@@ -185,6 +272,7 @@ def vision_ocr_pages(pdf_bytes: bytes, page_numbers: list[int],
         },
         "features": [{"type_": vision.Feature.Type.DOCUMENT_TEXT_DETECTION}],
         "pages": page_numbers,
+        "image_context": {"language_hints": LANG_HINTS},
     }
     try:
         responses = client.batch_annotate_files(requests=[request])
@@ -323,6 +411,13 @@ def main():
     ap.add_argument("--pdf-allowlist", default="",
                     help="Path to a text file containing one PDF filename "
                          "per line. Only those will be processed.")
+    ap.add_argument("--languages", default="",
+                    help="Comma-separated ISO 639-1 codes for Cloud Vision "
+                         "language_hints (e.g. 'ml,en' for Kerala, 'ta,en' "
+                         "for Tamil Nadu). If omitted, inferred from the "
+                         "cycle name in --pdf-dir / --out-dir path via "
+                         "CYCLE_LANG_HINTS map; defaults to 'hi,en' if the "
+                         "cycle isn't in the map.")
     args = ap.parse_args()
 
     project_root = Path(__file__).resolve().parent.parent
@@ -336,6 +431,13 @@ def main():
     if not pdf_dir.exists():
         sys.exit(f"PDF dir not found: {pdf_dir}")
     out_dir.mkdir(parents=True, exist_ok=True)
+
+    # Configure OCR language hints for this run. Threaded through as a
+    # module-level global so vision_extract_pages doesn't need extra
+    # plumbing on every worker call.
+    global LANG_HINTS
+    LANG_HINTS = infer_lang_hints(pdf_dir, out_dir, args.languages)
+    print(f"OCR language hints: {LANG_HINTS}", file=sys.stderr)
 
     pdfs = sorted(pdf_dir.glob("*.pdf"))
     if not pdfs:

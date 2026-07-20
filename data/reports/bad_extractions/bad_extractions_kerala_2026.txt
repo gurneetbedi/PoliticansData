@@ -1,0 +1,414 @@
+[ 1] ADVOCATE_A_M_ARIFF__830.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: ADVOCATE A M ARIFF
+     Gemini:   A M Ariff
+     OCR total chars (all pages, non-ws): 28026
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |         sml6n0   e3ru1.ojo0                          NON     JUDICIAL             
+     |                                                                                   
+     |                                         a                                         
+     |                                                                                   
+     |                                     ,   r')                                       
+     |                                   I     -,-/                                      
+     |            <200                      'J.. . _ ...i             <200               
+     |                                                                                   
+     |                                 CaroQ   rrur0ocr0                                 
+     |                                                                                   
+     |                              GOVERNMENT   OF  KERALA                              
+     |                                       a-Stamf)                                    
+     |                                                                                   
+     |         o.Stamp Serlal Number : 202526000008737675    Verification Code 147602419V
+     |                                                                       I           
+     |                                                                OTA                
+
+[ 2] ADV__SUNIL_LALOOR__1971.pdf
+     Verdict:  empty_ocr
+     Expected: ADV  SUNIL LALOOR
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 0
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+
+[ 3] B_B_GOPAKUMAR__767.pdf
+     Verdict:  empty_ocr
+     Expected: B B GOPAKUMAR
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 0
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+
+[ 4] DR__MATHEW_KUZHALNADAN__1494.pdf
+     Verdict:  empty_ocr
+     Expected: DR  MATHEW KUZHALNADAN
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 0
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+
+[ 5] JAYANTHI_RAJAN__2770.pdf
+     Verdict:  wrong_person
+     Expected: JAYANTHI RAJAN
+     Gemini:   JAYANTHI C R
+     OCR total chars (all pages, non-ws): 25129
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                   
+     |                                                                          *'di;,   
+     |                                                                           ail"    
+     |                                                      H*f{                         
+     |                                                             Jt"$DlClAL            
+     |                                                                           ,#      
+     |                                                                           .il t-: 
+     |                                                                           \1^rJ   
+     |                                                                           r..!    
+     |                                                                           i -(d   
+     |                                                                           fi      
+     |                                                                           l{      
+     |                                                                           g       
+     |                              il,)                                                 
+     |            ffffi#s                                             {          #       
+     |                                                                  trffiffi         
+     |                   ,.         *}ji'l                                               
+     |                        ...  lfr. :: "i                                    iiJ     
+     |                       e@E,-;;.,                                                   
+     |                                *#|eg                                              
+
+[ 6] KALLATRA_MAHIN__1572.pdf  [_raw]
+     Verdict:  raw_recoverable
+     Expected: KALLATRA MAHIN
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 38173
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     | MANH
+     | -നോൺ ജുഡീഷ്വൽ
+     | ₹200
+     | കേരള സർക്കാർ
+     | GOVERNMENT OF KERALA
+     | e-Stamp
+     | NON JUDICIAL
+     | 200
+     | e-Stamp Serial Number: 202526000008760136
+     | Govt. Reference No.(GRN)
+     | Purpose
+     | Amount of Stamp Paper Purchased in Numeral
+     | Amount of Stamp Paper Purchased in Words
+     | Stamp Paper Purchased on
+     | First Party Name
+     | First Party Address
+     | Second Party Name
+     | Second Party Address
+     | Vendor Code & Name
+     | Treasury Code & Name
+
+[ 7] K_SURENDRAN__920.pdf  [_raw]
+     Verdict:  raw_recoverable
+     Expected: K SURENDRAN
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 79927
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     | IDRAN
+     | KSU
+     | നോൺ ജുഡീഷ്യൽ
+     | 200
+     | കേരള സർക്കാർ
+     | GOVERNMENT OF KERALA
+     | e-Stamp
+     | NON JUDICIAL
+     | 200
+     | ENDRAH
+     | SU
+     | RENDRAN
+     | e-Stamp Serial Number: 202526000008722068
+     | Govt. Reference No. (GRN)
+     | Purpose
+     | SERENDRE KL051601997202526EAN
+     | Amount of Stamp Paper Purchased in Numeral
+     | Affidavit
+     | : *200
+     | Verification Code: 945705661V
+
+[ 8] K__MURALEEDHARAN__875.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: K  MURALEEDHARAN
+     Gemini:   K Muraleedharan
+     OCR total chars (all pages, non-ws): 30455
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     | നോൺ ജുഡീഷ്യൽ
+     | NON JUDICIAL
+     | 200
+     | കേരള സർക്കാർ
+     | GOVERNMENT OF KERALA
+     | e-Stamp
+     | 200
+     | e-Stamp Serial Number: 202526000008704032
+     | Govt. Reference No. (GRN)
+     | Purpose
+     | Amount of Stamp Paper Purchased in Numeral
+     | Amount of Stamp Paper Purchased in Words
+     | Stamp Paper Purchased on
+     | First Party Name
+     | First Party Address
+     | Second Party Name
+     | Second Party Address
+     | Vendor Code & Name
+     | Treasury Code & Name
+     | Verification Code: 485139481V
+
+[ 9] MANOJ_EDAMANA__503.pdf
+     Verdict:  wrong_person
+     Expected: MANOJ EDAMANA
+     Gemini:   MANOJ KUMAR
+     OCR total chars (all pages, non-ws): 20250
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                  !
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |        imrffIB   m3ru1,qot                           NON    JUDICIAL              
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |            r200                                                {200               
+     |                                                                                   
+     |                                eeon    rrudmcd                                    
+     |                                                                                   
+     |                              GOVERNHENT   OF KERALA                               
+     |                                       e'-Stamp                                    
+     |                                                                                   
+     |        e-Stamp Serial Number : 202526OOOOO87 4O257    Verification Code : 231024322V
+     |                                                                                   
+     |        Govt. Reference No.(GRN)          : KLO51714217202526E                     
+
+[10] MUHAMMED_MUHSIN__M__K_MANJERIKUNNATH__2913.pdf
+     Verdict:  wrong_person
+     Expected: MUHAMMED MUHSIN  M  K MANJERIKUNNATH
+     Gemini:   Muhammad Muhsin M.K.
+     OCR total chars (all pages, non-ws): 16777
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     | ..........
+     | ഫാറം 26
+     | (ചട്ടം 4 എ കാണുക)
+     | 050
+     | ..(നിയോജക മണ്ഡലത്തിന്റെ പേര്) നിയോജക മണ്ഡലത്തിൽ നിന്നും
+     | നാ. സഭയുടെ പേര്)-ലേയ്ക്കുള്ള തിരഞ്ഞെടുപ്പിനായി സ്ഥാനാർത്ഥി,
+     | വരണാധികാരി മുൻപാകെ നാമനിർദ്ദേശ പത്രികയോടൊപ്പം സമർപ്പിക്കേണ്ട സത്യവാങ്മൂലം.
+     | ഭാഗം എ
+     | മേൽപ്രകാരമുള്ള തിരഞ്ഞെടുപ്പിലെ ഒരു സ്ഥാനാർത്ഥിയായ
+     | (പൂർണ്ണമായ തപാൽ മേൽവിലാസം ചേർക്കുക) താമസക്കാരനായ.. 32
+     | **മകൻ/മകൾ/ഭാര്യ
+     | し
+     | .വയസ്സുള്ള
+     | லிக ஒல்லின்
+     | താഴെപ്പറയും പ്രകാരം ഇതിനാൽ സഗൗരവം സത്യപ്രതിജ്ഞ ചെയ്ത് ബോധിപ്പിക്കുന്നു.
+     | (1) ..
+     | നിർത്തിയിരിക്കുന്ന ഒരു സ്ഥാനാർത്ഥിയാണ്/** "ഒരു സ്വതന്ത്ര സ്ഥാനാർത്ഥിയായി മൽസരിക്കുന്നു.
+     | (**ബാധകമാകാത്തത് വെട്ടിക്കളയുക).
+     | MK
+     | എന്ന് ഞാൻ
+
+[11] M_S_VISWANATHAN__1085.pdf
+     Verdict:  empty_ocr
+     Expected: M S VISWANATHAN
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 0
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+
+[12] M__M__NASEER__4065.pdf  [_raw]
+     Verdict:  raw_recoverable
+     Expected: M  M  NASEER
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 24770
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |        Jmlflr0   e3nul.ujot                                                        
+     |                                                      NON     JUD}CIAL              
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |           <200                                                                     
+     |                                                                ?200                
+     |                                106!                                                
+     |                                        rrudocrd                                    
+     |                             GOVERNIT,IENT OF KERALA                                
+     |                                                                                    
+     |                                      e.Shmp                                        
+     |        e-Stamp Serial Number : ZOZS2ilOOOOOBTI,| 25                                
+     |                                      1               Verification                  
+     |        Govt. Reference No.(GRN)                                                    
+
+[13] NATTAKOM_SURESH__1442.pdf
+     Verdict:  empty_ocr
+     Expected: NATTAKOM SURESH
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 0
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+
+[14] O_S_AMBIKA__910.pdf
+     Verdict:  wrong_person
+     Expected: O S AMBIKA
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 13633
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                                               
+     |                                                                                                               
+     |                                                                                                               
+     |                                                                                                               
+     |                                                                                                               
+     |                                                                                                               
+
+[15] PREETHI_KONCHATH__1849.pdf
+     Verdict:  wrong_person
+     Expected: PREETHI KONCHATH
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 2855
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     | ethere state & time teste
+     | the sam
+     | Tar defon
+     | h or before
+     | 1300px
+     | fun
+     | .
+     | NOTARY
+     | IV. RATHISH
+     | APEA OF PRACTICE TRU
+     | MAM
+     | KERALA
+     | Reg No 43180
+     | boria:
+     | -10
+     | INDEP
+     | GOY
+     | 12
+     | ഭാഗം ബി
+     | മുതൽ (10) വരെ നൽകിയ വിശദവിവരങ്ങളുടെ സംഗ്രഹം
+
+[16] P_K_SHYAMALA_TEACHER__973.pdf
+     Verdict:  empty_ocr
+     Expected: P K SHYAMALA TEACHER
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 0
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+
+[17] P_T_AJAY_MOHAN__3697.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: P T AJAY MOHAN
+     Gemini:   PT Ajay Mohan
+     OCR total chars (all pages, non-ws): 22808
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     | നോൺ ജുഡീഷ്യൽ
+     | 200
+     | കേരള സർക്കാർ
+     | GOVERNMENT OF KERALA
+     | NON JUDICIAL
+     | 200
+     | S
+     | Mohan
+     | PT
+     | Ajay
+     | PT Ajay
+     | e-Stamp
+     | e-Stamp Serial Number: 202526000008706091
+     | by Mohan Govt. Reference No. (GRN) Mohan
+     | PTA
+     | Ajay Mohan
+     | an
+     | P
+     | Alay Moh
+     | Purpose
+
+[18] SAJU_K_P__592.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: SAJU K P
+     Gemini:   B. Rajani
+     OCR total chars (all pages, non-ws): 16739
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     | ഫാറം 26
+     | (ചട്ടം 4 എ കാണുക)
+     | ..(നിയോജക മണ്ഡലത്തിന്റെ പേര്) നിയോജക മണ്ഡലത്തിൽ നിന്നും
+     | രജനി..(സഭയുടെ പേര്)-ലേയ്ക്കുള്ള
+     | തിരഞ്ഞെടുപ്പിനായി സ്ഥാനാർത്ഥി,
+     | വരണാധികാരി മുൻപാകെ നാമനിർദ്ദേശ പത്രികയോടൊപ്പം സമർപ്പിക്കേണ്ട സത്യവാങ്മൂലം.
+     | ഭാഗം എ
+     | മേൽപ്രകാരമുള്ള തിരഞ്ഞെടുപ്പിലെ ഒരു സ്ഥാനാർത്ഥിയായ
+     | AN 670676..
+     | (പൂർണ്ണമായ തപാൽ മേൽവിലാസം ചേർക്കുക) താമസക്കാരനായ..
+     | ....വയസ്സുള്ള
+     | മോദര
+     | **
+     | *018/02/2205
+     | എന്ന് ഞാൻ
+     | താഴെപ്പറയും പ്രകാരം ഇതിനാൽ സഗൗരവം സത്യപ്രതിജ്ഞ ചെയ്ത് ബോധിപ്പിക്കുന്നു.
+     | (1) ...
+     | **
+     | ഇൻ. ഭക്ഷണം...... രാഷ്ട്രീയ കക്ഷിയുടെ പേര്)
+     | നിർത്തിയിരിക്കുന്ന ഒരു സ്ഥാനാർത്ഥിയാണ്* *ഒരു സ്വതന്ത്ര സ്ഥാനാർത്ഥിയായി മൽസരിക്കുന്നു.
+
+[19] SALEEM_MADAVOOR__4385.pdf
+     Verdict:  wrong_person
+     Expected: SALEEM MADAVOOR
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 11696
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                   ദില     996 :509379721%         
+     |                                                                                   
+     |       _6   55ഭ്വാടേദ്ര്യു             [10518 204022025265                         
+     |       [10056         ]    ]            മൂരി!   ]                                  
+
+[20] SANDEEP_VARIER__3282.pdf
+     Verdict:  empty_ocr
+     Expected: SANDEEP VARIER
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 0
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+
+[21] SHIBU_BABY_JOHN__566.pdf
+     Verdict:  empty_ocr
+     Expected: SHIBU BABY JOHN
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 0
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+

@@ -7,14 +7,17 @@
 
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700;900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 
 <!-- Leaflet for the time-machine map -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 {# Shared state-name label overlay for every India choropleth on the site.
-   Exposes window.LokvaniStateLabels.{setupStateLabelsPane, addStateLabel}. #}
-<script src="/static/state_labels.js"></script>
+   Exposes window.LokvaniStateLabels.{setupStateLabelsPane, addStateLabel}.
+   Version query bumped whenever the label config changes so browsers
+   don't serve a stale cached copy. #}
+<script src="/static/state_labels.js?v=20260718-3"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
 <script id="tailwind-config">
@@ -169,7 +172,22 @@
        picked on the landing page sticks across the whole site. URL-encode the value
        so states with spaces / ampersands round-trip through the browser correctly. #}
     {% set _q = '?state=' ~ (current_state | urlencode) %}
-    <a href="/{{ _q }}" class="text-headline-md font-headline-md font-bold text-on-surface">Lokvani</a>
+    {# Wordmark: Lokvani (English) + लोकवाणी (Hindi) side-by-side, with the
+       "Visualizing Political Integrity" tagline as a small italic subtitle
+       directly beneath. Devanagari font is loaded in <head>. #}
+    <a href="/{{ _q }}" class="flex flex-col leading-tight">
+      <span class="flex items-baseline gap-2">
+        <span class="text-headline-md font-headline-md font-bold text-on-surface">Lokvani</span>
+        <span class="text-headline-md font-bold text-on-surface-variant opacity-60">|</span>
+        <span class="text-headline-md font-bold text-on-surface"
+              style="font-family: 'Noto Sans Devanagari', 'Inter', sans-serif;">
+          लोकवाणी
+        </span>
+      </span>
+      <span class="text-label-sm text-on-surface-variant italic mt-0.5">
+        (Visualizing Political Integrity)
+      </span>
+    </a>
     <nav class="hidden md:flex items-center gap-stack-md lg:gap-stack-lg">
       <a class="text-label-lg font-label-lg {% if request.url.path == '/' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/{{ _q }}">Dashboard</a>
       <a class="text-label-lg font-label-lg {% if request.url.path == '/browse' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/browse{{ _q }}">Rankings</a>

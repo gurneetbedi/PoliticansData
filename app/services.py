@@ -83,16 +83,24 @@ def zone_summary(db: Session) -> list[dict]:
         # than show a meaningless "0% Clean" or division-by-zero error.
         if verified > 0:
             transparency = round(100 * d["clean"] / verified, 0)
-            avg_cases    = round(d["cases"] / verified, 2)
+            # NEW: % of verified MLAs with at least one pending case.
+            # More engaging headline than transparency %; same underlying
+            # numbers, just inverted.
+            pct_with_cases = round(100 * (verified - d["clean"]) / verified, 0)
+            avg_cases      = round(d["cases"] / verified, 2)
         else:
-            transparency = None
-            avg_cases    = None
+            transparency   = None
+            pct_with_cases = None
+            avg_cases      = None
         out.append({
             "name":              zone,
             "mlas":              d["mlas"],
             "verified":          verified,
+            "clean":             d["clean"],
+            "with_cases":        verified - d["clean"] if verified else 0,
             "states":            sorted(d["states"]),
             "transparency":      transparency,
+            "pct_with_cases":    pct_with_cases,
             "avg_cases":         avg_cases,
             "fallback":          is_fallback,
             "label":             "candidates" if is_fallback else "MLAs",
@@ -110,7 +118,13 @@ def zone_summary(db: Session) -> list[dict]:
         "Northeast": 4,
         "South":     5,
     }
-    out.sort(key=lambda z: ZONE_ORDER.get(z["name"], 99))
+    # Sort worst-first by % of MLAs with pending cases — makes the
+    # "civic accountability" narrative land better than alphabetical.
+    # Ties (or zones with no verified rows) fall back to ZONE_ORDER.
+    def _sort_key(z):
+        return (-(z.get("pct_with_cases") or -1),
+                ZONE_ORDER.get(z["name"], 99))
+    out.sort(key=_sort_key)
     return out
 
 

@@ -1,0 +1,23 @@
+pdf,candidate,constituency,party,failure
+ABHIJEET_SHAH__ANKIT_BABA__2740.pdf,ABHIJEET SHAH (ANKIT BABA),Timarni,Indian National Congress,gemini_ok_but_apply
+BAPU_SINGH_TANWAR__2905.pdf,BAPU SINGH TANWAR,Rajgarh,Indian National Congress,gemini_ok_but_apply
+CHANDA_SURENDRA_SINGH_GOUR__656.pdf,CHANDA-SURENDRA SINGH GOUR,Khargapur,Indian National Congress,gemini_ok_but_apply
+DHARMENDRA_BHAV_SINGH_LODHI__2790.pdf,DHARMENDRA BHAV SINGH LODHI,Jabera,Bharatiya Janata Party,corrupt_pdf
+DR__VIJAY_ANAND_MARAVI__1503.pdf,DR. VIJAY ANAND MARAVI,Bichhiya,Bharatiya Janata Party,gemini_ok_but_apply
+DR__YOGESH_PANDAGRE__1141.pdf,DR. YOGESH PANDAGRE,Amla,Bharatiya Janata Party,corrupt_pdf
+ER__RAJENDRA_SHARMA__1227.pdf,ER. RAJENDRA SHARMA,Rewa,Indian National Congress,gemini_raw
+MADHU_BHAU_BHAGAT__742.pdf,MADHU BHAU BHAGAT,Paraswada,Indian National Congress,gemini_ok_but_apply
+NISHANK_JAIN__2859.pdf,NISHANK JAIN,Basoda,Indian National Congress,corrupt_pdf
+PRADEEP_PATEL__1805.pdf,PRADEEP PATEL,Mauganj,Bharatiya Janata Party,gemini_ok_but_apply
+SAHAB_SINGH_GURJAR__1751.pdf,SAHAB SINGH GURJAR,Gwalior Rural,Indian National Congress,corrupt_pdf
+SANJAY_SHUKLA__2099.pdf,SANJAY SHUKLA,Indore-1,Indian National Congress,gemini_raw
+SATYANARAYAN_RAMESHWAR_PATEL__1396.pdf,SATYANARAYAN RAMESHWAR PATEL,Indore-5,Indian National Congress,gemini_raw
+SENA___MAHESH_PATEL__1221.pdf,SENA - MAHESH PATEL,Jobat,Indian National Congress,gemini_raw
+SHALENDRA_KUMAR_JAIN__644.pdf,SHALENDRA KUMAR JAIN,Sagar,Bharatiya Janata Party,corrupt_pdf
+SMT_UMADEVI_LALCHAND_KHATIK__4054.pdf,SMT UMADEVI LALCHAND KHATIK,Hatta,Bharatiya Janata Party,gemini_ok_but_apply
+SUKHENDRA_SINGH_BANNA__689.pdf,SUKHENDRA SINGH BANNA,Mauganj,Indian National Congress,gemini_ok_but_apply
+SUKHRAM_SALVE__6935.pdf,SUKHRAM SALVE,Harsud,Indian National Congress,gemini_raw
+SUNIL_UIKEY__3080.pdf,SUNIL UIKEY,Junnardeo,Indian National Congress,no_gemini
+SURENDRA_PATWA__1895.pdf,SURENDRA PATWA,Bhojpur,Bharatiya Janata Party,gemini_raw
+UDAY_PRATAP_SINGH__716.pdf,UDAY PRATAP SINGH,Gadarwara,Bharatiya Janata Party,gemini_ok_but_apply
+VIKRAM_SINGH__NAATI_RAJA__1127.pdf,VIKRAM SINGH (NAATI RAJA),Rajnagar,Indian National Congress,corrupt_pdf

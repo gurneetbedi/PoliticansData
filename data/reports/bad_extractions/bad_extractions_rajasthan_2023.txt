@@ -1,0 +1,2608 @@
+[ 1] ADU_RAM_MEGHWAL__7602.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: ADU RAM MEGHWAL
+     Gemini:   ADURAM MEGHWAL
+     OCR total chars (all pages, non-ws): 11585
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                       FIFTY                   
+     |                                                                               
+     |                                                                               
+     |                                                    RUPEES                     
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                  Rs.50                        
+     |           F.50                                                                
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                  INDIA                                        
+     |                  INDIANON                JUDICIAL                             
+     |                                                                               
+
+[ 2] AMAR_SINGH__8465.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: AMAR SINGH
+     Gemini:   DHARANPRiVA SKARMA
+     OCR total chars (all pages, non-ws): 13838
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     | 'Yat | ''(WFTy
+     | rupees
+     | 'lye /
+     | 43.50
+     | E
+     | TARM RAJASTHAN
+     | 'C8.
+     | 9
+     | Chara | MipRiva
+     | 9654 26 | ShaARMA
+     | AOv
+     | Arca-1?i | Yaj4A
+     | afunoc
+     | Ex; | N
+     | (Fw 43
+     | OV T .
+     | Qf |
+     | O_
+     | Rcg: J
+     | DHARANPRiVA | 852
+
+[ 3] AMIT_CHACHAN__7512.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: AMIT CHACHAN
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 3200
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                 
+     |                                                                                 
+     |                                                                                 
+     |                                                                                 
+     |                                                                                 
+     |                                                                                 
+     |                                                   Rs.1        00                
+     |                                                                                 
+     |                      04 001 2023                                                
+     |                                                                                 
+     |                                                          ONE                    
+     |                     6.    100                                                   
+     |                                                HUNDREDRUPEES                    
+     |                                                                                 
+     |                                                                                 
+     |                                                                                 
+     |                               OAAINDIA                     10010U               
+     |                                                     O01OO10O1                   
+     |               1OD10iO                               O1OO1O01    O0              
+     |                                             Oi0O1QO1OQ1    Q1                   
+
+[ 4] AMRARAM__7385.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: AMRARAM
+     Gemini:   Mahavir Singh
+     OCR total chars (all pages, non-ws): 7689
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     | Daix
+     | ylyj | R
+     | 3220
+     | 32,0
+     | TTIA RAJASTHAN
+     | 5ry_26
+     | (An 4 | agg)
+     | 3
+     | B
+     | JMT (88) (el &1 41 T)N4+ &: Y2TZ:4Z t GZ:J
+     | J fr +7 & fR RTft 3if ? | HA8 3nef ZW T @it
+     | Y * | H Wdt f4 Y | ddL %YgT_I
+     | HTT_&
+     | 4 &TRI 97 | JorIRT 311Y 68 J4 ol | Tedyr Narid riov Wtu faT Hvr Fujo
+     | goqo
+     | 8a  Far tn <ci-i, mar nuria & flci riar WMo | T1 frT & 3 ora fd- &
+     | favV 3reff & FTfrot H wazl Tva % v4e1 W friigm #27 Tra &
+     | 4 TRFC 4rf | 3i5  af34 (TrfTZ) (ur faa | T) | f4u1 | THT
+     | 1- 9 | 7a | 31 | E1T | WST
+     | 3Feff & 15y # <G Ret &1
+
+[ 5] AMRITLAL_MEENA__7340.pdf
+     Verdict:  wrong_person
+     Expected: AMRITLAL MEENA
+     Gemini:   CHAI KUM
+     OCR total chars (all pages, non-ws): 10101
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     | 'g'
+     | Agal4N
+     | 713
+     | QHR
+     | QKaj
+     | 2
+     | 4
+     | Y
+     | RUPEE
+     | Vr
+     | 51
+     | Hrdr
+     | INDIA
+     | DIA | Noxii
+     | 4ror
+     | IVL Rijnt | ES
+     | Kupi | 8ii:%
+     | OcT | 7023
+     | 869
+     | rCuil
+
+[ 6] ANITA_BHADEL__7259.pdf
+     Verdict:  wrong_person
+     Expected: ANITA BHADEL
+     Gemini:   DEEPAK Sharma
+     OCR total chars (all pages, non-ws): 9031
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     | HT TNF
+     | FIFTV
+     | RUPEES
+     | {50 | a3 50
+     | A | AJe
+     | @1_
+     | INDIA
+     | INDIA NON JUDICIAt
+     | 8S 69 9600
+     | OARL
+     | Suj;61
+     | Ni =
+     | a01 | '9219
+     | M0
+     | 9 0.,7125
+     | GovT | w
+     | Ok | 'NoiP_
+     | Sharma
+     | CEEPAK
+     | Publlg, 41oit
+
+[ 7] ARJUN_LAL_JINGAR__7380.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: ARJUN LAL JINGAR
+     Gemini:   Arjun Lal Jingar
+     OCR total chars (all pages, non-ws): 12430
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     | 2714/
+     | 212n
+     | 2 NO L-2023
+     | Trtd
+     | (aew
+     | KEa
+     | 'jia g
+     | J8Cne.
+     | Nocw | 3454 /z3
+     | 8.
+     | 0: | 0.3_ | Iulzozs | "554 26'
+     | (A4t | afv)
+     | 4 | 3
+     | fau1TH fitv 47 &, 167 | 74RT, fTaT_fTIT (Ti0) fai47 47 74
+     | (Fafaq &7 & 714)
+     | FTUTET  fETRT_26414 (16+)_(T7 | T) # fnr
+     | 31
+     | Adi77 $ fY RzfA 3ifirr # FTH anqei ERT Wga fui G T1 4144 47
+     | HT_&
+     | 3TytaIa | 9A | TT | 3r | adf, | M | rTrrh | Txfa | rTri} | fat
+
+[ 8] ARUNA_CHANDAK__9071.pdf
+     Verdict:  wrong_person
+     Expected: ARUNA CHANDAK
+     Gemini:   SANJAY KUMAR
+     OCR total chars (all pages, non-ws): 2964
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                   
+     |                                                                   
+     |                                                                   
+     |                                                                   
+     |                                                                   
+     |                                                                   
+     |                                                                   
+     |                                                                   
+     |                                                                   
+     |                               ROYRUPEE                            
+     |                              AFEOIA                               
+     |                             ADSVE                                 
+     |                                               NOTARIAL NOTAAIAL   
+     |                          ?1 APR 2023                              
+     |                                                                   
+     |                                                                   
+     |                                                                   
+     |                                                                   
+     |                                                                   
+     |                                                                   
+
+[ 9] ASHOK_DOGRA__7394.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: ASHOK DOGRA
+     Gemini:   MLA DOGRA
+     OCR total chars (all pages, non-ws): 10325
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     | ?
+     | 0
+     | TFUT RAJASTHAN
+     | OTARIAL | NOTARIAL
+     | 4r4 26
+     | 4
+     | Mn 4 & | a48)
+     | 3 (186) fUTTHHT | At &7 4
+     | 07"lzz
+     | (Aafr; &7 &T T9)
+     | YTORUN @817HT | (TaT *1
+     | TTH ) 1 Afv % frv Refffv 3f47R # HFa 3rieff #RT T | A&ri
+     | ~
+     | 97 $ %2 Ta f441 TN d1I 34I H
+     | HTT _
+     | 4 3rila5 #T 9 RTTYAT 311ry 70 7i , vi 7 #icll-i, T7i (Toz) (E1 &T
+     | T Ya frT ) & | Arn & , 3R UWrla UYria fAd- % fr14
+     | / 3
+     | TRAUt # Mm Tral % / wi & , 7q2 W fFfa 425
+     | 8preff | 2
+
+[10] ASHOK_SINGH_RAWAT__10772.pdf
+     Verdict:  wrong_person
+     Expected: ASHOK SINGH RAWAT
+     Gemini:   ARUN VAISHNAV
+     OCR total chars (all pages, non-ws): 11772
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+
+[11] AVINASH_GEHLOT__7034.pdf
+     Verdict:  wrong_person
+     Expected: AVINASH GEHLOT
+     Gemini:   JASRESN
+     OCR total chars (all pages, non-ws): 10764
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     | Gu
+     | TFW RAJASTHAN
+     | 37 | 838625
+     | X17 | {tu6'
+     | 8,2
+     | 9704 %4
+     | 454 26
+     | ADVOCATE
+     | (Ay 44 d41) 
+     | 2
+     | "UYaTrGT | frf7 :
+     | ZlS | ~ee | V
+     | (Fiav &7 +1 7) | V
+     | 7GFFHTT"ZTu9-AruTTXTT6T7 9 T) $
+     | fa4v | 3 | Rewfvt
+     | fa | aif4PR
+     | 3 | YA& | 31z2ff
+     | ETT
+     | T-AX 4 $ Ft Wgm f4 vr T 442_4
+     | 0
+
+[12] BABULAL_KHARADI__8537.pdf
+     Verdict:  wrong_person
+     Expected: BABULAL KHARADI
+     Gemini:   RATAN LAL GURJAR
+     OCR total chars (all pages, non-ws): 11222
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     | FiFTY
+     | Ruers
+     | 85150
+     | 8 | "749TRF
+     | STa | (rm_
+     | 11 OCT 2023
+     | TTFHTT RAJASTHAN | 0; | J02621
+     | fTII-0a4gr (v)
+     | 454/26
+     | (Auw 4q5 #fwv )
+     | ~ STTTT
+     | Aatt | 7 %
+     | =
+     | 0008000r
+     | (Aaivv &7 #1 T )
+     | ZTE2UE_
+     | 1911_
+     | (av | %T
+     | T19) &-farA & f Reff1 & FTHHT 3reff ETT TT4 | Adt 5 4 Y4 Yrq
+     | f041 TN TTT %14Vt W
+
+[13] BABULAL_NAGAR__7165.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: BABULAL NAGAR
+     Gemini:   Babulal Nagar
+     OCR total chars (all pages, non-ws): 6188
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                       
+     |                                                                       
+     |                                                                       
+     |                                                                       
+     |                                                                       
+     |                                                                       
+     |                                                                       
+     |                                                                       
+     |                                                                       
+     |                                                                       
+     |                                                                       
+     |                                                                       
+     |                                                                       
+     |                               ADHE IVE                                
+     |                                                                       
+     |                                                                       
+     |                                                                       
+     |                                                                       
+     |                                                                       
+     |                                                                       
+
+[14] BAHADUR_SINGH__8551.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: BAHADUR SINGH
+     Gemini:   Bahadur Singh Koli
+     OCR total chars (all pages, non-ws): 11286
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     | YCii Z3
+     | 870
+     | 2e
+     | 'ha
+     | 1ootCG
+     | 0oio() | 700700t
+     | 300106' | DL | D" | 7 007 | Go*
+     | J Q4 | 9748 8n8n1nue7: | 0 @DC | QQ | 23 | S8
+     | T RAJASTHAN
+     | 1{2862
+     | 1o | R) @aicl , | 0 0 0 0 0 0 &
+     | '[lz3 | 0 0 | 0 0 Q0 0 0
+     | OCT
+     | 9 6 | 5ey 26
+     | #DVS | (XDIAA
+     | (A4n 44 &oe)
+     | OS2|
+     | JUPEES | fiyE RVF | (kcoQeoo1 &81}
+     | SD | CorM
+     | E62ic2ijog
+
+[15] BALMUKUNDACHARY__7900.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: BALMUKUNDACHARY
+     Gemini:   Balmukundacharya
+     OCR total chars (all pages, non-ws): 4327
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                               
+     |                                                               
+     |                                                               
+     |                                                      iSTHAS   
+     |                                            TAR                
+     |                                                               
+     |                                             cPS.h arma        
+     |                                                AdvoeBe        
+     |                                                APUS0          
+     |                               31 0CT 2023      RegN. o7.7     
+     |                                                               
+     |                                              GovT             
+     |                                                               
+     |                                                               
+     |                                 FIFTY RUPEES                  
+     |                                 SPECA                         
+     |                                ADHESIVE                       
+     |                                                               
+     |                                                               
+     |              CPS. hanma                                       
+
+[16] BALVIR_SINGH_LUTHRA__6965.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: BALVIR SINGH LUTHRA
+     Gemini:   balvirsinghluthra
+     OCR total chars (all pages, non-ws): 3377
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                            
+     |                                                                            
+     |                                                                            
+     |                                                                            
+     |                                                                            
+     |                                                                            
+     |  ......"*                                                                  
+     |                                                Rs.      100                
+     |                                                                            
+     |                                                                            
+     |                                                      ONE                   
+     |                                                                            
+     |                6.     100                                                  
+     |                                              HUNDRED     RUPEES            
+     |                                                                            
+     |                                                                            
+     |                                                                            
+     |                            HRINDIA                                         
+     |                                                     1 O01O010OM            
+     |                                                     O01  OO1OG             
+
+[17] BALWAN_POONIA__6998.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: BALWAN POONIA
+     Gemini:   Balwan Poonia
+     OCR total chars (all pages, non-ws): 14307
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                    
+     |                          ffi                                                       
+     |                                          m                                         
+     |                                       E                                            
+     |                                          S                                         
+     |                                            il   F,,!EI)l                     ry    
+     |                                                                                    
+     |                               ffi                                                  
+     |                                         ffiffi@                                    
+     |                                         ffi                 FIFTY                  
+     |                                                           il                       
+     |                \MT                                                                 
+     |                                                  s                                 
+     |                                          ffis                                      
+     |                                          W                                         
+     |                 tF"50         ffi                       Rs.50                      
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+
+[18] BALWAN_SINGH__9503.pdf
+     Verdict:  wrong_person
+     Expected: BALWAN SINGH
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 11874
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                g'rlcl                
+     |                                   f          '! L! a l' l . , ! ! , ? P 1 L r 'i c L te.l..i.ljlnv u e ? H ! t
+     |                                              -""*)11,"                               
+     |                          erf                                                         
+     |                     ir/        P             -*'l          ":){:       I             
+     |                   't'                                                                
+     |                                                           v'                         
+     |                                                                        rl            
+     |                                                                        rl            
+     |                  tPrr                                                                
+     |                                      dr{                                             
+     |                  l!/. \.__    I      r                                               
+     |                               I                                         I            
+     |              I )Lt    K| t'     g'Jflla      \#'-'-_                  4,             
+     |              v                                                    hbI                
+     |                                                                   ...1_4             
+     |                                                                           i*le       
+     |                         1\t _ b / hhbr\ lR F.| {P r')lr+'                 I          
+     |                                                                   t";                
+     |              mre l- p s & D h pl r d e b l. g E + U ( n F r j b h u b.g u le n r l b q u } t a A ru q e (lfnn 
+
+[19] BANNA_RAM_MEENA__7962.pdf
+     Verdict:  wrong_person
+     Expected: BANNA RAM MEENA
+     Gemini:   Jur Aala
+     OCR total chars (all pages, non-ws): 10932
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     | 253 | 04/uls'
+     | 1 | 4
+     | { | 0t8#va | Jc8ca | Rju;
+     | 4ais | 300 02
+     | Qtc:l | Rx_.
+     | S
+     | 9 <32)"~H+X6
+     | 37-uAgi4gutdkon:
+     | 04 | YaL;
+     | Be En6v/
+     | 7i7"} Tdepkis'
+     | 7v2 9 | 34+
+     | TfR>
+     | 437 | ;"'i | Kco
+     | 0
+     | aini | 6t | Uwvw)
+     | 4
+     | NOARIAL' | Mrar;
+     | 0* | "Ry7yz' | 677 | #M"57  | Ilat
+     | 677'
+
+[20] BHAJANLAL_JATAV__7481.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: BHAJANLAL JATAV
+     Gemini:   Bhajanlal Jatav
+     OCR total chars (all pages, non-ws): 11556
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     | 477 | 2j,4
+     | 3747;<
+     | '88,
+     | F[ | 2760 | 3C_
+     | X:Wh
+     | a | {'0_
+     | 30
+     | 94 26
+     | (uw 46 #)
+     | 075 &r Aiad &7 # (Ay7 &3 &T TA) YNORUII7 @UTTHT (M44 '&1 TJ) # Aajam
+     | far | Rcfiht 34R | FF4 34eff ERT Tm AdrI 47 4 1u Tga f4 WIA d1rTT ?1qeT
+     | M-&
+     | 17d- a1J 55 Tf wt HTA HTaCTaT; YC_Ha-, daria &
+     | TUTaq urcq 57 s
+     | fa Iagr (To) (&ia | 7 9 Ya fa1d} $1 Tdit & 3 Uqia fdi47 & | far | 3Tryeff
+     | & Hout # Mam Tra1 & 714r1 W Amaifga 4r17 #rat &
+     | (1) 4, sar; #17d TTi (TNfad <& #1 T1) ENI rrr f4ur TT4T areff &
+     | F4
+     | 4 t R8T %1
+     | (2) #v 7F 075 & virem (Fdirt #3 J1 vu4 &1 7) # 4 #, 99
+
+[21] BHAJAN_LAL_SHARMA__9259.pdf
+     Verdict:  wrong_person
+     Expected: BHAJAN LAL SHARMA
+     Gemini:   Bhajan Lal
+     OCR total chars (all pages, non-ws): 3632
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                
+     |                                                                                
+     |                                                                                
+     |                            RR                                                  
+     |                                                                                
+     |                                     AOonwwAw0w                                 
+     |                                EIOS     F    I   F    T    Y                   
+     |                                                                                
+     |                                                                                
+     |                                                        RUPEES                  
+     |                                                                                
+     |                                                                                
+     |                                                                                
+     |                                                                                
+     |               550                                   Rs.50                      
+     |                                                                                
+     |                                                                                
+     |                                                                                
+     |                                                                                
+     |                                  INIA                                          
+
+[22] BHEEMA_BHAI__8006.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: BHEEMA BHAI
+     Gemini:   Bheemabhai Damor
+     OCR total chars (all pages, non-ws): 4337
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                           
+     |                                      1                                    
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                      FIFTY                
+     |                                                                           
+     |                                                    RUPEES                 
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                     Wrcet INDIA ATS50                     
+     |                                                         DIA               
+     |            O.50                                                           
+     |                                                  ADVOCATE                 
+     |                                                   TGARH                   
+     |                                                      Ra)                  
+     |                                      EiVE RIiPEES NOTARReIgA.NL oi.9 218  
+
+[23] BHEEM_RAJ_BHATI__7356.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: BHEEM RAJ BHATI
+     Gemini:   Bhimraj BHATI
+     OCR total chars (all pages, non-ws): 12785
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     | A!
+     | {ZGET3 &
+     | vi:
+     | Vi | l | 6
+     | T1TFPTA RAJASTHAN: | Pil
+     | ROTAFY; | NC;
+     | #NGT | {025
+     | 'eriliio | RECD. | ER,
+     | NOTARIAL | NOTARIAL
+     | '5r4 26'
+     | (u 43 | av)
+     | Mail (118) (Akta 47 | & 7m) Aai47 43 #
+     | {FeT  faUTTHTI (TT | #; T9) #
+     | fav Aai # aV Rcft 3fVrr 4 414 xrei EN 4gq f4 11 TI 842q
+     | HTT _ &
+     | HrrT #} | 97 ravf4 s g4drui 42 &ry 75 q4 v 17 #va1 7T, Firg%, %a
+     | ti(
+     | Toit, {RRFI (TV @1 T 4a1 fad) 4 Aar & & vylam faia7 # aweii &
+     | 4c {I
+     | HmAot # Mm Tr € 744 Y frfum #4 #rat &
+
+[24] BIHARI_LAL__7289.pdf
+     Verdict:  wrong_person
+     Expected: BIHARI LAL
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 9906
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     | 9u7
+     | N@ AHIAL | Nb
+     | 8a
+     | ooboto | 00
+     | (Fag &3 & #A}
+     | (1o7 @" 79) &
+     | 0408 | 080##to3o | 0b00 | 00ct | 0068000806809 | f"it | 08 | 0060@ | ool#d69a80(iogqoqqagbodogbbougobboagGd*10
+     | Lueiur7-Aarn43*ugrgafrtW+GoT 842555
+     | MTT-&
+     | #*97/041/94, | 34 ,
+     | 31g,.
+     | (31atriera)m/3farig &iR
+     | {fTo-A7 1iq3rR4ek z, TKYAorH51t116 /03,16, &qYRNEaiu@eFToRa1ey/ert -
+     | 3qk6' 
+     | (1) | 4 | 8+ | VUCaas €G &51 #A) ~N *r1 f84u T4
+     | 3zef/ **eotar6 3/e8$, 7u+cretrrt
+     | (##ma-wuraice))
+     | (2) | #7t_ | Nn-F3rru-ot7T) #H&,
+     | 3p4 | uYD | 0yl | to0 | @ Uv | Jc | e@deo | "80m0;90ja6{0600l
+     | &44vi. | Traez81
+
+[25] CHANDRABHAN_SINGH_CHOUHAN__9468.pdf
+     Verdict:  wrong_person
+     Expected: CHANDRABHAN SINGH CHOUHAN
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 6431
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                     Rs.    100               
+     |                                                                              
+     |                                                                              
+     |                                                        ONE                   
+     |                          100                                                 
+     |                                                HUNDRED     RUPEES            
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                    O10O10O100                
+     |                         INDIA    NON     JUDICIAL                            
+
+[26] CHANDRAKANTA_MEGHWAL__8055.pdf
+     Verdict:  wrong_person
+     Expected: CHANDRAKANTA MEGHWAL
+     Gemini:   chandra kanta meghwal
+     OCR total chars (all pages, non-ws): 5601
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                      TRGIRIIRIRRCR                                               
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                         FIFTY                    
+     |                4                                                                 
+     |                                                       RUPEES                     
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                   Rs.50                          
+     |                       50                                                         
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                    WTeINDU 5       ONUDIGHAL                                     
+     |                                                                                  
+
+[27] CHETAN_PATEL_KOLANA__8949.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: CHETAN PATEL KOLANA
+     Gemini:   Chetan Patel
+     OCR total chars (all pages, non-ws): 3149
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                          FIFTY                
+     |                                                                               
+     |                                                        RUPEES                 
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                5.50                                  Rs.50                    
+     |                                                                               
+     |                                                                               
+     |     SURENRA   SINGH                                                           
+     |   *TA   NOTARY                                                                
+     |    NOT ARTASKOTA (Rai               INDIA                                     
+
+[28] CHHINDERPAL_SINGH__10456.pdf
+     Verdict:  wrong_person
+     Expected: CHHINDERPAL SINGH
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 1816
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                           
+     |                                                                           
+     |           ELE-3/347                                                       
+     | ei/i)                                                                     
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                      FIFTY                
+     |                                                                           
+     |                                                    RUPEES                 
+     |                                                                           
+     |                 U1  SEP 2023                                              
+     |                                                                           
+     |                                                                           
+     |                                                  Rs.50                    
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                   INDIA                                   
+
+[29] CHHOTUSINGH__8173.pdf
+     Verdict:  wrong_person
+     Expected: CHHOTUSINGH
+     Gemini:   Tusingh Bhatimla
+     OCR total chars (all pages, non-ws): 13214
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                             qlqq                                                    
+     |                       t,                ,l                                          
+     |                                                                                     
+     |                                         W                                           
+     |                                                                                     
+     |                                      (                                              
+     |                                                                         \           
+     |               I                                                                     
+     |                                                                                     
+     |               a                                                                     
+     |                 ffi                                                                 
+     |                        E                                                            
+     |                                                                                     
+     |              I                                                                      
+     |                t                                                                    
+     |                                                                                     
+
+[30] CHUNNILAL_C_L__PREMI_BAIRWA__7964.pdf
+     Verdict:  wrong_person
+     Expected: CHUNNILAL C L  PREMI BAIRWA
+     Gemini:   MANISH SEN
+     OCR total chars (all pages, non-ws): 1398
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     | ()                                                                             
+     |                    NOT                                                         
+     |                                                                                
+     |              MANISH    SEN                                                     
+     |                   NOTARN                                                       
+     |                ArcaPaan                                   FIFTY                
+     |                     st Bundi (R8)                                              
+     |                 Rogd Ns 6oTARIAL                                               
+     |                oTABAb67028                                                     
+     |                                                         RUPEES                 
+     |                                                                                
+     |                                                                  NOTA          
+     |               F50                                                              
+     |                                                                                
+     |                                                                                
+     |                                                                                
+     |                                                                  Rogd.No       
+     |                                     INDIA                                      
+     |                     INDIA         NON       JUDICI                             
+     |                                                                                
+
+[31] DHARMENDRA_KUMAR__7514.pdf
+     Verdict:  wrong_person
+     Expected: DHARMENDRA KUMAR
+     Gemini:   R sSx Ei-Etrq
+     OCR total chars (all pages, non-ws): 12238
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+
+[32] DR__DEEPAK_GHOGRA__9334.pdf
+     Verdict:  wrong_person
+     Expected: DR  DEEPAK GHOGRA
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 8881
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |            if                                                          
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+
+[33] DR__RAJENDRA_MOOND__10377.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: DR  RAJENDRA MOOND
+     Gemini:   Rajendra Moond
+     OCR total chars (all pages, non-ws): 4359
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                                                         FIFTY               
+     |                                                                             
+     |                                                       RUPEES                
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                F.50                                 Rs.50                   
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                                     INDIA                                   
+     |                                                                             
+
+[34] DR__RAJKUMAR_SHARMA__10462.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: DR  RAJKUMAR SHARMA
+     Gemini:   Dr. Rajkumar Sharma
+     OCR total chars (all pages, non-ws): 2783
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                                                       FIFTY                 
+     |                                                                             
+     |                                                      RUPEES                 
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |              .  5    0                            Rs.50                     
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                                  IND|A                                      
+
+[35] GURJAR_RAJENDER_SINGH_BIDHURI__7437.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: GURJAR RAJENDER SINGH BIDHURI
+     Gemini:   RAJENDER SINGH BIDHURI
+     OCR total chars (all pages, non-ws): 21548
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                               dk                  
+     |                   i-..-:--'--                              sq                     
+     |                    rqqr Ei*atecrq q$r                                             
+     |                                                               z Noy               
+     |               ';1.k,          *'                                     z0B-         
+     |                             ' I't                                                 
+     |                             6                                   ir                
+     |      1                                                                            
+     |      I             ': .. i :iirl /4'                                              
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                      I'G          
+
+[36] GURVEER_SINGH__9082.pdf
+     Verdict:  wrong_person
+     Expected: GURVEER SINGH
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 3253
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                
+     |                                                                                
+     |                                                                                
+     |                                                                                
+     |                                                                                
+     |                                                                                
+     |                                                                                
+     |                                                      Rs.    100                
+     |                                                                                
+     |                                                                                
+     |                                                         ONE                    
+     |                 110CT2023                                                      
+     |                                                 HUNDRED      RUPEES            
+     |                                                                                
+     |                                                                                
+     |                                                                                
+     |                                                                                
+     |               01001oo1ocIRGI               NDIA                                
+     |                                                                                
+     |                    8INDIA          NON    JUDICIAL                             
+
+[37] HAGAMILAL_MEWARA__7756.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: HAGAMILAL MEWARA
+     Gemini:   HAGAMILAL MEWARA
+     OCR total chars (all pages, non-ws): 14057
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                    
+     |                                                                                    
+     |          EI                                                                        
+     |          H                                                                         
+     |                                                                                    
+     |                                                                                    
+     |                                        etre                                        
+     |                                                                       \            
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                           I                                          I             
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                          :                         
+
+[38] HAKAM_ALI_KHAN__7144.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: HAKAM ALI KHAN
+     Gemini:   HAKAM ALI KHAN
+     OCR total chars (all pages, non-ws): 2343
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                                                       FIFTY                 
+     |                                                                             
+     |                                                     RUPEES                  
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                110CT 2023                                                   
+     |                                                                             
+     |                                   INDDIA                                    
+
+[39] HARISH_CHAUDHARY__10463.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: HARISH CHAUDHARY
+     Gemini:   CHENARAM CHOUDHARY
+     OCR total chars (all pages, non-ws): 3641
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                       HRSIRRp                                                     
+     |                                                                                   
+     |                                                                                   
+     |                                                          FIFTY                    
+     |                                                                                   
+     |                                                                                   
+     |                                                       RUPEES                      
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                     Rs.50                         
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                     INDIAG                                        
+
+[40] HEENA__10276.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: HEENA
+     Gemini:   Heena Firoz Baig
+     OCR total chars (all pages, non-ws): 1494
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                         
+     |                                                                         
+     |                                                                         
+     |                                                                         
+     |                                                                         
+     |                                                                         
+     |                                                                         
+     |                                                                         
+     |                                                   RUPEES                
+     |                                                                         
+     |                                                                         
+     |                                                                         
+     |                                                    Rs50                 
+     |               F.50                                                      
+     |                                                                         
+     |                                                                         
+     |                                                                         
+     |                                                                         
+     |                                  INDIA                                  
+     |                  INDIA        NON       JUDICIAL                        
+
+[41] HEMANT_MEENA__9043.pdf
+     Verdict:  empty_ocr
+     Expected: HEMANT MEENA
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 0
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+
+[42] JABBAR_SINGH_SANKHALA__7910.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: JABBAR SINGH SANKHALA
+     Gemini:   JABBAR SINGH SANKHALA
+     OCR total chars (all pages, non-ws): 15713
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                 INDIA NONJUDICIAI                                  
+     |                                                                    '&"             
+     |                                                                                    
+     |                              Eg-v_ejglglrjgllqj4-slhan                             
+     |                                                                    -t              
+     |                                                                                    
+     |             r{H'Bq mfr                                                             
+     |                                       e-Stamp                                      
+     |                                                                 \                  
+     |                                                                  I                 
+     |                                                              a                     
+     |                                                                  f                 
+     |                          I                                                         
+     |                                .                                                   
+     |         Certificate No.   M      iN-HJ1774116!tii1(]ii;r             l'i*          
+     |                              i :                                                   
+
+[43] JAGAT_PAL_SINGH__9336.pdf
+     Verdict:  wrong_person
+     Expected: JAGAT PAL SINGH
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 854
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                              
+     |              218                                             
+     |                                                              
+     |                                                              
+     |                                                              
+     |                          a00, ra tNDIA á00                   
+     |                                  )                           
+     |                                                              
+     |                             100 h                            
+     |                           RUPEES ONE MUNDREND ON             
+     |                            SPECIAL                           
+     |                            AOHESVE                           
+     |                                                              
+     |                                                              
+     |                                                  .Prate      
+     |                                                              
+     |                                                              
+     |                                                              
+     |                                                              
+     |                                                              
+
+[44] JAIDEEP__9510.pdf
+     Verdict:  empty_ocr
+     Expected: JAIDEEP
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 0
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+
+[45] JAIKRISHN_PATEL__7573.pdf
+     Verdict:  wrong_person
+     Expected: JAIKRISHN PATEL
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 12976
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |  ,a\                                                                              
+     |                                                 S15                               
+     |                                                R                                  
+     |    -dU                                                                            
+     |   ,*l                                                                             
+     |                                         Serial                                    
+     |  '-1)v                                                                            
+     |                                        qilw                                       
+     |                                                                                 * 
+     |                  {   I                                                            
+     |             r                                                                     
+     |                il                                                                 
+     |             I                                                                     
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                       NGEE@E                                      
+
+[46] JAVED_ALI_KHAN__9678.pdf
+     Verdict:  wrong_person
+     Expected: JAVED ALI KHAN
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 1895
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+
+[47] JAYDEEP_BIHANI__7391.pdf
+     Verdict:  wrong_person
+     Expected: JAYDEEP BIHANI
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 8095
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |    draargfae                                                           
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+
+[48] JOGINDER_SINGH_AWANA_S_O_GIRWAR_SINGH__9373.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: JOGINDER SINGH AWANA S O GIRWAR SINGH
+     Gemini:   Jagandar Singh
+     OCR total chars (all pages, non-ws): 3357
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                     FIFTY                 
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |              F.50                            iRS.50                       
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                bINDIA                                     
+
+[49] KANHIYA_LAL_S_O_GOUTAM_LAL__7309.pdf
+     Verdict:  wrong_person
+     Expected: KANHIYA LAL S O GOUTAM LAL
+     Gemini:   HARi SINGH KOTHARI
+     OCR total chars (all pages, non-ws): 8592
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     | ,I                                                                               
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                            Governrnent  of Ra ·asth                              
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                ~JJ ' ~,~. :1    ~"t!ll~~ w "'~                                   
+     |                ,~~~;.,.::;;      l!l:~=•.:.Sti(                                  
+     |                                    .~--~--·c----                                 
+     |                                        j•""·-:~: ''•~--"'                        
+     |                               ./ ~~j··~: :. . _/                                 
+     |         Certifica . te~No'! I (i ~~~!Jf,';il.\. , . ,,.-~ : I - • 1 "'\ . . ? ·" .- ) - '~ .. • . , ¾ ·, ..
+     |                                                                           i      
+     |               vvi' I" .--..,                                                     
+     |         Certificate Issued Date                                                  
+
+[50] KANTILAL_NINAMA__9193.pdf
+     Verdict:  wrong_person
+     Expected: KANTILAL NINAMA
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 2665
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |      fdaa                        S.R.No.                                 
+     |                                                                          
+     | ..(a1/                           Date                                    
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |                                                 Rs.    100               
+     |                                                                          
+     |                                                                          
+     |                                                     ONE                  
+     |                7.     100                                                
+     |                                             HUNDRED    RUPEES            
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |                        INDIA     NON    JUDICIAL                         
+     |                                                                          
+
+[51] KARUNA_ASHOK_CHANDAK__7959.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: KARUNA ASHOK CHANDAK
+     Gemini:   Karuna
+     OCR total chars (all pages, non-ws): 6140
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                            
+     |                                                                            
+     |                                                                            
+     |                                                                            
+     |                                                                            
+     |                                                                            
+     |                                                                            
+     |                                                                            
+     |                                                 Rs.    100                 
+     |                                                                            
+     |                                                                            
+     |                                                                            
+     |                                                                            
+     |                                              UNBRED    RUPEES              
+     |                                                                            
+     |                                                                            
+     |                                                                            
+     |                                                                            
+     |                                                                            
+     |                                                                            
+
+[52] KIRODI_LAL__7319.pdf  [_raw]
+     Verdict:  raw_recoverable
+     Expected: KIRODI LAL
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 18593
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                   
+     |                                                                                   
+     |         t\                                                                        
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                          ffi                                      
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                          INDIA                                    
+
+[53] LAKHAN_SINGH__7179.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: LAKHAN SINGH
+     Gemini:   Jayendra Jadoun
+     OCR total chars (all pages, non-ws): 9759
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+
+[54] LALARAM_BAIRWA__10120.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: LALARAM BAIRWA
+     Gemini:   ANIL KUMAR SHARMA
+     OCR total chars (all pages, non-ws): 12748
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                     
+     |             I                                                                       
+     |                                                                                     
+     |                         iffi                                                        
+     |                         i*a?                                                        
+     |                            ffr'1Yl,                                                 
+     |                         i3T[                                                        
+     |                         I                                                           
+     |             *                          etre                                         
+     |             5                                                                       
+     |                                                  ,n                                 
+     |                                                             F                       
+     |                                                             UPEES                   
+     |                    D  J                                        r                    
+     |                                                      (                              
+     |                    -                         ;l     ffi                             
+     |                                                      ((                             
+     |                     .50                                                             
+     |                                                      (                              
+     |                                                                n                    
+
+[55] LEELARAM_GRASIYA__7251.pdf
+     Verdict:  wrong_person
+     Expected: LEELARAM GRASIYA
+     Gemini:   ARVIND MITTAL
+     OCR total chars (all pages, non-ws): 1675
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                   
+     |                                                                   
+     |                                                                   
+     |          8100TRCI NDLA                   gT-4 iM 11/2019-20       
+     |                                                                   
+     |                                                 (6ol- A02034      
+     |                   5S EP 2V                                        
+     |           RUPEEROME                                               
+     |            BPECA                                                  
+     |           ADHEvE                                                  
+     |                                                                   
+     |                                                                   
+     |                                                                   
+     |       (3-3                                                        
+     |         TH                                                        
+     |                                                                   
+     |                                J4 26                              
+     |                                          ARV                      
+     |                                                                   
+     |                                          RNo-1402                 
+
+[56] MAHADEV_SINGH__8789.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: MAHADEV SINGH
+     Gemini:   Mahadev Singh Khandela
+     OCR total chars (all pages, non-ws): 8991
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |         't                                                                        
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+
+[57] MAHENDRA_CHOUDHARY__7597.pdf
+     Verdict:  empty_ocr
+     Expected: MAHENDRA CHOUDHARY
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 0
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+
+[58] MAHENDRA_JEET_SINGH_MALVIYA__7182.pdf
+     Verdict:  wrong_person
+     Expected: MAHENDRA JEET SINGH MALVIYA
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 28694
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                   
+     |                                              %ltolrd4           g                 
+     |                                  S "tl-o.$6a                                      
+     |                                                                                   
+     |  {                                                                                
+     |                                                                                   
+     |                                         1                                         
+     |                I                                                                  
+     |                ffi                                                                
+     |                                                                      f,l   W      
+     |                                                              F                    
+     |                                                                            W      
+     |                     ffi                                                           
+     |                                                        G                          
+     |                                                                   I               
+     |    ?                  t    g                                (e,u      .           
+     |                b        E                                       I                 
+     |              q   Ery   I  I                                                       
+     |                                                              I                    
+     |                ,       I                                                          
+
+[59] MAHENDRA_SINGH_RALAWATA__10644.pdf
+     Verdict:  wrong_person
+     Expected: MAHENDRA SINGH RALAWATA
+     Gemini:   Mahindra Singh Rawala
+     OCR total chars (all pages, non-ws): 4064
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                     RIR                                   
+     |                                                                           
+     |                                                                           
+     |                                                                 YTFIF     
+     |                                                                           
+     |                                                                   SEEPUR  
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                                                                           
+     |                               05.5                                 05.sR  
+     |                                                                           
+
+[60] MANOJ_KUMAR_S_O_SWAI_SINGH__9182.pdf  [_raw]
+     Verdict:  raw_recoverable
+     Expected: MANOJ KUMAR S O SWAI SINGH
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 9841
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+
+[61] NARENDRA_NAGAR__7790.pdf
+     Verdict:  wrong_person
+     Expected: NARENDRA NAGAR
+     Gemini:   GIRDHA LAL
+     OCR total chars (all pages, non-ws): 5487
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+
+[62] NASEEM_AKHTAR__10675.pdf  [_raw]
+     Verdict:  raw_recoverable
+     Expected: NASEEM AKHTAR
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 7391
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+
+[63] NEERJA_SHARMA__9309.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: NEERJA SHARMA
+     Gemini:   Neerja Sharma
+     OCR total chars (all pages, non-ws): 2833
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |     .....                                                                     
+     |       .....fi                                                                 
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+
+[64] OMPRAKASH_HUDLA__7093.pdf
+     Verdict:  wrong_person
+     Expected: OMPRAKASH HUDLA
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 2295
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                 
+     |               (                                                 
+     |                                                                 
+     |                                                                 
+     |          ORJUDICIA,  NOA(cid:27) NA                             
+     |                            2.7E4                                
+     |  NOTARIAL AD SP H E E C S A IV L E                              
+     |                                                                 
+     |                                                                 
+     |                                                                 
+     |                                                                 
+     |                                                                 
+     |                                                                 
+     |      TAR                         HET  o86)                      
+     |                                                       Prafe-aÀ  
+     |                                                                 
+     |     Hishankar Shea                                              
+     |         DAUSA                                                   
+     |                                                                 
+     |                                                                 
+
+[65] OM_BISHNOI__8064.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: OM BISHNOI
+     Gemini:   Nakshattar Singh Sidhu
+     OCR total chars (all pages, non-ws): 3828
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                            FIFTY                 
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                   F.50                                R     5    0               
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                    INDIAJG                                       
+     |                                                                                  
+
+[66] OM_PRAKASH_NARANIWAL__8625.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: OM PRAKASH NARANIWAL
+     Gemini:   OM PRAKASH NARANIWAL
+     OCR total chars (all pages, non-ws): 5419
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                  INDIA NON JUDICIAL                               
+     |                                                                                   
+     |                               Government  of Rajasthan                            
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                        e-Stamp                                    
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |          Certificate No.                                                          
+     |                                   IN-RJ17921274634887V                            
+     |          Certificate Issued ate                                                   
+     |                                   04-Nov-2023 1256 PM                             
+     |          Account Reterence                                                        
+     |                                   NONACO (sV/ rj3193704/ BHILWARA/ RJ-BW          
+
+[67] PADMARAM__8945.pdf
+     Verdict:  wrong_person
+     Expected: PADMARAM
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 2664
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                  
+     |                                                                  
+     |                                                                  
+     |                                                                  
+     |                                                                  
+     |                         NOV 2023                                 
+     |                                                                  
+     |                                                                  
+     |                                                                  
+     |                                                     5PEES        
+     |                                                    SPECIAL       
+     |                                                   AS HESIVE      
+     |                                                                  
+     |                                     1. 3HART3                    
+     |                                                                  
+     |                                     2  1!3i.:                    
+     |                                     (EA13                        
+     |                 1/1995                                           
+     |                                                                  
+     |                                                                  
+
+[68] PHOOL_SINGH_MEENA__7588.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: PHOOL SINGH MEENA
+     Gemini:   JAGDISH KUMAR
+     OCR total chars (all pages, non-ws): 5717
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                         
+     |                                                                         
+     |                                                                         
+     |                                                                         
+     |                                                       /JAGDISH KUMAR    
+     |                                                          GIRVA          
+     |                                             sIoIst-UDAIPUR    (RAJ)     
+     |                                                      NOFALNo. IA8Ar     
+     |                                                       ED,  26-6;2028.   
+     |                                                  RUPRRAJS               
+     |                                                                         
+     |                                                                         
+     |                                                                         
+     |                                                                         
+     |            .  5    0                                                    
+     |                                                Rs.50                    
+     |                                                                         
+     |                                                                         
+     |                                                                         
+     |                                                                         
+
+[69] PHULA_ALIAS_PHOOL_CHAND_MEENA__9882.pdf
+     Verdict:  wrong_person
+     Expected: PHULA ALIAS PHOOL CHAND MEENA
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 2392
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                 
+     |                                                                                 
+     |                                                                                 
+     |                                                                                 
+     |                                                                                 
+     |                                                                                 
+     |                                                                                 
+     |                                                          FIFTY                  
+     |                                                                                 
+     |                                                         RUPEES                  
+     |                                                                                 
+     |                                                                                 
+     |                                                                                 
+     |                F50                                   Rs.                        
+     |                                                                                 
+     |                                                                                 
+     |                                                                                 
+     |                                                                                 
+     |                                        NDIA                                     
+     |                                                                        ST-A     
+
+[70] PITRAM_SINGH_KALA__10668.pdf  [_raw]
+     Verdict:  raw_recoverable
+     Expected: PITRAM SINGH KALA
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 34274
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     | पचास
+     | रुपये
+     | NOUA NO
+     | Regista Page No. 153
+     | भारतीय गैर न्यायिक
+     | भारत 52
+     | FIFTY
+     | RUPEES
+     | N.
+     | Area Teg
+     | रु.50
+     | सत्यमेव जयते
+     | COINDIA
+     | राजस्थान स्टाम्प अधिनियम 1998 के अन्तर्गत
+     | आधार
+     | Rs.501
+     | धारा
+     | गाय और उसके
+     | धारा-उ-स) 2
+     | और संध
+
+[71] PRASHANT_BAIRWA__8254.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: PRASHANT BAIRWA
+     Gemini:   Prashant Bairwa
+     OCR total chars (all pages, non-ws): 7155
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                     
+     |                                           oTAR                      
+     |                                             RUMAR                   
+     |                                                                     
+     |                                             ADVÓCATE                
+     |   ...... (ai                                                        
+     |                                              Rg.NO2. 102/           
+     |                                           VWAI TON                  
+     |                                                                     
+     |                                023                                  
+     |                                                                     
+     |                                                                     
+     |                                                AR                   
+     |                                                                     
+     |                                SPRCIAL                              
+     |                               ADHESIVE         ADVOCATE             
+     |                                                Rg.:02.1 02          
+     |                                                   ONK               
+     |                                                                     
+     |                                                                     
+
+[72] PRASHANT_SHARMA__8628.pdf  [_raw]
+     Verdict:  raw_recoverable
+     Expected: PRASHANT SHARMA
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 14692
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+     |                                                                                    
+
+[73] PRATAP_PURI__6961.pdf
+     Verdict:  wrong_person
+     Expected: PRATAP PURI
+     Gemini:   Mahant Partappuri
+     OCR total chars (all pages, non-ws): 3885
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                          HIRG0RIIS                                          
+     |                                           PUBUC                             
+     |                                                                             
+     |                                                        FIFTY                
+     |                                                                             
+     |                                         4ARMA                               
+     |                                                     RUPEES                  
+     |                                                                             
+     |                                  NOTARSAL NOTARIAV                          
+     |                                       RAN DE                                
+     |                                                                             
+     |                   5.50                             R      s   l             
+     |                                                                             
+     |                                                                             
+     |                                                                             
+     |                                    INDIA      63)                           
+     |                                                                             
+
+[74] RAMAVTAR_BAIRWA__7872.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: RAMAVTAR BAIRWA
+     Gemini:   Ramavtar Bairwa
+     OCR total chars (all pages, non-ws): 1633
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                
+     |                                                                                
+     |                                                                                
+     |                                                                                
+     |                                                                                
+     |                                                                                
+     |                                                          FIFTY                 
+     |                                                                                
+     |                                                                                
+     |                                                      RUPEES                    
+     |                                                                                
+     |                                                                                
+     |                                                                                
+     |                                                    Rs.50                       
+     |                 F50                                                            
+     |                                                                                
+     |                                                                                
+     |                                                                                
+     |                               SOINL                                            
+     |                                                 RMAANDUA                       
+
+[75] RAMILA_KHADIYA__7620.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: RAMILA KHADIYA
+     Gemini:   RAMILA HURTINGJIKHADIYA
+     OCR total chars (all pages, non-ws): 3785
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                   Rs.      100                
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                  F.    100                                                    
+     |                                                 HUNDA                         
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                 HNGINDIAZ                                     
+     |                                                                               
+     |                          INDIA     NON     JUDICIANOV                         
+     |                                                                               
+
+[76] RAM_AVATAR_BAIRWA__9626.pdf
+     Verdict:  wrong_person
+     Expected: RAM AVATAR BAIRWA
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 1664
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                  
+     |                                                                  
+     |                                                                  
+     |  ....                                                            
+     |    .(                                                            
+     |                                                                  
+     |                                      INDI                        
+     |                                                                  
+     |                                                                  
+     |                                   rur                            
+     |                                  RRY RUPEES                      
+     |                                 ADHPEESCVIAEL                    
+     |                                                                  
+     |                                                                  
+     |                        SOy 26                                    
+     |                      (fu 4# fe)                                  
+     |                                                                  
+     |                                            6SION,   OMMSSIo      
+     |                                                                  
+     |                                                                  
+
+[77] RAM_LAL_BISHNOI__8715.pdf
+     Verdict:  empty_ocr
+     Expected: RAM LAL BISHNOI
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 0
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+
+[78] ROHIT_BOHRA__8002.pdf  [_raw]
+     Verdict:  raw_recoverable
+     Expected: ROHIT BOHRA
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 28487
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+     |                                                                               
+
+[79] ROHIT_DAGUR__9202.pdf
+     Verdict:  wrong_person
+     Expected: ROHIT DAGUR
+     Gemini:   Rohit Dagur
+     OCR total chars (all pages, non-ws): 1719
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                
+     |                                                                                
+     |                                                                                
+     |                                                                                
+     |                                                                                
+     |                                                                                
+     |                                                                                
+     |                                                       FIFTY                    
+     |                                                                                
+     |                                                                                
+     |                                                      RUPEES                    
+     |                                                                                
+     |                                                                                
+     |             .  5     0                                                         
+     |                                  TTTRTINDA                                     
+     |                                                                                
+     |                                Saresh                                          
+     |                                                                                
+     |                                 NeARIg9. NNoTARIA                              
+     |                                          O. 1108                               
+
+[80] RUPARAM__8194.pdf
+     Verdict:  wrong_person
+     Expected: RUPARAM
+     Gemini:   Rooparam Dhandev
+     OCR total chars (all pages, non-ws): 17011
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                     
+     |                                                                                     
+     |               ti                                                                    
+     |                                                                                     
+     |                                                                                     
+     |                                     J           -qTf.I=F                            
+     |                     s-+                                                             
+     |              F6                                                                     
+     |                                                       Rs.                           
+     |                                                                 100-                
+     |                                                                                     
+     |               $                                              ONE                    
+     |                                                                                     
+     |                           100                                                       
+     |                    15.                                                              
+     |                                                    HUNDRED       RUPEES             
+     |                                                                   I                 
+     |               e                          q-{isqst                                   
+     |                                 +TT-N                                               
+     |               ! :i:Xr"l oO-':                INDIA                                  
+
+[81] R_R__TIWARI__10192.pdf
+     Verdict:  wrong_person
+     Expected: R R  TIWARI
+     Gemini:   M.S. ISNADIIAN
+     OCR total chars (all pages, non-ws): 2188
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                            50 INDIA 5ou                                
+     |                                                                        
+     |                                                                        
+     |                           AOFY RUPEES                                  
+     |                             SPECIALR                                   
+     |                                                                        
+     |                           26 0CT 2023                                  
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+     |                                                                        
+
+[82] SANJEEV_KUMAR__7225.pdf
+     Verdict:  wrong_person
+     Expected: SANJEEV KUMAR
+     Gemini:   SANJEEV BENIWAL
+     OCR total chars (all pages, non-ws): 15930
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+
+[83] SANTOSH_AHALAWAT__7303.pdf
+     Verdict:  wrong_person
+     Expected: SANTOSH AHALAWAT
+     Gemini:   Santesh Ahkaat
+     OCR total chars (all pages, non-ws): 3295
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                   
+     |                                                                   
+     |                                                                   
+     |                                                                   
+     |                               SOg 26                              
+     |            50eINDI^ (50N                                          
+     |                              (PryH 4% fey)                        
+     |       NOIAPA                                                      
+     |                                          oTARYA                   
+     |               PIUIDEES    Notedat notaray                         
+     |               HFSIV AL E Register Page No....A                    
+     |                          SNo.    pate                             
+     |       A                                                           
+     |                                            Reg No.J!              
+     |                                                       Prafer-tat  
+     |             FVE RUPEES                                            
+     |      ENE RUPERS                                                   
+     |     NOTARIAL NOTARIAL                                             
+     |                                                                   
+     |                                                                   
+
+[84] SATISH_POONIA__7090.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: SATISH POONIA
+     Gemini:   Dr. Satish Poonia
+     OCR total chars (all pages, non-ws): 14850
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+     |                                                                                     
+
+[85] SHARAWAN_CHOUDHARY_S_O_PREM_SINGH__7134.pdf
+     Verdict:  wrong_person
+     Expected: SHARAWAN CHOUDHARY S O PREM SINGH
+     Gemini:   Narayan Ram
+     OCR total chars (all pages, non-ws): 6598
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                         
+     |                                                                         
+     |                                      ViA                                
+     |                                                                         
+     |                7                                                        
+     |                                                                         
+     |                                                                         
+     |        100 CT 2023                  ADPHEECSAIV E                       
+     |         Justurfuaat                                                     
+     |                   Serial No.326                                         
+     |                    Date 3)-) bn202745Y 26                               
+     |                             nnsen:                                      
+     |                                                                         
+     |                                                         Naroyn Ram      
+     |                                                                         
+     |                                                              2289)      
+     |                                                     OVT.                
+     |                                                           OF   NO       
+     |                                                                         
+     |                                                                         
+
+[86] SHARWAN_CHOUDHARY_S_O_PITHARAM__9989.pdf
+     Verdict:  wrong_person
+     Expected: SHARWAN CHOUDHARY S O PITHARAM
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 2100
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                      FIFTY                   
+     |                                                                              
+     |                                                      RUPEES                  
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |               F50                                 Rs.50                      
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                    IXOA                                      
+     |                                                                              
+
+[87] SHIVPRAKASH_GURJAR__9294.pdf
+     Verdict:  wrong_person
+     Expected: SHIVPRAKASH GURJAR
+     Gemini:   siftu
+     OCR total chars (all pages, non-ws): 1485
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |                                                      FIFTY               
+     |                                                                          
+     |                                                    RUPEES                
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |                                                  Rs                      
+     |               F.50                                                       
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |                        AVNOTNrL         CogTHIAL                         
+
+[88] SHIVRATAN__CHIMAN_VALMIKI__8952.pdf
+     Verdict:  wrong_person
+     Expected: SHIVRATAN  CHIMAN VALMIKI
+     Gemini:   Chaina Ram Kalwaniya
+     OCR total chars (all pages, non-ws): 1419
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |       (                                                                  
+     |          3 NOV 2023                                                      
+     |                                                                          
+     |                             ADHE                                         
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |                                                        TAR               
+     |                                                                          
+     |                                 Tty 26                                   
+     |                                                          ChainaR am      
+     |                                (fy 445 ¿feu)                             
+     |                                                           K atwaniya     
+
+[89] SOHAN_LAL_NAYAK__9026.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: SOHAN LAL NAYAK
+     Gemini:   Sohan Nayak
+     OCR total chars (all pages, non-ws): 8036
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                      
+     |                                                                      
+     |                                                                      
+     |                                                                      
+     |                                                                      
+     |                                                                      
+     |                                                                      
+     |                                             R-s.    10               
+     |                                                                      
+     |                                                                      
+     |                                                   ONE                
+     |                                                                      
+     |                                           HUNDRE0    RU              
+     |                                                                      
+     |                                                                      
+     |                                                                      
+     |                                                                      
+     |                                                                      
+     |                                                                      
+     |                                                                      
+
+[90] SURENDERPAL_SINGH__9183.pdf
+     Verdict:  wrong_person
+     Expected: SURENDERPAL SINGH
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 2512
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |                                                      FIFTY               
+     |                                                                          
+     |                                                    RUPEES                
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |                                                                          
+     |                   .50                            Rs.50                   
+     |                                                                          
+     |               sftozurge                                                  
+     |                                                               C201001    
+     |                              SINDIA                                      
+     |                                                                          
+
+[91] SURENDRA_GOYAL__7886.pdf
+     Verdict:  wrong_person
+     Expected: SURENDRA GOYAL
+     Gemini:   BALRAM
+     OCR total chars (all pages, non-ws): 12355
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                  
+     |      •••                                                                         
+     |                                                                                  
+     |   '              •                                                               
+     |  '                                                                               
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+
+[92] SURESHKUMAR_DHAKER__9876.pdf  [_raw]
+     Verdict:  raw_recoverable
+     Expected: SURESHKUMAR DHAKER
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 12793
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                  
+     |                                                                                  
+     |        -1                                                                        
+     |                                                                                  
+     |                                           SF                                     
+     |                                           I                                      
+     |      2l                       INDIA NON JUDICIAL                                 
+     |                            Government   of      han                              
+     |                                                                                  
+     |                                                                                  
+     |           Fflk{wqe                                                               
+     |                                     e-Stamp                                      
+     |             r                                                                    
+     |                                                                                  
+     |                                                                                  
+     |                 ut                                       t\,.                    
+     |       Certficate No.           |N-RJI8035524586120V                              
+     |       Certificate lssued Date  05-Nov-2023 05:4'l PM                             
+     |                                                                                  
+     |       Account Reference        NONACC (SV)/ rj3192104/ BEGUN/ RJ-CG              
+
+[93] SURESH_SINGH_RAWAT__8509.pdf  [_raw]
+     Verdict:  raw_recoverable
+     Expected: SURESH SINGH RAWAT
+     Gemini:   <empty>
+     OCR total chars (all pages, non-ws): 10267
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+     |                                                                                  
+
+[94] UMMEDA_RAM_BENIWAL__7479.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: UMMEDA RAM BENIWAL
+     Gemini:   Ummeda Ram Beniwal
+     OCR total chars (all pages, non-ws): 4334
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                           FIETY                   
+     |                                                                                   
+     |                                                      RUPEES                       
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                     5.50                           oRS.50                         
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+
+[95] VIJENDRA_SINGH__9741.pdf
+     Verdict:  right_person_bad_ocr
+     Expected: VIJENDRA SINGH
+     Gemini:   Vijendra Singh
+     OCR total chars (all pages, non-ws): 3316
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                              E(OPUGSEIFTY                                    
+     |                                                                              
+     |                                                                              
+     |                                                    RUPEES                    
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |               550                                RS.50                       
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                                                              
+     |                                  INDIA                                       
+
+[96] VINOD_KUMAR__7601.pdf
+     Verdict:  wrong_person
+     Expected: VINOD KUMAR
+     Gemini:   Rajender
+     OCR total chars (all pages, non-ws): 12140
+     OCR excerpt (first 2000 chars):
+     ──────────────────────────────────────────────────────────────────────
+     |              lrrtlFo                                                              
+     |         orl             ft/etcJ(9,                                                
+     |            S                                                                      
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+     |                                                                                   
+

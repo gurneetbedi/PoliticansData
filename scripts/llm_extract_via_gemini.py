@@ -69,9 +69,12 @@ from pathlib import Path
 # Constants
 # ---------------------------------------------------------------------------
 
-GCP_PROJECT = "lokvani-501706"
-GCP_LOCATION = "us-central1"
-MODEL_NAME = "gemini-2.5-flash"
+# Project can be overridden via env var — makes it easy to switch
+# between old and new GCP accounts without editing this file.
+import os as _os
+GCP_PROJECT  = _os.environ.get("GCP_PROJECT",  "lokvani-501706")
+GCP_LOCATION = _os.environ.get("GCP_LOCATION", "us-central1")
+MODEL_NAME   = _os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
 
 # Gemini 2.5 Flash pricing (USD per token) — verify in console for current rate.
 COST_INPUT_PER_TOKEN  = 0.30 / 1_000_000
