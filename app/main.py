@@ -301,6 +301,31 @@ def home(
     """
     HOUSE = {"mla": "Assembly", "mp": "LokSabha", "rs": "RajyaSabha"}[view]
 
+    # ── Per-state GPI rank + score for the CM sidebar card ─────────────
+    # We compute this once for ALL states so the JS-driven sidebar can
+    # populate on hover/click without a fresh round-trip. Only the latest
+    # fiscal_year is used — mirrors the /gpi page's headline number.
+    from app.gpi_models import GpiScore
+    gpi_ranks = {}
+    latest_gpi_fy = db.query(func.max(GpiScore.fiscal_year)).scalar()
+    if latest_gpi_fy:
+        # Fetch every state's score for the latest year, ordered high→low.
+        rows = (
+            db.query(GpiScore, State)
+            .join(State, State.id == GpiScore.state_id)
+            .filter(GpiScore.fiscal_year == latest_gpi_fy)
+            .order_by(GpiScore.score.desc())
+            .all()
+        )
+        total = len(rows)
+        for i, (gs, st) in enumerate(rows, start=1):
+            gpi_ranks[st.name] = {
+                "rank":  i,
+                "total": total,
+                "score": round(gs.score, 1),
+                "year":  gs.fiscal_year,
+            }
+
     cycles = db.query(Election).order_by(Election.year.desc()).all()
     unique_constituencies = (
         db.query(func.count(func.distinct(Constituency.id)))
@@ -372,6 +397,11 @@ def home(
         # See app/static/chief_ministers.json + lok_sabha_2024.json.
         "chief_ministers":  CHIEF_MINISTERS,
         "lok_sabha_2024":   LOK_SABHA_2024,
+
+        # GPI rank + score per state — populates the CM card's new
+        # "Government Performance Index" row. Passed to JS as JSON so
+        # the sidebar can update on hover/click without a round-trip.
+        "gpi_ranks":        gpi_ranks,
 
         # Per-state top-party-seat map for the sidebar's party-bar
         # widget. Structure:
@@ -545,6 +575,7 @@ def gpi(
     request: Request,
     db: Session = Depends(get_db),
     state: str = Depends(resolve_state),
+    year: int | None = Query(None, ge=2010, le=2035),
 ):
     """Government Performance Index — state-aware landing page.
 
@@ -552,9 +583,10 @@ def gpi(
     If the selected state has no GPI data yet, the template renders the
     empty-state variant (em-dashes / "Data pending" badges).
 
-    Punjab is the Phase 1 pilot — it's the state with the most complete
-    indicator coverage. Other states have partial coverage from the RBI
-    Handbook ingester which pulls all 28 states in one pass.
+    `year` query param filters the map + Top-5 sidebar + Full Rankings
+    to a specific fiscal year (default: latest available). Individual
+    pillar/indicator drill-downs still use their own most-recent year
+    with carry-forward, because different indicators lag differently.
     """
     from app.gpi_models import (
         GpiPillar, GpiPillarScore, GpiScore, GpiIndicator, GpiIndicatorValue,
@@ -562,6 +594,40 @@ def gpi(
 
     st = db.query(State).filter_by(name=state).one_or_none()
     gpi_data = None
+
+    # ── Available years for the year-selector chip ─────────────────────
+    # DESC so the dropdown shows newest first.
+    available_years = [
+        y for (y,) in
+        db.query(GpiScore.fiscal_year).distinct().order_by(GpiScore.fiscal_year.desc()).all()
+    ]
+
+    # Resolve the target year for the map + national ranking view.
+    # Defaults to latest, clamped to what's actually available.
+    if year and year in available_years:
+        target_year = year
+    else:
+        target_year = available_years[0] if available_years else None
+
+    # ── All-state GPI ranking (drives the choropleth + Top-5 sidebar +
+    # Full Rankings bar chart) — now scoped to target_year, not always latest.
+    all_state_gpi = []
+    if target_year:
+        rows = (
+            db.query(GpiScore, State)
+            .join(State, State.id == GpiScore.state_id)
+            .filter(GpiScore.fiscal_year == target_year)
+            .order_by(GpiScore.score.desc())
+            .all()
+        )
+        for i, (gs, s) in enumerate(rows, start=1):
+            all_state_gpi.append({
+                "name":  s.name,
+                "score": round(gs.score, 1),
+                "rank":  i,
+                "total": len(rows),
+                "year":  gs.fiscal_year,
+            })
 
     if st:
         latest_year = db.query(func.max(GpiScore.fiscal_year)).filter_by(
@@ -711,6 +777,7 @@ def gpi(
                 None,
             )
             governance_series = []
+            governance_peers = []
             if governance_pillar:
                 governance_series = (
                     db.query(GpiPillarScore)
@@ -718,6 +785,79 @@ def gpi(
                     .order_by(GpiPillarScore.fiscal_year)
                     .all()
                 )
+
+                # Peer comparison — top 3 + this state + national median + bottom 2.
+                # Pick the most-recent year with SUBSTANTIAL coverage (≥ half
+                # the states) — the raw MAX(year) can hit a partial-ingestion
+                # year where only a handful of states have data yet.
+                year_coverage = (
+                    db.query(GpiPillarScore.fiscal_year,
+                              func.count(GpiPillarScore.state_id).label("n"))
+                    .filter_by(pillar_id=governance_pillar.id)
+                    .group_by(GpiPillarScore.fiscal_year)
+                    .order_by(GpiPillarScore.fiscal_year.desc())
+                    .all()
+                )
+                # Threshold: half of all tracked states (or fewer if we have very few).
+                total_states = db.query(func.count(State.id)).scalar() or 31
+                min_needed = max(10, total_states // 2)
+                gov_latest_year = next(
+                    (fy for fy, n in year_coverage if n >= min_needed),
+                    year_coverage[0][0] if year_coverage else None,
+                )
+
+                if gov_latest_year:
+                    gov_rows = (
+                        db.query(GpiPillarScore, State)
+                        .join(State, State.id == GpiPillarScore.state_id)
+                        .filter(GpiPillarScore.pillar_id == governance_pillar.id,
+                                GpiPillarScore.fiscal_year == gov_latest_year)
+                        .order_by(GpiPillarScore.score.desc())
+                        .all()
+                    )
+                    n = len(gov_rows)
+                    if n:
+                        # National median = the middle-ranked state's score
+                        median_score = round(gov_rows[n // 2][0].score, 1)
+
+                        seen_ids = set()
+                        def _add(idx, tag):
+                            if 0 <= idx < n:
+                                ps, s_row = gov_rows[idx]
+                                if s_row.id in seen_ids:
+                                    return
+                                seen_ids.add(s_row.id)
+                                governance_peers.append({
+                                    "name":     s_row.name,
+                                    "score":    round(ps.score, 1),
+                                    "rank":     idx + 1,
+                                    "total":    n,
+                                    "tag":      tag,
+                                    "is_current": (s_row.id == st.id),
+                                })
+
+                        # Top 3
+                        for i in range(min(3, n)):
+                            _add(i, "top")
+
+                        # This state (only if not already in top 3)
+                        current_idx = next((i for i, (_, s_row) in enumerate(gov_rows)
+                                             if s_row.id == st.id), None)
+                        if current_idx is not None and current_idx >= 3:
+                            _add(current_idx, "you")
+
+                        # Bottom 2
+                        for i in range(max(0, n - 2), n):
+                            _add(i, "bottom")
+
+                        # Attach the median row for the template to render
+                        governance_median = median_score
+                    else:
+                        governance_median = None
+                else:
+                    governance_median = None
+            else:
+                governance_median = None
 
             gpi_data = {
                 "latest_year":       latest_year,
@@ -729,6 +869,8 @@ def gpi(
                 "efficiency_data":   efficiency_data,
                 "governance_data":   governance_data,
                 "governance_series": governance_series,
+                "governance_peers":  governance_peers,
+                "governance_median": governance_median,
                 "pa_stats":          pa_stats,
                 # Data confidence proxy: fraction of 8 pillars with data
                 "confidence_pct": round(100.0 * latest.pillars_scored / 8.0, 1),
@@ -738,6 +880,11 @@ def gpi(
         "request":  request,
         "state":    state,
         "gpi_data": gpi_data,
+        "all_state_gpi": all_state_gpi,
+        # Year-picker for the national ranking view (map + Top-5 + Full Rankings).
+        # Individual pillar drill-downs still use each pillar's own latest year.
+        "available_years": available_years,
+        "selected_year":   target_year,
     })
 
 

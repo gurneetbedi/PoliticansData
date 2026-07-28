@@ -138,8 +138,26 @@
               </div>
             </div>
 
+            <!-- GPI RANK — Government Performance Index for this state.
+                 Populated by JS from GPI_RANKS on hover/click. Whole row
+                 is a clickable link to the /gpi page for the current state. -->
+            <a id="cmGpiRow"
+               href="/gpi"
+               class="mt-3 flex items-center justify-between gap-2 rounded-lg border border-outline-variant bg-surface-container-lowest hover:bg-surface-container-low transition-colors px-3 py-2 group">
+              <div class="min-w-0">
+                <p class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Govt Performance Index</p>
+                <p class="text-label-sm">
+                  <span id="cmGpiRank" class="font-bold text-on-surface">—</span>
+                  <span class="text-on-surface-variant"> · </span>
+                  <span id="cmGpiScore" class="tabular-nums text-on-surface">—</span>
+                  <span class="text-on-surface-variant text-[10px]"> / 100</span>
+                </p>
+              </div>
+              <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors flex-shrink-0" style="font-size:18px;">arrow_forward</span>
+            </a>
+
             <!-- PARTY SEAT BAR -->
-            <div class="border-t border-outline-variant pt-3">
+            <div class="border-t border-outline-variant pt-3 mt-3">
               <p class="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant mb-2">
                 Assembly seats <span class="font-normal text-on-surface-variant/70" id="cmSeatsYear"></span>
               </p>
@@ -753,6 +771,10 @@
 <script id="party-wealth-cycles" type="application/json">{{ party_wealth_cycles|tojson }}</script>
 <script id="tiles-data" type="application/json">{{ tiles|tojson }}</script>
 <script id="chief-ministers-data" type="application/json">{{ chief_ministers|tojson }}</script>
+{# Per-state GPI rank + score for the CM card's "Government Performance
+   Index" row. Structure: {"Delhi": {"rank": 1, "total": 31, "score": 67.9,
+   "year": 2026}, ...} — populated at page render by home() route. #}
+<script id="gpi-ranks-data" type="application/json">{{ gpi_ranks|tojson }}</script>
 {# Per-state party seat count for the sidebar bar chart. Small object:
    {"Delhi": [{"party":"BJP","seats":48}, ...], ...} #}
 <script id="party-seats-data" type="application/json">{{ party_seats|tojson }}</script>
@@ -1160,6 +1182,7 @@ function onEachFeature(feature, layer) {
 // ─────────────────────────────────────────────────────────────────────
 const CM_DATA          = JSON.parse(document.getElementById('chief-ministers-data').textContent || '{}');
 const PARTY_SEATS_DATA = JSON.parse(document.getElementById('party-seats-data').textContent || '{}');
+const GPI_RANKS        = JSON.parse(document.getElementById('gpi-ranks-data').textContent || '{}');
 
 // Party colors — kept in sync with services.py PARTY_COLORS. Anything
 // not in this map falls back to a neutral slate.
@@ -1247,6 +1270,22 @@ function updateStateSidebar(stateName) {
     photoBox.innerHTML = `<img src="${localPhotoUrl(stateName)}" alt="${cm.name}"
                               class="w-full h-full object-cover"
                               onerror="this.parentElement.innerHTML='<span class=\\'text-body-lg font-bold text-on-surface-variant\\'>${initials}</span>'">`;
+  }
+
+  // GPI row — rank · score · deep link to /gpi?state=X
+  const gpi = GPI_RANKS[stateName];
+  const gpiRow    = document.getElementById('cmGpiRow');
+  const gpiRankEl = document.getElementById('cmGpiRank');
+  const gpiScoreEl= document.getElementById('cmGpiScore');
+  if (gpiRow) {
+    gpiRow.href = '/gpi?state=' + encodeURIComponent(stateName);
+    if (gpi) {
+      if (gpiRankEl)  gpiRankEl.textContent  = `Rank ${gpi.rank}/${gpi.total}`;
+      if (gpiScoreEl) gpiScoreEl.textContent = gpi.score.toFixed(1);
+    } else {
+      if (gpiRankEl)  gpiRankEl.textContent  = 'No data';
+      if (gpiScoreEl) gpiScoreEl.textContent = '—';
+    }
   }
 
   // Party seat bar

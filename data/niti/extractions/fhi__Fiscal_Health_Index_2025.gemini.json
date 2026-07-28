@@ -1,0 +1,114 @@
+{
+  "reference_period": "2022-23",
+  "state_data": [
+    {
+      "state_name": "Odisha",
+      "composite_score": 67.8,
+      "rank": 1,
+      "source_table": "E.1 Final Ranking of States for 2022-23"
+    },
+    {
+      "state_name": "Chhattisgarh",
+      "composite_score": 55.2,
+      "rank": 2,
+      "source_table": "E.1 Final Ranking of States for 2022-23"
+    },
+    {
+      "state_name": "Goa",
+      "composite_score": 53.6,
+      "rank": 3,
+      "source_table": "E.1 Final Ranking of States for 2022-23"
+    },
+    {
+      "state_name": "Jharkhand",
+      "composite_score": 51.6,
+      "rank": 4,
+      "source_table": "E.1 Final Ranking of States for 2022-23"
+    },
+    {
+      "state_name": "Gujarat",
+      "composite_score": 50.5,
+      "rank": 5,
+      "source_table": "E.1 Final Ranking of States for 2022-23"
+    },
+    {
+      "state_name": "Maharashtra",
+      "composite_score": 50.3,
+      "rank": 6,
+      "source_table": "E.1 Final Ranking of States for 2022-23"
+    },
+    {
+      "state_name": "Uttar Pradesh",
+      "composite_score": 45.9,
+      "rank": 7,
+      "source_table": "E.1 Final Ranking of States for 2022-23"
+    },
+    {
+      "state_name": "Telangana",
+      "composite_score": 43.6,
+      "rank": 8,
+      "source_table": "E.1 Final Ranking of States for 2022-23"
+    },
+    {
+      "state_name": "Madhya Pradesh",
+      "composite_score": 42.2,
+      "rank": 9,
+      "source_table": "E.1 Final Ranking of States for 2022-23"
+    },
+    {
+      "state_name": "Karnataka",
+      "composite_score": 40.8,
+      "rank": 10,
+      "source_table": "E.1 Final Ranking of States for 2022-23"
+    },
+    {
+      "state_name": "Tamil Nadu",
+      "composite_score": 29.2,
+      "rank": 11,
+      "source_table": "E.1 Final Ranking of States for 2022-23"
+    },
+    {
+      "state_name": "Rajasthan",
+      "composite_score": 28.6,
+      "rank": 12,
+      "source_table": "E.1 Final Ranking of States for 2022-23"
+    },
+    {
+      "state_name": "Bihar",
+      "composite_score": 27.8,
+      "rank": 13,
+      "source_table": "E.1 Final Ranking of States for 2022-23"
+    },
+    {
+      "state_name": "Haryana",
+      "composite_score": 27.4,
+      "rank": 14,
+      "source_table": "E.1 Final Ranking of States for 2022-23"
+    },
+    {
+      "state_name": "Kerala",
+      "composite_score": 25.4,
+      "rank": 15,
+      "source_table": "E.1 Final Ranking of States for 2022-23"
+    },
+    {
+      "state_name": "West Bengal",
+      "composite_score": 21.8,
+      "rank": 16,
+      "source_table": "E.1 Final Ranking of States for 2022-23"
+    },
+    {
+      "state_name": "Andhra Pradesh",
+      "composite_score": 20.9,
+      "rank": 17,
+      "source_table": "E.1 Final Ranking of States for 2022-23"
+    },
+    {
+      "state_name": "Punjab",
+      "composite_score": 10.7,
+      "rank": 18,
+      "source_table": "E.1 Final Ranking of States for 2022-23"
+    }
+  ],
+  "extraction_notes": "Himalayan and North-Eastern States have not been considered in this report."
+}

@@ -1,0 +1,168 @@
+{
+  "reference_period": "FY 2017-18",
+  "state_data": [
+    {
+      "state_name": "Gujarat",
+      "composite_score": 75,
+      "rank": 1,
+      "source_table": "Page 13: Ranking of the Non-Himalayan States over the years"
+    },
+    {
+      "state_name": "Andhra Pradesh",
+      "composite_score": 74,
+      "rank": 2,
+      "source_table": "Page 13: Ranking of the Non-Himalayan States over the years"
+    },
+    {
+      "state_name": "Madhya Pradesh",
+      "composite_score": 71,
+      "rank": 3,
+      "source_table": "Page 13: Ranking of the Non-Himalayan States over the years"
+    },
+    {
+      "state_name": "Goa",
+      "composite_score": 60,
+      "rank": 4,
+      "source_table": "Page 13: Ranking of the Non-Himalayan States over the years"
+    },
+    {
+      "state_name": "Karnataka",
+      "composite_score": 59,
+      "rank": 5,
+      "source_table": "Page 13: Ranking of the Non-Himalayan States over the years"
+    },
+    {
+      "state_name": "Tamil Nadu",
+      "composite_score": 58,
+      "rank": 6,
+      "source_table": "Page 13: Ranking of the Non-Himalayan States over the years"
+    },
+    {
+      "state_name": "Haryana",
+      "composite_score": 58,
+      "rank": 7,
+      "source_table": "Page 13: Ranking of the Non-Himalayan States over the years"
+    },
+    {
+      "state_name": "Maharashtra",
+      "composite_score": 56,
+      "rank": 8,
+      "source_table": "Page 13: Ranking of the Non-Himalayan States over the years"
+    },
+    {
+      "state_name": "Punjab",
+      "composite_score": 52,
+      "rank": 9,
+      "source_table": "Page 13: Ranking of the Non-Himalayan States over the years"
+    },
+    {
+      "state_name": "Telangana",
+      "composite_score": 50,
+      "rank": 10,
+      "source_table": "Page 13: Ranking of the Non-Himalayan States over the years"
+    },
+    {
+      "state_name": "Rajasthan",
+      "composite_score": 47,
+      "rank": 11,
+      "source_table": "Page 13: Ranking of the Non-Himalayan States over the years"
+    },
+    {
+      "state_name": "Kerala",
+      "composite_score": 45,
+      "rank": 12,
+      "source_table": "Page 13: Ranking of the Non-Himalayan States over the years"
+    },
+    {
+      "state_name": "Chhattisgarh",
+      "composite_score": 45,
+      "rank": 13,
+      "source_table": "Page 13: Ranking of the Non-Himalayan States over the years"
+    },
+    {
+      "state_name": "Odisha",
+      "composite_score": 39,
+      "rank": 14,
+      "source_table": "Page 13: Ranking of the Non-Himalayan States over the years"
+    },
+    {
+      "state_name": "Uttar Pradesh",
+      "composite_score": 39,
+      "rank": 15,
+      "source_table": "Page 13: Ranking of the Non-Himalayan States over the years"
+    },
+    {
+      "state_name": "Bihar",
+      "composite_score": 38,
+      "rank": 16,
+      "source_table": "Page 13: Ranking of the Non-Himalayan States over the years"
+    },
+    {
+      "state_name": "Jharkhand",
+      "composite_score": 34,
+      "rank": 17,
+      "source_table": "Page 13: Ranking of the Non-Himalayan States over the years"
+    },
+    {
+      "state_name": "Himachal Pradesh",
+      "composite_score": 67,
+      "rank": 1,
+      "source_table": "Page 14: Ranking of the Himalayan States over the years"
+    },
+    {
+      "state_name": "Uttarakhand",
+      "composite_score": 49,
+      "rank": 2,
+      "source_table": "Page 14: Ranking of the Himalayan States over the years"
+    },
+    {
+      "state_name": "Tripura",
+      "composite_score": 47,
+      "rank": 3,
+      "source_table": "Page 14: Ranking of the Himalayan States over the years"
+    },
+    {
+      "state_name": "Assam",
+      "composite_score": 44,
+      "rank": 4,
+      "source_table": "Page 14: Ranking of the Himalayan States over the years"
+    },
+    {
+      "state_name": "Sikkim",
+      "composite_score": 42,
+      "rank": 5,
+      "source_table": "Page 14: Ranking of the Himalayan States over the years"
+    },
+    {
+      "state_name": "Nagaland",
+      "composite_score": 30,
+      "rank": 6,
+      "source_table": "Page 14: Ranking of the Himalayan States over the years"
+    },
+    {
+      "state_name": "Meghalaya",
+      "composite_score": 26,
+      "rank": 7,
+      "source_table": "Page 14: Ranking of the Himalayan States over the years"
+    },
+    {
+      "state_name": "Arunachal Pradesh",
+      "composite_score": 22,
+      "rank": 8,
+      "source_table": "Page 14: Ranking of the Himalayan States over the years"
+    },
+    {
+      "state_name": "Puducherry",
+      "composite_score": 39,
+      "rank": 26,
+      "source_table": "Page 12: State categorization based on CWMI scores (FY 17-18)"
+    },
+    {
+      "state_name": "Delhi",
+      "composite_score": 20,
+      "rank": 27,
+      "source_table": "Page 12: State categorization based on CWMI scores (FY 17-18)"
+    }
+  ],
+  "extraction_notes": "Composite scores for all states and UTs are from 'Page 12: State categorization based on CWMI scores (FY 17-18)'. Ranks for Non-Himalayan states are from 'Page 13: Ranking of the Non-Himalayan States over the years'. Ranks for North-Eastern & Himalayan states are from 'Page 14: Ranking of the Himalayan States over the years'. Ranks for UTs (Puducherry and Delhi) are inferred by sorting all 27 entities by their scores from Page 12, as no explicit national or UT-specific ranks were provided in the ranking tables."
+}

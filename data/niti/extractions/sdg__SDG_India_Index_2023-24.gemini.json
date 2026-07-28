@@ -1,0 +1,222 @@
+{
+  "reference_period": "2023-24",
+  "state_data": [
+    {
+      "state_name": "UTTARAKHAND",
+      "composite_score": 79,
+      "rank": 1,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "KERALA",
+      "composite_score": 79,
+      "rank": 1,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "TAMIL NADU",
+      "composite_score": 78,
+      "rank": 3,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "GOA",
+      "composite_score": 77,
+      "rank": 4,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "HIMACHAL PRADESH",
+      "composite_score": 77,
+      "rank": 4,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "PUNJAB",
+      "composite_score": 76,
+      "rank": 6,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "SIKKIM",
+      "composite_score": 76,
+      "rank": 6,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "KARNATAKA",
+      "composite_score": 75,
+      "rank": 8,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "GUJARAT",
+      "composite_score": 74,
+      "rank": 9,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "ANDHRA PRADESH",
+      "composite_score": 74,
+      "rank": 9,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "TELANGANA",
+      "composite_score": 74,
+      "rank": 9,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "MAHARASHTRA",
+      "composite_score": 73,
+      "rank": 12,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "MIZORAM",
+      "composite_score": 72,
+      "rank": 13,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "HARYANA",
+      "composite_score": 72,
+      "rank": 13,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "MANIPUR",
+      "composite_score": 72,
+      "rank": 13,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "TRIPURA",
+      "composite_score": 71,
+      "rank": 16,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "WEST BENGAL",
+      "composite_score": 70,
+      "rank": 17,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "RAJASTHAN",
+      "composite_score": 67,
+      "rank": 18,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "MADHYA PRADESH",
+      "composite_score": 67,
+      "rank": 18,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "UTTAR PRADESH",
+      "composite_score": 67,
+      "rank": 18,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "CHHATTISGARH",
+      "composite_score": 67,
+      "rank": 18,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "ODISHA",
+      "composite_score": 66,
+      "rank": 22,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "ASSAM",
+      "composite_score": 65,
+      "rank": 23,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "ARUNACHAL PRADESH",
+      "composite_score": 65,
+      "rank": 23,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "MEGHALAYA",
+      "composite_score": 63,
+      "rank": 25,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "NAGALAND",
+      "composite_score": 63,
+      "rank": 25,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "JHARKHAND",
+      "composite_score": 62,
+      "rank": 27,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "BIHAR",
+      "composite_score": 57,
+      "rank": 28,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "CHANDIGARH",
+      "composite_score": 77,
+      "rank": 1,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "JAMMU & KASHMIR",
+      "composite_score": 74,
+      "rank": 2,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "PUDUCHERRY",
+      "composite_score": 74,
+      "rank": 2,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "ANDAMAN & NICOBAR ISLANDS",
+      "composite_score": 70,
+      "rank": 4,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "DELHI",
+      "composite_score": 70,
+      "rank": 4,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "DADRA & NAGAR HAVELI & DAMAN & DIU",
+      "composite_score": 66,
+      "rank": 6,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "LAKSHADWEEP",
+      "composite_score": 66,
+      "rank": 6,
+      "source_table": "Page 86"
+    },
+    {
+      "state_name": "LADAKH",
+      "composite_score": 65,
+      "rank": 8,
+      "source_table": "Page 86"
+    }
+  ],
+  "extraction_notes": "Ranks are assigned based on the order presented in the 'PERFORMANCE OF STATES AND UTS ON SDGS' table on Page 86. States/UTs with the same score share the same rank."
+}

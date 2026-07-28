@@ -107,6 +107,15 @@ SOURCES = [
     {"code": "S22", "name": "National Judicial Data Grid", "publisher": "eCourts (Supreme Court)",
      "url": "https://njdg.ecourts.gov.in/",
      "format": "Dashboard", "refresh_cadence": "Real-time"},
+    {"code": "S23", "name": "SDG India Index", "publisher": "NITI Aayog",
+     "url": "https://www.niti.gov.in/reports-sdg",
+     "format": "PDF", "refresh_cadence": "Annual"},
+    {"code": "S24", "name": "Fiscal Health Index", "publisher": "NITI Aayog",
+     "url": "https://www.niti.gov.in/whats-new/fiscal-health-index-2025",
+     "format": "PDF", "refresh_cadence": "Annual (covers 18 major states)"},
+    {"code": "S25", "name": "Composite Water Management Index", "publisher": "NITI Aayog",
+     "url": "https://social.niti.gov.in/water-index",
+     "format": "PDF", "refresh_cadence": "Sporadic (2018, 2019; covers 25 states + 2 UTs)"},
 ]
 
 # Direction is either "higher_better" or "lower_better".
@@ -187,6 +196,15 @@ INDICATORS = [
      "unit": "%", "direction": "lower_better",
      "cadence": "annual", "order": 6,
      "notes": "Crowds out capex. Punjab historically 20%+."},
+    {"code": "F07", "pillar_code": "public_finance", "source_code": "S24",
+     "name": "NITI Fiscal Health Index composite",
+     "description": "NITI Aayog composite fiscal-health score (0-100). "
+                     "Composite of Revenue Mobilization, Expenditure Quality, "
+                     "Fiscal Prudence, Debt Index, and Debt Sustainability.",
+     "unit": "score", "direction": "higher_better",
+     "cadence": "annual", "order": 7,
+     "notes": "Covers 18 major states only. Independent cross-check on "
+                "our F01-F06 series. FY2023 baseline in FHI 2025 edition."},
 
     # ── Education ──────────────────────────────────────────────────────────
     {"code": "ED01", "pillar_code": "education", "source_code": "S08",
@@ -300,6 +318,14 @@ INDICATORS = [
      "unit": "%", "direction": "higher_better",
      "cadence": "real-time", "order": 6,
      "notes": "State-level OMMAS reports."},
+    {"code": "I07", "pillar_code": "infrastructure", "source_code": "S25",
+     "name": "NITI Composite Water Management Index",
+     "description": "NITI Aayog composite water-management score (0-100) — "
+                     "9 themes covering irrigation, drinking water, groundwater, "
+                     "watershed development, water governance.",
+     "unit": "score", "direction": "higher_better",
+     "cadence": "sporadic", "order": 7,
+     "notes": "Covers 25 states + 2 UTs. CWMI 2.0 (2019) is latest."},
 
     # ── Law & Order ────────────────────────────────────────────────────────
     {"code": "LO01", "pillar_code": "law_and_order", "source_code": "S20",
@@ -369,6 +395,16 @@ INDICATORS = [
      "cadence": "annual", "order": 4,
      "notes": "money_value_observations_crore / gsdp × 100. Size-normalized "
                  "so small and large states are comparable."},
+    {"code": "G05", "pillar_code": "governance", "source_code": "S23",
+     "name": "NITI SDG India Index composite",
+     "description": "NITI Aayog composite Sustainable Development Goals score "
+                     "(0-100). Covers 16 goals, 70 targets, 113 indicators — a "
+                     "broad-based independent measure of state governance and "
+                     "development outcomes.",
+     "unit": "score", "direction": "higher_better",
+     "cadence": "annual", "order": 5,
+     "notes": "Latest edition SDG India Index 2023-24 published July 2024. "
+                "Kerala/Uttarakhand 79; Bihar 57 (lowest)."},
 
     # ── Fiscal Efficiency (Phase 2) ────────────────────────────────────────
     # How well the state converts its economy into revenue — distinct from

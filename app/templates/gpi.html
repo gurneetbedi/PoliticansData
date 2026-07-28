@@ -43,214 +43,391 @@
     <span class="text-on-surface">Performance Dashboard</span>
   </div>
 
-  {# ─── Title + Aggregate Score ──────────────────────────────────────── #}
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter mb-stack-lg">
-    <div class="lg:col-span-2">
-      <h1 class="font-headline-lg text-headline-lg text-on-surface mb-3 leading-tight">
-        Government Performance Index
-        <span class="text-on-surface-variant">·</span>
-        <span class="text-on-surface">{% if gpi_data %}FY {{ gpi_data.latest_year }}{% else %}—{% endif %}</span>
-        <span class="text-on-surface-variant">·</span>
-        <span class="text-on-surface">{{ state }}</span>
-      </h1>
-      <p class="font-body-md text-on-surface-variant max-w-2xl mb-6">
-        The GPI provides an objective, data-driven assessment of public sector performance across
-        <span class="font-semibold text-on-surface">six pillars</span>. Using audited fiscal data, NCRB
-        crime statistics, RBI economic indicators and citizen-facing outcomes, we quantify the absolute
-        value delivered per public rupee spent.
-      </p>
+  {# ─── Title + meta chips (compact, full-width) ─────────────────────── #}
+  {# Aggregate score removed from header — it now lives in the map card
+     footer below ("Punjab · rank 12/31 · score 55.5"). #}
+  <div class="mb-stack-md">
+    <h1 class="font-headline-lg text-headline-lg text-on-surface mb-2 leading-tight">
+      Government Performance Index
+      <span class="text-on-surface-variant">·</span>
+      <span class="text-on-surface">{% if gpi_data %}FY {{ gpi_data.latest_year }}{% else %}—{% endif %}</span>
+      <span class="text-on-surface-variant">·</span>
+      <span class="text-on-surface">{{ state }}</span>
+    </h1>
+    <p class="font-body-md text-on-surface-variant mb-4">
+      Objective, data-driven assessment of public sector performance across <span class="font-semibold text-on-surface">eight pillars</span> — fiscal audits, NCRB, RBI, and citizen-facing outcomes.
+    </p>
 
-      <div class="flex flex-wrap gap-2 items-center">
-        <div class="inline-flex flex-col px-3 py-2 bg-surface-container-low border border-outline-variant rounded-lg">
-          <span class="text-label-sm text-on-surface-variant uppercase tracking-wider">Last Updated</span>
-          <span class="text-label-sm font-bold text-on-surface">
-            {% if gpi_data %}FY {{ gpi_data.latest_year }}{% else %}Data pending{% endif %}
-          </span>
-        </div>
-        <div class="inline-flex flex-col px-3 py-2 bg-surface-container-low border border-outline-variant rounded-lg">
-          <span class="text-label-sm text-on-surface-variant uppercase tracking-wider">Data Confidence</span>
-          <span class="text-label-sm font-bold text-on-surface">
-            {% if gpi_data %}{{ gpi_data.confidence_pct }}%{% else %}—{% endif %}
-          </span>
-        </div>
+    <div class="flex flex-wrap gap-2 items-center">
+      <div class="inline-flex flex-col px-3 py-2 bg-surface-container-low border border-outline-variant rounded-lg">
+        <span class="text-label-sm text-on-surface-variant uppercase tracking-wider">Last Updated</span>
+        <span class="text-label-sm font-bold text-on-surface">
+          {% if gpi_data %}FY {{ gpi_data.latest_year }}{% else %}Data pending{% endif %}
+        </span>
+      </div>
+      <div class="inline-flex flex-col px-3 py-2 bg-surface-container-low border border-outline-variant rounded-lg">
+        <span class="text-label-sm text-on-surface-variant uppercase tracking-wider">Data Confidence</span>
+        <span class="text-label-sm font-bold text-on-surface">
+          {% if gpi_data %}{{ gpi_data.confidence_pct }}%{% else %}—{% endif %}
+        </span>
+      </div>
 
-        {% if gpi_data and gpi_data.yoy_delta is not none %}
-          {% set d = gpi_data.yoy_delta %}
-          {% if d > 0 %}
-            <div class="inline-flex items-center gap-1.5 px-3 py-2 bg-green-50 text-green-800 rounded-lg border border-green-200">
-              <span class="material-symbols-outlined text-[16px]">trending_up</span>
-              <span class="text-label-sm font-bold">+{{ '%.1f'|format(d) }}% Improving YoY</span>
-            </div>
-          {% elif d < 0 %}
-            <div class="inline-flex items-center gap-1.5 px-3 py-2 bg-red-50 text-red-800 rounded-lg border border-red-200">
-              <span class="material-symbols-outlined text-[16px]">trending_down</span>
-              <span class="text-label-sm font-bold">{{ '%.1f'|format(d) }}% YoY</span>
-            </div>
-          {% endif %}
+      {% if gpi_data and gpi_data.yoy_delta is not none %}
+        {% set d = gpi_data.yoy_delta %}
+        {% if d > 0 %}
+          <div class="inline-flex items-center gap-1.5 px-3 py-2 bg-green-50 text-green-800 rounded-lg border border-green-200">
+            <span class="material-symbols-outlined text-[16px]">trending_up</span>
+            <span class="text-label-sm font-bold">+{{ '%.1f'|format(d) }}% Improving YoY</span>
+          </div>
+        {% elif d < 0 %}
+          <div class="inline-flex items-center gap-1.5 px-3 py-2 bg-red-50 text-red-800 rounded-lg border border-red-200">
+            <span class="material-symbols-outlined text-[16px]">trending_down</span>
+            <span class="text-label-sm font-bold">{{ '%.1f'|format(d) }}% YoY</span>
+          </div>
         {% endif %}
-      </div>
-    </div>
-
-    {# Aggregate Score card #}
-    <div class="lg:col-span-1">
-      <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 h-full flex items-center justify-center shadow-sm">
-        <div class="relative w-48 h-48 flex items-center justify-center">
-          {% if gpi_data %}
-            {% set s = gpi_data.latest.score %}
-            {% set pct = (s / 100) %}
-            <svg viewBox="0 0 100 100" class="absolute inset-0 w-full h-full -rotate-90">
-              <circle cx="50" cy="50" r="45" stroke="#e5eeff" stroke-width="6" fill="none"/>
-              <circle cx="50" cy="50" r="45" stroke="#0b1c30" stroke-width="6" fill="none"
-                      stroke-dasharray="{{ pct * 283 }} 283" stroke-linecap="round"/>
-            </svg>
-            <div class="text-center">
-              <div class="text-[48px] font-bold text-on-surface leading-none">{{ '%.1f'|format(s) }}</div>
-              <div class="text-label-sm uppercase tracking-widest text-on-surface-variant mt-2">Aggregate Score</div>
-            </div>
-          {% else %}
-            <svg viewBox="0 0 100 100" class="absolute inset-0 w-full h-full -rotate-90">
-              <circle cx="50" cy="50" r="45" stroke="#c6c6cd" stroke-width="6" fill="none" stroke-dasharray="6 4"/>
-            </svg>
-            <div class="text-center">
-              <div class="text-[48px] font-bold text-on-surface-variant leading-none">—</div>
-              <div class="text-label-sm uppercase tracking-widest text-on-surface-variant mt-2">Aggregate</div>
-            </div>
-          {% endif %}
-        </div>
-      </div>
+      {% endif %}
     </div>
   </div>
 
-  {# ═══════════════════════════ Performance Pillars ═════════════════════ #}
+  {# ═══════════════════════════ India Map + Rankings ═════════════════════ #}
+  {# National GPI choropleth. Colored red→yellow→green by aggregate score.
+     Current state outlined with a heavy border. Click any state to jump
+     to its /gpi?state=X page. Right sidebar shows Top 5 + Your State. #}
+  {% if all_state_gpi %}
   <section class="mb-stack-lg">
-    <div class="flex items-end justify-between mb-4">
-      <div>
-        <h2 class="font-headline-md text-headline-md text-on-surface">Performance Pillars</h2>
+    <div class="mb-4 flex flex-wrap items-start justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="font-headline-md text-headline-md text-on-surface">National GPI Ranking</h2>
         <p class="text-body-md text-on-surface-variant">
-          High-density overview of sectoral performance and efficiency.
+          All {{ all_state_gpi|length }} states ranked by aggregate GPI score for
+          <span class="font-bold text-on-surface">FY {{ selected_year }}</span>. Hover any state on the map for its score;
+          scroll down for the full ranked list.
         </p>
       </div>
-      <div id="pillarViewToggle" class="hidden md:flex bg-surface-container p-1 rounded-lg border border-outline-variant">
-        <button data-view="grid" class="px-4 py-1.5 text-label-sm font-bold text-on-surface-variant hover:text-primary transition-colors rounded">Grid View</button>
-        <button data-view="table" class="px-4 py-1.5 text-label-sm font-bold bg-white text-primary rounded shadow-sm">Detailed Table</button>
+
+      {# ── Year-over-year filter — reloads /gpi?state=X&year=YYYY ────────
+         Compact segmented pill showing the 5 most recent fiscal years.
+         Only reshuffles the MAP + Top-5 sidebar + Full Rankings section —
+         pillar drill-downs still use each pillar's own most-recent year
+         (different sources publish at different cadences). #}
+      {% if available_years and available_years|length > 1 %}
+      {% set _recent_years = available_years[:5] | list | reverse | list %}
+      <div class="flex flex-col items-end gap-1.5">
+        <div class="text-label-sm uppercase tracking-widest text-on-surface-variant font-bold">Fiscal Year</div>
+        <div class="inline-flex bg-surface-container p-1 rounded-lg border border-outline-variant">
+          {% for y in _recent_years %}
+            <a href="/gpi?state={{ state | urlencode }}&year={{ y }}"
+               class="px-3 py-1.5 text-label-sm font-bold rounded transition-colors
+                      {% if y == selected_year %}bg-white text-primary shadow-sm
+                      {% else %}text-on-surface-variant hover:text-primary hover:bg-surface-container-low{% endif %}">
+              FY {{ y }}
+            </a>
+          {% endfor %}
+        </div>
+        <div class="text-[11px] text-on-surface-variant italic max-w-[280px] text-right leading-snug">
+          Reshuffles the map, Top&nbsp;5, and Full Rankings.
+          Pillar detail sections stay on their own latest year.
+        </div>
       </div>
+      {% endif %}
     </div>
 
-    <div id="pillarView-table" class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
-      <table class="w-full text-left">
-        <thead class="bg-surface-container-low border-b border-outline-variant">
-          <tr class="text-label-sm uppercase tracking-widest text-on-surface-variant">
-            <th class="p-4 font-label-lg">Sector / Pillar</th>
-            <th class="p-4 font-label-lg">Score</th>
-            <th class="p-4 font-label-lg">National Rank</th>
-            <th class="p-4 font-label-lg hidden md:table-cell">Trend (12M)</th>
-            <th class="p-4 font-label-lg">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% set pillar_icons = {
-            'economy':          'trending_up',
-            'public_finance':   'account_balance',
-            'education':        'school',
-            'healthcare':       'medical_services',
-            'infrastructure':   'construction',
-            'law_and_order':    'gavel',
-            'governance':       'verified',
-            'efficiency':       'speed',
-          } %}
-          {% if gpi_data %}
-            {% for row in gpi_data.pillar_rows %}
-              {% set p = row.pillar %}
-              {% set latest = row.latest %}
-              <tr class="border-t border-outline-variant hover:bg-surface-container-low transition-colors">
-                <td class="p-4">
-                  <div class="flex items-center gap-3">
-                    <span class="material-symbols-outlined text-[20px] text-on-surface-variant">{{ pillar_icons.get(p.code, 'category') }}</span>
-                    <span class="font-label-lg font-bold text-on-surface">{{ p.name }}</span>
-                  </div>
-                </td>
-                <td class="p-4">
-                  {% if latest %}
-                    <div class="flex flex-col">
-                      <span class="text-headline-md font-bold text-on-surface leading-none">{{ '%.1f'|format(latest.score) }}</span>
-                      {% if row.is_stale %}
-                        <span class="text-label-sm text-on-surface-variant mt-1">as of FY{{ row.latest_year }}</span>
-                      {% endif %}
-                    </div>
-                  {% else %}
-                    <span class="text-headline-md font-bold text-on-surface-variant">—</span>
-                  {% endif %}
-                </td>
-                <td class="p-4 text-body-md">
-                  {% if row.rank %}
-                    <span class="font-bold text-on-surface">{{ '%02d'|format(row.rank) }}</span>
-                    <span class="text-on-surface-variant">/ {{ row.total_states }}</span>
-                  {% else %}
-                    <span class="text-on-surface-variant">—</span>
-                  {% endif %}
-                </td>
-                <td class="p-4 hidden md:table-cell">
-                  {% if row.history and row.history|length > 1 %}
-                    {% set scores = row.history|map(attribute='score')|list %}
-                    {% set mn = scores|min %}
-                    {% set mx = scores|max %}
-                    {% set rng = (mx - mn) if (mx > mn) else 1 %}
-                    <svg viewBox="0 0 100 30" class="w-28 h-8" preserveAspectRatio="none">
-                      <polyline fill="none" stroke="#131b2e" stroke-width="1.5"
-                        points="{% for s in scores %}{{ loop.index0 * (100 / (scores|length - 1)) }},{{ 28 - ((s - mn) / rng) * 26 }} {% endfor %}"/>
-                    </svg>
-                  {% elif row.history and row.history|length == 1 %}
-                    {# Single data point — show a dot with the year label so the pillar #}
-                    {# doesn't look like it has no data at all. #}
-                    <div class="w-28 flex items-center gap-2 text-label-sm text-on-surface-variant">
-                      <svg viewBox="0 0 30 30" class="w-6 h-6">
-                        <circle cx="15" cy="15" r="4" fill="#131b2e"/>
-                      </svg>
-                      <span>single year</span>
-                    </div>
-                  {% else %}
-                    <span class="text-label-sm text-on-surface-variant italic">no data</span>
-                  {% endif %}
-                </td>
-                <td class="p-4">
-                  {{ status_badge(latest.score if latest else none) }}
-                </td>
-              </tr>
-            {% endfor %}
-          {% else %}
-            {% for code, name in [
-              ('economy','Economy'), ('public_finance','Public Finance'),
-              ('education','Education'), ('healthcare','Healthcare'),
-              ('infrastructure','Infrastructure'), ('law_and_order','Law & Order'),
-              ('governance','Governance & Accountability'),
-              ('efficiency','Fiscal Efficiency')
-            ] %}
-              <tr class="border-t border-outline-variant">
-                <td class="p-4">
-                  <div class="flex items-center gap-3">
-                    <span class="material-symbols-outlined text-[20px] text-on-surface-variant">{{ pillar_icons.get(code) }}</span>
-                    <span class="font-label-lg font-bold text-on-surface">{{ name }}</span>
-                  </div>
-                </td>
-                <td class="p-4 text-headline-md font-bold text-on-surface-variant">—</td>
-                <td class="p-4 text-on-surface-variant">—</td>
-                <td class="p-4 hidden md:table-cell"><div class="w-24 h-8 bg-surface-container rounded"></div></td>
-                <td class="p-4">{{ status_badge(none) }}</td>
-              </tr>
-            {% endfor %}
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-gutter">
+      {# ── LEFT: choropleth map (3/4 width) ────────────────────────────── #}
+      <div class="lg:col-span-3 bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+        <div id="gpiIndiaMap" style="height: 520px; background: #eff4ff;"></div>
+
+        <div class="flex flex-wrap items-center justify-between gap-3 px-4 py-3 border-t border-outline-variant bg-surface-container-low">
+          <div class="flex items-center gap-3 text-label-sm text-on-surface-variant">
+            <span class="font-bold">Rank</span>
+            <div class="flex items-center gap-1">
+              <span>Worst</span>
+              <div class="w-40 h-2 rounded"
+                   style="background: linear-gradient(to right, #dc2626 0%, #f59e0b 50%, #16a34a 100%);"></div>
+              <span>Best</span>
+            </div>
+          </div>
+          <div class="text-label-sm text-on-surface-variant">
+            <span class="font-bold text-on-surface">{{ state }}</span>
+            {% set _cs = (all_state_gpi | selectattr('name', 'equalto', state) | list | first) %}
+            {% if _cs %}
+              · rank <span class="font-bold">{{ _cs.rank }}/{{ _cs.total }}</span>
+              · score <span class="font-bold">{{ _cs.score }}</span>
+            {% else %}
+              · <span class="italic">no data</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      {# ── RIGHT: Top 5 + Your State ranking list (1/4 width) ─────────── #}
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm flex flex-col">
+        <div class="p-4 border-b border-outline-variant bg-surface-container-low">
+          <h3 class="text-label-lg font-bold uppercase tracking-widest text-on-surface-variant">
+            Top 5 · Your State
+          </h3>
+        </div>
+
+        <div class="p-3 space-y-1 flex-1">
+          {# Top 5 states #}
+          {% for s in all_state_gpi[:5] %}
+            {% set is_current = s.name == state %}
+            <a href="/gpi?state={{ s.name | urlencode }}"
+               class="flex items-center justify-between px-3 py-2 rounded-lg
+                      {% if is_current %}bg-primary text-on-primary
+                      {% else %}text-on-surface hover:bg-surface-container-low{% endif %}
+                      transition-colors">
+              <div class="flex items-center gap-3 min-w-0">
+                <span class="text-label-sm font-bold {% if is_current %}text-on-primary/80{% else %}text-on-surface-variant{% endif %} w-6">
+                  {{ '%02d'|format(s.rank) }}
+                </span>
+                <span class="text-label-sm font-bold truncate">{{ s.name }}</span>
+              </div>
+              <span class="text-label-sm tabular-nums font-bold">{{ s.score }}</span>
+            </a>
+          {% endfor %}
+
+          {# Divider + Your State if not already in top 5 #}
+          {% set current_row = (all_state_gpi | selectattr('name', 'equalto', state) | list | first) %}
+          {% if current_row and current_row.rank > 5 %}
+            <div class="pt-2 pb-1 px-3 text-label-sm text-on-surface-variant/60 italic">
+              ... {{ current_row.rank - 5 - 1 }} more
+            </div>
+            <a href="/gpi?state={{ state | urlencode }}"
+               class="flex items-center justify-between px-3 py-2 rounded-lg bg-primary text-on-primary">
+              <div class="flex items-center gap-3 min-w-0">
+                <span class="text-label-sm font-bold text-on-primary/80 w-6">{{ '%02d'|format(current_row.rank) }}</span>
+                <span class="text-label-sm font-bold truncate">{{ state }}</span>
+              </div>
+              <span class="text-label-sm tabular-nums font-bold">{{ current_row.score }}</span>
+            </a>
           {% endif %}
-        </tbody>
-      </table>
-      <div class="p-4 text-center bg-surface-container-low border-t border-outline-variant">
-        <a href="#" class="inline-flex items-center gap-1 text-label-lg font-bold text-primary uppercase tracking-wider hover:text-secondary transition-colors">
-          View All 8 Pillars
-          <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-        </a>
+        </div>
+
+        <div class="px-4 py-3 border-t border-outline-variant bg-surface-container-low">
+          <a href="#gpi-full-rankings" class="text-label-sm font-bold text-primary hover:text-secondary uppercase tracking-wider inline-flex items-center gap-1">
+            All rankings
+            <span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+          </a>
+        </div>
       </div>
     </div>
+  </section>
 
-    {# ── Grid View (initially hidden — JS toggles) ────────────────────── #}
-    <div id="pillarView-grid" class="hidden grid grid-cols-2 lg:grid-cols-4 gap-gutter">
+  {# GPI-map label typography — tightly sized so labels don't overflow
+     narrow polygons. Uses the base .state-label-marker text-shadow so
+     they read on any fill color. #}
+  <style>
+    .gpi-state-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1.05;
+      gap: 2px;
+    }
+    .gpi-state-label .gpi-state-name {
+      font: 700 10px/1 'Inter', system-ui, sans-serif;
+      letter-spacing: 0.05em;
+    }
+    .gpi-state-label .gpi-state-rank {
+      font: 500 8px/1 'Inter', system-ui, sans-serif;
+      letter-spacing: 0.04em;
+      opacity: 0.70;
+      text-transform: none;
+    }
+  </style>
+
+  {# ── JSON data blob for the map JS ──────────────────────────────────── #}
+  <script id="gpi-all-state" type="application/json">{{ all_state_gpi | tojson }}</script>
+  <script id="gpi-current-state" type="application/json">{{ state | tojson }}</script>
+
+  {# ── Leaflet script — reuses india_states.geojson from the home map ── #}
+  <script>
+    (function() {
+      const stateData = JSON.parse(document.getElementById('gpi-all-state').textContent || '[]');
+      const currentState = JSON.parse(document.getElementById('gpi-current-state').textContent || '""');
+      if (!stateData.length || typeof L === 'undefined') return;
+
+      // Build a name → {score, rank} lookup
+      const byName = {};
+      stateData.forEach(s => { byName[s.name] = s; });
+
+      // Handful of state-name aliases where the geojson uses a different form.
+      const NAME_ALIASES = {
+        "NCT of Delhi":                 "Delhi",
+        "Delhi (UT)":                   "Delhi",
+        "Jammu & Kashmir":              "Jammu and Kashmir",
+        "Andaman & Nicobar":            "Andaman and Nicobar Islands",
+        "Andaman & Nicobar Islands":    "Andaman and Nicobar Islands",
+        "Pondicherry":                  "Puducherry",
+      };
+      function canon(name) { return NAME_ALIASES[name] || name; }
+
+      // Red → Amber → Green ramp by RANK PERCENTILE. Best state = deep
+      // green, worst = deep red. Scores compress into ~55-70 so colouring
+      // by rank position (not raw score) gives full ramp coverage.
+      function rankColor(rank, total) {
+        if (rank == null || !total) return "#e5e7eb";      // grey for no data
+        const t = 1 - (rank - 1) / (total - 1);            // 1=best, 0=worst
+        function lerp(a, b, u) { return Math.round(a + (b - a) * u); }
+        function hex(c) { return [
+          parseInt(c.slice(1,3),16),
+          parseInt(c.slice(3,5),16),
+          parseInt(c.slice(5,7),16),
+        ]; }
+        // 0 = #dc2626 red-600, 0.5 = #f59e0b amber-500, 1 = #16a34a green-600
+        const r0 = hex("#dc2626"), r1 = hex("#f59e0b"), r2 = hex("#16a34a");
+        let a, b, u;
+        if (t < 0.5) { a = r0; b = r1; u = t / 0.5; }
+        else          { a = r1; b = r2; u = (t - 0.5) / 0.5; }
+        const R = lerp(a[0], b[0], u), G = lerp(a[1], b[1], u), B = lerp(a[2], b[2], u);
+        return `rgb(${R}, ${G}, ${B})`;
+      }
+
+      const map = L.map('gpiIndiaMap', {
+        zoomControl: false,
+        attributionControl: false,
+        scrollWheelZoom: false,
+        dragging: false,
+        doubleClickZoom: false,
+        boxZoom: false,
+        keyboard: false,
+      }).setView([22.8, 82], 5);
+      map.getContainer().style.background = '#eff4ff';
+
+      // Bring in the shared state-label helpers (STATE_ABBR, LABEL_OVERRIDES,
+      // FORCE_ABBR, LABEL_SKIP, polygonCentroid) so our per-state markers
+      // sit exactly where the home dashboard's map places them.
+      const SL = (window.LokvaniStateLabels || {});
+      const STATE_ABBR      = SL.STATE_ABBR      || {};
+      const LABEL_OVERRIDES = SL.LABEL_OVERRIDES || {};
+      const FORCE_ABBR      = SL.FORCE_ABBR      || new Set();
+      const LABEL_SKIP      = SL.LABEL_SKIP      || new Set();
+      const polygonCentroid = SL.polygonCentroid || ((_f, b) => {
+        const c = b.getCenter(); return [c.lat, c.lng];
+      });
+      if (SL.setupStateLabelsPane) SL.setupStateLabelsPane(map);
+
+      // Add one label per state — abbreviation on top, "#rank" below.
+      // Kept small (10px / 9px) with a white text-shadow to avoid spillover
+      // even on tiny polygons; micro-UTs in LABEL_SKIP are omitted.
+      function addGpiLabel(feature, lyr, name) {
+        if (LABEL_SKIP.has(name)) return;
+        const row = byName[name];
+        if (!row) return;                        // no GPI data → no label
+
+        try {
+          const bounds = lyr.getBounds();
+          const center = LABEL_OVERRIDES[name] || polygonCentroid(feature, bounds);
+
+          const widthDeg = Math.abs(bounds.getEast() - bounds.getWest());
+          // ~0.7deg per char at font 10px; force abbr for narrow polygons
+          const fitsFull = !FORCE_ABBR.has(name)
+                           && (name.length * 0.55) <= widthDeg;
+          const nameLabel = fitsFull ? name : (STATE_ABBR[name] || name);
+
+          const html = `
+            <span class="state-label-text gpi-state-label">
+              <span class="gpi-state-name">${nameLabel.toUpperCase()}</span>
+            </span>`;
+
+          L.marker(center, {
+            icon: L.divIcon({
+              className: 'state-label-marker',
+              html: html,
+              iconSize: null,
+              iconAnchor: [0, 0],
+            }),
+            interactive: false,
+            keyboard: false,
+            pane: 'stateLabelsPane',
+          }).addTo(map);
+        } catch (e) { /* geometry glitch — skip label silently */ }
+      }
+
+      // Tooltip
+      const tip = L.tooltip({ direction: 'top', className: 'gpi-map-tip', offset: [0, -4] });
+
+      // Extract state name from a geojson feature. Our india_states.geojson
+      // uses ST_NM (uppercase). Others we've seen in the wild use st_nm,
+      // NAME_1, or name — accept any of them so we don't break on refresh.
+      function featureStateName(f) {
+        const p = f.properties || {};
+        return canon(p.ST_NM || p.st_nm || p.NAME_1 || p.name || '');
+      }
+
+      fetch('/static/india_states.geojson')
+        .then(r => r.json())
+        .then(geo => {
+          const layer = L.geoJSON(geo, {
+            style: (feature) => {
+              const name = featureStateName(feature);
+              const row = byName[name];
+              const isCurrent = (name === currentState);
+              return {
+                fillColor:   rankColor(row ? row.rank : null, row ? row.total : null),
+                fillOpacity: row ? 0.9 : 0.3,
+                color:       isCurrent ? '#0b1c30' : '#ffffff',
+                weight:      isCurrent ? 3 : 0.8,
+              };
+            },
+            onEachFeature: (feature, lyr) => {
+              const name = featureStateName(feature);
+              const row = byName[name];
+              const label = row
+                ? `<b>${name}</b><br>GPI ${row.score} · rank ${row.rank}/${row.total}`
+                : `<b>${name}</b><br><i>no GPI data</i>`;
+              lyr.bindTooltip(label, { sticky: true });
+
+              // Permanent name + rank label rendered on top of the polygon
+              addGpiLabel(feature, lyr, name);
+              // Hover: darken outline for feedback. No click handler — the
+              // sidebar's ranking list is the intended navigation surface,
+              // so state polygons stay display-only (avoids accidental page
+              // reloads when the user is exploring the map).
+              lyr.on({
+                mouseover: (e) => { e.target.setStyle({ weight: 2.5, color: '#0b1c30' }); },
+                mouseout:  (e) => {
+                  const isCurrent = (name === currentState);
+                  e.target.setStyle({
+                    weight: isCurrent ? 3 : 0.8,
+                    color:  isCurrent ? '#0b1c30' : '#ffffff',
+                  });
+                },
+              });
+            },
+          }).addTo(map);
+          // Fit the map to the geojson bounds so the layout renders consistently
+          map.fitBounds(layer.getBounds(), { padding: [10, 10] });
+        })
+        .catch(err => console.warn('GPI map: could not load geojson —', err));
+    })();
+  </script>
+  {% endif %}
+
+  {# ═══════════════════════════ Performance Pillars ═════════════════════ #}
+  <section class="mb-stack-lg">
+    <div class="mb-4">
+      <h2 class="font-headline-md text-headline-md text-on-surface">Performance Pillars</h2>
+      <p class="text-body-md text-on-surface-variant">
+        High-density overview of sectoral performance and efficiency.
+      </p>
+    </div>
+
+    {% set pillar_icons = {
+      'economy':          'trending_up',
+      'public_finance':   'account_balance',
+      'education':        'school',
+      'healthcare':       'medical_services',
+      'infrastructure':   'construction',
+      'law_and_order':    'gavel',
+      'governance':       'verified',
+      'efficiency':       'speed',
+    } %}
+
+    {# Grid view — 4-across on desktop, 2-across on mobile. Displays each of
+       the 8 pillars as a card with score, FY, rank, and status badge. #}
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-gutter">
       {% if gpi_data %}
         {% for row in gpi_data.pillar_rows %}
           {% set p = row.pillar %}
@@ -274,38 +451,27 @@
             {% endif %}
           </div>
         {% endfor %}
+      {% else %}
+        {% for code, name in [
+          ('economy','Economy'), ('public_finance','Public Finance'),
+          ('education','Education'), ('healthcare','Healthcare'),
+          ('infrastructure','Infrastructure'), ('law_and_order','Law & Order'),
+          ('governance','Governance & Accountability'),
+          ('efficiency','Fiscal Efficiency')
+        ] %}
+          <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 shadow-sm">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="material-symbols-outlined text-[20px] text-on-surface-variant">{{ pillar_icons.get(code) }}</span>
+              <span class="font-label-lg font-bold text-on-surface text-label-sm uppercase tracking-wider leading-tight">{{ name }}</span>
+            </div>
+            <div class="text-headline-lg font-bold text-on-surface-variant leading-none mb-1">—</div>
+            <div class="text-label-sm text-on-surface-variant mb-3">No data</div>
+            {{ status_badge(none) }}
+          </div>
+        {% endfor %}
       {% endif %}
     </div>
   </section>
-
-  {# ── JS: pillar view toggle ──────────────────────────────────────── #}
-  <script>
-    (function() {
-      const buttons = document.querySelectorAll('#pillarViewToggle button');
-      const tableView = document.getElementById('pillarView-table');
-      const gridView  = document.getElementById('pillarView-grid');
-
-      function setView(view) {
-        buttons.forEach(b => {
-          const active = b.dataset.view === view;
-          b.classList.toggle('bg-white', active);
-          b.classList.toggle('text-primary', active);
-          b.classList.toggle('shadow-sm', active);
-          b.classList.toggle('text-on-surface-variant', !active);
-        });
-        if (view === 'grid') {
-          tableView.classList.add('hidden');
-          gridView.classList.remove('hidden');
-          gridView.classList.add('grid');
-        } else {
-          gridView.classList.add('hidden');
-          gridView.classList.remove('grid');
-          tableView.classList.remove('hidden');
-        }
-      }
-      buttons.forEach(b => b.addEventListener('click', () => setView(b.dataset.view)));
-    })();
-  </script>
 
   {# ═══════════════════════════ Efficiency & Fiscal Integrity ═════════ #}
   {% set eff = gpi_data.efficiency_data if gpi_data else {} %}
@@ -509,148 +675,195 @@
       {% endfor %}
     </div>
 
+    {# Peer comparison — Governance pillar, this state vs top/median/bottom.
+       Replaces the flat "5-year rolling average" chart, which had almost
+       no visible signal because governance scores compress ~50-60. #}
     <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
-      <div class="flex items-center justify-between mb-4">
+      <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
         <div>
           <h3 class="text-label-lg font-bold uppercase tracking-widest text-on-surface-variant">
-            Historical Transparency Trend
+            Governance · Peer Comparison
           </h3>
-          <p class="text-label-sm text-on-surface-variant mt-1">5-year rolling average of responsiveness metrics</p>
+          <p class="text-label-sm text-on-surface-variant mt-1">
+            Top 3, national median, this state, and bottom 2 — Governance pillar score.
+          </p>
         </div>
-        <div class="flex gap-3 text-label-sm text-on-surface-variant">
-          <span class="flex items-center gap-1"><span class="w-2 h-2 bg-on-surface rounded-full"></span> Index</span>
-          <span class="flex items-center gap-1"><span class="w-2 h-2 bg-outline-variant rounded-full"></span> Target</span>
+        {% if gpi_data and gpi_data.governance_peers %}
+        <div class="flex flex-wrap gap-3 text-label-sm text-on-surface-variant">
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-green-600"></span> Top performers</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-primary"></span> {{ state }}</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span> National median</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-red-600"></span> Bottom performers</span>
         </div>
+        {% endif %}
       </div>
-      {% if gpi_data and gpi_data.gpi_series and gpi_data.gpi_series|length > 1 %}
-        {# When we have real GPI series, render it as bars instead of the placeholder #}
-        <div style="height: 220px;"><canvas id="gpiTrendChart"></canvas></div>
-      {% else %}
-        <div class="grid grid-cols-5 gap-3 h-40 items-end">
-          {% for yr in [2020, 2021, 2022, 2023, 2024] %}
-          <div class="flex flex-col items-center gap-2 h-full justify-end">
-            <div class="w-full bg-surface-container rounded-t" style="height: {{ 20 + loop.index0 * 10 }}%;"></div>
-            <div class="text-label-sm text-on-surface-variant">{{ yr }}</div>
-          </div>
+
+      {% if gpi_data and gpi_data.governance_peers %}
+        {% set peers = gpi_data.governance_peers %}
+        {% set med = gpi_data.governance_median %}
+        {% set max_score = ([100] + peers|map(attribute='score')|list)|max %}
+
+        {# ── Assemble render order: Top 3 → Median → You → Bottom 2 ─── #}
+        {% set top_peers    = peers | selectattr('tag', 'equalto', 'top')    | list %}
+        {% set you_peer     = peers | selectattr('tag', 'equalto', 'you')    | list | first %}
+        {% set bottom_peers = peers | selectattr('tag', 'equalto', 'bottom') | list %}
+
+        {% set render_order = top_peers %}
+        {% if med is not none %}
+          {% set render_order = render_order + [{'name': 'National median',
+                                                    'score': med, 'rank': None,
+                                                    'tag': 'median',
+                                                    'is_current': False}] %}
+        {% endif %}
+        {% if you_peer %}
+          {% set render_order = render_order + [you_peer] %}
+        {% endif %}
+        {% set render_order = render_order + bottom_peers %}
+
+        {# ── Vertical bar chart. Fixed 220px chart height so bars are
+             visually comparable across states regardless of score range. ── #}
+        <div class="flex items-end justify-between gap-2 md:gap-4 h-64 pt-4">
+          {% for p in render_order %}
+            {% if p.tag == 'top' %}
+              {% set bar_color = '#16a34a' %}
+            {% elif p.tag == 'bottom' %}
+              {% set bar_color = '#dc2626' %}
+            {% elif p.tag == 'median' %}
+              {% set bar_color = '#eab308' %}
+            {% elif p.is_current %}
+              {% set bar_color = '#131b2e' %}
+            {% else %}
+              {% set bar_color = '#6b7280' %}
+            {% endif %}
+            {% set bar_h_pct = (p.score / max_score) * 100 %}
+
+            <div class="flex-1 flex flex-col items-center justify-end min-w-0 gap-2">
+              {# Score label above the bar #}
+              <div class="text-label-md font-bold text-on-surface tabular-nums">
+                {{ '%.1f'|format(p.score) }}
+              </div>
+
+              {# The bar itself #}
+              <div class="w-full max-w-[80px] rounded-t-md relative"
+                   style="height: {{ bar_h_pct }}%; background: {{ bar_color }};
+                          min-height: 8px;">
+                {% if p.is_current %}
+                  <div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[9px] font-bold text-primary uppercase tracking-widest whitespace-nowrap">
+                    you
+                  </div>
+                {% endif %}
+              </div>
+
+              {# Rank + state name below the bar #}
+              <div class="text-center min-w-0 w-full">
+                {% if p.rank %}
+                  <div class="text-label-sm font-bold text-on-surface-variant tabular-nums leading-none">
+                    {{ '%02d'|format(p.rank) }}
+                  </div>
+                {% else %}
+                  <div class="text-label-sm font-bold text-on-surface-variant leading-none">—</div>
+                {% endif %}
+                <div class="text-label-sm font-bold text-on-surface truncate mt-1 {% if p.is_current %}text-primary{% endif %}"
+                     title="{{ p.name }}">
+                  {{ p.name }}
+                </div>
+              </div>
+            </div>
           {% endfor %}
         </div>
+
+        <p class="text-label-sm text-on-surface-variant italic mt-4 pt-4 border-t border-outline-variant">
+          Governance pillar composited from audit paras raised, long-pending
+          paras, PAC recommendations pending, and audit money value / GSDP.
+          Sourced from CAG State Finances Audit Reports.
+        </p>
+      {% else %}
+        <p class="text-label-sm text-on-surface-variant italic">
+          Governance peer data pending — CAG SFAR ingestion in progress.
+        </p>
       {% endif %}
     </div>
   </section>
 
-  {% if gpi_data and gpi_data.gpi_series and gpi_data.gpi_series|length > 1 %}
-  <script>
-    const gpiTrendData = {
-      labels: [{% for row in gpi_data.gpi_series %}"FY{{ row.fiscal_year }}"{% if not loop.last %},{% endif %}{% endfor %}],
-      scores: [{% for row in gpi_data.gpi_series %}{{ row.score }}{% if not loop.last %},{% endif %}{% endfor %}],
-    };
-    new Chart(document.getElementById('gpiTrendChart').getContext('2d'), {
-      type: 'bar',
-      data: {
-        labels: gpiTrendData.labels,
-        datasets: [{
-          label: 'GPI',
-          data: gpiTrendData.scores,
-          backgroundColor: '#131b2e',
-          borderRadius: 4,
-          maxBarThickness: 60,
-        }],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          y: { beginAtZero: true, max: 100, ticks: { stepSize: 20 },
-               grid: { color: 'rgba(0,0,0,0.05)' } },
-          x: { grid: { display: false } },
-        },
-      },
-    });
-  </script>
-  {% endif %}
-
-  {# ═══════════════════════════ Geospatial & Raw Data ═════════════════ #}
-  <section class="mb-stack-lg">
+  {# ═══════════════════════════ Full Rankings (bar chart) ══════════════ #}
+  {# Anchor target for the map sidebar's "All rankings" link. Sits at the
+     bottom of the page — the user drills through all the pillar and
+     efficiency detail first, then sees the full national leaderboard. #}
+  {% if all_state_gpi %}
+  <section id="gpi-full-rankings" class="mb-stack-lg scroll-mt-24">
     <div class="mb-4">
-      <h2 class="font-headline-md text-headline-md text-on-surface">Geospatial Distribution &amp; Raw Data</h2>
+      <h2 class="font-headline-md text-headline-md text-on-surface">Full State Rankings</h2>
       <p class="text-body-md text-on-surface-variant">
-        Granular district-level insights and data-pedigree verification.
-        <span class="italic">Phase 3 — requires district-level indicator ingestion.</span>
+        All {{ all_state_gpi|length }} states ranked by aggregate GPI score,
+        FY {{ selected_year }}. Bar length = score, color = rank position
+        (green best, red worst). Click a state to open its detail page.
+        Change the fiscal year using the picker near the map.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
-      <div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
-        <div class="p-4 border-b border-outline-variant flex items-center justify-between bg-surface-container-low">
-          <div class="flex gap-2">
-            <button class="px-3 py-1.5 text-label-sm font-bold bg-primary text-on-primary rounded">{{ state }} Map</button>
-            <button class="px-3 py-1.5 text-label-sm font-bold text-on-surface-variant hover:text-primary transition-colors">Regional Heatmap</button>
-          </div>
-          <div class="flex items-center gap-2 text-label-sm text-on-surface-variant">
-            <span>Density</span>
-            <div class="w-24 h-2 bg-gradient-to-r from-surface-container via-surface-container-highest to-outline-variant rounded"></div>
-          </div>
-        </div>
-        <div class="p-8 h-96 flex flex-col items-center justify-center text-on-surface-variant">
-          <span class="material-symbols-outlined text-[48px] mb-3 opacity-40">map</span>
-          <div class="text-body-md">District boundary layer pending</div>
-          <div class="text-label-sm mt-1 max-w-md text-center">
-            Populates once district-level indicators are ingested for {{ state }}.
-          </div>
-        </div>
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm p-6">
+      <div class="space-y-1">
+        {% set total = all_state_gpi | length %}
+        {% for s in all_state_gpi %}
+          {% set is_current = (s.name == state) %}
+          {# Rank-based color ramp — mirrors the map's rankColor() JS.
+             worst=#dc2626 red-600 → mid=#f59e0b amber-500 → best=#16a34a #}
+          {% set t = 1.0 - ((s.rank - 1) / (total - 1)) %}
+          {% if t < 0.5 %}
+            {% set u = t / 0.5 %}
+            {% set R = (220 + (245 - 220) * u) | int %}
+            {% set G = (38  + (158 - 38)  * u) | int %}
+            {% set B = (38  + (11  - 38)  * u) | int %}
+          {% else %}
+            {% set u = (t - 0.5) / 0.5 %}
+            {% set R = (245 + (22  - 245) * u) | int %}
+            {% set G = (158 + (163 - 158) * u) | int %}
+            {% set B = (11  + (74  - 11)  * u) | int %}
+          {% endif %}
+          {% set bar_pct = (s.score / 100) * 100 %}
+          <a href="/gpi?state={{ s.name | urlencode }}"
+             class="flex items-center gap-3 py-1.5 px-2 rounded-lg
+                    {% if is_current %}bg-primary/5 border border-primary/30{% else %}hover:bg-surface-container-low border border-transparent{% endif %}
+                    transition-colors">
+            <span class="text-label-sm font-bold tabular-nums w-8
+                         {% if is_current %}text-primary{% else %}text-on-surface-variant{% endif %}">
+              {{ '%02d'|format(s.rank) }}
+            </span>
+            <span class="text-label-lg font-bold text-on-surface w-40 truncate">
+              {{ s.name }}{% if is_current %} <span class="text-label-sm font-normal text-primary/70">· you</span>{% endif %}
+            </span>
+            <div class="flex-1 h-3 bg-surface-container rounded-full overflow-hidden">
+              <div class="h-full rounded-full"
+                   style="width: {{ bar_pct }}%; background: rgb({{ R }}, {{ G }}, {{ B }});"></div>
+            </div>
+            <span class="text-label-lg font-bold tabular-nums w-14 text-right text-on-surface">
+              {{ '%.1f'|format(s.score) }}
+            </span>
+          </a>
+        {% endfor %}
       </div>
 
-      <div class="space-y-4">
-        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
-          <div class="p-4 border-b border-outline-variant bg-surface-container-low">
-            <h3 class="text-label-lg font-bold uppercase tracking-widest text-on-surface-variant">District Leaderboard</h3>
-          </div>
-          <div class="p-4 space-y-2">
-            {% for i in range(5) %}
-            <div class="flex items-center justify-between py-1.5">
-              <div class="flex items-center gap-3">
-                <span class="text-label-sm font-bold text-on-surface-variant w-6">{{ '%02d'|format(i + 1) }}</span>
-                <span class="text-label-sm text-on-surface-variant">—</span>
-              </div>
-              <span class="text-label-sm font-bold text-on-surface-variant">—</span>
-            </div>
-            {% endfor %}
-          </div>
-        </div>
-
-        <div class="bg-primary-container text-on-primary rounded-xl p-4 shadow-sm">
-          <div class="text-label-sm uppercase tracking-widest font-bold mb-3 opacity-80">Data Pedigree</div>
-          <div class="flex items-center gap-2 text-label-sm mb-1 opacity-90">
-            <span class="material-symbols-outlined text-[14px]">verified</span>
-            <span class="font-bold">Audit Integrity</span>
-          </div>
-          <div class="text-label-sm opacity-70 mb-3">
-            Audited by National Comptroller · CAG SFARs cross-checked
-          </div>
-          <div class="flex items-center gap-2 text-label-sm mb-1 opacity-90">
-            <span class="material-symbols-outlined text-[14px]">bolt</span>
-            <span class="font-bold">Source Feed</span>
-          </div>
-          <div class="text-label-sm opacity-70 mb-4">
-            Live sync with RBI Handbook · NCRB Crime in India · UDISE+ · ASER
-          </div>
-          <button class="w-full text-label-sm font-bold bg-white/10 hover:bg-white/20 text-on-primary py-2 rounded transition-colors uppercase tracking-widest">
-            Download Protocol
-          </button>
-        </div>
+      {# Legend at the bottom mirrors the map's legend #}
+      <div class="flex items-center gap-2 text-label-sm text-on-surface-variant mt-4 pt-4 border-t border-outline-variant">
+        <span class="font-bold">Rank</span>
+        <span>Worst</span>
+        <div class="w-40 h-2 rounded"
+             style="background: linear-gradient(to right, #dc2626 0%, #f59e0b 50%, #16a34a 100%);"></div>
+        <span>Best</span>
       </div>
     </div>
   </section>
+  {% endif %}
 
   {# ─── Footer note ─────────────────────────────────────────────────── #}
   <div class="text-center text-label-sm text-on-surface-variant italic mb-8">
     {% if gpi_data %}
       GPI for {{ state }} · FY{{ gpi_data.gpi_series[0].fiscal_year }}–FY{{ gpi_data.latest_year }} ·
       Data sourced from RBI Handbook of Statistics on Indian States, NCRB Crime in India,
-      CAG State Finances Audit Reports, UDISE+, and ASER.
+      CAG State Finances Audit Reports (SFARs + Performance Audits), UDISE+, ASER,
+      NFHS-5, NHA, National Health Profile, MHA Lok Sabha replies, MoSPI PLFS, and NITI Aayog.
     {% else %}
-      Phase 1 pilot · {{ state }} · 6 pillars · ingest pipelines building.
+      Phase 1 pilot · {{ state }} · 8 pillars · ingest pipelines building.
     {% endif %}
   </div>
 
