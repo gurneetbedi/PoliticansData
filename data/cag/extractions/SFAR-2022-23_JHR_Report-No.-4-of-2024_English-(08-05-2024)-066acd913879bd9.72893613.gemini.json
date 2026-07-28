@@ -1,0 +1,24 @@
+{
+  "state_name": "Jharkhand",
+  "audit_year": "2022-23",
+  "report_number": "Report No. 4 of the year 2024",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 1.17,
+    "revenue_deficit_pct_gsdp": 0,
+    "primary_deficit_pct_gsdp": 0,
+    "debt_pct_gsdp": 30.08,
+    "interest_pct_revenue_receipts": 7.77,
+    "capital_outlay_pct_gsdp": 3.56,
+    "revenue_receipts_pct_gsdp": 20.38,
+    "own_tax_revenue_pct_gsdp": 6.38
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 393722,
+    "outstanding_debt_crore": 118448.22
+  },
+  "audit_paras": {
+    "money_value_of_observations_crore": 122267.8
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "State name, audit year, and report number from cover page. Fiscal indicators are primarily from Table 1.2 (Page 27), Table 1.5 (Page 30), Table 1.6 (Page 31), Chart 1.5 (Page 32), Table 2.14 (Page 53), and Table 2.33 (Page 73). GSDP at current prices from Executive Summary (Page 13) and Appendix 2.2 Part C (Page 159). Outstanding debt from Table 1.9 (Page 33), Chart 2.12 (Page 69), and Table 2.29 (Page 69). Revenue Deficit and Primary Deficit are reported as surpluses in the report (3.44% and 0.41% respectively), hence reported as 0 for deficit as per instructions. Money value of observations is the sum of outstanding Utilisation Certificates (₹1,16,153.09 crore) and outstanding DC bills (₹6,114.71 crore) from the Conclusion section (Page 131)."
+}

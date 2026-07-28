@@ -1,0 +1,27 @@
+{
+  "state_name": "West Bengal",
+  "audit_year": "2019-20",
+  "report_number": "Report No. 3 of 2021",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.94,
+    "revenue_deficit_pct_gsdp": 1.57,
+    "primary_deficit_pct_gsdp": 0.41,
+    "debt_pct_gsdp": 34.57,
+    "interest_pct_revenue_receipts": 22.16,
+    "capital_outlay_pct_gsdp": 1.27,
+    "revenue_receipts_pct_gsdp": 11.4,
+    "own_tax_revenue_pct_gsdp": 4.8
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 1253832,
+    "outstanding_debt_crore": 433475
+  },
+  "audit_paras": {
+    "raised_this_year": 9,
+    "outstanding_over_5_years": 45,
+    "pac_recommendations_pending": 45,
+    "money_value_of_observations_crore": 36464.49
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "All fiscal indicators are for the fiscal year 2019-20. Deficit figures are reported as positive magnitudes. Gross Fiscal Deficit, Revenue Deficit, and Primary Deficit percentages are from Chart 1.5 (page 32). Debt percentage is 'Ratio of total outstanding debt to GSDP' from Table 1.5 (page 29) and Table 2.26 (page 75). Interest Payments to Revenue Receipts is from Table 2.15 (page 58) and Table 2.29 (page 128). Capital Outlay percentage is from Table 2.11 (page 52). Revenue Receipts percentage is from Table 2.3 (page 42). Own Tax Revenue percentage is derived from 'Own Tax Revenue/GSDP' ratio of 0.048 in Table 2.28 (page 128). GSDP is from Table 1.1 (page 19). Outstanding debt is 'Outstanding Overall Debt' from Table 2.26 (page 75). Audit paras counts refer to grants with unregularised excess expenditure, as explicitly stated in the report (page 98 and 100)."
+}

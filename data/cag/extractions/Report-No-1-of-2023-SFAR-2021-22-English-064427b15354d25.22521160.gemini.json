@@ -1,0 +1,27 @@
+{
+  "state_name": "Tamil Nadu",
+  "audit_year": "2021-22",
+  "report_number": "Report No. 1 of the year 2023",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.96,
+    "revenue_deficit_pct_gsdp": 2.25,
+    "primary_deficit_pct_gsdp": 1.95,
+    "debt_pct_gsdp": 28.87,
+    "interest_pct_revenue_receipts": 20.03,
+    "capital_outlay_pct_gsdp": 1.79,
+    "revenue_receipts_pct_gsdp": 10.05,
+    "own_tax_revenue_pct_gsdp": 5.95
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 2065436,
+    "outstanding_debt_crore": 610667
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 161,
+    "money_value_of_observations_crore": 0
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal indicators and absolute figures primarily extracted from Executive Summary (Page 11) and Table 1.2 (Page 23), Table 1.4 (Page 27), Table 1.7 (Page 29). PAC recommendations pending from Page 134. Values for 'raised_this_year', 'outstanding_over_5_years', and 'money_value_of_observations_crore' were not found as consolidated figures for the current audit year or all observations."
+}

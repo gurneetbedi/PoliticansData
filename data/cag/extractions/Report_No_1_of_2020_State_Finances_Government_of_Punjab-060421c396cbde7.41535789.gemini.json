@@ -1,0 +1,27 @@
+{
+  "state_name": "Punjab",
+  "audit_year": "2018-19",
+  "report_number": "Report No. 1 of the year 2020",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.08,
+    "revenue_deficit_pct_gsdp": 2.52,
+    "primary_deficit_pct_gsdp": 0.05,
+    "debt_pct_gsdp": 40.61,
+    "interest_pct_revenue_receipts": 22.67,
+    "capital_outlay_pct_gsdp": 0,
+    "revenue_receipts_pct_gsdp": 11.93,
+    "own_tax_revenue_pct_gsdp": 6.05
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 521861,
+    "outstanding_debt_crore": 211917
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 0
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal deficit, revenue deficit, and primary deficit percentages were consistently found in multiple locations (Page 26, Table 1.4; Page 70, Chart 1.29; Page 74 Conclusions; Page 117, Appendix 1.5, Part E). Debt percentage was taken as Fiscal Liabilities/GSDP (Page 26, Table 1.4; Page 57, Table 1.33; Page 117, Appendix 1.5, Part E). Capital outlay % GSDP was not directly stated as a percentage of GSDP. Specific audit para counts for 'raised this year', 'outstanding over 5 years', and 'PAC recommendations pending' were not explicitly available. 'Money value of observations' was not a single, directly stated figure."
+}

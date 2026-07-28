@@ -1,0 +1,27 @@
+{
+  "state_name": "Karnataka",
+  "audit_year": "2022-23",
+  "report_number": "Report No. 01 of the year 2024",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.14,
+    "revenue_deficit_pct_gsdp": 0.62,
+    "primary_deficit_pct_gsdp": 0.78,
+    "debt_pct_gsdp": 23.97,
+    "interest_pct_revenue_receipts": 11.56,
+    "capital_outlay_pct_gsdp": 2.63,
+    "revenue_receipts_pct_gsdp": 10.5,
+    "own_tax_revenue_pct_gsdp": 6.59
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 2181217,
+    "outstanding_debt_crore": 553363
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 15,
+    "pac_recommendations_pending": 48,
+    "money_value_of_observations_crore": 1907.83
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "State name, audit year, and report number from cover page. Fiscal indicators and absolute figures are from Executive Summary (pages 12, 14) and Chapter 1 tables (pages 26, 29, 88). Revenue deficit is reported as a surplus, so its magnitude is used. 'Outstanding over 5 years' refers to 15 cases of theft/misappropriation pending for more than 25 years (Page 137). 'PAC recommendations pending' refers to 48 pending Utilisation Certificates (Page 137). 'Money value of observations' refers to excess expenditure required to be regularised for 2022-23 (Page 132). A consolidated figure for 'audit paras raised this year' was not explicitly found."
+}

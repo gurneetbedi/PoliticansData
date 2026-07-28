@@ -1,0 +1,18 @@
+{
+  "state_name": "Madhya Pradesh",
+  "report_topic": "Performance of DISCOMs pre and post Ujwal DISCOM Assurance Yojana (UDAY)",
+  "report_no": "5 of the year 2022",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2021,
+  "total_projects_audited": 124,
+  "projects_time_overrun": 0,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 26055.0,
+  "total_actual_expenditure_crore": 12690.0,
+  "financial_utilization_pct": 48.7,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit found that the Government of Madhya Pradesh took over only 48.70% of the targeted DISCOM debt. AT&C losses increased to 33.08% instead of reducing to 15%, and the ACS-ARR gap was not eliminated. Overall, the DISCOMs failed to achieve the financial and operational turnaround objectives of the UDAY scheme.",
+  "extraction_confidence": "high"
+}

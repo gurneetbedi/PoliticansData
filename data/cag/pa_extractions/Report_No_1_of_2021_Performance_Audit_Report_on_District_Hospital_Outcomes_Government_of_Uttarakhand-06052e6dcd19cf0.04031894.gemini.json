@@ -1,0 +1,18 @@
+{
+  "state_name": "Uttarakhand",
+  "report_topic": "District Hospital Outcomes",
+  "report_no": "1 of the year 2021",
+  "audit_period_start_fy": 2015,
+  "audit_period_end_fy": 2019,
+  "total_projects_audited": 6,
+  "projects_time_overrun": 0,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 7481.9,
+  "total_actual_expenditure_crore": 5506.09,
+  "financial_utilization_pct": 87.0,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit found significant deficiencies in district hospitals of Uttarakhand, including an inadequate policy framework, shortage of doctors and essential drugs, and lack of full radiology and pathology services. In-patient services suffered from non-functional ICUs, poorly equipped ambulances, and compromised patient safety. Maternity services were impacted by drug and equipment shortages, human resource non-compliance, and inadequate record-keeping. Infection control, bio-medical waste management, and infrastructure maintenance were also unsatisfactory.",
+  "extraction_confidence": "high"
+}

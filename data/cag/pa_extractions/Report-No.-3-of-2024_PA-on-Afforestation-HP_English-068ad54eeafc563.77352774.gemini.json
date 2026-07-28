@@ -1,0 +1,16 @@
+{
+  "state_name": "Himachal Pradesh",
+  "report_topic": "Compensatory Afforestation in Himachal Pradesh",
+  "report_no": "Report No. 3 of the year 2024",
+  "audit_period_start_fy": 2007,
+  "audit_period_end_fy": 2021,
+  "total_projects_audited": 441,
+  "projects_time_overrun": 75,
+  "projects_cost_overrun_over_10pct": 69,
+  "total_budgeted_crore": 853.79,
+  "total_actual_expenditure_crore": 661.98,
+  "financial_utilization_pct": 80.0,
+  "physical_achievement_pct": 82.0,
+  "observations_summary": "The audit found significant shortfalls in compensatory afforestation (CA) activities, with 82% physical achievement against stipulated targets and 80% financial utilization. Key issues included delays in processing approvals, unutilized funds, irregular expenditure, non-compliance with conditions, and incorrect data reporting, leading to cost escalations and environmental losses.",
+  "extraction_confidence": "high"
+}

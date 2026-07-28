@@ -1,0 +1,13 @@
+{
+  "state_name": "Goa",
+  "report_topic": "Performance Audit on Public Health Infrastructure and Management of Health Services in Goa",
+  "report_no": "4 of the year 2024",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2022,
+  "total_projects_audited": 19,
+  "total_budgeted_crore": 9089.09,
+  "total_actual_expenditure_crore": 6570.53,
+  "financial_utilization_pct": 72.29,
+  "observations_summary": "The audit found significant human resource shortages, infrastructure gaps including dilapidated buildings and non-functional facilities, delays and quality control issues in drug and equipment procurement, and under-utilization of funds for health infrastructure and centrally sponsored schemes. Regulatory mechanisms were also found to be weak, with delays in enacting acts, insufficient inspections, and poor bio-medical waste management.",
+  "extraction_confidence": "high"
+}

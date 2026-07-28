@@ -1,0 +1,27 @@
+{
+  "state_name": "Tamil Nadu",
+  "audit_year": "2020-21",
+  "report_number": "Report No. 1 of 2022",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 4.94,
+    "revenue_deficit_pct_gsdp": 3.28,
+    "primary_deficit_pct_gsdp": 3.02,
+    "debt_pct_gsdp": 26.94,
+    "interest_pct_revenue_receipts": 20.97,
+    "capital_outlay_pct_gsdp": 1.74,
+    "revenue_receipts_pct_gsdp": 9.15,
+    "own_tax_revenue_pct_gsdp": 5.58
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 1902689,
+    "outstanding_debt_crore": 518796
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 151,
+    "money_value_of_observations_crore": 14.65
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal indicators are primarily from Table 1.2 (page 26) and Table 1.4 (page 30). GSDP from Table 1.1 (page 20). Interest % Revenue Receipts from page 58. PAC recommendations pending from page 135, Section 4.17. Money value of observations from page 134, Section 4.16. Deficit values converted to positive magnitudes. 'Raised this year' and 'Outstanding over 5 years' for audit paras were not explicitly found as aggregate figures."
+}

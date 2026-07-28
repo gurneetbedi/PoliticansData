@@ -1,0 +1,22 @@
+{
+  "state_name": "Madhya Pradesh",
+  "audit_year": "2023-24",
+  "report_number": "Report No. 3 of 2025",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.26,
+    "revenue_deficit_pct_gsdp": 0,
+    "primary_deficit_pct_gsdp": 1.57,
+    "debt_pct_gsdp": 29.17,
+    "interest_pct_revenue_receipts": 9.87,
+    "capital_outlay_pct_gsdp": 4.15,
+    "revenue_receipts_pct_gsdp": 17.17,
+    "own_tax_revenue_pct_gsdp": 6.65
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 1363327,
+    "outstanding_debt_crore": 409262
+  },
+  "audit_paras": {},
+  "extraction_confidence": "high",
+  "extraction_notes": "Revenue Deficit is reported as 0 because the state had a Revenue Surplus of 0.92% of GSDP in 2023-24. Specific counts for audit paras (raised this year, outstanding over 5 years, PAC recommendations pending, money value of observations) were not found in the specified format."
+}

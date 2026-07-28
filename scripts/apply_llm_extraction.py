@@ -135,19 +135,20 @@ def _normalize_party(name: str) -> str:
 
 
 def build_appearance_lookup(cur: sqlite3.Cursor, year: int) -> dict:
-    """Return TWO lookups:
+    """Return two lookups:
       by_full: {(norm_name, norm_const, norm_party): appearance_id}
-      by_nc:   {(norm_name, norm_const): [(appearance_id, party), ...]}
+      by_nc:   {(norm_name, norm_const): [(appearance_id, [aliases]), ...]}
 
-    The primary match uses `by_full` — party is a tiebreaker for
-    same-name / same-constituency collisions (which happen when 2+
-    candidates in one constituency share a normalized name).
-
-    `by_nc` is the fallback for cases where the Gemini/provisional row
-    lacks party information — we return a list so callers can decide
-    whether it's ambiguous."""
+    Parties table has BOTH short_name (e.g. 'BJP') and full_name
+    (e.g. 'Bharatiya Janata Party'). Provisional / Gemini can supply
+    either form. We insert into by_full for BOTH forms per row so the
+    match works regardless of which the caller has. by_nc keeps ALL
+    party aliases per candidate so the fuzzy fallback can compare
+    against multiple representations."""
     cur.execute("""
-        SELECT ea.id, p.name, c.name, COALESCE(par.short_name, '')
+        SELECT ea.id, p.name, c.name,
+               COALESCE(par.short_name, ''),
+               COALESCE(par.full_name,  '')
         FROM election_appearances ea
         JOIN politicians    p   ON ea.politician_id   = p.id
         JOIN constituencies c   ON ea.constituency_id = c.id
@@ -156,13 +157,17 @@ def build_appearance_lookup(cur: sqlite3.Cursor, year: int) -> dict:
         WHERE e.year = ?
     """, (year,))
     by_full: dict[tuple[str, str, str], int] = {}
-    by_nc: dict[tuple[str, str], list[tuple[int, str]]] = {}
-    for app_id, name, const, party in cur.fetchall():
+    by_nc: dict[tuple[str, str], list[tuple[int, list[str]]]] = {}
+    for app_id, name, const, party_short, party_full in cur.fetchall():
         n = _normalize_name(name)
         c = _normalize_constituency(const)
-        p = _normalize_party(party)
-        by_full[(n, c, p)] = app_id
-        by_nc.setdefault((n, c), []).append((app_id, p))
+        aliases = [_normalize_party(x) for x in (party_short, party_full) if x]
+        # Insert BOTH aliases into by_full so lookup works with either
+        # short or full party form. If same appearance has multiple
+        # aliases, they all map to the same id.
+        for p in aliases:
+            by_full[(n, c, p)] = app_id
+        by_nc.setdefault((n, c), []).append((app_id, aliases))
     return {"by_full": by_full, "by_nc": by_nc}
 
 
@@ -245,21 +250,26 @@ def apply_one(cur: sqlite3.Cursor, llm_json: dict,
     by_nc   = appearance_lookup.get("by_nc", {}) if isinstance(appearance_lookup, dict) else {}
 
     appearance_id = None
-    # Primary: name+const+party
+    # Primary: name+const+party — by_full now has entries for both
+    # short_name and full_name of each party, so lookup works with
+    # either form.
     if p:
         appearance_id = by_full.get((n, c, p))
-    # Fallback: name+const only. If exactly one appearance row matches,
-    # use it. If multiple, we can't safely pick — leave unmatched to
-    # avoid attaching wealth to the wrong candidate.
+    # Fallback: name+const only.
     if not appearance_id:
         candidates = by_nc.get((n, c), [])
         if len(candidates) == 1:
             appearance_id = candidates[0][0]
         elif len(candidates) > 1 and p:
-            # Try fuzzy party matching (e.g. "BJP" vs "Bharatiya Janata Party")
-            for aid, ap in candidates:
-                if ap and (ap in p or p in ap):
-                    appearance_id = aid
+            # Fuzzy party matching against ALL known aliases for each
+            # candidate. Handles cases where provisional uses a party
+            # name variant not in the parties table yet.
+            for aid, aliases in candidates:
+                for a in aliases:
+                    if a and (a in p or p in a):
+                        appearance_id = aid
+                        break
+                if appearance_id:
                     break
 
     if not appearance_id:
@@ -606,9 +616,12 @@ def main():
                     if len(cands) == 1:
                         hit_id = cands[0][0]
                     elif len(cands) > 1 and p:
-                        for aid, ap in cands:
-                            if ap and (ap in p or p in ap):
-                                hit_id = aid
+                        for aid, aliases in cands:
+                            for a in aliases:
+                                if a and (a in p or p in a):
+                                    hit_id = aid
+                                    break
+                            if hit_id:
                                 break
                 if hit_id:
                     counts["would_apply"] += 1

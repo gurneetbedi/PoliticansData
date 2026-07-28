@@ -1,0 +1,27 @@
+{
+  "state_name": "Sikkim",
+  "audit_year": "2023-24",
+  "report_number": "Report No. 1 of 2025",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 5.17,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 3.49,
+    "debt_pct_gsdp": 31.0,
+    "interest_pct_revenue_receipts": 9.86,
+    "capital_outlay_pct_gsdp": 5.44,
+    "revenue_receipts_pct_gsdp": 17.07,
+    "own_tax_revenue_pct_gsdp": 3.57
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 48937.0,
+    "outstanding_debt_crore": 15168.2
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 2.86
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Revenue deficit is reported as 0 as the state had a revenue surplus of ₹130.84 crore. For `debt_pct_gsdp`, 31.00% is derived from total outstanding liabilities (₹15,168.20 crore) divided by GSDP (₹48,937 crore), as per Table 2.46 and consistent with absolute figures. Note that page 12 and Table 2.41/2.42 mention 28.84% in the context of FRBM limits, which may refer to a specific subset of debt. For `primary_deficit_pct_gsdp`, 3.49% is taken from Table 1.4 and Chart 1.6, as other tables showed inconsistencies or reported a surplus. Audit paras counts are not explicitly stated in the report, so 0 is used for those fields. Money value of observations refers to misappropriation cases."
+}

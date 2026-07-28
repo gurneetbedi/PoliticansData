@@ -1,0 +1,18 @@
+{
+  "state_name": "Uttar Pradesh",
+  "report_topic": "Development and Allotment of Properties by Ghaziabad Development Authority",
+  "report_no": "11 of 2025",
+  "audit_period_start_fy": 2018,
+  "audit_period_end_fy": 2022,
+  "total_projects_audited": 71,
+  "projects_time_overrun": 47,
+  "projects_cost_overrun_over_10pct": 2,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 15,
+  "total_budgeted_crore": 8336.6,
+  "total_actual_expenditure_crore": 5124,
+  "financial_utilization_pct": 51.54,
+  "physical_achievement_pct": 82,
+  "observations_summary": "The audit revealed significant deficiencies in the planning, financial management, and execution of development works by the Ghaziabad Development Authority (GDA). Key issues included delayed master plans, inadequate land acquisition, weak contract management, lack of transparency in property allotment, and low achievement of EWS housing targets.",
+  "extraction_confidence": "high"
+}

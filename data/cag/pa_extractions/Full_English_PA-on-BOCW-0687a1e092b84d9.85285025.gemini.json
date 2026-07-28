@@ -1,0 +1,18 @@
+{
+  "state_name": "Chhattisgarh",
+  "report_topic": "Welfare of Building and Other Construction Workers",
+  "report_no": "02/2025",
+  "audit_period_start_fy": 2018,
+  "audit_period_end_fy": 2022,
+  "total_projects_audited": 50,
+  "projects_time_overrun": 0,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 1630.11,
+  "total_actual_expenditure_crore": 685.51,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit found a lack of robust mechanisms for registration of establishments and beneficiaries, leading to low registration and lapsed registrations. There was significant underutilization of welfare funds (decreasing from 39% to 12%) and diversion of funds for non-welfare purposes, while administrative expenses increased. Inefficient implementation of welfare schemes resulted in benefits to ineligible beneficiaries, delays in disbursement, and lack of awareness among workers. Monitoring and compliance with health and safety norms were also deficient.",
+  "extraction_confidence": "high"
+}

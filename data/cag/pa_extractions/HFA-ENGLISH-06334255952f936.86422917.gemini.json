@@ -1,0 +1,18 @@
+{
+  "state_name": "Karnataka",
+  "report_topic": "Implementation of Housing Schemes for Urban Poor",
+  "report_no": "4 of the year 2022",
+  "audit_period_start_fy": 2016,
+  "audit_period_end_fy": 2021,
+  "total_projects_audited": 165,
+  "projects_time_overrun": 0,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 26317.8,
+  "total_actual_expenditure_crore": 4455.54,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 17.0,
+  "observations_summary": "The audit found significant delays in project implementation, with only 17% of approved dwelling units completed by March 2021, and substantial financial resources withheld or uncollected. Key issues included ineffective demand surveys, selection of ineligible beneficiaries, flawed project execution, and monitoring lapses leading to duplicate payments and unfruitful expenditure.",
+  "extraction_confidence": "high"
+}

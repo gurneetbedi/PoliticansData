@@ -540,6 +540,207 @@ def heatmap(
     })
 
 
+@app.get("/gpi", response_class=HTMLResponse)
+def gpi(
+    request: Request,
+    db: Session = Depends(get_db),
+    state: str = Depends(resolve_state),
+):
+    """Government Performance Index — state-aware landing page.
+
+    Reads from gpi_scores + gpi_pillar_scores + gpi_indicators + friends.
+    If the selected state has no GPI data yet, the template renders the
+    empty-state variant (em-dashes / "Data pending" badges).
+
+    Punjab is the Phase 1 pilot — it's the state with the most complete
+    indicator coverage. Other states have partial coverage from the RBI
+    Handbook ingester which pulls all 28 states in one pass.
+    """
+    from app.gpi_models import (
+        GpiPillar, GpiPillarScore, GpiScore, GpiIndicator, GpiIndicatorValue,
+    )
+
+    st = db.query(State).filter_by(name=state).one_or_none()
+    gpi_data = None
+
+    if st:
+        latest_year = db.query(func.max(GpiScore.fiscal_year)).filter_by(
+            state_id=st.id
+        ).scalar()
+
+        if latest_year:
+            # Overall GPI — latest year + previous year (for YoY delta)
+            latest = db.query(GpiScore).filter_by(
+                state_id=st.id, fiscal_year=latest_year
+            ).one()
+            prev = db.query(GpiScore).filter_by(
+                state_id=st.id, fiscal_year=latest_year - 1
+            ).one_or_none()
+
+            # Historical series for the trend chart
+            gpi_series = db.query(GpiScore).filter_by(
+                state_id=st.id
+            ).order_by(GpiScore.fiscal_year).all()
+
+            # Per-pillar latest score + trend line + national rank.
+            # Each pillar uses ITS OWN most-recent year (not forced to align
+            # with the overall GPI's latest_year), because different pillars
+            # have different data-lag characteristics — e.g. Healthcare (SRS/
+            # NFHS) has a longer lag than Public Finance (RBI State Finances).
+            pillars = db.query(GpiPillar).order_by(GpiPillar.display_order).all()
+            pillar_rows = []
+            for p in pillars:
+                pillar_latest_year = db.query(func.max(GpiPillarScore.fiscal_year)).filter_by(
+                    state_id=st.id, pillar_id=p.id,
+                ).scalar()
+
+                latest_pillar = None
+                rank = None
+                total_states = None
+                is_stale = False
+
+                if pillar_latest_year:
+                    latest_pillar = db.query(GpiPillarScore).filter_by(
+                        state_id=st.id, pillar_id=p.id,
+                        fiscal_year=pillar_latest_year,
+                    ).one_or_none()
+
+                    # Rank against all states with data for this pillar+year
+                    rank = db.query(func.count(GpiPillarScore.id)).filter(
+                        GpiPillarScore.pillar_id == p.id,
+                        GpiPillarScore.fiscal_year == pillar_latest_year,
+                        GpiPillarScore.score > latest_pillar.score,
+                    ).scalar() + 1
+                    total_states = db.query(func.count(GpiPillarScore.id)).filter(
+                        GpiPillarScore.pillar_id == p.id,
+                        GpiPillarScore.fiscal_year == pillar_latest_year,
+                    ).scalar()
+
+                    # Flag pillars whose data is older than the overall
+                    # latest year — UI shows an "as of FY..." caveat.
+                    is_stale = pillar_latest_year < latest_year
+
+                pillar_history = db.query(GpiPillarScore).filter_by(
+                    state_id=st.id, pillar_id=p.id
+                ).order_by(GpiPillarScore.fiscal_year).all()
+
+                pillar_rows.append({
+                    "pillar":        p,
+                    "latest":        latest_pillar,
+                    "latest_year":   pillar_latest_year,
+                    "is_stale":      is_stale,
+                    "rank":          rank,
+                    "total_states":  total_states,
+                    "history":       pillar_history,
+                })
+
+            # Fetch top indicator values per state for Efficiency + Governance
+            # sections (the two Phase 2/3 pillars that we now have real data for).
+            # We show the LATEST value per indicator that we have data for.
+            from app.gpi_models import GpiIndicatorValue
+
+            def _latest_indicator_value(code: str):
+                """Return (raw_value, fiscal_year, national_rank) for the state's
+                most recent value of a given indicator code, or None."""
+                row = (
+                    db.query(GpiIndicatorValue, GpiIndicator)
+                    .join(GpiIndicator, GpiIndicator.id == GpiIndicatorValue.indicator_id)
+                    .filter(
+                        GpiIndicator.code == code,
+                        GpiIndicatorValue.state_id == st.id,
+                        GpiIndicatorValue.raw_value.isnot(None),
+                    )
+                    .order_by(GpiIndicatorValue.fiscal_year.desc())
+                    .first()
+                )
+                if not row:
+                    return None
+                iv, ind = row
+                return {
+                    "raw":  iv.raw_value,
+                    "year": iv.fiscal_year,
+                    "rank": iv.national_rank,
+                    "unit": ind.unit,
+                    "name": ind.name,
+                }
+
+            efficiency_data = {
+                code: _latest_indicator_value(code)
+                for code in ["EF01", "EF02", "EF03", "EF04", "EF05", "EF06"]
+            }
+            governance_data = {
+                code: _latest_indicator_value(code)
+                for code in ["G01", "G02", "G03", "G04"]
+            }
+
+            # PA aggregate stats — raw counts and averages from
+            # gpi_cag_pa_extractions to enrich the Project Delivery Analysis
+            # section beyond the 4 scored indicators.
+            from app.gpi_models import GpiCagPaExtraction
+            from sqlalchemy import func as sql_func
+            pa_stats_row = (
+                db.query(
+                    sql_func.count(GpiCagPaExtraction.id).label("num_pas"),
+                    sql_func.sum(GpiCagPaExtraction.total_projects_audited).label("total_projects"),
+                    sql_func.sum(GpiCagPaExtraction.projects_time_overrun).label("delayed"),
+                    sql_func.sum(GpiCagPaExtraction.projects_cost_overrun_over_10pct).label("overrun"),
+                    sql_func.avg(GpiCagPaExtraction.avg_time_overrun_months).label("avg_time_months"),
+                    sql_func.avg(GpiCagPaExtraction.avg_cost_overrun_pct).label("avg_cost_pct"),
+                    sql_func.avg(GpiCagPaExtraction.financial_utilization_pct).label("avg_fin_util"),
+                    sql_func.sum(GpiCagPaExtraction.total_budgeted_crore).label("total_budget"),
+                    sql_func.sum(GpiCagPaExtraction.total_actual_expenditure_crore).label("total_actual"),
+                ).filter(GpiCagPaExtraction.state_id == st.id).one_or_none()
+            )
+            pa_stats = None
+            if pa_stats_row and pa_stats_row.num_pas:
+                pa_stats = {
+                    "num_pas":            pa_stats_row.num_pas,
+                    "total_projects":     pa_stats_row.total_projects or 0,
+                    "delayed":            pa_stats_row.delayed or 0,
+                    "overrun":            pa_stats_row.overrun or 0,
+                    "avg_time_months":    pa_stats_row.avg_time_months,
+                    "avg_cost_pct":       pa_stats_row.avg_cost_pct,
+                    "avg_fin_util":       pa_stats_row.avg_fin_util,
+                    "total_budget":       pa_stats_row.total_budget or 0,
+                    "total_actual":       pa_stats_row.total_actual or 0,
+                }
+
+            # Historical governance pillar series (for the Transparency Trend chart)
+            governance_pillar = next(
+                (p for p in db.query(GpiPillar).filter_by(code="governance").all()),
+                None,
+            )
+            governance_series = []
+            if governance_pillar:
+                governance_series = (
+                    db.query(GpiPillarScore)
+                    .filter_by(state_id=st.id, pillar_id=governance_pillar.id)
+                    .order_by(GpiPillarScore.fiscal_year)
+                    .all()
+                )
+
+            gpi_data = {
+                "latest_year":       latest_year,
+                "latest":            latest,
+                "prev":              prev,
+                "yoy_delta":         (latest.score - prev.score) if prev else None,
+                "gpi_series":        gpi_series,
+                "pillar_rows":       pillar_rows,
+                "efficiency_data":   efficiency_data,
+                "governance_data":   governance_data,
+                "governance_series": governance_series,
+                "pa_stats":          pa_stats,
+                # Data confidence proxy: fraction of 8 pillars with data
+                "confidence_pct": round(100.0 * latest.pillars_scored / 8.0, 1),
+            }
+
+    return templates.TemplateResponse("gpi.html", {
+        "request":  request,
+        "state":    state,
+        "gpi_data": gpi_data,
+    })
+
+
 @app.get("/anomalies", response_class=HTMLResponse)
 def anomalies(
     request: Request,

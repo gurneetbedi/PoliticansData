@@ -1,0 +1,27 @@
+{
+  "state_name": "Tamil Nadu",
+  "audit_year": "2019-20",
+  "report_number": "Report No. 4 of 2021",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.26,
+    "revenue_deficit_pct_gsdp": 1.95,
+    "primary_deficit_pct_gsdp": 1.53,
+    "debt_pct_gsdp": 22.96,
+    "interest_pct_revenue_receipts": 18.32,
+    "capital_outlay_pct_gsdp": 1.39,
+    "revenue_receipts_pct_gsdp": 9.46,
+    "own_tax_revenue_pct_gsdp": 5.82
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 1845853,
+    "outstanding_debt_crore": 423743
+  },
+  "audit_paras": {
+    "raised_this_year": 44,
+    "outstanding_over_5_years": 141,
+    "pac_recommendations_pending": 141,
+    "money_value_of_observations_crore": 1074.51
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "State name, audit year, and report number from cover page. Fiscal indicators are primarily from Table 1.2 (Page 25) and Executive Summary (Page 13, 14). GSDP and Outstanding Debt from Table 1.1 (Page 19) and Table 1.8 (Page 31). 'raised_this_year' is the sum of 30 cases (expenditure without authority of law) + 14 cases (expenditure without appropriation) from Page 15. 'outstanding_over_5_years' is the number of PAC recommendations pending for the period 2008-09 to 2017-18, as stated on Page 126. 'pac_recommendations_pending' is also from Page 126. 'money_value_of_observations_crore' is the sum of current year's identified financial irregularities (130.71 + 1.80 + 942) from Page 15."
+}

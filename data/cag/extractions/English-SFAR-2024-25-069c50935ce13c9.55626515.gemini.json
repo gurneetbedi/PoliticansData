@@ -1,0 +1,27 @@
+{
+  "state_name": "Gujarat",
+  "audit_year": "2024-25",
+  "report_number": "Report No. 2 of 2026",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 1.83,
+    "revenue_deficit_pct_gsdp": 0,
+    "primary_deficit_pct_gsdp": 0.78,
+    "debt_pct_gsdp": 14.03,
+    "interest_pct_revenue_receipts": 12.82,
+    "capital_outlay_pct_gsdp": 2.45,
+    "revenue_receipts_pct_gsdp": 8.18,
+    "own_tax_revenue_pct_gsdp": 5.27
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 2672025,
+    "outstanding_debt_crore": 380381
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 12383.1
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal deficit and primary deficit are reported as positive magnitudes. Revenue surplus is reported as 0 for revenue deficit. Interest_pct_revenue_receipts value is from Score Card (Page 18) and text on page 55. Debt_pct_gsdp and outstanding_debt_crore refer to 'Public Debt' (Page 18, 79). Money value of observations is the total impact on fiscal deficit from audit observations (Page 87)."
+}

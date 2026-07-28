@@ -1,0 +1,27 @@
+{
+  "state_name": "Meghalaya",
+  "audit_year": "2017-18",
+  "report_number": "Report No. 1 of 2019",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 0.75,
+    "revenue_deficit_pct_gsdp": 0,
+    "primary_deficit_pct_gsdp": 0,
+    "debt_pct_gsdp": 29.98,
+    "interest_pct_revenue_receipts": 6.37,
+    "capital_outlay_pct_gsdp": 0,
+    "revenue_receipts_pct_gsdp": 29.31,
+    "own_tax_revenue_pct_gsdp": 4.58
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 31636,
+    "outstanding_debt_crore": 9485.08
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 0
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal deficit, revenue deficit, and primary deficit are reported as positive magnitudes as per instructions. Revenue and primary deficits are 0 because the report indicates a surplus for these indicators (Page 13, 22, 57, 61, 105). Capital outlay percentage was provided as a percentage of total expenditure (10.43% on Page 14, 40, 43, 61, 105), not GSDP, so it is omitted. Audit para counts were not explicitly found in the requested categories."
+}

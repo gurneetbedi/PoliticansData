@@ -1,0 +1,18 @@
+{
+  "state_name": "Uttar Pradesh",
+  "report_topic": "Land Acquisition and Allotment of Properties in New Okhla Industrial Development Authority (NOIDA)",
+  "report_no": "6 of the year 2021",
+  "audit_period_start_fy": 2006,
+  "audit_period_end_fy": 2018,
+  "total_projects_audited": 405,
+  "projects_time_overrun": 87,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 0,
+  "total_actual_expenditure_crore": 0,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 37.17,
+  "observations_summary": "The audit found significant lapses in planning, land acquisition, pricing, and allotment of properties, with governance failures at every level. Instances of lack of due diligence, contravention of rules, and misrepresentation led to allotments to ineligible entities, causing distress to home buyers due to incomplete projects and huge outstanding dues to NOIDA.",
+  "extraction_confidence": "high"
+}

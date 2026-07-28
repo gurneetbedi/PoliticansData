@@ -1,0 +1,18 @@
+{
+  "state_name": "Uttar Pradesh",
+  "report_topic": "Utilisation of Central Road Fund (CRF)",
+  "report_no": "2 of 2025",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2022,
+  "total_projects_audited": 109,
+  "projects_time_overrun": 85,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 20730.0,
+  "total_actual_expenditure_crore": 7257.86,
+  "financial_utilization_pct": 35.0,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit found lapses in planning and execution of works under CRF, including lack of comprehensive plans, non-conduct of periodical traffic surveys, and sanctioning of roads without encumbrance-free land. There were significant differences between budget provision and actual expenditure, with only 35% of the allotted budget utilized, and discrepancies in expenditure reporting.",
+  "extraction_confidence": "high"
+}

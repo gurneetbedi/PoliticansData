@@ -1,0 +1,21 @@
+{
+  "state_name": "Telangana",
+  "audit_year": "2019-20",
+  "report_number": "Report No. 1 of 2021",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.28,
+    "revenue_deficit_pct_gsdp": 0.65,
+    "primary_deficit_pct_gsdp": 1.79,
+    "debt_pct_gsdp": 23.95,
+    "interest_pct_revenue_receipts": 14.03,
+    "capital_outlay_pct_gsdp": 2.64,
+    "revenue_receipts_pct_gsdp": 10.58,
+    "own_tax_revenue_pct_gsdp": 6.97
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 969604,
+    "outstanding_debt_crore": 232181
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal deficit, revenue deficit, and primary deficit are reported as positive magnitudes, converting from negative values in the report which indicate a deficit. The report mentions 'effective Fiscal Deficit of the State was 3.13 per cent of GSDP' and an adjusted debt-to-GSDP ratio of 30.24% after audit examination (page 33), but the primary summary tables (Table 1.6, Chart 1.8, Table 2.28) report 3.28% and 23.95% respectively. The unadjusted figures are used as per the instruction to report directly stated values from summary tables. The outstanding_debt_crore is taken from 'Outstanding overall Debt' in Table 2.28, which includes Public Account Liabilities, aligning with the debt_pct_gsdp figure. No direct figures for audit paras (raised this year, outstanding over 5 years, PAC recommendations pending, money value of observations) were found in the report."
+}

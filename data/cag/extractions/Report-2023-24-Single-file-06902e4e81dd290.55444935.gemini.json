@@ -1,0 +1,27 @@
+{
+  "state_name": "Kerala",
+  "audit_year": "2023-24",
+  "report_number": "Report No. 3 of the year 2025",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.99,
+    "revenue_deficit_pct_gsdp": 1.58,
+    "primary_deficit_pct_gsdp": 0.63,
+    "debt_pct_gsdp": 37.84,
+    "interest_pct_revenue_receipts": 23.73,
+    "capital_outlay_pct_gsdp": 1.19,
+    "revenue_receipts_pct_gsdp": 10.86,
+    "own_tax_revenue_pct_gsdp": 6.49
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 1146109.0,
+    "outstanding_debt_crore": 448163.29
+  },
+  "audit_paras": {
+    "raised_this_year": 8,
+    "outstanding_over_5_years": 9,
+    "pac_recommendations_pending": 52,
+    "money_value_of_observations_crore": 2629.79
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal deficit, revenue deficit, and primary deficit percentages are directly from tables/charts. Debt % GSDP includes off-budget borrowings as per report's clarification (Page 17, 34, 35). Interest % Revenue Receipts is directly from Table 2.36 (Page 90). Capital Outlay % GSDP is from Table 2.15 (Page 58). Revenue Receipts % GSDP is from Table 2.3 (Page 47). Own Tax Revenue % GSDP is from Table 1.2 (Page 30). Outstanding debt includes off-budget borrowings (Page 39). Audit paras figures for 'raised_this_year' (7 grants + 1 appropriation = 8) and 'outstanding_over_5_years' (3 grants/appropriations each for 2016-17, 2017-18, 2018-19 = 9) and 'money_value_of_observations_crore' (sum of current year's excess expenditure 427.68 + previous years' excess expenditure 2202.11 = 2629.79) refer to excess expenditure requiring regularisation (Page 19, 119, 120). 'pac_recommendations_pending' refers to Action Taken Notes (ATNs) due for previous audit reports (Page 159, Table 4.15)."
+}

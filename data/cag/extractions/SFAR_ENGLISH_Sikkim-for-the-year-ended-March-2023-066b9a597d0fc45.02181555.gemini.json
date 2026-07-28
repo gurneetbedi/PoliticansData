@@ -1,0 +1,24 @@
+{
+  "state_name": "Sikkim",
+  "audit_year": "2022-23",
+  "report_number": "Report No. 1 of 2024",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 4.45,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 6.17,
+    "debt_pct_gsdp": 29.7,
+    "interest_pct_revenue_receipts": 8.86,
+    "capital_outlay_pct_gsdp": 5.56,
+    "revenue_receipts_pct_gsdp": 18.95,
+    "own_tax_revenue_pct_gsdp": 3.5
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 42756.0,
+    "outstanding_debt_crore": 12696.89
+  },
+  "audit_paras": {
+    "money_value_of_observations_crore": 2.86
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "State name, audit year, and report number from cover page. Fiscal indicators and GSDP from Table 1.4 (page 25), Table 1.6(a) (page 27), Table 2.42 (page 74), Table 2.43 (page 75), and Chart 2.7 (page 42). Outstanding debt from Table 2.42 (page 74). Revenue deficit is reported as a surplus of 1.11% of GSDP, hence 0 for deficit. Money value of observations refers to misappropriation cases from page 134, '4.19 Recommendations'."
+}

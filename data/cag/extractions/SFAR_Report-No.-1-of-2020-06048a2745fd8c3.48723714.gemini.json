@@ -1,0 +1,22 @@
+{
+  "state_name": "Arunachal Pradesh",
+  "audit_year": "2018-19",
+  "report_number": "Report No. 1 of 2020",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 8.07,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 5.92,
+    "debt_pct_gsdp": 35.07,
+    "interest_pct_revenue_receipts": 3.24,
+    "capital_outlay_pct_gsdp": 23.38,
+    "revenue_receipts_pct_gsdp": 66.13,
+    "own_tax_revenue_pct_gsdp": 4.36
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 24489.36,
+    "outstanding_debt_crore": 8588.42
+  },
+  "audit_paras": {},
+  "extraction_confidence": "high",
+  "extraction_notes": "State name, audit year, and report number extracted from the cover page. Fiscal indicators for 2018-19 were primarily extracted from Table 1.2, Chart 1.5, Table 1.9, and Table 1.35. Revenue Deficit is reported as a surplus for 2018-19, hence revenue_deficit_pct_gsdp is 0. Capital outlay as % of GSDP and own tax revenue as % of GSDP were calculated from their respective absolute figures (Table 1.8, Table 1.9) and GSDP (Table 1.1) as direct percentages were not explicitly stated. Absolute figures for GSDP and outstanding debt were found in Table 1.1 and Table 1.32 respectively. Specific data points for audit paras (raised this year, outstanding, PAC recommendations, money value) were not explicitly found in the document for the current audit year."
+}

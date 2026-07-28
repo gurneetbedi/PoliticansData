@@ -1,0 +1,18 @@
+{
+  "state_name": "Tamil Nadu",
+  "report_topic": "Performance Audit on the functioning of Government High and Higher Secondary Schools",
+  "report_no": "10",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2021,
+  "total_projects_audited": 138,
+  "projects_time_overrun": 0,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 78925.1,
+  "total_actual_expenditure_crore": 74962.79,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit found that despite Tamil Nadu ranking first nationally in providing school facilities, government high and higher secondary schools faced significant issues including declining student enrollment (14.76% and 11.84% respectively from 2016-21), a shortage of 31,490 teachers, and a deficit of 11,711 classrooms. These deficiencies, coupled with poor infrastructure maintenance and non-adherence to school upgrade norms, led to safety concerns and hindered the quality of education.",
+  "extraction_confidence": "high"
+}

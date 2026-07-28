@@ -1,0 +1,7 @@
+indicator_code,state_code,fiscal_year,raw_value,source_url,source_document,extraction_method,staleness,notes
+E01,PB,2018,5.9,https://www.rbi.org.in/scripts/AnnualPublications.aspx?head=Handbook%20of%20Statistics%20on%20Indian%20States,RBI Handbook 2023 Table 8 (GSDP at constant 2011-12 prices YoY),manual,current,EXAMPLE ROW - verify against latest RBI Handbook before using
+E01,PB,2019,5.5,https://www.rbi.org.in/scripts/AnnualPublications.aspx?head=Handbook%20of%20Statistics%20on%20Indian%20States,RBI Handbook 2023 Table 8,manual,current,EXAMPLE ROW - verify
+E01,PB,2020,-2.6,https://www.rbi.org.in/scripts/AnnualPublications.aspx?head=Handbook%20of%20Statistics%20on%20Indian%20States,RBI Handbook 2023 Table 8 (COVID contraction),manual,current,EXAMPLE ROW - verify
+E01,PB,2021,7.2,https://www.rbi.org.in/scripts/AnnualPublications.aspx?head=Handbook%20of%20Statistics%20on%20Indian%20States,RBI Handbook 2023 Table 8 (post-COVID rebound),manual,current,EXAMPLE ROW - verify
+E01,PB,2022,6.2,https://www.rbi.org.in/scripts/AnnualPublications.aspx?head=Handbook%20of%20Statistics%20on%20Indian%20States,RBI Handbook 2023 Table 8,manual,current,EXAMPLE ROW - verify
+E01,PB,2023,6.7,https://www.rbi.org.in/scripts/AnnualPublications.aspx?head=Handbook%20of%20Statistics%20on%20Indian%20States,Punjab Economic Survey 2023-24,manual,current,EXAMPLE ROW - verify against official source

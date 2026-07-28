@@ -1,0 +1,12 @@
+{
+  "state_name": "Tamil Nadu",
+  "report_topic": "Performance Audit on Land Records Management",
+  "report_no": "3 - 2022",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2021,
+  "total_budgeted_crore": 73.997,
+  "total_actual_expenditure_crore": 61.085,
+  "financial_utilization_pct": 83.0,
+  "observations_summary": "The audit found that while land records computerization improved transparency and accessibility, its implementation was hampered by issues such as significant discrepancies in land area between manual and computerized records, incorrect classification of private lands as government lands, and delays in online patta transfers. Data entry errors, redundant patta numbers, and incomplete computerization of Field Measurement Sketches (FMS) and Natham land records were also noted, alongside inadequate monitoring mechanisms.",
+  "extraction_confidence": "high"
+}

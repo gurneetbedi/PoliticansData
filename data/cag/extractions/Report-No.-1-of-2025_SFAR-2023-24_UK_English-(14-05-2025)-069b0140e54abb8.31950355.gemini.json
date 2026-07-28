@@ -1,0 +1,27 @@
+{
+  "state_name": "Uttarakhand",
+  "audit_year": "2023-24",
+  "report_number": "Report No. 1 of 2025",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.24,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 0.739,
+    "debt_pct_gsdp": 23.18,
+    "interest_pct_revenue_receipts": 10.26,
+    "capital_outlay_pct_gsdp": 3.17,
+    "revenue_receipts_pct_gsdp": 14.62,
+    "own_tax_revenue_pct_gsdp": 5.56
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 346206.0,
+    "outstanding_debt_crore": 80265.78
+  },
+  "audit_paras": {
+    "raised_this_year": 7302,
+    "outstanding_over_5_years": 48654,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 0.0
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "State name, audit year, and report number from cover page. GSDP at current prices from Executive Summary (page 13) and Table 1.1 (page 22). Gross fiscal deficit as % of GSDP from Executive Summary (page 13, 15, 38) and Table 1.4 (page 32). Revenue deficit as % of GSDP is 0 as the state had a revenue surplus of 0.97% (page 13, 15, 38, Chart 1.5 on page 34). Primary deficit as % of GSDP from Chart 1.5 (page 34). Debt as % of GSDP from Executive Summary (page 15) and Table 1.4 (page 32). Interest payments as % of revenue receipts from Table 2.47 (page 88). Capital outlay as % of GSDP from Table 2.16 (page 57). Revenue receipts as % of GSDP from Executive Summary (page 13) and Table 2.3 (page 44). Own tax revenue as % of GSDP from Chart 2.6 (page 47). Outstanding debt in crore from Table 2.47 (page 88). Audit paras raised this year (excess expenditure) from Executive Summary (page 17) and Table 3.12 (page 119). Outstanding audit paras (excess expenditure pending regularization from previous years) from Table 3.15 (page 121). No single consolidated figure for PAC recommendations pending or total money value of observations was found."
+}

@@ -222,3 +222,9 @@ class CriminalCase(Base):
     status = Column(String)
 
     appearance = relationship("ElectionAppearance", back_populates="cases")
+
+
+# Import GPI models so Base.metadata.create_all() picks up their tables.
+# Kept at the bottom to avoid circular-import worries; ordering matters
+# because GpiIndicatorValue and GpiPillarScore FK into states.id (defined above).
+from app import gpi_models  # noqa: E402, F401

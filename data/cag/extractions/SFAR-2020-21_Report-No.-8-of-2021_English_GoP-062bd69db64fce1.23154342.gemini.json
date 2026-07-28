@@ -1,0 +1,27 @@
+{
+  "state_name": "Punjab",
+  "audit_year": "2020-21",
+  "report_number": "Report No. 8 of the year 2021",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 4.26,
+    "revenue_deficit_pct_gsdp": 3.27,
+    "primary_deficit_pct_gsdp": 0.84,
+    "debt_pct_gsdp": 47.13,
+    "interest_pct_revenue_receipts": 23.32,
+    "capital_outlay_pct_gsdp": 0.83,
+    "revenue_receipts_pct_gsdp": 13.04,
+    "own_tax_revenue_pct_gsdp": 5.67
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 529703,
+    "outstanding_debt_crore": 249673
+  },
+  "audit_paras": {
+    "raised_this_year": 18,
+    "outstanding_over_5_years": 11,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 39.37
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal deficit, revenue deficit, and primary deficit are reported as positive magnitudes. The value for 'raised_this_year' refers to the total number of pending cases of misappropriation, losses, theft, etc. as of 31 March 2021 (Page 143, Table 4.9). The value for 'outstanding_over_5_years' refers to cases of misappropriation, losses, theft, etc. pending for 5-10 years (Page 144, Table 4.10). The value for 'money_value_of_observations_crore' refers to the total money value of these 18 pending cases. PAC recommendations pending was not explicitly found."
+}

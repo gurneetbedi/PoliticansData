@@ -1,0 +1,27 @@
+{
+  "state_name": "Rajasthan",
+  "audit_year": "2023-24",
+  "report_number": "Report No. 2 of 2025",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 4.29,
+    "revenue_deficit_pct_gsdp": 2.55,
+    "primary_deficit_pct_gsdp": 2.06,
+    "debt_pct_gsdp": 36.62,
+    "interest_pct_revenue_receipts": 16.79,
+    "capital_outlay_pct_gsdp": 1.74,
+    "revenue_receipts_pct_gsdp": 13.3,
+    "own_tax_revenue_pct_gsdp": 6.2
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 1528385,
+    "outstanding_debt_crore": 559767
+  },
+  "audit_paras": {
+    "raised_this_year": 2,
+    "outstanding_over_5_years": 453,
+    "pac_recommendations_pending": 22,
+    "money_value_of_observations_crore": 131.06
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "All fiscal indicators are for the year 2023-24. GSDP and outstanding debt are the effective figures as noted in the report. Capital outlay percentage is from Table 2.16. Own tax revenue percentage is from Chart 2.22. Audit paras raised this year refers to grants requiring regularization (Page 17). Outstanding audit paras over 5 years refers to misappropriation/theft/loss cases pending for 'Above 10 years' from Table 4.19 (Page 150). PAC recommendations pending refers to paras pending for discussion/report writing from Page 151. Money value of observations is from Page 19."
+}

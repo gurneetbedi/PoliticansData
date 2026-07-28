@@ -1,0 +1,18 @@
+{
+  "state_name": "Maharashtra",
+  "report_topic": "Role of Maharashtra Industrial Development Corporation (MIDC) in the industrial development of Maharashtra",
+  "report_no": "5 of the year 2023",
+  "audit_period_start_fy": 2015,
+  "audit_period_end_fy": 2021,
+  "total_projects_audited": 15078,
+  "projects_time_overrun": 15,
+  "projects_cost_overrun_over_10pct": 15,
+  "avg_time_overrun_months": 13.5,
+  "avg_cost_overrun_pct": 10.0,
+  "total_budgeted_crore": 1737.34,
+  "total_actual_expenditure_crore": 1737.34,
+  "financial_utilization_pct": 36.24,
+  "physical_achievement_pct": 0.0,
+  "observations_summary": "The audit revealed significant governance failures, including arbitrary decisions and lack of systematic planning for industrial development. MIDC failed to ensure optimal land utilization, monitor investment/employment outcomes, and recover dues, leading to substantial financial losses and policy violations.",
+  "extraction_confidence": "high"
+}

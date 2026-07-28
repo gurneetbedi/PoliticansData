@@ -1,0 +1,18 @@
+{
+  "state_name": "Bihar",
+  "report_topic": "Functioning of District Transport Offices in Bihar",
+  "report_no": "5 of 2025",
+  "audit_period_start_fy": 2020,
+  "audit_period_end_fy": 2024,
+  "total_projects_audited": 0,
+  "projects_time_overrun": 0,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 0,
+  "total_actual_expenditure_crore": 0,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit found systemic inefficiencies in the functioning of District Transport Offices in Bihar, including the issuance of learner and driving licenses without proper physical presence or skill testing, irregularities in vehicle registration and permit issuance leading to significant revenue loss, and the grant of fitness certificates without adherence to prescribed parameters. There were also deficiencies in the levy and collection of motor vehicle taxes and fees, and a lack of monitoring in e-challan recovery, resulting in increased arrears and non-realization of government revenue. Additionally, significant delays were observed in the delivery of various public services.",
+  "extraction_confidence": "high"
+}

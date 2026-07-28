@@ -1,33 +1,12 @@
 pdf,candidate,constituency,party,failure
 AJAY_DUTT__855.pdf,AJAY DUTT,AMBEDKAR NAGAR(SC),Aam Aadmi Party,gemini_ok_but_apply
-ARVIND_KEJRIWAL__1456.pdf,ARVIND KEJRIWAL,NEW DELHI,Aam Aadmi Party,gemini_ok_but_apply
-ARVIND_KUMAR__824.pdf,ARVIND KUMAR,DEOLI(SC),Bharatiya Janata Party,gemini_ok_but_apply
-ASHISH_SOOD__385.pdf,ASHISH SOOD,JANAKPURI,Bharatiya Janata Party,gemini_ok_but_apply
-DILIP_PANDEY__1324.pdf,DILIP PANDEY,TIMARPUR,Aam Aadmi Party,gemini_ok_but_apply
-GIRISH_SONI__493.pdf,GIRISH SONI,MADIPUR(SC),Aam Aadmi Party,gemini_ok_but_apply
-JAI_BHAGWAN__539.pdf,JAI BHAGWAN,BAWANA(SC),Aam Aadmi Party,gemini_ok_but_apply
-KAILASH_SANKLA__1088.pdf,KAILASH SANKLA,MADIPUR(SC),Bharatiya Janata Party,gemini_ok_but_apply
-KARAM_SINGH_KARMA__1054.pdf,KARAM SINGH KARMA,MANGOL PURI(SC),Bharatiya Janata Party,gemini_ok_but_apply
-KHUSHIRAM_CHUNAR__806.pdf,KHUSHIRAM CHUNAR,AMBEDKAR NAGAR(SC),Bharatiya Janata Party,gemini_ok_but_apply
-KIRAN__731.pdf,KIRAN,TRILOKPURI(SC),Bharatiya Janata Party,gemini_ok_but_apply
+ARVIND_KEJRIWAL__1456.pdf,ARVIND KEJRIWAL,NEW DELHI,Aam Aadmi Party,gemini_no_wealth
+ASHISH_SOOD__385.pdf,ASHISH SOOD,JANAKPURI,Bharatiya Janata Party,gemini_no_wealth
+DILIP_PANDEY__1324.pdf,DILIP PANDEY,TIMARPUR,Aam Aadmi Party,gemini_no_wealth
 KULDEEP_KUMAR__868.pdf,KULDEEP KUMAR,KONDLI(SC),Aam Aadmi Party,gemini_ok_but_apply
-MUKESH_KUMAR_AHLAWAT__914.pdf,MUKESH KUMAR AHLAWAT,SULTANPUR MAJRA(SC),Aam Aadmi Party,gemini_ok_but_apply
 NAVEEN_CHAUDHARY__904.pdf,NAVEEN CHAUDHARY,GANDHI NAGAR,Aam Aadmi Party,gemini_ok_but_apply
-PRAKASH___PRAKASH_JARWAL__220.pdf,PRAKASH @ PRAKASH JARWAL,DEOLI(SC),Aam Aadmi Party,gemini_ok_but_apply
-PRAVESH_RATN__854.pdf,PRAVESH RATN,PATEL NAGAR(SC),Bharatiya Janata Party,gemini_ok_but_apply
 RAAJ_KUMAR_ANAND__89.pdf,RAAJ KUMAR ANAND,PATEL NAGAR(SC),Aam Aadmi Party,gemini_raw
-RAJENDRA_PAL_GAUTAM__1488.pdf,RAJENDRA PAL GAUTAM,SEEMA PURI(SC),Aam Aadmi Party,gemini_ok_but_apply
 RAJESH_GAHLOT__267.pdf,RAJESH GAHLOT,MATIALA,Bharatiya Janata Party,gemini_ok_but_apply
-RAJESH_RISHI__143.pdf,RAJESH RISHI,JANAKPURI,Aam Aadmi Party,gemini_ok_but_apply
-RAJ_KUMAR__473.pdf,RAJ KUMAR,KONDLI(SC),Bharatiya Janata Party,gemini_ok_but_apply
-RAKHI_BIRLA__214.pdf,RAKHI BIRLA,MANGOL PURI(SC),Aam Aadmi Party,gemini_ok_but_apply
-RAM_CHANDER_CHAWRIYA__918.pdf,RAM CHANDER CHAWRIYA,SULTANPUR MAJRA(SC),Bharatiya Janata Party,gemini_ok_but_apply
-RANJEET_SINGH__926.pdf,RANJEET SINGH,GOKALPUR(SC),Bharatiya Janata Party,gemini_ok_but_apply
-RAVINDER_KUMAR__1385.pdf,RAVINDER KUMAR,BAWANA(SC),Bharatiya Janata Party,gemini_ok_but_apply
+RAJESH_RISHI__143.pdf,RAJESH RISHI,JANAKPURI,Aam Aadmi Party,gemini_no_wealth
 RAVINDER_SINGH_NEGI__1314.pdf,RAVINDER SINGH NEGI,PATPARGANJ,Bharatiya Janata Party,gemini_ok_but_apply
-ROHIT_KUMAR__528.pdf,ROHIT KUMAR,TRILOKPURI(SC),Aam Aadmi Party,gemini_ok_but_apply
-SANT_LAL__1489.pdf,SANT LAL,SEEMA PURI(SC),Lok Jan Shakti Party,gemini_ok_but_apply
 SOM_DUTT_S_O_DAYA_CHANDER_SHARMA__971.pdf,SOM DUTT S/O DAYA CHANDER SHARMA,SADAR BAZAR,Independent,gemini_ok_but_apply
-SURENDRA_KUMAR__755.pdf,SURENDRA KUMAR,GOKALPUR(SC),Aam Aadmi Party,gemini_ok_but_apply
-VISHESH_RAVI__1189.pdf,VISHESH RAVI,KAROL BAGH(SC),Aam Aadmi Party,gemini_ok_but_apply
-YOGENDER_CHANDOLIYA__1388.pdf,YOGENDER CHANDOLIYA,KAROL BAGH(SC),Bharatiya Janata Party,gemini_ok_but_apply

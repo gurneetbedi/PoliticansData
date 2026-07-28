@@ -1,0 +1,27 @@
+{
+  "state_name": "Bihar",
+  "audit_year": "2016-17",
+  "report_number": "Report No. 3 of the year 2018",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.23,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 1.89,
+    "debt_pct_gsdp": 31.14,
+    "interest_pct_revenue_receipts": 7.76,
+    "capital_outlay_pct_gsdp": 6.21,
+    "revenue_receipts_pct_gsdp": 24.1,
+    "own_tax_revenue_pct_gsdp": 5.42
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 438030.0,
+    "outstanding_debt_crore": 136391.0
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 0.0
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Gross Fiscal Deficit and Debt percentages are 'Actuals as worked out by Audit' (excluding UDAY impact) from Table 1.4 and 1.31. Revenue Deficit is 0 as the state had a Revenue Surplus of 13,155.46 crore (Table 1.4) or 2.47% of GSDP (Appendix 1.5). Primary Deficit percentage calculated from absolute figure (Table 1.6) and GSDP (Table 1.1). Interest to Revenue Receipts calculated from absolute figures (Table 1.31 and Appendix 1.5). Capital Outlay, Revenue Receipts, and Own Tax Revenue percentages are from Appendix 1.5. GSDP from Table 1.1. Outstanding Debt from Table 1.31. No explicit counts for 'audit paras' or 'observations' were found; various outstanding items (UCs, AC bills, arrears of revenue) are mentioned with their money values and sometimes counts of items, but not as formal audit paras."
+}

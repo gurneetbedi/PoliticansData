@@ -1,0 +1,659 @@
+{% extends "base.html" %}
+
+{% block title %}Government Performance Index — {{ state }} | Lokvani{% endblock %}
+
+{#
+  Government Performance Index (GPI) — state landing page.
+
+  Layout follows the reference mockup:
+    • Title + description on the left, aggregate score ring on the right
+    • Metadata chips below title: Last Updated, Data Confidence, YoY delta
+    • Performance Pillars table: Sector | Score | National Rank | Trend | Status
+    • Phase 2 placeholder sections: Efficiency & Fiscal Integrity,
+      Governance & Public Trust (with historical trend chart), Geospatial
+
+  When gpi_data is None, everything renders as empty state (em-dashes,
+  dashed ring, "No data" badges). When populated, we show real values.
+#}
+
+{% macro status_badge(score) %}
+  {% if score is none %}
+    <span class="inline-flex items-center gap-1 px-2 py-1 text-label-sm font-bold rounded bg-surface-container-high text-on-surface-variant">No data</span>
+  {% elif score >= 80 %}
+    <span class="inline-flex items-center gap-1 px-2.5 py-1 text-label-sm font-bold rounded bg-blue-100 text-blue-800 uppercase tracking-wider">Excellence</span>
+  {% elif score >= 65 %}
+    <span class="inline-flex items-center gap-1 px-2.5 py-1 text-label-sm font-bold rounded bg-green-100 text-green-800 uppercase tracking-wider">High Performer</span>
+  {% elif score >= 45 %}
+    <span class="inline-flex items-center gap-1 px-2.5 py-1 text-label-sm font-bold rounded bg-yellow-100 text-yellow-800 uppercase tracking-wider">Stable</span>
+  {% elif score >= 30 %}
+    <span class="inline-flex items-center gap-1 px-2.5 py-1 text-label-sm font-bold rounded bg-orange-100 text-orange-800 uppercase tracking-wider">At Risk</span>
+  {% else %}
+    <span class="inline-flex items-center gap-1 px-2.5 py-1 text-label-sm font-bold rounded bg-red-100 text-red-800 uppercase tracking-wider">Critical</span>
+  {% endif %}
+{% endmacro %}
+
+{% block content %}
+
+<main class="w-full max-w-container-max mx-auto p-margin-mobile md:p-margin-desktop">
+
+  {# ─── Breadcrumb ────────────────────────────────────────────────────── #}
+  <div class="flex items-center gap-2 text-label-sm text-on-surface-variant mb-4">
+    <span>National</span>
+    <span class="text-outline">/</span>
+    <span class="text-on-surface">Performance Dashboard</span>
+  </div>
+
+  {# ─── Title + Aggregate Score ──────────────────────────────────────── #}
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter mb-stack-lg">
+    <div class="lg:col-span-2">
+      <h1 class="font-headline-lg text-headline-lg text-on-surface mb-3 leading-tight">
+        Government Performance Index
+        <span class="text-on-surface-variant">·</span>
+        <span class="text-on-surface">{% if gpi_data %}FY {{ gpi_data.latest_year }}{% else %}—{% endif %}</span>
+        <span class="text-on-surface-variant">·</span>
+        <span class="text-on-surface">{{ state }}</span>
+      </h1>
+      <p class="font-body-md text-on-surface-variant max-w-2xl mb-6">
+        The GPI provides an objective, data-driven assessment of public sector performance across
+        <span class="font-semibold text-on-surface">six pillars</span>. Using audited fiscal data, NCRB
+        crime statistics, RBI economic indicators and citizen-facing outcomes, we quantify the absolute
+        value delivered per public rupee spent.
+      </p>
+
+      <div class="flex flex-wrap gap-2 items-center">
+        <div class="inline-flex flex-col px-3 py-2 bg-surface-container-low border border-outline-variant rounded-lg">
+          <span class="text-label-sm text-on-surface-variant uppercase tracking-wider">Last Updated</span>
+          <span class="text-label-sm font-bold text-on-surface">
+            {% if gpi_data %}FY {{ gpi_data.latest_year }}{% else %}Data pending{% endif %}
+          </span>
+        </div>
+        <div class="inline-flex flex-col px-3 py-2 bg-surface-container-low border border-outline-variant rounded-lg">
+          <span class="text-label-sm text-on-surface-variant uppercase tracking-wider">Data Confidence</span>
+          <span class="text-label-sm font-bold text-on-surface">
+            {% if gpi_data %}{{ gpi_data.confidence_pct }}%{% else %}—{% endif %}
+          </span>
+        </div>
+
+        {% if gpi_data and gpi_data.yoy_delta is not none %}
+          {% set d = gpi_data.yoy_delta %}
+          {% if d > 0 %}
+            <div class="inline-flex items-center gap-1.5 px-3 py-2 bg-green-50 text-green-800 rounded-lg border border-green-200">
+              <span class="material-symbols-outlined text-[16px]">trending_up</span>
+              <span class="text-label-sm font-bold">+{{ '%.1f'|format(d) }}% Improving YoY</span>
+            </div>
+          {% elif d < 0 %}
+            <div class="inline-flex items-center gap-1.5 px-3 py-2 bg-red-50 text-red-800 rounded-lg border border-red-200">
+              <span class="material-symbols-outlined text-[16px]">trending_down</span>
+              <span class="text-label-sm font-bold">{{ '%.1f'|format(d) }}% YoY</span>
+            </div>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+
+    {# Aggregate Score card #}
+    <div class="lg:col-span-1">
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 h-full flex items-center justify-center shadow-sm">
+        <div class="relative w-48 h-48 flex items-center justify-center">
+          {% if gpi_data %}
+            {% set s = gpi_data.latest.score %}
+            {% set pct = (s / 100) %}
+            <svg viewBox="0 0 100 100" class="absolute inset-0 w-full h-full -rotate-90">
+              <circle cx="50" cy="50" r="45" stroke="#e5eeff" stroke-width="6" fill="none"/>
+              <circle cx="50" cy="50" r="45" stroke="#0b1c30" stroke-width="6" fill="none"
+                      stroke-dasharray="{{ pct * 283 }} 283" stroke-linecap="round"/>
+            </svg>
+            <div class="text-center">
+              <div class="text-[48px] font-bold text-on-surface leading-none">{{ '%.1f'|format(s) }}</div>
+              <div class="text-label-sm uppercase tracking-widest text-on-surface-variant mt-2">Aggregate Score</div>
+            </div>
+          {% else %}
+            <svg viewBox="0 0 100 100" class="absolute inset-0 w-full h-full -rotate-90">
+              <circle cx="50" cy="50" r="45" stroke="#c6c6cd" stroke-width="6" fill="none" stroke-dasharray="6 4"/>
+            </svg>
+            <div class="text-center">
+              <div class="text-[48px] font-bold text-on-surface-variant leading-none">—</div>
+              <div class="text-label-sm uppercase tracking-widest text-on-surface-variant mt-2">Aggregate</div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {# ═══════════════════════════ Performance Pillars ═════════════════════ #}
+  <section class="mb-stack-lg">
+    <div class="flex items-end justify-between mb-4">
+      <div>
+        <h2 class="font-headline-md text-headline-md text-on-surface">Performance Pillars</h2>
+        <p class="text-body-md text-on-surface-variant">
+          High-density overview of sectoral performance and efficiency.
+        </p>
+      </div>
+      <div id="pillarViewToggle" class="hidden md:flex bg-surface-container p-1 rounded-lg border border-outline-variant">
+        <button data-view="grid" class="px-4 py-1.5 text-label-sm font-bold text-on-surface-variant hover:text-primary transition-colors rounded">Grid View</button>
+        <button data-view="table" class="px-4 py-1.5 text-label-sm font-bold bg-white text-primary rounded shadow-sm">Detailed Table</button>
+      </div>
+    </div>
+
+    <div id="pillarView-table" class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+      <table class="w-full text-left">
+        <thead class="bg-surface-container-low border-b border-outline-variant">
+          <tr class="text-label-sm uppercase tracking-widest text-on-surface-variant">
+            <th class="p-4 font-label-lg">Sector / Pillar</th>
+            <th class="p-4 font-label-lg">Score</th>
+            <th class="p-4 font-label-lg">National Rank</th>
+            <th class="p-4 font-label-lg hidden md:table-cell">Trend (12M)</th>
+            <th class="p-4 font-label-lg">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% set pillar_icons = {
+            'economy':          'trending_up',
+            'public_finance':   'account_balance',
+            'education':        'school',
+            'healthcare':       'medical_services',
+            'infrastructure':   'construction',
+            'law_and_order':    'gavel',
+            'governance':       'verified',
+            'efficiency':       'speed',
+          } %}
+          {% if gpi_data %}
+            {% for row in gpi_data.pillar_rows %}
+              {% set p = row.pillar %}
+              {% set latest = row.latest %}
+              <tr class="border-t border-outline-variant hover:bg-surface-container-low transition-colors">
+                <td class="p-4">
+                  <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-[20px] text-on-surface-variant">{{ pillar_icons.get(p.code, 'category') }}</span>
+                    <span class="font-label-lg font-bold text-on-surface">{{ p.name }}</span>
+                  </div>
+                </td>
+                <td class="p-4">
+                  {% if latest %}
+                    <div class="flex flex-col">
+                      <span class="text-headline-md font-bold text-on-surface leading-none">{{ '%.1f'|format(latest.score) }}</span>
+                      {% if row.is_stale %}
+                        <span class="text-label-sm text-on-surface-variant mt-1">as of FY{{ row.latest_year }}</span>
+                      {% endif %}
+                    </div>
+                  {% else %}
+                    <span class="text-headline-md font-bold text-on-surface-variant">—</span>
+                  {% endif %}
+                </td>
+                <td class="p-4 text-body-md">
+                  {% if row.rank %}
+                    <span class="font-bold text-on-surface">{{ '%02d'|format(row.rank) }}</span>
+                    <span class="text-on-surface-variant">/ {{ row.total_states }}</span>
+                  {% else %}
+                    <span class="text-on-surface-variant">—</span>
+                  {% endif %}
+                </td>
+                <td class="p-4 hidden md:table-cell">
+                  {% if row.history and row.history|length > 1 %}
+                    {% set scores = row.history|map(attribute='score')|list %}
+                    {% set mn = scores|min %}
+                    {% set mx = scores|max %}
+                    {% set rng = (mx - mn) if (mx > mn) else 1 %}
+                    <svg viewBox="0 0 100 30" class="w-28 h-8" preserveAspectRatio="none">
+                      <polyline fill="none" stroke="#131b2e" stroke-width="1.5"
+                        points="{% for s in scores %}{{ loop.index0 * (100 / (scores|length - 1)) }},{{ 28 - ((s - mn) / rng) * 26 }} {% endfor %}"/>
+                    </svg>
+                  {% elif row.history and row.history|length == 1 %}
+                    {# Single data point — show a dot with the year label so the pillar #}
+                    {# doesn't look like it has no data at all. #}
+                    <div class="w-28 flex items-center gap-2 text-label-sm text-on-surface-variant">
+                      <svg viewBox="0 0 30 30" class="w-6 h-6">
+                        <circle cx="15" cy="15" r="4" fill="#131b2e"/>
+                      </svg>
+                      <span>single year</span>
+                    </div>
+                  {% else %}
+                    <span class="text-label-sm text-on-surface-variant italic">no data</span>
+                  {% endif %}
+                </td>
+                <td class="p-4">
+                  {{ status_badge(latest.score if latest else none) }}
+                </td>
+              </tr>
+            {% endfor %}
+          {% else %}
+            {% for code, name in [
+              ('economy','Economy'), ('public_finance','Public Finance'),
+              ('education','Education'), ('healthcare','Healthcare'),
+              ('infrastructure','Infrastructure'), ('law_and_order','Law & Order'),
+              ('governance','Governance & Accountability'),
+              ('efficiency','Fiscal Efficiency')
+            ] %}
+              <tr class="border-t border-outline-variant">
+                <td class="p-4">
+                  <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-[20px] text-on-surface-variant">{{ pillar_icons.get(code) }}</span>
+                    <span class="font-label-lg font-bold text-on-surface">{{ name }}</span>
+                  </div>
+                </td>
+                <td class="p-4 text-headline-md font-bold text-on-surface-variant">—</td>
+                <td class="p-4 text-on-surface-variant">—</td>
+                <td class="p-4 hidden md:table-cell"><div class="w-24 h-8 bg-surface-container rounded"></div></td>
+                <td class="p-4">{{ status_badge(none) }}</td>
+              </tr>
+            {% endfor %}
+          {% endif %}
+        </tbody>
+      </table>
+      <div class="p-4 text-center bg-surface-container-low border-t border-outline-variant">
+        <a href="#" class="inline-flex items-center gap-1 text-label-lg font-bold text-primary uppercase tracking-wider hover:text-secondary transition-colors">
+          View All 8 Pillars
+          <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+
+    {# ── Grid View (initially hidden — JS toggles) ────────────────────── #}
+    <div id="pillarView-grid" class="hidden grid grid-cols-2 lg:grid-cols-4 gap-gutter">
+      {% if gpi_data %}
+        {% for row in gpi_data.pillar_rows %}
+          {% set p = row.pillar %}
+          {% set latest = row.latest %}
+          <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="material-symbols-outlined text-[20px] text-on-surface-variant">{{ pillar_icons.get(p.code, 'category') }}</span>
+              <span class="font-label-lg font-bold text-on-surface text-label-sm uppercase tracking-wider leading-tight">{{ p.name }}</span>
+            </div>
+            {% if latest %}
+              <div class="text-headline-lg font-bold text-on-surface leading-none mb-1">{{ '%.1f'|format(latest.score) }}</div>
+              <div class="text-label-sm text-on-surface-variant mb-3">
+                FY{{ row.latest_year }}
+                {% if row.rank %} · rank {{ row.rank }}/{{ row.total_states }}{% endif %}
+              </div>
+              {{ status_badge(latest.score) }}
+            {% else %}
+              <div class="text-headline-lg font-bold text-on-surface-variant leading-none mb-1">—</div>
+              <div class="text-label-sm text-on-surface-variant mb-3">No data</div>
+              {{ status_badge(none) }}
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </section>
+
+  {# ── JS: pillar view toggle ──────────────────────────────────────── #}
+  <script>
+    (function() {
+      const buttons = document.querySelectorAll('#pillarViewToggle button');
+      const tableView = document.getElementById('pillarView-table');
+      const gridView  = document.getElementById('pillarView-grid');
+
+      function setView(view) {
+        buttons.forEach(b => {
+          const active = b.dataset.view === view;
+          b.classList.toggle('bg-white', active);
+          b.classList.toggle('text-primary', active);
+          b.classList.toggle('shadow-sm', active);
+          b.classList.toggle('text-on-surface-variant', !active);
+        });
+        if (view === 'grid') {
+          tableView.classList.add('hidden');
+          gridView.classList.remove('hidden');
+          gridView.classList.add('grid');
+        } else {
+          gridView.classList.add('hidden');
+          gridView.classList.remove('grid');
+          tableView.classList.remove('hidden');
+        }
+      }
+      buttons.forEach(b => b.addEventListener('click', () => setView(b.dataset.view)));
+    })();
+  </script>
+
+  {# ═══════════════════════════ Efficiency & Fiscal Integrity ═════════ #}
+  {% set eff = gpi_data.efficiency_data if gpi_data else {} %}
+  <section class="mb-stack-lg">
+    <div class="mb-4">
+      <h2 class="font-headline-md text-headline-md text-on-surface">Efficiency &amp; Fiscal Integrity</h2>
+      <p class="text-body-md text-on-surface-variant">
+        How well the state converts money into services — revenue capacity + project delivery.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter items-stretch">
+      {# 3 revenue-capacity cards on the left — real EF01, EF02, EF03.
+         Uses flex-col + flex-1 so all 3 cards distribute evenly across
+         the container's full height, matching the right column and
+         eliminating the trailing white space. #}
+      <div class="flex flex-col gap-gutter">
+        {% set eff_cards = [
+          ("Own Tax / GSDP", "EF01", "%",
+           "Tax collected by the state government itself (excluding central transfers) as a share of the state economy. Higher = stronger indigenous tax-collection capacity."),
+          ("Revenue Receipts / GSDP", "EF02", "%",
+           "Total government revenue (own taxes + non-tax + central transfers) as a share of the state economy. Higher = greater overall fiscal capacity per unit of GSDP."),
+          ("Project Delay Rate", "EF03", "%",
+           "% of audited government projects and schemes that ran past their planned completion date. Aggregated across all Performance Audits for the state. Lower = more reliable delivery."),
+        ] %}
+        {% for label, code, unit, desc in eff_cards %}
+          {% set v = eff.get(code) if eff else None %}
+          <div class="flex-1 bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm flex flex-col">
+            <div class="text-label-sm uppercase tracking-widest text-on-surface-variant mb-3">{{ label }}</div>
+            {% if v %}
+              <div class="text-[42px] font-bold text-on-surface leading-none">{{ '%.1f'|format(v.raw) }}{{ unit }}</div>
+              <div class="text-label-sm text-on-surface-variant mt-2 mb-3">FY{{ v.year }}{% if v.rank %} · rank {{ v.rank }}{% endif %}</div>
+            {% else %}
+              <div class="text-[42px] font-bold text-on-surface-variant leading-none">—</div>
+              <div class="text-label-sm text-on-surface-variant mt-2 mb-3">No data</div>
+            {% endif %}
+            <p class="text-[11px] text-on-surface-variant leading-snug mt-auto">{{ desc }}</p>
+          </div>
+        {% endfor %}
+      </div>
+
+      {# Right: Delivery Performance panel — replaces "Systemic Waste Analysis" #}
+      <div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
+        <div class="flex items-center gap-2 mb-5">
+          <span class="material-symbols-outlined text-error text-[20px]">warning</span>
+          <h3 class="text-label-lg font-bold uppercase tracking-widest text-on-surface-variant">Project Delivery Analysis</h3>
+        </div>
+        {% set delivery_bars = [
+          ("Cost Overrun Rate", "EF04", "% of projects exceeding budget by >10%"),
+          ("Budget Utilization Gap", "EF05", "|100 − actual/budgeted × 100|"),
+          ("Physical Achievement Shortfall", "EF06", "100 − % of targets met"),
+        ] %}
+        {% for label, code, desc in delivery_bars %}
+          {% set v = eff.get(code) if eff else None %}
+          <div class="mb-4">
+            <div class="flex justify-between items-center text-label-sm mb-2">
+              <span class="text-on-surface-variant">{{ label }}</span>
+              <div class="flex items-center gap-4">
+                <span class="text-on-surface font-bold">
+                  {% if v %}{{ '%.1f'|format(v.raw) }}%{% else %}—{% endif %}
+                </span>
+                <span class="text-on-surface-variant text-label-sm">
+                  {% if v and v.raw < 10 %}Low{% elif v and v.raw < 30 %}Medium{% elif v %}High{% else %}—{% endif %}
+                </span>
+              </div>
+            </div>
+            <div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+              {% if v %}
+                <div class="h-2 rounded-full {% if v.raw < 10 %}bg-green-500{% elif v.raw < 30 %}bg-yellow-500{% else %}bg-red-500{% endif %}"
+                     style="width: {{ [v.raw, 100]|min }}%;"></div>
+              {% endif %}
+            </div>
+            <div class="text-label-sm text-on-surface-variant mt-1">{{ desc }}</div>
+          </div>
+        {% endfor %}
+
+        {# ── Audit-Aggregate KPIs — raw statistics from PA extractions ── #}
+        {% if gpi_data.pa_stats %}
+        {% set ps = gpi_data.pa_stats %}
+        <div class="border-t border-outline-variant mt-6 pt-5">
+          <div class="text-label-sm uppercase tracking-widest text-on-surface-variant mb-3">Audit Coverage</div>
+          <div class="grid grid-cols-4 gap-4">
+            <div>
+              <div class="text-headline-md font-bold text-on-surface">{{ ps.num_pas }}</div>
+              <div class="text-label-sm text-on-surface-variant uppercase tracking-wider mt-1">Performance Audits</div>
+            </div>
+            <div>
+              <div class="text-headline-md font-bold text-on-surface">
+                {% if ps.total_projects > 1000 %}{{ '{:,}'.format(ps.total_projects) }}
+                {% else %}{{ ps.total_projects }}{% endif %}
+              </div>
+              <div class="text-label-sm text-on-surface-variant uppercase tracking-wider mt-1">Projects Audited</div>
+            </div>
+            <div>
+              <div class="text-headline-md font-bold text-on-surface">
+                {% if ps.avg_time_months %}{{ '%.1f'|format(ps.avg_time_months) }}<span class="text-body-md">mo</span>{% else %}—{% endif %}
+              </div>
+              <div class="text-label-sm text-on-surface-variant uppercase tracking-wider mt-1">Avg Time Overrun</div>
+            </div>
+            <div>
+              <div class="text-headline-md font-bold text-on-surface">
+                {% if ps.avg_cost_pct %}{{ '%.1f'|format(ps.avg_cost_pct) }}%{% else %}—{% endif %}
+              </div>
+              <div class="text-label-sm text-on-surface-variant uppercase tracking-wider mt-1">Avg Cost Overrun</div>
+            </div>
+          </div>
+
+          {% if ps.total_budget > 0 %}
+          <div class="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-outline-variant">
+            <div>
+              <div class="text-body-lg font-bold text-on-surface">
+                ₹{{ '{:,.0f}'.format(ps.total_budget) }}
+                <span class="text-label-sm text-on-surface-variant">Cr</span>
+              </div>
+              <div class="text-label-sm text-on-surface-variant uppercase tracking-wider mt-1">Total Budgeted</div>
+            </div>
+            <div>
+              <div class="text-body-lg font-bold text-on-surface">
+                ₹{{ '{:,.0f}'.format(ps.total_actual) }}
+                <span class="text-label-sm text-on-surface-variant">Cr</span>
+              </div>
+              <div class="text-label-sm text-on-surface-variant uppercase tracking-wider mt-1">Total Actual Spend</div>
+            </div>
+            <div>
+              <div class="text-body-lg font-bold text-on-surface">
+                {% if ps.avg_fin_util %}{{ '%.1f'|format(ps.avg_fin_util) }}%{% else %}
+                {{ '%.1f'|format(100.0 * ps.total_actual / ps.total_budget) }}%
+                {% endif %}
+              </div>
+              <div class="text-label-sm text-on-surface-variant uppercase tracking-wider mt-1">Financial Utilization</div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        {% endif %}
+
+        {# ── Efficiency Pillar Summary — all 6 EF indicators ── #}
+        <div class="border-t border-outline-variant mt-6 pt-5">
+          <div class="text-label-sm uppercase tracking-widest text-on-surface-variant mb-3">Efficiency Pillar Indicators</div>
+          <div class="grid grid-cols-3 md:grid-cols-6 gap-3">
+            {% for label, code in [
+              ("Own Tax", "EF01"),
+              ("Rev Receipts", "EF02"),
+              ("Delay Rate", "EF03"),
+              ("Cost Overrun", "EF04"),
+              ("Budget Gap", "EF05"),
+              ("Physical Shortfall", "EF06"),
+            ] %}
+              {% set v = eff.get(code) if eff else None %}
+              <div>
+                <div class="text-body-lg font-bold {% if v %}text-on-surface{% else %}text-on-surface-variant{% endif %} leading-tight">
+                  {% if v %}{{ '%.1f'|format(v.raw) }}%{% else %}—{% endif %}
+                </div>
+                <div class="text-[10px] text-on-surface-variant uppercase tracking-wider mt-1 leading-tight">{{ label }}</div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {# ═══════════════════════════ Governance & Public Trust ═════════════ #}
+  {% set gov = gpi_data.governance_data if gpi_data else {} %}
+  <section class="mb-stack-lg">
+    <div class="mb-4">
+      <h2 class="font-headline-md text-headline-md text-on-surface">Governance &amp; Public Trust</h2>
+      <p class="text-body-md text-on-surface-variant">
+        Audit-verified accountability metrics sourced from CAG State Finances Audit Reports.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-gutter mb-6">
+      {% set gov_cards = [
+        {"label": "Audit Paras Raised", "code": "G01", "icon": "flag",
+         "sub": "Total audit findings", "fmt": "int"},
+        {"label": "Long-Pending Paras (>5yr)", "code": "G02", "icon": "schedule",
+         "sub": "Unresolved audit items", "fmt": "int"},
+        {"label": "PAC Recommendations Pending", "code": "G03", "icon": "how_to_vote",
+         "sub": "Legislative follow-up gap", "fmt": "int"},
+        {"label": "Audit Money Value / GSDP", "code": "G04", "icon": "attach_money",
+         "sub": "Fiscal significance of findings", "fmt": "pct"},
+      ] %}
+      {% for card in gov_cards %}
+        {% set v = gov.get(card.code) if gov else None %}
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 shadow-sm">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="material-symbols-outlined text-[18px] text-on-surface-variant">{{ card.icon }}</span>
+            <span class="text-label-sm uppercase tracking-widest text-on-surface-variant">{{ card.label }}</span>
+          </div>
+          {% if v %}
+            <div class="text-[36px] font-bold text-on-surface leading-none">
+              {% if card.fmt == "pct" %}{{ '%.2f'|format(v.raw) }}%{% else %}{{ v.raw|int }}{% endif %}
+            </div>
+            <div class="text-label-sm text-on-surface-variant mt-2">FY{{ v.year }}{% if v.rank %} · rank {{ v.rank }}{% endif %}</div>
+          {% else %}
+            <div class="text-[36px] font-bold text-on-surface-variant leading-none">—</div>
+            <div class="text-label-sm text-on-surface-variant mt-2">{{ card.sub }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h3 class="text-label-lg font-bold uppercase tracking-widest text-on-surface-variant">
+            Historical Transparency Trend
+          </h3>
+          <p class="text-label-sm text-on-surface-variant mt-1">5-year rolling average of responsiveness metrics</p>
+        </div>
+        <div class="flex gap-3 text-label-sm text-on-surface-variant">
+          <span class="flex items-center gap-1"><span class="w-2 h-2 bg-on-surface rounded-full"></span> Index</span>
+          <span class="flex items-center gap-1"><span class="w-2 h-2 bg-outline-variant rounded-full"></span> Target</span>
+        </div>
+      </div>
+      {% if gpi_data and gpi_data.gpi_series and gpi_data.gpi_series|length > 1 %}
+        {# When we have real GPI series, render it as bars instead of the placeholder #}
+        <div style="height: 220px;"><canvas id="gpiTrendChart"></canvas></div>
+      {% else %}
+        <div class="grid grid-cols-5 gap-3 h-40 items-end">
+          {% for yr in [2020, 2021, 2022, 2023, 2024] %}
+          <div class="flex flex-col items-center gap-2 h-full justify-end">
+            <div class="w-full bg-surface-container rounded-t" style="height: {{ 20 + loop.index0 * 10 }}%;"></div>
+            <div class="text-label-sm text-on-surface-variant">{{ yr }}</div>
+          </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </section>
+
+  {% if gpi_data and gpi_data.gpi_series and gpi_data.gpi_series|length > 1 %}
+  <script>
+    const gpiTrendData = {
+      labels: [{% for row in gpi_data.gpi_series %}"FY{{ row.fiscal_year }}"{% if not loop.last %},{% endif %}{% endfor %}],
+      scores: [{% for row in gpi_data.gpi_series %}{{ row.score }}{% if not loop.last %},{% endif %}{% endfor %}],
+    };
+    new Chart(document.getElementById('gpiTrendChart').getContext('2d'), {
+      type: 'bar',
+      data: {
+        labels: gpiTrendData.labels,
+        datasets: [{
+          label: 'GPI',
+          data: gpiTrendData.scores,
+          backgroundColor: '#131b2e',
+          borderRadius: 4,
+          maxBarThickness: 60,
+        }],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { beginAtZero: true, max: 100, ticks: { stepSize: 20 },
+               grid: { color: 'rgba(0,0,0,0.05)' } },
+          x: { grid: { display: false } },
+        },
+      },
+    });
+  </script>
+  {% endif %}
+
+  {# ═══════════════════════════ Geospatial & Raw Data ═════════════════ #}
+  <section class="mb-stack-lg">
+    <div class="mb-4">
+      <h2 class="font-headline-md text-headline-md text-on-surface">Geospatial Distribution &amp; Raw Data</h2>
+      <p class="text-body-md text-on-surface-variant">
+        Granular district-level insights and data-pedigree verification.
+        <span class="italic">Phase 3 — requires district-level indicator ingestion.</span>
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+      <div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+        <div class="p-4 border-b border-outline-variant flex items-center justify-between bg-surface-container-low">
+          <div class="flex gap-2">
+            <button class="px-3 py-1.5 text-label-sm font-bold bg-primary text-on-primary rounded">{{ state }} Map</button>
+            <button class="px-3 py-1.5 text-label-sm font-bold text-on-surface-variant hover:text-primary transition-colors">Regional Heatmap</button>
+          </div>
+          <div class="flex items-center gap-2 text-label-sm text-on-surface-variant">
+            <span>Density</span>
+            <div class="w-24 h-2 bg-gradient-to-r from-surface-container via-surface-container-highest to-outline-variant rounded"></div>
+          </div>
+        </div>
+        <div class="p-8 h-96 flex flex-col items-center justify-center text-on-surface-variant">
+          <span class="material-symbols-outlined text-[48px] mb-3 opacity-40">map</span>
+          <div class="text-body-md">District boundary layer pending</div>
+          <div class="text-label-sm mt-1 max-w-md text-center">
+            Populates once district-level indicators are ingested for {{ state }}.
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+          <div class="p-4 border-b border-outline-variant bg-surface-container-low">
+            <h3 class="text-label-lg font-bold uppercase tracking-widest text-on-surface-variant">District Leaderboard</h3>
+          </div>
+          <div class="p-4 space-y-2">
+            {% for i in range(5) %}
+            <div class="flex items-center justify-between py-1.5">
+              <div class="flex items-center gap-3">
+                <span class="text-label-sm font-bold text-on-surface-variant w-6">{{ '%02d'|format(i + 1) }}</span>
+                <span class="text-label-sm text-on-surface-variant">—</span>
+              </div>
+              <span class="text-label-sm font-bold text-on-surface-variant">—</span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="bg-primary-container text-on-primary rounded-xl p-4 shadow-sm">
+          <div class="text-label-sm uppercase tracking-widest font-bold mb-3 opacity-80">Data Pedigree</div>
+          <div class="flex items-center gap-2 text-label-sm mb-1 opacity-90">
+            <span class="material-symbols-outlined text-[14px]">verified</span>
+            <span class="font-bold">Audit Integrity</span>
+          </div>
+          <div class="text-label-sm opacity-70 mb-3">
+            Audited by National Comptroller · CAG SFARs cross-checked
+          </div>
+          <div class="flex items-center gap-2 text-label-sm mb-1 opacity-90">
+            <span class="material-symbols-outlined text-[14px]">bolt</span>
+            <span class="font-bold">Source Feed</span>
+          </div>
+          <div class="text-label-sm opacity-70 mb-4">
+            Live sync with RBI Handbook · NCRB Crime in India · UDISE+ · ASER
+          </div>
+          <button class="w-full text-label-sm font-bold bg-white/10 hover:bg-white/20 text-on-primary py-2 rounded transition-colors uppercase tracking-widest">
+            Download Protocol
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {# ─── Footer note ─────────────────────────────────────────────────── #}
+  <div class="text-center text-label-sm text-on-surface-variant italic mb-8">
+    {% if gpi_data %}
+      GPI for {{ state }} · FY{{ gpi_data.gpi_series[0].fiscal_year }}–FY{{ gpi_data.latest_year }} ·
+      Data sourced from RBI Handbook of Statistics on Indian States, NCRB Crime in India,
+      CAG State Finances Audit Reports, UDISE+, and ASER.
+    {% else %}
+      Phase 1 pilot · {{ state }} · 6 pillars · ingest pipelines building.
+    {% endif %}
+  </div>
+
+</main>
+
+{% endblock %}

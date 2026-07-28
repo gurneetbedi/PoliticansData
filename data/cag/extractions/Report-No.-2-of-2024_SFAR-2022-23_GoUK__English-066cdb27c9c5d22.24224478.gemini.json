@@ -1,0 +1,25 @@
+{
+  "state_name": "Uttarakhand",
+  "audit_year": "2022-23",
+  "report_number": "Report No. 2 of the year 2024",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 0.97,
+    "revenue_deficit_pct_gsdp": 0,
+    "primary_deficit_pct_gsdp": 0,
+    "debt_pct_gsdp": 24.08,
+    "interest_pct_revenue_receipts": 8.56,
+    "capital_outlay_pct_gsdp": 2.71,
+    "revenue_receipts_pct_gsdp": 16.22,
+    "own_tax_revenue_pct_gsdp": 5.65
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 302621.0,
+    "outstanding_debt_crore": 72860.04
+  },
+  "audit_paras": {
+    "raised_this_year": 342,
+    "money_value_of_observations_crore": 875.68
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Revenue deficit and primary deficit are reported as 0 as the state had a revenue surplus of 1.75% of GSDP and a primary surplus of 0.71% of GSDP for the audit year. Outstanding debt is the post-audit figure of total outstanding liabilities (₹72,860.04 crore), which aligns with the reported debt-to-GSDP ratio of 24.08% after excluding back-to-back loans as per notes on page 42. Audit paras raised this year and their money value are based on the sum of outstanding Utilisation Certificates (268 UCs for ₹864.32 crore) and Abstract Contingent bills (74 bills for ₹11.36 crore) identified in the conclusion section on page 168."
+}

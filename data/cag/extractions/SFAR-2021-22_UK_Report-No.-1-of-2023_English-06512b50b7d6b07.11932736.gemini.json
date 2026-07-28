@@ -1,0 +1,22 @@
+{
+  "state_name": "Uttarakhand",
+  "audit_year": "2021-22",
+  "report_number": "Report No. 1 of the year 2023",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 1.58,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 0.0,
+    "debt_pct_gsdp": 28.12,
+    "interest_pct_revenue_receipts": 11.47,
+    "capital_outlay_pct_gsdp": 2.97,
+    "revenue_receipts_pct_gsdp": 16.96,
+    "own_tax_revenue_pct_gsdp": 5.58
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 253832,
+    "outstanding_debt_crore": 71375
+  },
+  "audit_paras": {},
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal Deficit and Revenue Deficit percentages are post-audit figures as mentioned on page 33. Revenue Deficit and Primary Deficit are reported as 0.0 as the state had a surplus in 2021-22. Outstanding debt (absolute) is the effective debt after excluding back-to-back loans for GST compensation shortfall, consistent with the debt-to-GSDP ratio calculation, as noted on page 78. Audit paras information is stated to be in a separate report (page 9)."
+}

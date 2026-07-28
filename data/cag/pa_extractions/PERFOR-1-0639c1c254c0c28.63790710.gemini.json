@@ -1,0 +1,15 @@
+{
+  "state_name": "Bihar",
+  "report_topic": "Outcomes of Surface Irrigation Projects in Bihar",
+  "report_no": "3 of the year 2022",
+  "audit_period_start_fy": 2016,
+  "audit_period_end_fy": 2021,
+  "total_projects_audited": 5,
+  "projects_time_overrun": 5,
+  "projects_cost_overrun_over_10pct": 3,
+  "total_budgeted_crore": 1348.88,
+  "total_actual_expenditure_crore": 2409.34,
+  "physical_achievement_pct": 25.0,
+  "observations_summary": "Audit observed that against the reported irrigation of 70%, actual possible irrigation was only 25% due to non-operational field channels, siltation, and ineffective Participatory Irrigation Management. Projects faced significant time and cost overruns, with financial irregularities and inadequate monitoring. Manpower shortages further hampered operations and revenue collection.",
+  "extraction_confidence": "high"
+}

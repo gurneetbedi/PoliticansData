@@ -1,0 +1,22 @@
+{
+  "state_name": "Arunachal Pradesh",
+  "audit_year": "2022-23",
+  "report_number": "Report No. 1 of 2024",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 4.37,
+    "revenue_deficit_pct_gsdp": 0,
+    "primary_deficit_pct_gsdp": 2.27,
+    "debt_pct_gsdp": 39.44,
+    "interest_pct_revenue_receipts": 2.56,
+    "capital_outlay_pct_gsdp": 20.44,
+    "revenue_receipts_pct_gsdp": 59.96,
+    "own_tax_revenue_pct_gsdp": 5.64
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 39671.24,
+    "outstanding_debt_crore": 15646.75
+  },
+  "audit_paras": {},
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal deficit and primary deficit values are reported as positive magnitudes as per instructions. Revenue deficit is 0 as the state reported a revenue surplus. Debt percentage and absolute figures refer to total outstanding liabilities, which is a broader measure than just public debt."
+}

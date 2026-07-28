@@ -1,0 +1,18 @@
+{
+  "state_name": "Haryana",
+  "report_topic": "Performance Audit of Efficacy of Implementation of 74th Constitutional Amendment Act",
+  "report_no": "1 of the year 2022",
+  "audit_period_start_fy": 2016,
+  "audit_period_end_fy": 2020,
+  "total_projects_audited": 15,
+  "projects_time_overrun": 0,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 0,
+  "total_actual_expenditure_crore": 11363.78,
+  "financial_utilization_pct": 57.0,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit found that despite statutory amendments, the spirit of the 74th Constitutional Amendment Act was not fully implemented in Haryana. ULBs faced significant challenges including limited devolution of functions (only 22.2% fully devolved), delays in elections and committee formation, severe manpower shortages, and financial dependency on fiscal transfers, with limited autonomy in revenue generation and flawed budget processes.",
+  "extraction_confidence": "high"
+}

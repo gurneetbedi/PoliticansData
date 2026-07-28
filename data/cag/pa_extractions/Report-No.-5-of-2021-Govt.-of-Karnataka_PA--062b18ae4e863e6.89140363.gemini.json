@@ -1,0 +1,18 @@
+{
+  "state_name": "Karnataka",
+  "report_topic": "Functioning of Karnataka State Road Safety Authority",
+  "report_no": "5 of the Year 2021",
+  "audit_period_start_fy": 2015,
+  "audit_period_end_fy": 2021,
+  "total_projects_audited": 446,
+  "projects_time_overrun": 0,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 0,
+  "total_actual_expenditure_crore": 10.92,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit found that the Karnataka State Road Safety Authority failed to frame rules and implement its policy effectively, leading to non-achievement of accident reduction targets, poor road infrastructure management, deficiencies in driving license issuance and vehicle fitness testing, and inadequate post-crash response systems including trauma care and ambulance services.",
+  "extraction_confidence": "high"
+}

@@ -1,0 +1,18 @@
+{
+  "state_name": "Manipur",
+  "report_topic": "Performance Audit of Select District Hospitals in Manipur",
+  "report_no": "1 of 2021",
+  "audit_period_start_fy": 2015,
+  "audit_period_end_fy": 2019,
+  "total_projects_audited": 5,
+  "projects_time_overrun": 0,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 3282.62,
+  "total_actual_expenditure_crore": 2740.71,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit found significant shortages in doctors (48%) and nurses (27.17%) in district hospitals, leading to immense pressure on the medical system. There was also a lack of essential equipment, drugs, and basic facilities like ICUs and blood banks, impacting the quality and accessibility of healthcare services. Furthermore, the report highlighted issues with financial utilization, data mismatches in HMIS, and inadequate waste management and treatment facilities.",
+  "extraction_confidence": "high"
+}

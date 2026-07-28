@@ -1,0 +1,27 @@
+{
+  "state_name": "Andhra Pradesh",
+  "audit_year": "2022-23",
+  "report_number": "Report No. 2 of the year 2024",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.98,
+    "revenue_deficit_pct_gsdp": 3.3,
+    "primary_deficit_pct_gsdp": 2.05,
+    "debt_pct_gsdp": 32.17,
+    "interest_pct_revenue_receipts": 15.32,
+    "capital_outlay_pct_gsdp": 0.55,
+    "revenue_receipts_pct_gsdp": 11.97,
+    "own_tax_revenue_pct_gsdp": 5.92
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 1317728,
+    "outstanding_debt_crore": 423943
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 1346.98
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "State name, audit year, and report number from cover page. Fiscal indicators from Executive Summary (pages 11-14) and tables 1.2 (page 25), 1.4 (page 28), 1.6 (page 31), 2.4 (page 42), 2.41 (page 87), and chart 2.15 (page 90). GSDP from Executive Summary (page 11). Outstanding debt (total outstanding liabilities excluding Government Guarantees) from Executive Summary and Table 1.9 (page 36) and Chart 1.4 (page 30). Money value of observations is the sum of financial impact on profitability (₹139.32 crore) and financial position (₹1,207.66 crore) of SPSEs from Executive Summary (page 17) and section 5.7.1.3 (page 174). Specific audit para counts (raised this year, outstanding over 5 years, PAC recommendations pending) were not found explicitly in the provided pages, so they are set to 0."
+}

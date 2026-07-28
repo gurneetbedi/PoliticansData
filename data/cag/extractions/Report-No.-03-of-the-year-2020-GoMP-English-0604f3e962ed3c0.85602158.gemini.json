@@ -1,0 +1,27 @@
+{
+  "state_name": "Madhya Pradesh",
+  "audit_year": "2018-19",
+  "report_number": "Report No. 3 of the year 2020",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.93,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 0.0,
+    "debt_pct_gsdp": 24.01,
+    "interest_pct_revenue_receipts": 8.53,
+    "capital_outlay_pct_gsdp": 3.64,
+    "revenue_receipts_pct_gsdp": 18.4,
+    "own_tax_revenue_pct_gsdp": 6.29
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 809327.0,
+    "outstanding_debt_crore": 194309.0
+  },
+  "audit_paras": {
+    "raised_this_year": 522,
+    "outstanding_over_5_years": 2126,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 14470.62
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "State name, audit year, and report number from cover page. Fiscal indicators: Gross Fiscal Deficit from Table 1.8 (Page 27). Revenue Deficit and Primary Deficit reported as 0.0 as the report indicates a surplus for these parameters for 2018-19 (Table 1.8, Page 27 and Table 1.39, Page 54). Debt % GSDP from Table 1.8 (Page 27). Interest % Revenue Receipts from Table 1.39 (Page 54). Capital Outlay % GSDP and Revenue Receipts % GSDP from Table 1.6 (Page 25). Own Tax Revenue % GSDP from Table 1.14 (Page 35). Absolute figures: GSDP from Table 1.1 (Page 21). Outstanding Debt from Table 1.36 (Page 53). Audit paras: Raised this year from text on Page 86 (Section 3.7). Outstanding over 5 years from text on Page 87 (below Table 3.11). Money value of observations from Table 3.8 (Page 86). No explicit count for PAC recommendations pending was found."
+}

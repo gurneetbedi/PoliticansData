@@ -1,0 +1,27 @@
+{
+  "state_name": "Jammu and Kashmir",
+  "audit_year": "2018-19",
+  "report_number": "Report No. 2 of the year 2020",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 8.64,
+    "revenue_deficit_pct_gsdp": 3.15,
+    "primary_deficit_pct_gsdp": 5.26,
+    "debt_pct_gsdp": 51.22,
+    "interest_pct_revenue_receipts": 9.61,
+    "capital_outlay_pct_gsdp": 5.49,
+    "revenue_receipts_pct_gsdp": 33.17,
+    "own_tax_revenue_pct_gsdp": 4.99
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 154441,
+    "outstanding_debt_crore": 79105
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 8219.9
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "State name, audit year, and report number from cover page. Fiscal indicators: Gross Fiscal Deficit, Revenue Deficit, Primary Deficit, and Debt % GSDP from Table 1.4 and Chart 1.30 (Page 55, 65). Interest % Revenue Receipts from Chart 1.26 (Page 62). Capital Outlay % GSDP calculated from Capital Expenditure (Page 23, Chart 1.4) and GSDP (Page 19, Table 1.1). Revenue Receipts % GSDP calculated from Revenue Receipts (Page 21, Table 1.2) and GSDP (Page 19, Table 1.1). Own Tax Revenue % GSDP from Chart 1.10 (Page 30). Absolute figures: GSDP from Table 1.1 (Page 19) and Outstanding Debt (Fiscal Liabilities) from Table 1.4 (Page 55). Audit paras: Money value of observations from Table 3.4 (Outstanding Utilization Certificates) (Page 96). Specific counts for 'raised this year', 'outstanding over 5 years', and 'PAC recommendations pending' for audit paras were not explicitly found as distinct numerical values in the report."
+}

@@ -1,0 +1,18 @@
+{
+  "state_name": "Madhya Pradesh",
+  "report_topic": "Performance Audit on Construction of Major Bridges in Madhya Pradesh by Public Works Department",
+  "report_no": "Report No. 3 of the year 2023",
+  "audit_period_start_fy": 2016,
+  "audit_period_end_fy": 2020,
+  "total_projects_audited": 72,
+  "projects_time_overrun": 63,
+  "projects_cost_overrun_over_10pct": 11,
+  "avg_time_overrun_months": 34.5,
+  "avg_cost_overrun_pct": 49.17,
+  "total_budgeted_crore": 1691.97,
+  "total_actual_expenditure_crore": 1691.97,
+  "financial_utilization_pct": 100,
+  "physical_achievement_pct": 12.5,
+  "observations_summary": "The audit observed significant time and cost overruns in bridge construction due to inadequate planning, lack of coordination with other departments, and insufficient surveys and investigations. Many projects faced delays, and some incurred additional expenditure due to design changes and non-adherence to specifications.",
+  "extraction_confidence": "high"
+}

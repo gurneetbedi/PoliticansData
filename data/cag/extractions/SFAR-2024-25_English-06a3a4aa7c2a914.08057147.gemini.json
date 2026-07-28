@@ -1,0 +1,27 @@
+{
+  "state_name": "Kerala",
+  "audit_year": "2024-25",
+  "report_number": "Report No. 1 of 2026",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.89,
+    "revenue_deficit_pct_gsdp": 2.51,
+    "primary_deficit_pct_gsdp": 1.55,
+    "debt_pct_gsdp": 35.74,
+    "interest_pct_revenue_receipts": 23.34,
+    "capital_outlay_pct_gsdp": 1.43,
+    "revenue_receipts_pct_gsdp": 10,
+    "own_tax_revenue_pct_gsdp": 6.14
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 1248533.01,
+    "outstanding_debt_crore": 446163.55
+  },
+  "audit_paras": {
+    "raised_this_year": 71,
+    "outstanding_over_5_years": 42,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 27.4811
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "State name, audit year, and report number from cover page. Fiscal deficit, revenue deficit, primary deficit, and debt percentage to GSDP are post-audit figures from page 73, section 1.4.2. Interest to revenue receipts from page 78, Table 1.36. Capital outlay percentage from page 49. Revenue receipts and own tax revenue percentages from page 32, Chart 1.7 and page 34, Chart 1.10 respectively. GSDP from page 25, Table 1.2. Outstanding debt in crore from page 73, section 1.4.2. Audit paras raised this year is interpreted as the total pending cases of misappropriation, losses, theft etc. from page 138, Table 3.18. Outstanding over 5 years from page 166, Table 3.19 (Above 15 years category). Money value of observations from page 138, Table 3.18 (converted from lakh to crore). PAC recommendations pending not found."
+}

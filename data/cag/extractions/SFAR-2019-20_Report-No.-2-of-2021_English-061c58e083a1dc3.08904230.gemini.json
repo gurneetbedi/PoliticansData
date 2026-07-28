@@ -1,0 +1,27 @@
+{
+  "state_name": "Jharkhand",
+  "audit_year": "2019-20",
+  "report_number": "Report No. 2 for the year 2021",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.7,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 0.83,
+    "debt_pct_gsdp": 28.98,
+    "interest_pct_revenue_receipts": 9.09,
+    "capital_outlay_pct_gsdp": 3.06,
+    "revenue_receipts_pct_gsdp": 17.78,
+    "own_tax_revenue_pct_gsdp": 5.1
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 328598.0,
+    "outstanding_debt_crore": 94407.0
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 130,
+    "money_value_of_observations_crore": 0.0
+  },
+  "extraction_confidence": "medium",
+  "extraction_notes": "State name, audit year, and report number from cover page. GSDP from page 19. Gross fiscal deficit and debt percentage are from Table 1.7 'Pre and post audit major fiscal variables for 2019-20' on page 26, using 'Actuals after post audit' values. Revenue deficit percentage is 0 as the state had a revenue surplus of 0.13% of GSDP after post audit (Table 1.7, page 26). Primary deficit, capital outlay, revenue receipts, and own tax revenue percentages are from Table 1.3 'Actual Financial Results vis-à-vis Budget estimates' on page 23. Interest as percentage of revenue receipts from Table 2.17 on page 47. Outstanding debt (absolute) from Chart 2.13 on page 61. PAC recommendations pending from page 120. Values for 'raised_this_year', 'outstanding_over_5_years', and 'money_value_of_observations_crore' for audit paras were not explicitly found in the report."
+}

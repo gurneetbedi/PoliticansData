@@ -1,0 +1,27 @@
+{
+  "state_name": "Assam",
+  "audit_year": "2018-19",
+  "report_number": "Report No. 1 of 2020",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 1.52,
+    "revenue_deficit_pct_gsdp": 0,
+    "primary_deficit_pct_gsdp": 0.3,
+    "debt_pct_gsdp": 18.84,
+    "interest_pct_revenue_receipts": 6.06,
+    "capital_outlay_pct_gsdp": 3.5,
+    "revenue_receipts_pct_gsdp": 20.13,
+    "own_tax_revenue_pct_gsdp": 5.05
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 315372,
+    "outstanding_debt_crore": 59426
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 0
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Revenue Deficit is reported as a surplus of 6,580 crore (2.09% of GSDP) in the report. As per instructions, reported as 0 for deficit. Primary Deficit is reported as a deficit of 935 crore (0.30% of GSDP). Fiscal Deficit is reported as a deficit of 4,779 crore (1.52% of GSDP). The report mentions misclassification of revenue items under capital category, which if adjusted, would result in a lower Revenue Surplus of ₹1,291 crore, but the extracted value is based on the directly stated figure of ₹6,580 crore (2.09% of GSDP). Specific audit para counts (raised, outstanding, pending, money value) were not found explicitly in summary tables, hence reported as 0."
+}

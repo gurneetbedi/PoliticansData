@@ -1,37 +1,15 @@
 pdf,candidate,constituency,party,failure
-AJAY_KUMAR__1662.pdf,AJAY KUMAR,MINAPUR,Janata Dal (United),gemini_ok_but_apply
-AMOD_KUMAR_SINGH__5943.pdf,AMOD KUMAR SINGH,NABINAGAR,Rashtriya Janata Dal,gemini_ok_but_apply
-BHAI_BIRENDRA__228.pdf,BHAI BIRENDRA,MANER,Rashtriya Janata Dal,corrupt_pdf
-BIJENDRA_PRASAD_YADAV__174.pdf,BIJENDRA PRASAD YADAV,SUPAUL,Janata Dal (United),corrupt_pdf
+AJAY_KUMAR__1662.pdf,AJAY KUMAR,MINAPUR,Janata Dal (United),gemini_no_wealth
+AMOD_KUMAR_SINGH__5943.pdf,AMOD KUMAR SINGH,NABINAGAR,Rashtriya Janata Dal,gemini_no_wealth
+BIJENDRA_PRASAD_YADAV__174.pdf,BIJENDRA PRASAD YADAV,SUPAUL,Janata Dal (United),no_pdf
 BINITA_MEHTA__6334.pdf,BINITA MEHTA,GOBINDPUR,Lok Janshakti Party (Ram Vilas),gemini_ok_but_apply
-BRIJ_KISHOR_BIND__4945.pdf,BRIJ KISHOR BIND,CHAINPUR,Rashtriya Janata Dal,gemini_ok_but_apply
-CHANDRA_SHEKHAR__3289.pdf,CHANDRA SHEKHAR,MADHEPURA,Rashtriya Janata Dal,no_gemini
-DEEPAK_YADAV__6258.pdf,DEEPAK YADAV,NARKATIAGANJ,Rashtriya Janata Dal,gemini_raw
-DR__VIPIN_KUMAR_SINGH__4858.pdf,DR. VIPIN KUMAR SINGH,CHHATAPUR,Rashtriya Janata Dal,gemini_ok_but_apply
-GAUTAM_KRISHNA__2690.pdf,GAUTAM KRISHNA,MAHISHI,Rashtriya Janata Dal,gemini_raw
-GHULAM_SHAHID__6006.pdf,GHULAM SHAHID,RAFIGANJ,Rashtriya Janata Dal,gemini_ok_but_apply
-GOPAL_KUMAR_AGARWAL__80.pdf,GOPAL KUMAR AGARWAL,THAKURGANJ,Janata Dal (United),corrupt_pdf
-JITENDRA_KUMAR__1748.pdf,JITENDRA KUMAR,ASTHAWAN,Janata Dal (United),corrupt_pdf
-KARNJEET_SINGH_ALIAS_VYAS_SINGH__1614.pdf,KARNJEET SINGH ALIAS VYAS SINGH,DARAUNDA,Bharatiya Janata Party,corrupt_pdf
-KAVITA_KUMARI_SAHA__2871.pdf,KAVITA KUMARI SAHA,MADHEPURA,Janata Dal (United),corrupt_pdf
-KUMAR_SHAILENDRA__4579.pdf,KUMAR SHAILENDRA,BIHPUR,Bharatiya Janata Party,corrupt_pdf
-LAKSHMI_NARAYAN_PRASAD_YADAV__4785.pdf,LAKSHMI NARAYAN PRASAD YADAV,CHIRAIA,Rashtriya Janata Dal,corrupt_pdf
-MANISH_YADAV__6204.pdf,MANISH YADAV,NARPATGANJ,Rashtriya Janata Dal,gemini_ok_but_apply
-MINNATULLAH_RAHMANI__5384.pdf,MINNATULLAH RAHMANI,SUPAUL,Indian National Congress,gemini_raw
-MITHILESH_KUMAR_CHOUDHARY__2326.pdf,MITHILESH KUMAR CHOUDHARY,BENIPUR,Indian National Congress,corrupt_pdf
-NAND_KISHOR_RAM__4310.pdf,NAND KISHOR RAM,RAMNAGAR,Bharatiya Janata Party,gemini_ok_but_apply
-PRAMOD_KUMAR__2301.pdf,PRAMOD KUMAR,MOTIHARI,Bharatiya Janata Party,no_gemini
-RAJESH_KUMAR__6242.pdf,RAJESH KUMAR,KUTUMBA,Indian National Congress,corrupt_pdf
-RAJU_TIWARI__4039.pdf,RAJU TIWARI,GOVINDGANJ,Lok Janshakti Party (Ram Vilas),corrupt_pdf
-RIT_LAL_ROY__803.pdf,RIT LAL ROY,DANAPUR,Rashtriya Janata Dal,corrupt_pdf
-ROHIT_PANDEY__1921.pdf,ROHIT PANDEY,BHAGALPUR,Bharatiya Janata Party,gemini_ok_but_apply
-SARITA_DEVI__2638.pdf,SARITA DEVI,SONBARSHA,Indian National Congress,gemini_ok_but_apply
-SHASHI_SHANKAR_KUMAR_ALIAS_RAJESH_YADAV__6142.pdf,SHASHI SHANKAR KUMAR ALIAS RAJESH YADAV,DINARA,Rashtriya Janata Dal,gemini_ok_but_apply
-SHYAM_BIHARI_PRASAD__5396.pdf,SHYAM BIHARI PRASAD,RAXAUL,Indian National Congress,no_gemini
-SUBODH_KUMAR__5512.pdf,SUBODH KUMAR,RAMNAGAR,Rashtriya Janata Dal,gemini_ok_but_apply
-SUJIT_KUMAR__490.pdf,SUJIT KUMAR,GAURA BAURAM,Bharatiya Janata Party,no_gemini
-SUSHIL_KUMAR__2898.pdf,SUSHIL KUMAR,CHERIA - BARIARPUR,Rashtriya Janata Dal,corrupt_pdf
-SWEETY_SIMA_HEMBROM__5855.pdf,SWEETY SIMA HEMBROM,KATORIA,Rashtriya Janata Dal,no_gemini
-TANUSHREE_KUMARI__6037.pdf,TANUSHREE KUMARI,BARACHATTI,Rashtriya Janata Dal,corrupt_pdf
-TARKISHORE_PRASAD__3877.pdf,TARKISHORE PRASAD,KATIHAR,Bharatiya Janata Party,corrupt_pdf
-UDAY_KUMAR_SINGH__5207.pdf,UDAY KUMAR SINGH,SHERGHATI,Lok Janshakti Party (Ram Vilas),no_gemini
+BRIJ_KISHOR_BIND__4945.pdf,BRIJ KISHOR BIND,CHAINPUR,Rashtriya Janata Dal,gemini_no_wealth
+DR__VIPIN_KUMAR_SINGH__4858.pdf,DR. VIPIN KUMAR SINGH,CHHATAPUR,Rashtriya Janata Dal,gemini_no_wealth
+GHULAM_SHAHID__6006.pdf,GHULAM SHAHID,RAFIGANJ,Rashtriya Janata Dal,gemini_no_wealth
+MANISH_YADAV__6204.pdf,MANISH YADAV,NARPATGANJ,Rashtriya Janata Dal,gemini_no_wealth
+MINNATULLAH_RAHMANI__5384.pdf,MINNATULLAH RAHMANI,SUPAUL,Indian National Congress,gemini_empty
+NAND_KISHOR_RAM__4310.pdf,NAND KISHOR RAM,RAMNAGAR,Bharatiya Janata Party,gemini_no_wealth
+ROHIT_PANDEY__1921.pdf,ROHIT PANDEY,BHAGALPUR,Bharatiya Janata Party,gemini_no_wealth
+SARITA_DEVI__2638.pdf,SARITA DEVI,SONBARSHA,Indian National Congress,gemini_no_wealth
+SHASHI_SHANKAR_KUMAR_ALIAS_RAJESH_YADAV__6142.pdf,SHASHI SHANKAR KUMAR ALIAS RAJESH YADAV,DINARA,Rashtriya Janata Dal,gemini_no_wealth
+SUBODH_KUMAR__5512.pdf,SUBODH KUMAR,RAMNAGAR,Rashtriya Janata Dal,gemini_no_wealth

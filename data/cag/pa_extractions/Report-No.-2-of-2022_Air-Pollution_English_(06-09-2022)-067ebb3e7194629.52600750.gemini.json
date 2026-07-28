@@ -1,0 +1,9 @@
+{
+  "state_name": "Delhi",
+  "report_topic": "Performance Audit of 'Prevention and Mitigation of Vehicular Air Pollution in Delhi'",
+  "report_no": "2 of the year 2022",
+  "audit_period_start_fy": 2015,
+  "audit_period_end_fy": 2021,
+  "observations_summary": "The audit found significant deficiencies in Delhi's air quality monitoring system, including unreliable data and lack of source information. It also highlighted severe shortcomings in public transport, vehicle emission testing, ELV management, and the implementation of cleaner transport strategies, leading to persistent vehicular air pollution.",
+  "extraction_confidence": "high"
+}

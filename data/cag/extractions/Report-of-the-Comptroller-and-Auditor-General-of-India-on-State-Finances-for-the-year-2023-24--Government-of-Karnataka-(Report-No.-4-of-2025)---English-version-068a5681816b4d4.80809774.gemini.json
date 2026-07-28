@@ -1,0 +1,27 @@
+{
+  "state_name": "Karnataka",
+  "audit_year": "2023-24",
+  "report_number": "Report No.04 of 2025",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.55,
+    "revenue_deficit_pct_gsdp": 0.36,
+    "primary_deficit_pct_gsdp": 1.36,
+    "debt_pct_gsdp": 23.49,
+    "interest_pct_revenue_receipts": 13.66,
+    "capital_outlay_pct_gsdp": 2.03,
+    "revenue_receipts_pct_gsdp": 9.09,
+    "own_tax_revenue_pct_gsdp": 6.37
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 2567340,
+    "outstanding_debt_crore": 633531
+  },
+  "audit_paras": {
+    "raised_this_year": 9,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 14549.9125
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "All fiscal indicators and absolute figures for 2023-24 were extracted from the Executive Summary (Pages 12-15) and tables in Chapter 1 (Page 26, 31) and Chapter 2 (Page 55). The number of audit paras raised this year is from Table 3.8 on Page 109. The money value of observations is from Page 126, referring to unremitted interest earned up to 2023-24. Outstanding over 5 years and PAC recommendations pending were not explicitly found for the current audit year."
+}

@@ -1,0 +1,18 @@
+{
+  "state_name": "Karnataka",
+  "report_topic": "Supply Chain Management of Public Distribution System",
+  "report_no": "5/2024",
+  "audit_period_start_fy": 2018,
+  "audit_period_end_fy": 2022,
+  "total_projects_audited": 114,
+  "projects_time_overrun": 0,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 23470.31,
+  "total_actual_expenditure_crore": 20885.32,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit identified significant inefficiencies and control weaknesses in Karnataka's Public Distribution System supply chain, leading to unjustified transportation costs, spoilage of foodgrains at Wholesale Depots due to poor storage, and a short supply of foodgrains worth ₹11.84 crore at Fair Price Shops. Issues included non-compliance with norms, inadequate inspections, and weak internal monitoring mechanisms.",
+  "extraction_confidence": "high"
+}

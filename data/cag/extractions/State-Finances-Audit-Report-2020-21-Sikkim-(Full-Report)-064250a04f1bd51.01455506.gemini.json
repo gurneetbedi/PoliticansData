@@ -1,0 +1,27 @@
+{
+  "state_name": "Sikkim",
+  "audit_year": "2020-21",
+  "report_number": "Report No. 1 of 2022",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 6.95,
+    "revenue_deficit_pct_gsdp": 2.32,
+    "primary_deficit_pct_gsdp": 5.27,
+    "debt_pct_gsdp": 27.68,
+    "interest_pct_revenue_receipts": 9.78,
+    "capital_outlay_pct_gsdp": 4.63,
+    "revenue_receipts_pct_gsdp": 17.14,
+    "own_tax_revenue_pct_gsdp": 2.95
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 32724.47,
+    "outstanding_debt_crore": 9058.84
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 2.64
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Interest as % of revenue receipts is 9.78 (Page 61, Table 2.22), which matches calculation from Page 31, Table 1.4 (548.41/5607.82 * 100). Page 15 text and Page 84 Table 2.44 state 8.03, which is a discrepancy. Money value of observations refers to misappropriation cases (Page 19)."
+}

@@ -1,0 +1,27 @@
+{
+  "state_name": "Uttar Pradesh",
+  "audit_year": "2019-20",
+  "report_number": "Report No. 4 of the year 2021",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.35,
+    "revenue_deficit_pct_gsdp": 0.2,
+    "primary_deficit_pct_gsdp": 0.0,
+    "debt_pct_gsdp": 28.28,
+    "interest_pct_revenue_receipts": 9.5,
+    "capital_outlay_pct_gsdp": 3.34,
+    "revenue_receipts_pct_gsdp": 16.45,
+    "own_tax_revenue_pct_gsdp": 6.84
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 1794508.0,
+    "outstanding_debt_crore": 507519.6
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 14151.01
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal deficit, revenue deficit, and total debt percentages are adjusted based on audit findings detailed in the report (pages 38, 79), which highlight the impact of Sinking Fund transfer and extra-budget borrowings on the reported figures. The reported fiscal surplus of 0.62% of GSDP (Table 1.5, page 33) becomes a deficit of 3.35% of GSDP after adjustment (calculated from 60,097.54 crore on page 79 and GSDP on page 24). The reported revenue surplus of 3.76% of GSDP (Table 1.5, page 33) becomes a deficit of 0.20% of GSDP after adjustment (calculated from 3,620.09 crore on page 79 and GSDP on page 24). Primary deficit is reported as a surplus (2.56% of GSDP, Table 1.5, page 33), so 0.00 is reported. Total debt is adjusted from 28.00% to 28.28% of GSDP due to extra-budget borrowings (Table 1.9, page 38). Revenue receipts percentage is adjusted from 20.42% (Table 2.2(a), page 47) to 16.45% (Table 2.2(b), page 47) excluding Sinking Fund transfer. Money value of observations refers to the overstatement of fiscal surplus by 14,151.01 crore (Table 1.8, page 38). No specific consolidated figures for audit paras raised, outstanding over 5 years, or PAC recommendations pending were found."
+}

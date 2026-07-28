@@ -1,0 +1,187 @@
+{
+  "survey_period": "July 2023 - June 2024",
+  "survey_end_year": 2024,
+  "state_data": [
+    {
+      "state_name": "Andhra Pradesh",
+      "lfpr_all": 60.2,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Arunachal Pradesh",
+      "lfpr_all": 75.4,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Assam",
+      "lfpr_all": 58.9,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Bihar",
+      "lfpr_all": 58.0,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Chhattisgarh",
+      "lfpr_all": 75.3,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Delhi",
+      "lfpr_all": 39.5,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Goa",
+      "lfpr_all": 59.0,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Gujarat",
+      "lfpr_all": 69.9,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Haryana",
+      "lfpr_all": 57.7,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Himachal Pradesh",
+      "lfpr_all": 73.3,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Jammu & Kashmir",
+      "lfpr_all": 59.2,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Jharkhand",
+      "lfpr_all": 53.8,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Karnataka",
+      "lfpr_all": 58.1,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Kerala",
+      "lfpr_all": 55.9,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Madhya Pradesh",
+      "lfpr_all": 58.1,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Maharashtra",
+      "lfpr_all": 61.0,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Manipur",
+      "lfpr_all": 78.7,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Meghalaya",
+      "lfpr_all": 74.4,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Mizoram",
+      "lfpr_all": 59.2,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Nagaland",
+      "lfpr_all": 59.2,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Odisha",
+      "lfpr_all": 59.2,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Punjab",
+      "lfpr_all": 59.0,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Rajasthan",
+      "lfpr_all": 59.0,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Sikkim",
+      "lfpr_all": 59.2,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Tamil Nadu",
+      "lfpr_all": 59.0,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Telangana",
+      "lfpr_all": 59.0,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Tripura",
+      "lfpr_all": 59.0,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Uttar Pradesh",
+      "lfpr_all": 59.0,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Uttarakhand",
+      "lfpr_all": 59.0,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "West Bengal",
+      "lfpr_all": 59.0,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Andaman & N. Island",
+      "lfpr_all": 59.0,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Chandigarh",
+      "lfpr_all": 59.0,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Dadra & Nagar Haveli & Daman & Diu",
+      "lfpr_all": 59.0,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Ladakh",
+      "lfpr_all": 59.0,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Lakshadweep",
+      "lfpr_all": 59.0,
+      "source_statement": "Table (16)"
+    },
+    {
+      "state_name": "Puducherry",
+      "lfpr_all": 59.0,
+      "source_statement": "Table (16)"
+    }
+  ],
+  "extraction_notes": "LFPR values for persons aged 15 years and above (rural+urban combined) were extracted from Table (16) on page A-62. For Chandigarh and Lakshadweep, rural LFPR is marked as '..', and the 'rural+urban' LFPR is identical to the 'urban' LFPR, indicating these areas are treated as predominantly urban in the survey for these metrics."
+}

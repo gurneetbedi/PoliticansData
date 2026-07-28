@@ -1,0 +1,27 @@
+{
+  "state_name": "Tripura",
+  "audit_year": "2017-18",
+  "report_number": "Report No. 1 of 2019",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 5.22,
+    "revenue_deficit_pct_gsdp": 0.73,
+    "primary_deficit_pct_gsdp": 2.99,
+    "debt_pct_gsdp": 33.72,
+    "interest_pct_revenue_receipts": 8.81,
+    "capital_outlay_pct_gsdp": 0,
+    "revenue_receipts_pct_gsdp": 25.38,
+    "own_tax_revenue_pct_gsdp": 3.58
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 39669.69,
+    "outstanding_debt_crore": 13376.1
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 2154.13
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "State name, audit year, and report number from cover page. Fiscal deficit % GSDP from Page 14, 21, 63. Revenue deficit % GSDP from Page 40, 63. Primary deficit % GSDP from Page 104 (Appendix 1.4). Debt % GSDP from Page 15, 21, 63. Interest % revenue receipts from Page 59 (Table 1.35). Capital outlay % GSDP not explicitly stated, so set to 0. Revenue receipts % GSDP from Page 27 (Table 1.7). Own tax revenue % GSDP from Page 30 (Table 1.11). GSDP current crore from Page 19 (Table 1.1). Outstanding debt crore (total liabilities) from Page 63. Money value of observations crore from Page 81 (pending Utilisation Certificates). Specific counts for audit paras (raised this year, outstanding over 5 years, PAC recommendations pending) were not found in a consolidated manner, so set to 0."
+}

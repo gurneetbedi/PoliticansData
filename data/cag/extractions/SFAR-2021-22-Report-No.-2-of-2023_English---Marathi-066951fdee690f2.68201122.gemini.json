@@ -1,0 +1,25 @@
+{
+  "state_name": "Maharashtra",
+  "audit_year": "2021-22",
+  "report_number": "Report No. 2 of the year 2023",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.01,
+    "revenue_deficit_pct_gsdp": 0.51,
+    "primary_deficit_pct_gsdp": 0.76,
+    "debt_pct_gsdp": 18.53,
+    "interest_pct_revenue_receipts": 10.22,
+    "capital_outlay_pct_gsdp": 1.46,
+    "revenue_receipts_pct_gsdp": 10.42,
+    "own_tax_revenue_pct_gsdp": 6.91
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 3197782,
+    "outstanding_debt_crore": 606295
+  },
+  "audit_paras": {
+    "raised_this_year": 12,
+    "outstanding_over_5_years": 45
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal indicators are primarily from Table 1.4, 1.5, and Appendix 2.1 Part E. Absolute figures are from Table 1.1 and Executive Summary. Audit paras are from Executive Summary and Table 3.6. Revenue Deficit, Fiscal Deficit, and Primary Deficit are reported as positive magnitudes as per instructions. PAC recommendations pending and money value of observations are not explicitly found for the current report."
+}

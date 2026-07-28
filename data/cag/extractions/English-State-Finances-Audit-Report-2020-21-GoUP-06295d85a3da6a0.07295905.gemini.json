@@ -1,0 +1,27 @@
+{
+  "state_name": "Uttar Pradesh",
+  "audit_year": "2020-21",
+  "report_number": "Report No. 2 of the year 2022",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.2,
+    "revenue_deficit_pct_gsdp": 0.14,
+    "primary_deficit_pct_gsdp": 1.01,
+    "debt_pct_gsdp": 32.87,
+    "interest_pct_revenue_receipts": 11.28,
+    "capital_outlay_pct_gsdp": 3.06,
+    "revenue_receipts_pct_gsdp": 17.37,
+    "own_tax_revenue_pct_gsdp": 7.03
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 1705593,
+    "outstanding_debt_crore": 566608.57
+  },
+  "audit_paras": {
+    "raised_this_year": 3,
+    "outstanding_over_5_years": 135,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 9.3078
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Money value of observations for misappropriation, losses, thefts, etc. is taken from Table 4.18 (page 131) which states 930.78 lakh, converted to 9.3078 crore. This contradicts the Executive Summary (page 19) which states 930.78 crore. Debt figures (debt_pct_gsdp and outstanding_debt_crore) are taken from the post-audit examination in Table 1.9 (page 38). 'Raised this year' audit paras refers to the 3 instances of excess disbursement in Table 3.3 (page 94). 'Outstanding over 5 years' refers to the 135 cases of misappropriation, losses, thefts, etc. from Table 4.18 (page 131), all of which are older than 5 years."
+}

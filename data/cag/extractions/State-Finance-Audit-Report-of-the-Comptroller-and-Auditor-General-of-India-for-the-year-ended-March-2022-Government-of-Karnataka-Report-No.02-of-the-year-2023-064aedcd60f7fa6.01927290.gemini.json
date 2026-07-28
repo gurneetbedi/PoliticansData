@@ -1,0 +1,27 @@
+{
+  "state_name": "Karnataka",
+  "audit_year": "2021-22",
+  "report_number": "Report No. 02 of the year 2023",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.84,
+    "revenue_deficit_pct_gsdp": 0.79,
+    "primary_deficit_pct_gsdp": 2.31,
+    "debt_pct_gsdp": 26.71,
+    "interest_pct_revenue_receipts": 13.42,
+    "capital_outlay_pct_gsdp": 2.78,
+    "revenue_receipts_pct_gsdp": 11.37,
+    "own_tax_revenue_pct_gsdp": 7.01
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 1721336,
+    "outstanding_debt_crore": 490256
+  },
+  "audit_paras": {
+    "raised_this_year": 13,
+    "outstanding_over_5_years": 2,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 430.149
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "State name and audit year from cover page. Report number from cover page. Fiscal indicators (gross fiscal deficit, revenue deficit, primary deficit, debt, capital outlay, revenue receipts) as percentage of GSDP are from Chart 1.7 (Page 24) and Table 1.4 (Page 25). Own tax revenue as percentage of GSDP is from text on Page 11. Interest as percentage of revenue receipts is from Table 2.37 (Page 78). GSDP at current prices from Table 1.1 (Page 16). Outstanding debt from Table 1.4 (Page 25). Audit paras raised this year is interpreted as the count of main numbered observations in Chapter 4 (4.1 to 4.13). Outstanding over 5 years is the sum of UCs from 2012-13 and 2017-18 (Table 4.3, Page 110). PAC recommendations pending is not explicitly quantified as a count. Money value of observations is a sum of outstanding UCs (325.50 crore, Page 115), pending NDC bills (63.89 crore, Page 111), misappropriation/losses/thefts (37.37 crore, Page 113), and unremitted interest (3.389 crore, Table 4.1, Page 109)."
+}

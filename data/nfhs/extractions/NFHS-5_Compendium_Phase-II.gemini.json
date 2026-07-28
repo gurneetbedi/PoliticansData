@@ -1,0 +1,81 @@
+{
+  "phase": "II",
+  "state_data": [
+    {
+      "state_name": "India",
+      "institutional_births_pct": 88.6,
+      "fully_vaccinated_pct": 76.4
+    },
+    {
+      "state_name": "Arunachal Pradesh",
+      "institutional_births_pct": 79.2,
+      "fully_vaccinated_pct": 64.9
+    },
+    {
+      "state_name": "Chhattisgarh",
+      "institutional_births_pct": 85.7,
+      "fully_vaccinated_pct": 79.7
+    },
+    {
+      "state_name": "Haryana",
+      "institutional_births_pct": 94.9,
+      "fully_vaccinated_pct": 76.9
+    },
+    {
+      "state_name": "Jharkhand",
+      "institutional_births_pct": 75.8,
+      "fully_vaccinated_pct": 73.9
+    },
+    {
+      "state_name": "Madhya Pradesh",
+      "institutional_births_pct": 90.7,
+      "fully_vaccinated_pct": 77.1
+    },
+    {
+      "state_name": "Odisha",
+      "institutional_births_pct": 92.2,
+      "fully_vaccinated_pct": 90.5
+    },
+    {
+      "state_name": "Punjab",
+      "institutional_births_pct": 94.3,
+      "fully_vaccinated_pct": 76.2
+    },
+    {
+      "state_name": "Rajasthan",
+      "institutional_births_pct": 94.9,
+      "fully_vaccinated_pct": 80.4
+    },
+    {
+      "state_name": "Tamil Nadu",
+      "institutional_births_pct": 99.6,
+      "fully_vaccinated_pct": 89.2
+    },
+    {
+      "state_name": "Uttar Pradesh",
+      "institutional_births_pct": 83.4,
+      "fully_vaccinated_pct": 69.6
+    },
+    {
+      "state_name": "Uttarakhand",
+      "institutional_births_pct": 83.2,
+      "fully_vaccinated_pct": 80.8
+    },
+    {
+      "state_name": "Chandigarh (UT)",
+      "institutional_births_pct": 96.9,
+      "fully_vaccinated_pct": 81.7
+    },
+    {
+      "state_name": "NCT of Delhi (UT)",
+      "institutional_births_pct": 91.8,
+      "fully_vaccinated_pct": 76.0
+    },
+    {
+      "state_name": "Puducherry (UT)",
+      "institutional_births_pct": 99.6,
+      "fully_vaccinated_pct": 82.0
+    }
+  ],
+  "extraction_notes": "For Chandigarh (UT) and Puducherry (UT), the 'fully_vaccinated_pct' values were enclosed in parentheses in the source document, indicating unreliable sample data. As per instructions, these values are included as they are directly stated, but the parentheses are removed for numerical parsing."
+}

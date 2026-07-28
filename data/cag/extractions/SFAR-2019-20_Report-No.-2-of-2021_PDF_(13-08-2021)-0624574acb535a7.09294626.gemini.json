@@ -1,0 +1,27 @@
+{
+  "state_name": "Arunachal Pradesh",
+  "audit_year": "2019-20",
+  "report_number": "Report No. 2 of 2021",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.82,
+    "revenue_deficit_pct_gsdp": 0,
+    "primary_deficit_pct_gsdp": 1.54,
+    "debt_pct_gsdp": 44.87,
+    "interest_pct_revenue_receipts": 4.13,
+    "capital_outlay_pct_gsdp": 13.66,
+    "revenue_receipts_pct_gsdp": 55.07,
+    "own_tax_revenue_pct_gsdp": 4.54
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 27036.64,
+    "outstanding_debt_crore": 12131.46
+  },
+  "audit_paras": {
+    "raised_this_year": 157,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 3179.78
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Revenue deficit is reported as 0 as the state had a revenue surplus of 9.87% of GSDP for the audit year. The 'raised_this_year' count is a sum of distinct categories of audit observations for 2019-20 mentioned in the Executive Summary (Page 17). 'Outstanding_over_5_years' and 'pac_recommendations_pending' are reported as 0 as specific integer counts of audit paras were not found. The 'money_value_of_observations_crore' refers to excess expenditure pending regularization from previous years (Page 17)."
+}

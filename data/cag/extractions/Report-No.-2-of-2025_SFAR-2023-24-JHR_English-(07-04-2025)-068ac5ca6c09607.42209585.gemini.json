@@ -1,0 +1,27 @@
+{
+  "state_name": "Jharkhand",
+  "audit_year": "2023-24",
+  "report_number": "Report No. 2 of 2025",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 1.37,
+    "revenue_deficit_pct_gsdp": 0,
+    "primary_deficit_pct_gsdp": 0,
+    "debt_pct_gsdp": 27.68,
+    "interest_pct_revenue_receipts": 7.78,
+    "capital_outlay_pct_gsdp": 4.46,
+    "revenue_receipts_pct_gsdp": 19.07,
+    "own_tax_revenue_pct_gsdp": 6.07
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 461010.45,
+    "outstanding_debt_crore": 127608.51
+  },
+  "audit_paras": {
+    "raised_this_year": 2,
+    "outstanding_over_5_years": 45123,
+    "pac_recommendations_pending": 10,
+    "money_value_of_observations_crore": 138053.22
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal deficit, revenue deficit, and primary deficit are reported as positive magnitudes. Revenue and Primary deficits were actually surpluses for 2023-24, so reported as 0. Audit paras raised this year refers to explicit mentions of excess expenditure in 2023-24 (Page 17, 90, 96). Outstanding audit paras over 5 years is the sum of outstanding UCs (28029 from Table 4.4, page 112) and DC bills (17094 from Table 4.8, page 115) older than 5 years. Money value of observations is the sum of outstanding UCs (133161.50 crore from Table 4.3, page 112) and DC bills (4891.72 crore from Table 4.8, page 115). PAC recommendations pending refers to 10 grants with excess expenditure yet to be regularised (Page 17)."
+}

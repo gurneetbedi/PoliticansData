@@ -1,0 +1,27 @@
+{
+  "state_name": "Goa",
+  "audit_year": "2022-23",
+  "report_number": "Report No. 3 of the year 2024",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 1.13,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 0.0,
+    "debt_pct_gsdp": 32.45,
+    "interest_pct_revenue_receipts": 10.51,
+    "capital_outlay_pct_gsdp": 3.78,
+    "revenue_receipts_pct_gsdp": 19.07,
+    "own_tax_revenue_pct_gsdp": 8.64
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 90642.0,
+    "outstanding_debt_crore": 31104.12
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 16,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 1.7744
+  },
+  "extraction_confidence": "medium",
+  "extraction_notes": "Revenue deficit and primary deficit are reported as surpluses for 2022-23, hence recorded as 0. Debt to GSDP and outstanding debt figures include off-budget borrowings as adjusted in the report (Page 13, 37). There is a discrepancy in 'interest_pct_revenue_receipts' between Table 2.35 (10.51%) and Table 2.39 (9.05%); 10.51% is used as it is consistent with absolute figures in Table 1.2 and 2.20. Audit paras figures for 'outstanding_over_5_years' and 'money_value_of_observations_crore' are based on misappropriation cases as detailed in Table 4.15 (Page 147). 'Raised this year' and 'PAC recommendations pending' were not explicitly found."
+}

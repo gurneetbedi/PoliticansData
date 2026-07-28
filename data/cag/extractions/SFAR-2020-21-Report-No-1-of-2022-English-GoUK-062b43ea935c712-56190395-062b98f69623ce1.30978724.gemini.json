@@ -1,0 +1,27 @@
+{
+  "state_name": "Uttarakhand",
+  "audit_year": "2020-21",
+  "report_number": "Report No. 1 of the year 2022",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.29,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 0.28,
+    "debt_pct_gsdp": 30.05,
+    "interest_pct_revenue_receipts": 12.49,
+    "capital_outlay_pct_gsdp": 2.75,
+    "revenue_receipts_pct_gsdp": 16.07,
+    "own_tax_revenue_pct_gsdp": 5.0
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 237747.0,
+    "outstanding_debt_crore": 71435.0
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 3976.1
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Revenue Deficit is reported as a surplus of 0.47% of GSDP. Debt % of GSDP (30.05%) and Outstanding Debt (71,435 crore) are reported after excluding a back-to-back loan of ₹2,316 crore, as per the report's clarification that this loan would not be treated as state debt for fiscal norms. Money value of observations is the sum of significant expenditure (₹1,030.48 crore) and receipts (₹2,945.62 crore) booked under omnibus minor heads during 2020-21, which affected transparency in financial reporting (Page 138, 4.19 Conclusions). Own Tax Revenue % of GSDP taken from Appendix-2.1, Fiscal Health Indicators (Page 164). Other audit para counts (raised_this_year, outstanding_over_5_years, pac_recommendations_pending) were not explicitly found in the report."
+}

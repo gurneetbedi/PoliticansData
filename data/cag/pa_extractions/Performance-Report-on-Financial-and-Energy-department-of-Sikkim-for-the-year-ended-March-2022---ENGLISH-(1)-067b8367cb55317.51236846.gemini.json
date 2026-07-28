@@ -1,0 +1,18 @@
+{
+  "state_name": "Sikkim",
+  "report_topic": "Performance Audit on Financial and Energy Management by Power Department of Government of Sikkim",
+  "report_no": "2 of 2024",
+  "audit_period_start_fy": 2018,
+  "audit_period_end_fy": 2022,
+  "total_projects_audited": 0,
+  "projects_time_overrun": 0,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0.0,
+  "avg_cost_overrun_pct": 0.0,
+  "total_budgeted_crore": 3410.08,
+  "total_actual_expenditure_crore": 1488.92,
+  "financial_utilization_pct": 44.0,
+  "physical_achievement_pct": 0.0,
+  "observations_summary": "The audit found significant deficiencies in financial and energy management by the Power Department of Sikkim, including non-remittance of ₹1,925.55 crore revenue into the Consolidated Fund, off-budget borrowings without legislative approval, and ₹249.76 crore losses from trading surplus power due to improper planning. Other issues included non-recovery of dues, undue benefits to private entities, and poor accounting practices.",
+  "extraction_confidence": "high"
+}

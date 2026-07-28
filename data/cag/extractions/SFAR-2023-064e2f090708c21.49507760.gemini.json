@@ -1,0 +1,27 @@
+{
+  "state_name": "Goa",
+  "audit_year": "2021-22",
+  "report_number": "Report No. 2 of the year 2023",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.07,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 0.99,
+    "debt_pct_gsdp": 32.13,
+    "interest_pct_revenue_receipts": 12.48,
+    "capital_outlay_pct_gsdp": 3.14,
+    "revenue_receipts_pct_gsdp": 16.73,
+    "own_tax_revenue_pct_gsdp": 6.8
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 85380.0,
+    "outstanding_debt_crore": 29118.0
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 1971.11
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "State name, audit year, and report number from cover page. Fiscal indicators for 2021-22 are from Tables 1.2, 1.4, 1.5, 1.6, 2.3, 2.15, 2.19, and 2.38. Revenue deficit is reported as a surplus of ₹59 crore, hence 0% deficit. Primary deficit percentage calculated from absolute figure of ₹841 crore (deficit) and GSDP of ₹85,380 crore. Absolute figures for GSDP and outstanding debt are from page 16 and Chart 1.4 respectively. Money value of observations refers to outstanding Utilisation Certificates (UCs) as of March 2022 (Page 13 & 126). Specific counts for audit paras (raised this year, outstanding over 5 years, PAC recommendations pending) were not explicitly found in the report's summary or conclusion sections."
+}

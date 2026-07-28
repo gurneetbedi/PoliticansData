@@ -1,0 +1,18 @@
+{
+  "state_name": "Uttar Pradesh",
+  "report_topic": "Pradhan Mantri Awaas Yojna – Gramin Implementation",
+  "report_no": "8 of 2025",
+  "audit_period_start_fy": 2018,
+  "audit_period_end_fy": 2023,
+  "total_projects_audited": 2178,
+  "projects_time_overrun": 20215,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 40231,
+  "total_actual_expenditure_crore": 37984,
+  "financial_utilization_pct": 94.41,
+  "physical_achievement_pct": 98.47,
+  "observations_summary": "The audit found significant physical progress (98.47% completion of sanctioned houses) but noted deficiencies in beneficiary identification, fund transfers, and quality of construction. Key issues included 20,215 houses incomplete beyond the timeline, funds released to 1,838 ineligible beneficiaries, and lack of basic amenities (e.g., 89% without piped water, 74% without plaster) in physically verified houses.",
+  "extraction_confidence": "high"
+}

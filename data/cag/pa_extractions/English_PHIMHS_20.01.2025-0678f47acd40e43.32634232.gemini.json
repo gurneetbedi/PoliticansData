@@ -1,0 +1,18 @@
+{
+  "state_name": "Kerala",
+  "report_topic": "Public Health Infrastructure and Management of Health Services",
+  "report_no": "6 of the year 2024",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2022,
+  "total_projects_audited": 105,
+  "projects_time_overrun": 39,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 50992.85,
+  "total_actual_expenditure_crore": 48735.92,
+  "financial_utilization_pct": 98.92,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit found significant shortages in human resources (doctors, nurses, paramedics) and critical medical equipment, leading to service delivery issues. Infrastructure projects faced inordinate delays and abandonment, while drug availability was hampered by procurement issues and stock-outs. Regulatory mechanisms were inadequate, and the state showed poor performance in several SDG-3 health indicators, including high out-of-pocket expenditure and elevated suicide and road accident death rates.",
+  "extraction_confidence": "high"
+}

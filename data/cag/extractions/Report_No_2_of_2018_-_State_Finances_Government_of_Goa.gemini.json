@@ -1,0 +1,27 @@
+{
+  "state_name": "Goa",
+  "audit_year": "2016-17",
+  "report_number": "Report No. 2 of the year 2018",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 1.45,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 0.0,
+    "debt_pct_gsdp": 26.07,
+    "interest_pct_revenue_receipts": 12.0,
+    "capital_outlay_pct_gsdp": 2.54,
+    "revenue_receipts_pct_gsdp": 14.82,
+    "own_tax_revenue_pct_gsdp": 6.6
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 64544.0,
+    "outstanding_debt_crore": 16824.0
+  },
+  "audit_paras": {
+    "raised_this_year": 41,
+    "outstanding_over_5_years": 6612,
+    "pac_recommendations_pending": 16,
+    "money_value_of_observations_crore": 539.77
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Revenue and Primary deficits are reported as 0 because the state had a surplus in 2016-17. Debt percentage refers to 'fiscal liabilities to GSDP'. 'Raised this year' audit paras include 3 excess expenditure cases (Table 2.2, page 66) and 38 significant savings cases (Table 2.4, page 67) for 2016-17. 'Outstanding over 5 years' and its money value refer to Utilisation Certificates (Table 3.1, page 84). 'PAC recommendations pending' refers to excess expenditure cases from previous years yet to be discussed by PAC (Table 2.3, page 67)."
+}

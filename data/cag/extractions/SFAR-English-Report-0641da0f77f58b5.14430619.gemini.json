@@ -1,0 +1,27 @@
+{
+  "state_name": "Haryana",
+  "audit_year": "2021-22",
+  "report_number": "Report No. 2 of the year 2023",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.55,
+    "revenue_deficit_pct_gsdp": 2.27,
+    "primary_deficit_pct_gsdp": 1.5,
+    "debt_pct_gsdp": 29.47,
+    "interest_pct_revenue_receipts": 23.51,
+    "capital_outlay_pct_gsdp": 1.23,
+    "revenue_receipts_pct_gsdp": 8.72,
+    "own_tax_revenue_pct_gsdp": 5.96
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 895672.0,
+    "outstanding_debt_crore": 263950.0
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 35,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 0.6864
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal indicators are primarily from Table 1.2 and Chart 1.5 in Chapter 1. Debt percentage and absolute outstanding debt are from Executive Summary and Table 1.4/2.31. Interest to revenue receipts ratio is from Table 2.19 and confirmed by calculation from Table 1.2. GSDP is from Chapter 1. Misappropriation cases for audit_paras are from Table 4.12 in Chapter 4. Values for 'raised_this_year' and 'pac_recommendations_pending' were not explicitly found and are set to 0 as per schema requirements for integer type."
+}

@@ -1,0 +1,18 @@
+{
+  "state_name": "Haryana",
+  "report_topic": "Direct Benefit Transfer",
+  "report_no": "2 of the year 2022",
+  "audit_period_start_fy": 2018,
+  "audit_period_end_fy": 2021,
+  "total_projects_audited": 104765864,
+  "projects_time_overrun": 284471,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0.0,
+  "avg_cost_overrun_pct": 0.0,
+  "total_budgeted_crore": 0.0,
+  "total_actual_expenditure_crore": 19803.12,
+  "financial_utilization_pct": 0.0,
+  "physical_achievement_pct": 0.0,
+  "observations_summary": "The audit found weak controls, lack of system documentation, and inadequate verification leading to irregular payments to ineligible, deceased, or untraceable beneficiaries, and multiple payments to the same individuals. Data integrity was compromised due to missing audit trails and incomplete beneficiary records.",
+  "extraction_confidence": "high"
+}

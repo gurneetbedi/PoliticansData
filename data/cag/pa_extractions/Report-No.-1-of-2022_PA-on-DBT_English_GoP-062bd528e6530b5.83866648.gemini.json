@@ -1,0 +1,13 @@
+{
+  "state_name": "Punjab",
+  "report_topic": "Direct Benefit Transfer (Cash Transfer)",
+  "report_no": "1 of the year 2022",
+  "audit_period_start_fy": 2018,
+  "audit_period_end_fy": 2021,
+  "total_projects_audited": 438,
+  "projects_time_overrun": 8371,
+  "total_budgeted_crore": 7227.9,
+  "total_actual_expenditure_crore": 5364.14,
+  "observations_summary": "The audit found that the Direct Benefit Transfer (DBT) implementation in Punjab was not fully aligned with its objectives, with issues including delays in financial assistance, payment to ineligible/duplicate beneficiaries, non-recovery of excess payments, and lack of robust governance and IT infrastructure.",
+  "extraction_confidence": "high"
+}

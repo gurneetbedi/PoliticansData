@@ -1,0 +1,222 @@
+{
+  "reference_year": 2022,
+  "state_data": [
+    {
+      "state_name": "Andhra Pradesh",
+      "registered_doctors": 8828,
+      "population": 52787000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Arunachal Pradesh",
+      "registered_doctors": 664,
+      "population": 1533000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Assam",
+      "registered_doctors": 7164,
+      "population": 35043000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Bihar",
+      "registered_doctors": 3961,
+      "population": 123083000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Chhattisgarh",
+      "registered_doctors": 2181,
+      "population": 29493000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Goa",
+      "registered_doctors": 497,
+      "population": 1559000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Gujarat",
+      "registered_doctors": 5026,
+      "population": 69788000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Haryana",
+      "registered_doctors": 3470,
+      "population": 29483000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Himachal Pradesh",
+      "registered_doctors": 3269,
+      "population": 7394000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Jharkhand",
+      "registered_doctors": 2084,
+      "population": 38471000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Karnataka",
+      "registered_doctors": 4854,
+      "population": 66845000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Kerala",
+      "registered_doctors": 6169,
+      "population": 35489000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Madhya Pradesh",
+      "registered_doctors": 4587,
+      "population": 84516000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Maharashtra",
+      "registered_doctors": 10227,
+      "population": 124437000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Manipur",
+      "registered_doctors": 1858,
+      "population": 3165000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Meghalaya",
+      "registered_doctors": 803,
+      "population": 3288000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Mizoram",
+      "registered_doctors": 554,
+      "population": 1216000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Nagaland",
+      "registered_doctors": 390,
+      "population": 2192000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Odisha",
+      "registered_doctors": 7442,
+      "population": 45696000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Punjab",
+      "registered_doctors": 2897,
+      "population": 30339000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Rajasthan",
+      "registered_doctors": 11595,
+      "population": 79281000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Sikkim",
+      "registered_doctors": 439,
+      "population": 677000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Tamil Nadu",
+      "registered_doctors": 20416,
+      "population": 76402000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Telangana",
+      "registered_doctors": 7240,
+      "population": 37725000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Tripura",
+      "registered_doctors": 1240,
+      "population": 4071000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Uttar Pradesh",
+      "registered_doctors": 12097,
+      "population": 230907000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Uttarakhand",
+      "registered_doctors": 2482,
+      "population": 11399000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "West Bengal",
+      "registered_doctors": 17692,
+      "population": 98125000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Andaman and Nicobar Islands",
+      "registered_doctors": 93,
+      "population": 400000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Chandigarh",
+      "registered_doctors": 2915,
+      "population": 1208000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Dadra & Nagar Haveli & Daman & Diu",
+      "registered_doctors": 56,
+      "population": 1077000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Delhi",
+      "registered_doctors": 17740,
+      "population": 20571000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Jammu & Kashmir",
+      "registered_doctors": 2892,
+      "population": 13408000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Ladakh",
+      "registered_doctors": 104,
+      "population": 297000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Lakshadweep",
+      "registered_doctors": 77,
+      "population": 68000,
+      "source_table": "5.3, 1.1.2(d)"
+    },
+    {
+      "state_name": "Puducherry",
+      "registered_doctors": 463,
+      "population": 1571000,
+      "source_table": "5.3, 1.1.2(d)"
+    }
+  ],
+  "extraction_notes": "Registered allopathic doctors data is 'as on 31.12.2022' from Table 5.3 (Page 230). Population data is 'as on 1st March 2021' from Table 1.1.2(d) (Page 36-37), which is the closest available projected population. Population values from Table 1.1.2(d) were in '000s and have been multiplied by 1000. For 'Dadra & Nagar Haveli & Daman & Diu', the population was summed from individual entries for 'Dadra & Nagar Haveli' and 'Daman & Diu' in Table 1.1.2(d) for 2021."
+}

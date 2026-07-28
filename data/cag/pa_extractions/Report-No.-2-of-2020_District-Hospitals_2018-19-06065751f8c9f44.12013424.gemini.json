@@ -1,0 +1,18 @@
+{
+  "state_name": "Meghalaya",
+  "report_topic": "Performance Audit of Select District Hospitals in Meghalaya",
+  "report_no": "2 of 2020",
+  "audit_period_start_fy": 2015,
+  "audit_period_end_fy": 2019,
+  "total_projects_audited": 4,
+  "projects_time_overrun": 5,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 3990.68,
+  "total_actual_expenditure_crore": 3630.95,
+  "financial_utilization_pct": 56,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit found significant deficiencies in manpower, infrastructure (including non-functional equipment and lack of specialized units like ICUs and Trauma Centers), and essential services (drugs, diagnostics, blood banks) in select district hospitals. This led to poor patient care, high referral rates, and failure to meet health targets like reducing maternal and infant mortality.",
+  "extraction_confidence": "high"
+}

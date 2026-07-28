@@ -1,0 +1,27 @@
+{
+  "state_name": "Arunachal Pradesh",
+  "audit_year": "2017-18",
+  "report_number": "Report No. 1 of 2019",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 1.28,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 0.0,
+    "debt_pct_gsdp": 29.49,
+    "interest_pct_revenue_receipts": 3.39,
+    "capital_outlay_pct_gsdp": 0.0,
+    "revenue_receipts_pct_gsdp": 56.36,
+    "own_tax_revenue_pct_gsdp": 3.34
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 24442.0,
+    "outstanding_debt_crore": 7208.5
+  },
+  "audit_paras": {
+    "raised_this_year": 9,
+    "outstanding_over_5_years": 63,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 176.99
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Revenue Deficit and Primary Deficit are reported as surpluses for 2017-18, hence reported as 0 for deficit. Capital Outlay as a percentage of GSDP was not directly available and was omitted to avoid computation. 'raised_this_year' refers to the number of cases of excess expenditure in 2017-18 (Appendix 2.6). 'outstanding_over_5_years' refers to the number of grants/appropriations with excess expenditure from 2012-13 and prior years that were not regularized (Appendix 2.7). 'money_value_of_observations_crore' refers to the excess expenditure in 2017-18 (Appendix 2.6). 'pac_recommendations_pending' was not explicitly found."
+}

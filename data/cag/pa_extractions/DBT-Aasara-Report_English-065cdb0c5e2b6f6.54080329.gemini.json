@@ -1,0 +1,12 @@
+{
+  "state_name": "Telangana",
+  "report_topic": "Performance Audit of Direct Benefit Transfer Scheme 'Aasara Pensions in Telangana'",
+  "report_no": "1 of 2023",
+  "audit_period_start_fy": 2019,
+  "audit_period_end_fy": 2021,
+  "total_projects_audited": 5030158,
+  "total_budgeted_crore": 27188.0,
+  "total_actual_expenditure_crore": 23390.59,
+  "observations_summary": "The audit found ineffective verification and identification processes, leading to irregular payments of ₹1,175 crore to 2.02 lakh ineligible beneficiaries. This was exacerbated by a lack of coordination with other government databases and inadequate IT controls, resulting in unutilised funds being retained and delays in benefit disbursement.",
+  "extraction_confidence": "high"
+}

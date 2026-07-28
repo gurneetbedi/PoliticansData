@@ -1,0 +1,18 @@
+{
+  "state_name": "Tamil Nadu",
+  "report_topic": "Welfare of Building and Other Construction Workers",
+  "report_no": "3 of the year 2024",
+  "audit_period_start_fy": 2018,
+  "audit_period_end_fy": 2022,
+  "total_projects_audited": 21,
+  "projects_time_overrun": 0,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 0,
+  "total_actual_expenditure_crore": 1277.14,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 45.0,
+  "observations_summary": "The audit found significant deficiencies in the assessment, collection, and remittance of Labour Cess, leading to misappropriation and under-assessment. There were also major shortfalls and inaccuracies in worker registration, and welfare schemes suffered from abnormal delays and benefits extended to ineligible persons.",
+  "extraction_confidence": "high"
+}

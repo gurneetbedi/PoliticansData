@@ -1,0 +1,13 @@
+{
+  "state_name": "Rajasthan",
+  "report_topic": "Outcomes in Surface Irrigation in Rajasthan",
+  "report_no": "6 of the year 2021",
+  "audit_period_start_fy": 2015,
+  "audit_period_end_fy": 2020,
+  "total_projects_audited": 12,
+  "projects_time_overrun": 12,
+  "projects_cost_overrun_over_10pct": 11,
+  "physical_achievement_pct": 65,
+  "observations_summary": "The audit found deficiencies in planning, execution, and financial management of irrigation projects, leading to significant time and cost overruns for all 12 projects. Four projects failed to create any irrigation potential, and others showed low utilization (2.28% to 68.21%), while only 65% of the physical target for plantation was achieved.",
+  "extraction_confidence": "high"
+}

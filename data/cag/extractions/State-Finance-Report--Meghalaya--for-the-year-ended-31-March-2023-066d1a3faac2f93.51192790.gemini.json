@@ -1,0 +1,24 @@
+{
+  "state_name": "Meghalaya",
+  "audit_year": "2022-23",
+  "report_number": "Report No. 1 of 2024",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 6.55,
+    "revenue_deficit_pct_gsdp": 0.1,
+    "primary_deficit_pct_gsdp": 4.14,
+    "debt_pct_gsdp": 43.19,
+    "interest_pct_revenue_receipts": 6.94,
+    "capital_outlay_pct_gsdp": 6.42,
+    "revenue_receipts_pct_gsdp": 34.71,
+    "own_tax_revenue_pct_gsdp": 6.21
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 42697,
+    "outstanding_debt_crore": 18442.32
+  },
+  "audit_paras": {
+    "money_value_of_observations_crore": 3436.01
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal indicators and absolute figures are from Executive Summary (pages 12-14) and Tables 1.2, 1.4, 1.5, 2.3, 2.18, 2.21, 2.37. Money value of observations is from outstanding Utilisation Certificates (UCs) as per Tables 4.2 and 4.3 (pages 132-133). Specific counts for 'raised_this_year', 'outstanding_over_5_years', and 'pac_recommendations_pending' as 'audit paras' were not explicitly summarized in the report."
+}

@@ -1,0 +1,10 @@
+{
+  "state_name": "Maharashtra",
+  "report_topic": "Delivery of Public Services",
+  "report_no": "1 of the year 2023",
+  "audit_period_start_fy": 2016,
+  "audit_period_end_fy": 2021,
+  "total_projects_audited": 700,
+  "observations_summary": "The audit found that a significant number of public services were not identified or notified under the MRTPS Act, and many established service centers were not providing notified services. There were delays in timely service delivery due to pending applications and a high pendency of appeals, coupled with inadequate online system documentation and monitoring.",
+  "extraction_confidence": "high"
+}

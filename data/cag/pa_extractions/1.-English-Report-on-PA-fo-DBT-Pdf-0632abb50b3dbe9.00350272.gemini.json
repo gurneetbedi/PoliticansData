@@ -1,0 +1,18 @@
+{
+  "state_name": "Rajasthan",
+  "report_topic": "Direct Benefit Transfer",
+  "report_no": "5 of the year 2022",
+  "audit_period_start_fy": 2018,
+  "audit_period_end_fy": 2021,
+  "total_projects_audited": 199807231,
+  "projects_time_overrun": 108268834,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 0,
+  "total_actual_expenditure_crore": 14264.1,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit found significant delays in pension sanction and payments, with many ineligible beneficiaries receiving pensions and eligible ones being rejected due to monitoring failures and non-robust physical verification. Systemic issues in the RajSSP portal, lack of integration with the DBT Bharat portal, and pendency in grievance redressal were also noted.",
+  "extraction_confidence": "high"
+}

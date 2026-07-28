@@ -1,0 +1,13 @@
+{
+  "state_name": "Punjab",
+  "report_topic": "Public Health Infrastructure and Management of Health Services",
+  "report_no": "4 of 2024",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2022,
+  "total_projects_audited": 26,
+  "projects_time_overrun": 24,
+  "total_budgeted_crore": 22995.24,
+  "total_actual_expenditure_crore": 20196.49,
+  "observations_summary": "The audit found significant vacancies in health personnel (50.69% overall, with up to 97.19% for ANM in Amritsar), inadequate availability of essential drugs and equipment, and delays in construction works (24 out of 26 completed works had delays). There was also underutilization of allocated funds (6.5% to 20.74% not utilized) and ineffective regulatory mechanisms, impacting the delivery of health services.",
+  "extraction_confidence": "high"
+}

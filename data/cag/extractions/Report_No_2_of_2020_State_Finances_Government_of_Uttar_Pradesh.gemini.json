@@ -1,0 +1,27 @@
+{
+  "state_name": "Uttar Pradesh",
+  "audit_year": "2018-19",
+  "report_number": "Report No. 2 of 2020",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.28,
+    "revenue_deficit_pct_gsdp": 0,
+    "primary_deficit_pct_gsdp": 0.2,
+    "debt_pct_gsdp": 33.59,
+    "interest_pct_revenue_receipts": 9.71,
+    "capital_outlay_pct_gsdp": 4.05,
+    "revenue_receipts_pct_gsdp": 21.39,
+    "own_tax_revenue_pct_gsdp": 7.79
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 1542432,
+    "outstanding_debt_crore": 518096
+  },
+  "audit_paras": {
+    "raised_this_year": 8,
+    "outstanding_over_5_years": 135,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 9.3078
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Revenue Deficit is reported as 0 as the state had a revenue surplus of (+)1.83% of GSDP for the audit year 2018-19. Outstanding audit paras over 5 years include all pending cases from 5-10 years up to above 25 years as per Table 3.9. PAC recommendations pending could not be quantified as a specific number was not provided."
+}

@@ -1,0 +1,27 @@
+{
+  "state_name": "Assam",
+  "audit_year": "2017-18",
+  "report_number": "Report No. 1 of 2019",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.29,
+    "revenue_deficit_pct_gsdp": 0.48,
+    "primary_deficit_pct_gsdp": 2.16,
+    "debt_pct_gsdp": 18.85,
+    "interest_pct_revenue_receipts": 5.92,
+    "capital_outlay_pct_gsdp": 2.71,
+    "revenue_receipts_pct_gsdp": 19.07,
+    "own_tax_revenue_pct_gsdp": 6.09
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 283821,
+    "outstanding_debt_crore": 53503
+  },
+  "audit_paras": {
+    "raised_this_year": 2,
+    "outstanding_over_5_years": 41,
+    "pac_recommendations_pending": 64,
+    "money_value_of_observations_crore": 9323.63
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "State name, audit year, and report number from cover page. Fiscal indicators for 2017-18 from Table 1.3 (page 23), Table 1.5 (page 31), text on page 32, Table 1.36 (page 68), and Chart 1.17 (page 71). Revenue and Primary Deficit percentages converted from negative to positive magnitude as per instructions. Capital Outlay % GSDP calculated from Capital Outlay (Table 1.2, page 20) and GSDP (Table 1.1, page 19). Absolute figures from Table 1.1 (page 19) and Table 1.36 (page 68). Audit paras from Table 2.4 (page 83) and Table 2.5 (page 84)."
+}

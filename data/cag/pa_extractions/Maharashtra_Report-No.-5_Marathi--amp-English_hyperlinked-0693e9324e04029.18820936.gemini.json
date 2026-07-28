@@ -1,0 +1,18 @@
+{
+  "state_name": "Maharashtra",
+  "report_topic": "Performance Audit on Implementation of Pradhan Mantri Khanij Kshetra Kalyan Yojana Including District Mineral Foundation Trusts In Maharashtra",
+  "report_no": "5 of 2025",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2023,
+  "total_projects_audited": 12554,
+  "projects_time_overrun": 4866,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 2233.78,
+  "total_actual_expenditure_crore": 1616.26,
+  "financial_utilization_pct": 48.18,
+  "physical_achievement_pct": 58.26,
+  "observations_summary": "There were delays in the registration of DMFTs and appointment of Governing Council members. None of the selected DMFTs identified directly affected areas as per revised norms. DMFTs did not prepare lists of affected persons or Annual Action Plans. Instances of short/non-recovery of DMFT funds, loss of interest due to inadequate fund management, ineligible/unfruitful expenditure, and blockage of funds were observed. Monitoring and supervision were inadequate, with irregular meetings and delayed reports.",
+  "extraction_confidence": "high"
+}

@@ -1,0 +1,27 @@
+{
+  "state_name": "Nagaland",
+  "audit_year": "2023-24",
+  "report_number": "Report No. 1 of 2025",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 4.26,
+    "revenue_deficit_pct_gsdp": 0,
+    "primary_deficit_pct_gsdp": 0,
+    "debt_pct_gsdp": 43.42,
+    "interest_pct_revenue_receipts": 6.61,
+    "capital_outlay_pct_gsdp": 7.45,
+    "revenue_receipts_pct_gsdp": 38.57,
+    "own_tax_revenue_pct_gsdp": 3.82
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 41886.96,
+    "outstanding_debt_crore": 18187.32
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 12,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 350.14
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Revenue Deficit and Primary Deficit are reported as surpluses in the document, hence 0 is reported for deficit values. Outstanding debt is taken as 'Outstanding Total Liability'. Money value of observations is taken from 'Pending cases of misappropriation, losses, thefts, etc.' table. Audit paras raised this year and PAC recommendations pending are not explicitly stated as single quantifiable figures for the current year, so 0 is reported."
+}

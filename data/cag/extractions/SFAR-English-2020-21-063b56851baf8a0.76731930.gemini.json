@@ -1,0 +1,27 @@
+{
+  "state_name": "Chhattisgarh",
+  "audit_year": "2020-21",
+  "report_number": "Report No. 1 of 2022",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 4.53,
+    "revenue_deficit_pct_gsdp": 1.96,
+    "primary_deficit_pct_gsdp": 2.91,
+    "debt_pct_gsdp": 25.58,
+    "interest_pct_revenue_receipts": 8.92,
+    "capital_outlay_pct_gsdp": 2.58,
+    "revenue_receipts_pct_gsdp": 18.04,
+    "own_tax_revenue_pct_gsdp": 6.53
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 350270.0,
+    "outstanding_debt_crore": 89605.22
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 7016.93
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal indicators (percentages of GSDP) were extracted from Executive Summary (Page 11), Table 1.2 (Page 23), Table 1.4 (Page 25), Chart 1.8 (Page 28), Table 2.12 (Page 42), and Table 2.16 (Page 46). Absolute GSDP from Table 1.1 (Page 17). Absolute outstanding debt from Executive Summary (Page 11) and Table 1.4 footnote 5 (Page 25). Money value of observations from Table 4.1 (Page 85) for outstanding Utilisation Certificates. Specific counts for audit paras raised this year, outstanding over 5 years, and PAC recommendations pending were not explicitly found as aggregate figures in the report."
+}

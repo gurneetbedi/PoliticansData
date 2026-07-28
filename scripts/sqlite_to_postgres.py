@@ -56,12 +56,16 @@ dst_engine = create_engine(PG_URL)
 
 # 1. (Optional) wipe the existing schema. Use this after model changes so the new
 #    column types take effect — create_all() does NOT alter existing tables.
-from app.models import Base  # noqa: E402  (import after engine setup)
+from app.models import Base       # noqa: E402  (import after engine setup)
+import app.gpi_models             # noqa: E402,F401  registers GPI tables on Base
 if RESET:
     Base.metadata.drop_all(dst_engine)
     print("Dropped existing tables on Postgres.")
 
-# 2. Create (or recreate) the schema on the destination
+# 2. Create (or recreate) the schema on the destination.
+# Because we imported gpi_models above, this also creates:
+#   gpi_pillars, gpi_sources, gpi_indicators, gpi_indicator_values,
+#   gpi_pillar_scores, gpi_cag_extractions, gpi_cag_pa_extractions, gpi_scores
 Base.metadata.create_all(dst_engine)
 print("Schema created on Postgres.")
 

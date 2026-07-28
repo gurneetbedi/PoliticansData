@@ -1,0 +1,18 @@
+{
+  "state_name": "Chhattisgarh",
+  "report_topic": "Performance Audit of Implementation of Mahatma Gandhi National Rural Employment Guarantee Scheme",
+  "report_no": "03 of 2026",
+  "audit_period_start_fy": 2020,
+  "audit_period_end_fy": 2024,
+  "total_projects_audited": 336,
+  "projects_time_overrun": 216,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 20644.75,
+  "total_actual_expenditure_crore": 18457.33,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 61,
+  "observations_summary": "The audit found systemic deficiencies in planning, employment generation, financial management, asset creation, monitoring, and social audit, with 86% of works in test-checked GPs lacking Gram Sabha approval and only 61% of sanctioned works completed. Significant human resource shortages, unpaid EPF contributions, and wasteful expenditure on idle assets further hampered the scheme's objectives.",
+  "extraction_confidence": "high"
+}

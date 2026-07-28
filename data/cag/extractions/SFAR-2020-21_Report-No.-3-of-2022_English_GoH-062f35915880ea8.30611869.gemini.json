@@ -1,0 +1,27 @@
+{
+  "state_name": "Haryana",
+  "audit_year": "2020-21",
+  "report_number": "Report No. 3 of the year 2022",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.86,
+    "revenue_deficit_pct_gsdp": 2.93,
+    "primary_deficit_pct_gsdp": 1.62,
+    "debt_pct_gsdp": 31.21,
+    "interest_pct_revenue_receipts": 25.33,
+    "capital_outlay_pct_gsdp": 0.77,
+    "revenue_receipts_pct_gsdp": 8.83,
+    "own_tax_revenue_pct_gsdp": 5.48
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 764872,
+    "outstanding_debt_crore": 238708
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 30,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 1.32
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal indicators (gross fiscal deficit, revenue deficit, primary deficit, capital outlay, revenue receipts, own tax revenue as % of GSDP) are from Table 1.2 on page 29. Debt as % of GSDP is from Table 1.4 on page 32. Interest as % of revenue receipts is from Table 2.19 on page 57. GSDP at current prices is from page 23. Outstanding debt in absolute terms is from Chart 2.15 on page 73. Audit paras related to misappropriation/defalcation (money value and outstanding over 5 years) are from the Executive Summary on page 18. The report does not provide a direct count for 'audit paras raised this year' or 'PAC recommendations pending'. Debt figures (percentage and absolute) exclude GoI back-to-back loans as noted in the report."
+}

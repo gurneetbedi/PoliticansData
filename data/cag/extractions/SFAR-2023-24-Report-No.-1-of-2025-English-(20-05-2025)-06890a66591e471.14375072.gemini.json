@@ -1,0 +1,27 @@
+{
+  "state_name": "Delhi",
+  "audit_year": "2023-24",
+  "report_number": "Report No. 1 of 2025",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 0.36,
+    "revenue_deficit_pct_gsdp": 0,
+    "primary_deficit_pct_gsdp": 0.08,
+    "debt_pct_gsdp": 3.19,
+    "interest_pct_revenue_receipts": 5.4,
+    "capital_outlay_pct_gsdp": 0.62,
+    "revenue_receipts_pct_gsdp": 5.13,
+    "own_tax_revenue_pct_gsdp": 4.85
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 1108000,
+    "outstanding_debt_crore": 35328.55
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 1150,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 4107.66
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal deficit and primary deficit were reported as negative values in the source tables and converted to positive magnitudes as per instructions. Revenue deficit is 0 as a surplus was reported. Money value of observations is the sum of outstanding Utilisation Certificates (3760.84 crore) and outstanding Abstract Contingent Bills (346.82 crore). No consolidated figure for 'audit paras raised this year' or 'PAC recommendations pending' was found. 'Raised this year' and 'PAC recommendations pending' are set to 0 due to lack of explicit figures in the report. 'Outstanding over 5 years' refers to UCs outstanding for more than 10 years."
+}

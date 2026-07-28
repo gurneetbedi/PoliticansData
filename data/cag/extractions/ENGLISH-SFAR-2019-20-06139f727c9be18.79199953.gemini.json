@@ -1,0 +1,27 @@
+{
+  "state_name": "Odisha",
+  "audit_year": "2019-20",
+  "report_number": "Report No. 4 of 2021",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.53,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 2.39,
+    "debt_pct_gsdp": 23.62,
+    "interest_pct_revenue_receipts": 5.97,
+    "capital_outlay_pct_gsdp": 3.8,
+    "revenue_receipts_pct_gsdp": 19.03,
+    "own_tax_revenue_pct_gsdp": 6.05
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 533822.0,
+    "outstanding_debt_crore": 126084.0
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 274,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 0.0
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "State name, audit year, and report number from cover page. Fiscal indicators from Executive Summary (pages 15-18) and Tables 1.2 (page 29), 1.3 (page 30), 2.3 (page 40), 2.16 (page 51), and Chart 1.4 (page 32). GSDP and total outstanding debt from Executive Summary (page 15) and Table 2.30 (page 75). Revenue Deficit is reported as a surplus, hence 0.0 for deficit. The 'debt_pct_gsdp' of 23.62% is based on total outstanding liabilities (Public Debt + Public Account Liabilities), as stated in the Executive Summary and Table 1.3, rather than 'Outstanding Public Debt' alone (12.82% from Table 2.33). Audit paras outstanding count from page 104, representing total pending paragraphs from 2008-09 to 2018-19, which includes those outstanding over 5 years, but a specific count for 'over 5 years' was not provided. 'Raised this year', 'PAC recommendations pending', and 'money value of observations' for general audit paras were not explicitly found."
+}

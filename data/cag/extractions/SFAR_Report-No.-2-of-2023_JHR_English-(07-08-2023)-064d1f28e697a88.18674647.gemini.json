@@ -1,0 +1,27 @@
+{
+  "state_name": "Jharkhand",
+  "audit_year": "2021-22",
+  "report_number": "Report No. 2 for the year 2023",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 0.81,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 0.0,
+    "debt_pct_gsdp": 30.57,
+    "interest_pct_revenue_receipts": 9.02,
+    "capital_outlay_pct_gsdp": 2.58,
+    "revenue_receipts_pct_gsdp": 19.2,
+    "own_tax_revenue_pct_gsdp": 5.86
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 363085.0,
+    "outstanding_debt_crore": 110998.0
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 0.0
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal deficit and revenue deficit percentages are post-audit figures from Table 1.9. Primary deficit is reported as 0 due to a surplus. Debt percentage and outstanding debt exclude back-to-back GST compensation loans. No explicit aggregated counts for audit paras were found, so 0 is reported for audit_paras fields."
+}

@@ -1,0 +1,18 @@
+{
+  "state_name": "Odisha",
+  "report_topic": "Performance Audit of Systems and Controls in Assessment and Collection of Revenue from Minor Minerals",
+  "report_no": "12 of the year 2024",
+  "audit_period_start_fy": 2016,
+  "audit_period_end_fy": 2022,
+  "total_projects_audited": 88,
+  "projects_time_overrun": 0,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 0,
+  "total_actual_expenditure_crore": 0,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit found significant revenue losses due to irregularities in lease grants, non-operationalization of sources, non-realization of mineral dues, application of pre-revised rates, quarrying without proper deeds/clearances, illegal extraction beyond limits/depth, and ineffective monitoring. Total revenue leakage/loss identified was substantial, including ₹864.45 crore due to non-deduction of charges from public project contractors.",
+  "extraction_confidence": "high"
+}

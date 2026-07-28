@@ -1,0 +1,202 @@
+{
+  "survey_year": 2024,
+  "state_data": [
+    {
+      "state_name": "All India",
+      "grade_5_reading_std2_pct": 48.8,
+      "grade_5_division_pct": 30.7,
+      "grade_3_reading_std2_pct": 27.1,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Andhra Pradesh",
+      "grade_5_reading_std2_pct": 37.7,
+      "grade_5_division_pct": 36.2,
+      "grade_3_reading_std2_pct": 15.7,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Arunachal Pradesh",
+      "grade_5_reading_std2_pct": 41.0,
+      "grade_5_division_pct": 30.7,
+      "grade_3_reading_std2_pct": 19.4,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Assam",
+      "grade_5_reading_std2_pct": 38.4,
+      "grade_5_division_pct": 16.7,
+      "grade_3_reading_std2_pct": 18.2,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Bihar",
+      "grade_5_reading_std2_pct": 43.6,
+      "grade_5_division_pct": 36.0,
+      "grade_3_reading_std2_pct": 26.1,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Chhattisgarh",
+      "grade_5_reading_std2_pct": 54.4,
+      "grade_5_division_pct": 25.7,
+      "grade_3_reading_std2_pct": 24.9,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Gujarat",
+      "grade_5_reading_std2_pct": 46.3,
+      "grade_5_division_pct": 14.3,
+      "grade_3_reading_std2_pct": 25.8,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Haryana",
+      "grade_5_reading_std2_pct": 63.5,
+      "grade_5_division_pct": 43.2,
+      "grade_3_reading_std2_pct": 44.0,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Himachal Pradesh",
+      "grade_5_reading_std2_pct": 71.3,
+      "grade_5_division_pct": 50.5,
+      "grade_3_reading_std2_pct": 50.6,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Jammu and Kashmir",
+      "grade_5_reading_std2_pct": 37.7,
+      "grade_5_division_pct": 25.1,
+      "grade_3_reading_std2_pct": 16.6,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Jharkhand",
+      "grade_5_reading_std2_pct": 45.3,
+      "grade_5_division_pct": 30.4,
+      "grade_3_reading_std2_pct": 19.6,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Karnataka",
+      "grade_5_reading_std2_pct": 34.0,
+      "grade_5_division_pct": 20.9,
+      "grade_3_reading_std2_pct": 15.9,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Kerala",
+      "grade_5_reading_std2_pct": 66.0,
+      "grade_5_division_pct": 21.3,
+      "grade_3_reading_std2_pct": 45.6,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Madhya Pradesh",
+      "grade_5_reading_std2_pct": 43.7,
+      "grade_5_division_pct": 21.7,
+      "grade_3_reading_std2_pct": 18.8,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Maharashtra",
+      "grade_5_reading_std2_pct": 59.6,
+      "grade_5_division_pct": 27.7,
+      "grade_3_reading_std2_pct": 37.0,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Meghalaya",
+      "grade_5_reading_std2_pct": 42.8,
+      "grade_5_division_pct": 16.1,
+      "grade_3_reading_std2_pct": 19.5,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Mizoram",
+      "grade_5_reading_std2_pct": 67.7,
+      "grade_5_division_pct": 44.7,
+      "grade_3_reading_std2_pct": 29.7,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Nagaland",
+      "grade_5_reading_std2_pct": 49.2,
+      "grade_5_division_pct": 20.6,
+      "grade_3_reading_std2_pct": 20.4,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Odisha",
+      "grade_5_reading_std2_pct": 59.5,
+      "grade_5_division_pct": 32.6,
+      "grade_3_reading_std2_pct": 40.0,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Punjab",
+      "grade_5_reading_std2_pct": 66.6,
+      "grade_5_division_pct": 53.1,
+      "grade_3_reading_std2_pct": 36.5,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Rajasthan",
+      "grade_5_reading_std2_pct": 47.6,
+      "grade_5_division_pct": 21.9,
+      "grade_3_reading_std2_pct": 18.6,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Sikkim",
+      "grade_5_reading_std2_pct": 53.6,
+      "grade_5_division_pct": 19.0,
+      "grade_3_reading_std2_pct": 30.5,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Tamil Nadu",
+      "grade_5_reading_std2_pct": 35.6,
+      "grade_5_division_pct": 20.8,
+      "grade_3_reading_std2_pct": 12.0,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Telangana",
+      "grade_5_reading_std2_pct": 31.6,
+      "grade_5_division_pct": 25.2,
+      "grade_3_reading_std2_pct": 6.2,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Tripura",
+      "grade_5_reading_std2_pct": 40.7,
+      "grade_5_division_pct": 22.0,
+      "grade_3_reading_std2_pct": 20.9,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Uttar Pradesh",
+      "grade_5_reading_std2_pct": 56.4,
+      "grade_5_division_pct": 39.4,
+      "grade_3_reading_std2_pct": 34.3,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Uttarakhand",
+      "grade_5_reading_std2_pct": 63.9,
+      "grade_5_division_pct": 39.8,
+      "grade_3_reading_std2_pct": 39.4,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "West Bengal",
+      "grade_5_reading_std2_pct": 54.6,
+      "grade_5_division_pct": 35.0,
+      "grade_3_reading_std2_pct": 36.3,
+      "school_type": "all_schools"
+    }
+  ],
+  "extraction_notes": "All India data extracted from Page 25, Tables 1 and 2. State-wise data extracted from 'Table 4: % Children by grade and reading level. All children. 2024' and 'Table 7: % Children by grade and arithmetic level. All children. 2024' in each state's dedicated section (pages 79-243). Dadra and Nagar Haveli and Daman and Diu, and Puducherry were omitted due to insufficient sample size as noted in the report."
+}

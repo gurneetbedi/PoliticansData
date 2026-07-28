@@ -1,0 +1,12 @@
+{
+  "state_name": "Tamil Nadu",
+  "report_topic": "Performance Audit on Functioning of Government Secondary and Higher Secondary Educational Institutions",
+  "report_no": "Report No. 10 of the year 2022",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2021,
+  "total_projects_audited": 138,
+  "total_budgeted_crore": 78925.1,
+  "total_actual_expenditure_crore": 74962.79,
+  "observations_summary": "The audit found a decline in enrolments in government secondary and higher secondary schools, significant shortages in infrastructure (classrooms, toilets) and teaching staff, and issues with accessibility and monitoring of welfare schemes. Many upgraded schools did not meet norms, and existing schools lacked proper facilities and safety certifications.",
+  "extraction_confidence": "high"
+}

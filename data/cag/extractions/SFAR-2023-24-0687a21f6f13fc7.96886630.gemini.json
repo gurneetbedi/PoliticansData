@@ -1,0 +1,27 @@
+{
+  "state_name": "Chhattisgarh",
+  "audit_year": "2023-24",
+  "report_number": "Report No. 3 of 2025",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 5.32,
+    "revenue_deficit_pct_gsdp": 2.22,
+    "primary_deficit_pct_gsdp": 3.98,
+    "debt_pct_gsdp": 24.93,
+    "interest_pct_revenue_receipts": 6.57,
+    "capital_outlay_pct_gsdp": 3.05,
+    "revenue_receipts_pct_gsdp": 20.46,
+    "own_tax_revenue_pct_gsdp": 7.67
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 505887,
+    "outstanding_debt_crore": 134179.36
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 0
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "All fiscal indicators are for the audit year 2023-24. Gross Fiscal Deficit, Revenue Deficit, Primary Deficit, Debt as % of GSDP, Revenue Receipts as % of GSDP, and Own Tax Revenue as % of GSDP are from Table 1.2 (page 27) and Table 1.4 (page 30) and Chart 1.5 (page 31). Interest as % of Revenue Receipts is from page 62 and Table 2.37 (page 87). Capital Outlay as % of GSDP is from Table 2.15 (page 54). GSDP at current prices is from page 13 and Table 1.1 (page 21). Outstanding debt in crore is from Chart 2.17 (page 82) and Table 2.33 (page 83). Specific data for audit paras (raised this year, outstanding over 5 years, PAC recommendations pending, and money value of observations) was not found in the document in the requested format, so these values are set to 0."
+}

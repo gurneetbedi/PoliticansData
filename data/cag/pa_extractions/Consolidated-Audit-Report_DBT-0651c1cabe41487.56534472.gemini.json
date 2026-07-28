@@ -1,0 +1,18 @@
+{
+  "state_name": "Odisha",
+  "report_topic": "Performance Audit of Implementation of Direct Benefit Transfer in payment of Post Matric Scholarship to eligible students in the State",
+  "report_no": "2/2023",
+  "audit_period_start_fy": 2018,
+  "audit_period_end_fy": 2021,
+  "total_projects_audited": 2480621,
+  "projects_time_overrun": 59436,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 8.4,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 0,
+  "total_actual_expenditure_crore": 2431.94,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit revealed a deficient institutional framework and IT systems, leading to issues like non-Aadhaar seeded accounts and non-integration of software. This resulted in fraudulent payments to bogus students (₹15.57 crore) and discontinued beneficiaries (₹7.36 crore), along with significant delays in scholarship processing and disbursal (up to 252 days for PMS and 387 days for Medhabruti).",
+  "extraction_confidence": "high"
+}

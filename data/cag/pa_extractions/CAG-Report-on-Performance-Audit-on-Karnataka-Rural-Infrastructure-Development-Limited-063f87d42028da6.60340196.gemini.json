@@ -1,0 +1,15 @@
+{
+  "state_name": "Karnataka",
+  "report_topic": "Performance Audit on Karnataka Rural Infrastructure Development Limited",
+  "report_no": "9/2022",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2021,
+  "total_projects_audited": 1379,
+  "projects_time_overrun": 814,
+  "projects_cost_overrun_over_10pct": 15,
+  "avg_cost_overrun_pct": 14,
+  "total_actual_expenditure_crore": 5695.14,
+  "physical_achievement_pct": 28,
+  "observations_summary": "The audit found that works were entrusted by splitting them to avoid tender processes, and only 28% of works were completed, with inordinate delays in commencement and completion. Financial management was weak, indicated by issues like non-allotment of work codes, unsettled mobilization advances, and increasing funds in suspense accounts.",
+  "extraction_confidence": "high"
+}

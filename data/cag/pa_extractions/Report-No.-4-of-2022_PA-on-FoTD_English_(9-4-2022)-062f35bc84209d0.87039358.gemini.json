@@ -1,0 +1,14 @@
+{
+  "state_name": "Haryana",
+  "report_topic": "Functioning of Transport Department",
+  "report_no": "4 of the year 2022",
+  "audit_period_start_fy": 2016,
+  "audit_period_end_fy": 2020,
+  "total_projects_audited": 642,
+  "projects_time_overrun": 529,
+  "total_budgeted_crore": 700.45,
+  "total_actual_expenditure_crore": 157.48,
+  "financial_utilization_pct": 52.0,
+  "observations_summary": "The audit revealed significant underutilization of budget for fleet acquisition, leading to a decline in the bus fleet and decreased vehicle productivity. Substantial revenue losses were incurred due to non-operation of scheduled kilometers, delays in bus lifting and maintenance, and short recovery of Motor Vehicle Tax, highlighting weak internal controls.",
+  "extraction_confidence": "high"
+}

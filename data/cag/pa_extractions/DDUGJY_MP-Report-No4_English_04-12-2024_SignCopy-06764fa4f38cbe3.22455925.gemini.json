@@ -1,0 +1,18 @@
+{
+  "state_name": "Madhya Pradesh",
+  "report_topic": "Performance Audit on Implementation of Deendayal Upadhyaya Gram Jyoti Yojana and Pradhan Mantri Sahaj Bijli Har Ghar Yojana by Electricity Distribution Companies of Madhya Pradesh for the year ended 31 March 2022",
+  "report_no": "4/2024",
+  "audit_period_start_fy": 2015,
+  "audit_period_end_fy": 2022,
+  "total_projects_audited": 13,
+  "projects_time_overrun": 4,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 4722.3,
+  "total_actual_expenditure_crore": 4694.95,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 100,
+  "observations_summary": "DPRs were prepared without detailed field surveys, leading to variations in executed quantities and project over/undervaluation. Significant delays in project completion, non-imposition of liquidated damages, incorrect claims for 100% electrification, and unutilised materials were observed.",
+  "extraction_confidence": "high"
+}

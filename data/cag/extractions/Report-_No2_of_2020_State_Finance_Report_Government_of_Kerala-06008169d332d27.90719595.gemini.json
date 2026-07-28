@@ -1,0 +1,27 @@
+{
+  "state_name": "Kerala",
+  "audit_year": "2018-19",
+  "report_number": "Report No. 2 of 2020",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.45,
+    "revenue_deficit_pct_gsdp": 2.2339,
+    "primary_deficit_pct_gsdp": 1.3061,
+    "debt_pct_gsdp": 30.91,
+    "interest_pct_revenue_receipts": 18.04,
+    "capital_outlay_pct_gsdp": 0.95066,
+    "revenue_receipts_pct_gsdp": 11.88,
+    "own_tax_revenue_pct_gsdp": 6.48
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 781653,
+    "outstanding_debt_crore": 241615
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 106,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 22.4107
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal indicators are primarily from Table 1.3 (page 21), Table 1.7 (page 26), and Table 1.42 (page 68). GSDP from Table 1.1 (page 18). Outstanding debt from Table 1.36 (page 61). Audit paras data (pending cases of misappropriation, defalcation, etc.) are from Table 3.2 (page 101). 'raised_this_year' and 'pac_recommendations_pending' for audit paras were not explicitly found in the report."
+}

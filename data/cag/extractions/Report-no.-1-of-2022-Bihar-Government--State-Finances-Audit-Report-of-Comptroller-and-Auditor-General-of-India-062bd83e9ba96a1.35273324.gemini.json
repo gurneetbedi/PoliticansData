@@ -1,0 +1,27 @@
+{
+  "state_name": "Bihar",
+  "audit_year": "2020-21",
+  "report_number": "Report No. 01 of the year 2022",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 4.82,
+    "revenue_deficit_pct_gsdp": 1.83,
+    "primary_deficit_pct_gsdp": 2.8,
+    "debt_pct_gsdp": 36.09,
+    "interest_pct_revenue_receipts": 9.74,
+    "capital_outlay_pct_gsdp": 2.94,
+    "revenue_receipts_pct_gsdp": 20.72,
+    "own_tax_revenue_pct_gsdp": 4.9
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 618628,
+    "outstanding_debt_crore": 227195.51
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 303,
+    "pac_recommendations_pending": 303,
+    "money_value_of_observations_crore": 707.18
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal deficit and revenue deficit values are reported as positive magnitudes. Debt_pct_gsdp is the effective ratio (36.09%) after excluding GST compensation as noted in Tables 1.5 and 1.6. Money value of observations refers to the total impact on Revenue Deficit due to audit adjustments as per Table 1.7. The number of audit paras raised this year is not explicitly stated, so 0 is used. Outstanding paras are from 2008-09 to 2018-19, making them all over 5 years old for the 2020-21 audit year."
+}

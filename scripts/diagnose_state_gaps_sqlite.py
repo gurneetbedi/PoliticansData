@@ -196,7 +196,36 @@ def main():
                         if not n.strip() or not c.strip():
                             failure = "gemini_empty"
                         else:
-                            failure = "gemini_ok_but_apply"
+                            # Check if identity was backfilled (Gemini failed
+                            # but our backfill script cosmetically filled
+                            # name/const/party from manifest). Also check
+                            # if wealth extraction is completely null —
+                            # both signal that Gemini didn't actually
+                            # extract useful data from the PDF.
+                            ident = ext.get("identity") or {}
+                            pol   = ext.get("political") or {}
+                            am    = ext.get("assets_movable") or {}
+                            ai    = ext.get("assets_immovable") or {}
+                            li    = ext.get("liabilities") or {}
+                            is_backfilled = (
+                                ident.get("_name_source") == "manifest_backfill"
+                                or pol.get("_const_source") == "manifest_backfill"
+                                or pol.get("_party_source") == "manifest_backfill"
+                            )
+                            no_wealth = all(
+                                v in (None, 0) for v in (
+                                    am.get("total_movable_assets_inr"),
+                                    ai.get("total_immovable_assets_inr"),
+                                    li.get("total_liabilities_inr"),
+                                )
+                            )
+                            if is_backfilled and no_wealth:
+                                # Gemini never actually extracted for this
+                                # file. Need re-OCR (with lang hint) +
+                                # re-Gemini.
+                                failure = "gemini_no_wealth"
+                            else:
+                                failure = "gemini_ok_but_apply"
                 except:
                     failure = "gemini_unreadable"
 

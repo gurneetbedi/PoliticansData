@@ -1,0 +1,27 @@
+{
+  "state_name": "Uttar Pradesh",
+  "audit_year": "2017-18",
+  "report_number": "Report No. 3 of the year 2019",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.02,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 0.0,
+    "debt_pct_gsdp": 34.0,
+    "interest_pct_revenue_receipts": 10.45,
+    "capital_outlay_pct_gsdp": 2.84,
+    "revenue_receipts_pct_gsdp": 20.27,
+    "own_tax_revenue_pct_gsdp": 7.08
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 1375607.0,
+    "outstanding_debt_crore": 467842.0
+  },
+  "audit_paras": {
+    "raised_this_year": 4,
+    "outstanding_over_5_years": 136,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 83979.44
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal indicators (gross fiscal deficit, revenue deficit, primary deficit, debt, interest payments) are from Page 96, Part E. Fiscal Health Indicators. Revenue deficit and primary deficit are reported as 0 as the report indicates a surplus for these indicators. The reported fiscal deficit of 2.02% of GSDP (₹27,810 crore) was noted to be understated by ₹6,405 crore, making the adjusted fiscal deficit ₹34,215 crore (2.48% of GSDP), as per Page 73, Table 3.5. Capital outlay and revenue receipts percentages are from Page 23, Table 1.4. Own tax revenue percentage is from Page 31, Table 1.9. GSDP is from Page 21, Table 1.1. Outstanding debt in crore is from Page 54, Table 1.36 and Page 95, Appendix 1.5. Audit paras raised this year refers to excess disbursements in 2017-18 (Page 60, Appendix 2.1 A). Audit paras outstanding over 5 years refers to excess disbursements from 2005-06 to 2016-17 that remained to be regularised (Page 60, Appendix 2.1 B). Money value of observations refers to the total amount of outstanding Utilisation Certificates (Page 68, Table 3.1). PAC recommendations pending is not explicitly stated as a number."
+}

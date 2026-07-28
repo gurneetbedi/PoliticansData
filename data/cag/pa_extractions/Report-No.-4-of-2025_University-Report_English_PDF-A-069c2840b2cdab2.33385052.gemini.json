@@ -1,0 +1,18 @@
+{
+  "state_name": "Delhi",
+  "report_topic": "Functioning of Universities of GNCTD",
+  "report_no": "4 of 2025",
+  "audit_period_start_fy": 2018,
+  "audit_period_end_fy": 2023,
+  "total_projects_audited": 17,
+  "projects_time_overrun": 88,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 4367,
+  "total_actual_expenditure_crore": 3769,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit identified significant issues in the functioning of universities under GNCTD, including a lack of comprehensive policies, acute shortages of teaching and non-teaching staff, inadequate infrastructure leading to seating capacity deficits, and poor financial management characterized by delays in fund utilization and avoidable tax liabilities. Further concerns included accreditation gaps, outdated syllabi, and delays in result declaration and degree issuance.",
+  "extraction_confidence": "high"
+}

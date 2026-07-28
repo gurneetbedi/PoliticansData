@@ -1,0 +1,27 @@
+{
+  "state_name": "Tamil Nadu",
+  "audit_year": "2018-19",
+  "report_number": "Report No. 3 of 2020",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.84,
+    "revenue_deficit_pct_gsdp": 1.41,
+    "primary_deficit_pct_gsdp": 1.12,
+    "debt_pct_gsdp": 22.16,
+    "interest_pct_revenue_receipts": 16.55,
+    "capital_outlay_pct_gsdp": 1.46,
+    "revenue_receipts_pct_gsdp": 10.44,
+    "own_tax_revenue_pct_gsdp": 6.34
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 1664159,
+    "outstanding_debt_crore": 368736
+  },
+  "audit_paras": {
+    "raised_this_year": 348,
+    "outstanding_over_5_years": 331,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 14.71
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "All fiscal indicators and absolute figures are for the audit year 2018-19, as stated in the Executive Summary (pages 11, 16) and Chapter I tables (pages 21, 23, 25, 30, 32). The number of audit paras raised this year is taken as the total reported cases of misappropriations, losses, defalcation (348 cases) as mentioned on page 17. The number of outstanding cases over 5 years is explicitly stated as 331 cases pending for more than 10 years on page 17. The money value of observations is also from page 17. PAC recommendations pending was not found."
+}

@@ -1,0 +1,27 @@
+{
+  "state_name": "Sikkim",
+  "audit_year": "2018-19",
+  "report_number": "Report No. 1 of 2020",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.4,
+    "revenue_deficit_pct_gsdp": 0,
+    "primary_deficit_pct_gsdp": 0.78,
+    "debt_pct_gsdp": 23.65,
+    "interest_pct_revenue_receipts": 7.31,
+    "capital_outlay_pct_gsdp": 4.82,
+    "revenue_receipts_pct_gsdp": 22.1,
+    "own_tax_revenue_pct_gsdp": 3.0
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 26786,
+    "outstanding_debt_crore": 6335.06
+  },
+  "audit_paras": {
+    "raised_this_year": 2,
+    "outstanding_over_5_years": 33,
+    "pac_recommendations_pending": 40,
+    "money_value_of_observations_crore": 1.06
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Revenue Deficit is reported as 0 as the state had a Revenue Surplus of 2.59% of GSDP (Table 1.50, Page 61). Own Tax Revenue/GSDP is directly stated as 0.03 in Table 1.50 (Page 61), interpreted as 3%. Raised this year refers to excess expenditure cases in 2018-19 (Table 2.3, Page 69). Outstanding over 5 years refers to excess expenditure cases from 2012-13 and 2013-14 pending regularisation (Table 2.4, Page 70). PAC recommendations pending refers to total cases from 2012-13 to 2017-18 'Under examination by PAC' (Table 2.4, Page 70)."
+}

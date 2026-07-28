@@ -1,0 +1,18 @@
+{
+  "state_name": "Goa",
+  "report_topic": "Performance Audit of Implementation of 74th Constitutional Amendment Act in Goa",
+  "report_no": "Report No. 2 of the year 2024",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2021,
+  "total_projects_audited": 5,
+  "projects_time_overrun": 0,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 1282.81,
+  "total_actual_expenditure_crore": 511.0,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit found that while State laws were largely compliant with the 74th Constitutional Amendment Act, functions were only partially devolved to Urban Local Bodies (ULBs), and they lacked adequate financial and human resources. This resulted in ULBs being highly dependent on government grants, inefficient revenue collection, unrealistic budgets, and significant delays in project implementation and fund utilization.",
+  "extraction_confidence": "high"
+}

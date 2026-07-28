@@ -1,0 +1,27 @@
+{
+  "state_name": "Goa",
+  "audit_year": "2019-20",
+  "report_number": "Report No. 1 of the year 2021",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.47,
+    "revenue_deficit_pct_gsdp": 0.41,
+    "primary_deficit_pct_gsdp": 0.66,
+    "debt_pct_gsdp": 28.03,
+    "interest_pct_revenue_receipts": 12.97,
+    "capital_outlay_pct_gsdp": 2.06,
+    "revenue_receipts_pct_gsdp": 14.04,
+    "own_tax_revenue_pct_gsdp": 5.84
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 80449,
+    "outstanding_debt_crore": 22554
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 2882.09
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal deficit, revenue deficit, primary deficit, debt, interest payments, capital outlay, revenue receipts, and own tax revenue percentages of GSDP are from Tables 1.2, 1.5, 1.6, 2.3, 2.14, 2.47, 2.48, and Part-E Fiscal Health Indicators. GSDP and Outstanding Debt are from multiple tables and text. Money value of observations refers to outstanding Utilization Certificates (UCs) as of 31 March 2020 (Page 138, Table 4.2). Specific counts for audit paras raised this year, outstanding over 5 years, and PAC recommendations pending were not found as consolidated figures."
+}

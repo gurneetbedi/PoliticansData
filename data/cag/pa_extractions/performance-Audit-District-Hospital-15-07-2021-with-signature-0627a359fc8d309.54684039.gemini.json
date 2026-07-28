@@ -1,0 +1,18 @@
+{
+  "state_name": "Mizoram",
+  "report_topic": "Performance Audit of Select District Hospitals in Mizoram",
+  "report_no": "1 of 2021",
+  "audit_period_start_fy": 2015,
+  "audit_period_end_fy": 2019,
+  "total_projects_audited": 3,
+  "projects_time_overrun": 0,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 3058.89,
+  "total_actual_expenditure_crore": 2230.31,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit found significant areas for improvement in healthcare needs. The Health and Family Welfare Department failed to fully utilise allotted funds, with unspent funds ranging from 24% to 32% during 2014-19, and capital expenditure on infrastructure was only 9.2% of total expenditure.",
+  "extraction_confidence": "high"
+}

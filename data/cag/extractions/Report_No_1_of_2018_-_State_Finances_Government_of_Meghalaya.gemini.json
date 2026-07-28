@@ -1,0 +1,25 @@
+{
+  "state_name": "Meghalaya",
+  "audit_year": "2016-17",
+  "report_number": "Report No. 1 of 2018",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.37,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 0.6,
+    "debt_pct_gsdp": 30.38,
+    "interest_pct_revenue_receipts": 5.84,
+    "capital_outlay_pct_gsdp": 13.36,
+    "revenue_receipts_pct_gsdp": 30.23,
+    "own_tax_revenue_pct_gsdp": 4.01
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 29567,
+    "outstanding_debt_crore": 8983.5
+  },
+  "audit_paras": {
+    "outstanding_over_5_years": 74,
+    "money_value_of_observations_crore": 2.1457
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Revenue deficit is reported as 0.00 as the state had a revenue surplus of 2.04% of GSDP. The number of audit paras raised this year and PAC recommendations pending are not explicitly quantified in the report."
+}

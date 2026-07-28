@@ -1,0 +1,116 @@
+{
+  "phase": "I",
+  "state_data": [
+    {
+      "state_name": "Andaman & Nicobar Islands",
+      "institutional_births_pct": 99.0,
+      "fully_vaccinated_pct": 77.8
+    },
+    {
+      "state_name": "Andhra Pradesh",
+      "institutional_births_pct": 96.5,
+      "fully_vaccinated_pct": 73.0
+    },
+    {
+      "state_name": "Assam",
+      "institutional_births_pct": 84.1,
+      "fully_vaccinated_pct": 66.4
+    },
+    {
+      "state_name": "Bihar",
+      "institutional_births_pct": 76.2,
+      "fully_vaccinated_pct": 71.0
+    },
+    {
+      "state_name": "Dadra & Nagar Haveli and Daman & Diu",
+      "institutional_births_pct": 96.5,
+      "fully_vaccinated_pct": 94.9
+    },
+    {
+      "state_name": "Goa",
+      "institutional_births_pct": 99.7,
+      "fully_vaccinated_pct": 81.9
+    },
+    {
+      "state_name": "Gujarat",
+      "institutional_births_pct": 94.3,
+      "fully_vaccinated_pct": 76.3
+    },
+    {
+      "state_name": "Himachal Pradesh",
+      "institutional_births_pct": 88.2,
+      "fully_vaccinated_pct": 89.3
+    },
+    {
+      "state_name": "Jammu & Kashmir",
+      "institutional_births_pct": 92.4,
+      "fully_vaccinated_pct": 86.2
+    },
+    {
+      "state_name": "Karnataka",
+      "institutional_births_pct": 97.0,
+      "fully_vaccinated_pct": 84.1
+    },
+    {
+      "state_name": "Kerala",
+      "institutional_births_pct": 99.8,
+      "fully_vaccinated_pct": 77.8
+    },
+    {
+      "state_name": "Lakshadweep",
+      "institutional_births_pct": 99.6,
+      "fully_vaccinated_pct": 87.0
+    },
+    {
+      "state_name": "Ladakh",
+      "institutional_births_pct": 95.1,
+      "fully_vaccinated_pct": 88.2
+    },
+    {
+      "state_name": "Maharashtra",
+      "institutional_births_pct": 94.7,
+      "fully_vaccinated_pct": 73.5
+    },
+    {
+      "state_name": "Manipur",
+      "institutional_births_pct": 79.9,
+      "fully_vaccinated_pct": 68.8
+    },
+    {
+      "state_name": "Meghalaya",
+      "institutional_births_pct": 58.1,
+      "fully_vaccinated_pct": 63.8
+    },
+    {
+      "state_name": "Mizoram",
+      "institutional_births_pct": 85.8,
+      "fully_vaccinated_pct": 72.5
+    },
+    {
+      "state_name": "Nagaland",
+      "institutional_births_pct": 45.7,
+      "fully_vaccinated_pct": 57.9
+    },
+    {
+      "state_name": "Sikkim",
+      "institutional_births_pct": 94.7,
+      "fully_vaccinated_pct": 83.2
+    },
+    {
+      "state_name": "Telangana",
+      "institutional_births_pct": 97.0,
+      "fully_vaccinated_pct": 79.1
+    },
+    {
+      "state_name": "Tripura",
+      "institutional_births_pct": 89.2,
+      "fully_vaccinated_pct": 69.5
+    },
+    {
+      "state_name": "West Bengal",
+      "institutional_births_pct": 91.7,
+      "fully_vaccinated_pct": 87.8
+    }
+  ],
+  "extraction_notes": "For Lakshadweep, the value for 'fully_vaccinated_pct' was enclosed in parentheses in the source table, indicating unreliable sample size. As per instructions, this value is included as a number."
+}

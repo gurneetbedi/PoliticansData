@@ -1,0 +1,13 @@
+{
+  "state_name": "Maharashtra",
+  "report_topic": "Public Health Infrastructure and Management of Health Services in Maharashtra",
+  "report_no": "2 of the year 2024",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2022,
+  "total_projects_audited": 119,
+  "total_budgeted_crore": 111108.21,
+  "total_actual_expenditure_crore": 88755.76,
+  "financial_utilization_pct": 80.0,
+  "observations_summary": "The audit found significant manpower shortages across all healthcare levels, with many construction and upgradation projects incomplete or unstarted, and a Super Speciality Hospital unutilised for over three years. It also highlighted procurement failures leading to unutilised funds and non-supply of essential items, non-compliance with safety and regulatory norms, and underutilisation of funds in various national health missions.",
+  "extraction_confidence": "high"
+}

@@ -1,0 +1,27 @@
+{
+  "state_name": "UTTARAKHAND",
+  "audit_year": "2016-17",
+  "report_number": "Report No. 2 of the year 2017",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.8,
+    "revenue_deficit_pct_gsdp": 0.2,
+    "primary_deficit_pct_gsdp": 0.9,
+    "debt_pct_gsdp": 22.84,
+    "interest_pct_revenue_receipts": 14.96,
+    "capital_outlay_pct_gsdp": 0,
+    "revenue_receipts_pct_gsdp": 12.75,
+    "own_tax_revenue_pct_gsdp": 6
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 195192,
+    "outstanding_debt_crore": 35210
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 0
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Primary deficit percentage derived from absolute figures (₹1,744 crore) and GSDP (₹1,95,192 crore) as 0.8934%, rounded to 0.9%. This aligns with Table 1.26 (-0.009) but differs from Chart 1.12 (-0.89). Interest payments to revenue receipts taken from direct text statement on page 33 (14.96%) as it is more specific for the current year than summary tables (12.64%). Capital outlay as % of GSDP was not explicitly stated. Audit para counts and money value of observations were not explicitly found in the report."
+}

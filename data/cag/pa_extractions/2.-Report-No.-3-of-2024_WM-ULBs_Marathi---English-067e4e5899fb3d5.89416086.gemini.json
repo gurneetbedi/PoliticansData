@@ -1,0 +1,13 @@
+{
+  "state_name": "Maharashtra",
+  "report_topic": "Waste Management in Urban Local Bodies",
+  "report_no": "3 of 2024",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2022,
+  "total_projects_audited": 45,
+  "total_budgeted_crore": 24290.65,
+  "total_actual_expenditure_crore": 18732.16,
+  "physical_achievement_pct": 62.0,
+  "observations_summary": "The audit found that the state government did not prepare a comprehensive policy for waste management. ULBs showed deficiencies in DPRs, including incorrect waste estimation and processing capacity. Many ULBs failed to levy user charges, achieve collection efficiency targets, install weighbridges, or segregate waste at source. A significant portion (38%) of total collected waste remained unprocessed, and many ULBs lacked sanitary landfills or material recovery facilities.",
+  "extraction_confidence": "high"
+}

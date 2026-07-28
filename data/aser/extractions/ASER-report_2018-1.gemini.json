@@ -1,0 +1,202 @@
+{
+  "survey_year": 2018,
+  "state_data": [
+    {
+      "state_name": "Andhra Pradesh",
+      "grade_5_reading_std2_pct": 59.7,
+      "grade_5_division_pct": 39.3,
+      "grade_3_reading_std2_pct": 22.4,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Arunachal Pradesh",
+      "grade_5_reading_std2_pct": 37.1,
+      "grade_5_division_pct": 27.3,
+      "grade_3_reading_std2_pct": 18.8,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Assam",
+      "grade_5_reading_std2_pct": 40.1,
+      "grade_5_division_pct": 17.8,
+      "grade_3_reading_std2_pct": 19.9,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Bihar",
+      "grade_5_reading_std2_pct": 41.3,
+      "grade_5_division_pct": 29.9,
+      "grade_3_reading_std2_pct": 23.5,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Chhattisgarh",
+      "grade_5_reading_std2_pct": 59.5,
+      "grade_5_division_pct": 26.8,
+      "grade_3_reading_std2_pct": 29.8,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Gujarat",
+      "grade_5_reading_std2_pct": 53.7,
+      "grade_5_division_pct": 20.1,
+      "grade_3_reading_std2_pct": 33.1,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Haryana",
+      "grade_5_reading_std2_pct": 69.1,
+      "grade_5_division_pct": 50.9,
+      "grade_3_reading_std2_pct": 46.2,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Himachal Pradesh",
+      "grade_5_reading_std2_pct": 76.9,
+      "grade_5_division_pct": 56.6,
+      "grade_3_reading_std2_pct": 47.8,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Jammu and Kashmir",
+      "grade_5_reading_std2_pct": 41.9,
+      "grade_5_division_pct": 25.1,
+      "grade_3_reading_std2_pct": 22.3,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Jharkhand",
+      "grade_5_reading_std2_pct": 34.3,
+      "grade_5_division_pct": 19.1,
+      "grade_3_reading_std2_pct": 18.8,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Karnataka",
+      "grade_5_reading_std2_pct": 46.0,
+      "grade_5_division_pct": 20.5,
+      "grade_3_reading_std2_pct": 19.2,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Kerala",
+      "grade_5_reading_std2_pct": 77.2,
+      "grade_5_division_pct": 43.7,
+      "grade_3_reading_std2_pct": 52.5,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Madhya Pradesh",
+      "grade_5_reading_std2_pct": 41.6,
+      "grade_5_division_pct": 19.8,
+      "grade_3_reading_std2_pct": 17.6,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Maharashtra",
+      "grade_5_reading_std2_pct": 66.4,
+      "grade_5_division_pct": 30.2,
+      "grade_3_reading_std2_pct": 42.0,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Manipur",
+      "grade_5_reading_std2_pct": 67.5,
+      "grade_5_division_pct": 50.5,
+      "grade_3_reading_std2_pct": 35.8,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Meghalaya",
+      "grade_5_reading_std2_pct": 50.1,
+      "grade_5_division_pct": 7.2,
+      "grade_3_reading_std2_pct": 24.6,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Mizoram",
+      "grade_5_reading_std2_pct": 64.3,
+      "grade_5_division_pct": 40.2,
+      "grade_3_reading_std2_pct": 25.6,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Nagaland",
+      "grade_5_reading_std2_pct": 48.0,
+      "grade_5_division_pct": 25.8,
+      "grade_3_reading_std2_pct": 22.6,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Odisha",
+      "grade_5_reading_std2_pct": 58.4,
+      "grade_5_division_pct": 25.4,
+      "grade_3_reading_std2_pct": 38.7,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Punjab",
+      "grade_5_reading_std2_pct": 71.6,
+      "grade_5_division_pct": 53.0,
+      "grade_3_reading_std2_pct": 39.4,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Rajasthan",
+      "grade_5_reading_std2_pct": 49.1,
+      "grade_5_division_pct": 23.3,
+      "grade_3_reading_std2_pct": 20.4,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Sikkim",
+      "grade_5_reading_std2_pct": 41.7,
+      "grade_5_division_pct": 12.5,
+      "grade_3_reading_std2_pct": 29.4,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Tamil Nadu",
+      "grade_5_reading_std2_pct": 40.7,
+      "grade_5_division_pct": 25.4,
+      "grade_3_reading_std2_pct": 10.2,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Telangana",
+      "grade_5_reading_std2_pct": 43.7,
+      "grade_5_division_pct": 27.1,
+      "grade_3_reading_std2_pct": 18.0,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Tripura",
+      "grade_5_reading_std2_pct": 45.0,
+      "grade_5_division_pct": 19.2,
+      "grade_3_reading_std2_pct": 25.6,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Uttar Pradesh",
+      "grade_5_reading_std2_pct": 52.0,
+      "grade_5_division_pct": 29.7,
+      "grade_3_reading_std2_pct": 28.1,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "Uttarakhand",
+      "grade_5_reading_std2_pct": 64.3,
+      "grade_5_division_pct": 37.5,
+      "grade_3_reading_std2_pct": 34.5,
+      "school_type": "all_schools"
+    },
+    {
+      "state_name": "West Bengal",
+      "grade_5_reading_std2_pct": 50.7,
+      "grade_5_division_pct": 29.7,
+      "grade_3_reading_std2_pct": 40.0,
+      "school_type": "all_schools"
+    }
+  ],
+  "extraction_notes": "Values extracted from 'Table 4: % Children by grade and reading level All children 2018' for reading percentages and 'Table 7: % Children by grade and arithmetic level All children 2018' for division percentages. These tables represent data for 'All children' which combines government and private schools."
+}

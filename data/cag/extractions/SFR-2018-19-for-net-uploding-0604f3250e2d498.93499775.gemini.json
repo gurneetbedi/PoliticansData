@@ -1,0 +1,27 @@
+{
+  "state_name": "Mizoram",
+  "audit_year": "2018-19",
+  "report_number": "null",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 1.59,
+    "revenue_deficit_pct_gsdp": 0,
+    "primary_deficit_pct_gsdp": 0,
+    "debt_pct_gsdp": 32.89,
+    "interest_pct_revenue_receipts": 4.08,
+    "capital_outlay_pct_gsdp": 8.4,
+    "revenue_receipts_pct_gsdp": 40.64,
+    "own_tax_revenue_pct_gsdp": 3.27
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 22241,
+    "outstanding_debt_crore": 7315.54
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 0.3913
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal deficit, revenue deficit, and primary deficit are reported as positive magnitudes, converting surpluses to 0. Capital outlay % GSDP calculated from absolute figures. Money value of observations refers to detected misappropriation cases, not general audit observations. No specific counts for audit paras were found."
+}

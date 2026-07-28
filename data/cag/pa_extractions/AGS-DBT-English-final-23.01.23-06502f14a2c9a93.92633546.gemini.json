@@ -1,0 +1,11 @@
+{
+  "state_name": "Kerala",
+  "report_topic": "Direct Benefit Transfer of Social Security Pension Schemes",
+  "report_no": "7 of the year 2022",
+  "audit_period_start_fy": 2018,
+  "audit_period_end_fy": 2021,
+  "projects_time_overrun": 37459,
+  "total_actual_expenditure_crore": 29622.67,
+  "observations_summary": "The audit found significant laxities in beneficiary verification and approval, leading to irregular payments to ineligible beneficiaries and double pensions. There were also issues with financial management, including improper accounting and non-reconciliation of funds, and deficiencies in the Sevana Pension software leading to control lapses and data inconsistencies.",
+  "extraction_confidence": "high"
+}

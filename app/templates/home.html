@@ -258,36 +258,42 @@
 
   <!-- ============================================================ -->
   <!-- UNIFIED SEARCH BAR — MLA / constituency / party / state.     -->
-  <!-- Loads /api/search-index once (client-side cached), does      -->
-  <!-- fuzzy match in JS as the user types, shows top-8 grouped     -->
-  <!-- results. Scope defaults to All India; when the header state  -->
-  <!-- dropdown is set to a specific state, results filter to that  -->
-  <!-- state (user can toggle back to All India).                    -->
+  <!-- Wrapped in a soft-blue hero container so the autocomplete    -->
+  <!-- dropdown stays visually contained and doesn't overlap        -->
+  <!-- adjacent sections. Loads /api/search-index once, top-4       -->
+  <!-- fuzzy matches in JS.                                         -->
   <!-- ============================================================ -->
   <section class="px-margin-mobile md:px-margin-desktop mt-stack-lg">
     <div class="max-w-container-max mx-auto">
+      <div class="bg-surface-container-low rounded-2xl border border-outline-variant px-margin-desktop py-stack-lg">
       <div class="relative max-w-3xl mx-auto" id="siteSearchWrap">
 
-        {# Rounded pill container. Left = search icon; middle = input;
-           right = prominent Search button. Matches the reference image
-           the user shared. Larger padding + text than the earlier draft. #}
-        <div class="flex items-center gap-2 bg-surface-container-lowest border border-outline-variant rounded-full pl-6 pr-2 py-2 shadow-sm focus-within:border-primary focus-within:shadow transition-all">
-          <span class="material-symbols-outlined text-on-surface-variant flex-shrink-0" style="font-size:26px;">search</span>
+        {# Search bar — clean minimal look matching the PolitiTrack
+           mockup. No focus ring artifacts; the container border stays
+           subtle throughout. #}
+        <div class="flex items-center gap-2 bg-surface-container-lowest border border-outline-variant rounded-xl pl-5 pr-2 py-2 transition-all"
+             style="focus-within-border-color: transparent;">
+          <span class="material-symbols-outlined text-on-surface-variant flex-shrink-0" style="font-size:24px;">search</span>
           <input id="siteSearchInput"
                  type="text"
                  autocomplete="off"
-                 placeholder="Search MP/MLA by name, constituency, or party..."
-                 class="flex-1 bg-transparent outline-none text-body-lg text-on-surface placeholder:text-on-surface-variant py-2">
-          {# Scope pill — subtle, sits between input and Search button.
-             Click toggles between All India and CURRENT_STATE. #}
-          <button id="siteSearchScope" type="button"
-                  class="hidden md:inline-block text-[11px] font-bold uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors border border-outline-variant rounded-full px-3 py-1.5 whitespace-nowrap"
-                  title="Toggle search scope (All India ↔ selected state)">
-            All India
-          </button>
+                 placeholder="Search by name, constituency, party, or criminal record..."
+                 class="flex-1 bg-transparent outline-none focus:outline-none focus:ring-0 border-0 text-body-md text-on-surface placeholder:text-on-surface-variant py-2.5"
+                 style="box-shadow: none;">
           <button id="siteSearchGo" type="button"
-                  class="bg-on-surface text-surface-container-lowest font-bold rounded-full px-6 py-2.5 hover:opacity-90 transition-opacity text-body-md flex-shrink-0">
-            Search
+                  class="bg-on-surface text-surface-container-lowest font-bold rounded-lg px-6 py-2.5 hover:opacity-90 transition-opacity text-body-md flex-shrink-0">
+            Explore Data
+          </button>
+        </div>
+
+        {# Scope toggle — moved out of the search bar into a subtle line
+           below so the primary bar stays uncluttered (matching the
+           mockup). Keeps the "All India ↔ current state" functionality. #}
+        <div class="mt-2 flex justify-end">
+          <button id="siteSearchScope" type="button"
+                  class="text-label-sm text-on-surface-variant hover:text-primary transition-colors"
+                  title="Toggle search scope (All India ↔ selected state)">
+            Scope: <span class="font-bold underline">All India</span>
           </button>
         </div>
 
@@ -301,15 +307,18 @@
           <div id="siteSearchTrendingList" class="flex items-center gap-3 flex-wrap"></div>
         </div>
 
-        {# Autocomplete dropdown — hidden until user types 2+ chars. #}
+        {# Autocomplete dropdown — flows in-line (not absolute) so it
+           PUSHES content below when open instead of overlaying. Keeps
+           the search block visually contained inside the blue hero. #}
         <div id="siteSearchDropdown"
-             class="absolute left-0 right-0 top-full mt-2 bg-surface-container-lowest border border-outline-variant rounded-2xl shadow-lg overflow-hidden z-[500] hidden">
+             class="mt-3 bg-surface-container-lowest border border-outline-variant rounded-2xl shadow-lg overflow-hidden hidden">
           <div id="siteSearchResults"></div>
           <div id="siteSearchEmpty" class="hidden px-4 py-6 text-center text-label-sm text-on-surface-variant">
             No matches. Try a different spelling.
           </div>
         </div>
       </div>
+      </div>{# /search hero container #}
     </div>
   </section>
 
@@ -1868,7 +1877,12 @@ if (partyWealthCycles && partyWealthCycles.years && partyWealthCycles.years.leng
 
   scopeBtn.addEventListener('click', () => {
     scope = (scope === 'all') ? CURRENT_STATE : 'all';
-    scopeBtn.textContent = (scope === 'all') ? 'All India' : scope;
+    // Update only the value span inside the button so the "Scope:" label
+    // stays intact. Falls back to textContent for older markup.
+    const valueSpan = scopeBtn.querySelector('span');
+    const label = (scope === 'all') ? 'All India' : scope;
+    if (valueSpan) valueSpan.textContent = label;
+    else scopeBtn.textContent = label;
     render();
     input.focus();
   });
@@ -1969,7 +1983,7 @@ if (partyWealthCycles && partyWealthCycles.years && partyWealthCycles.years.leng
       }
     }
     hits.sort((a, b) => b.score - a.score);
-    return hits.slice(0, 8);
+    return hits.slice(0, 4);
   }
 
   function urlFor(hit) {

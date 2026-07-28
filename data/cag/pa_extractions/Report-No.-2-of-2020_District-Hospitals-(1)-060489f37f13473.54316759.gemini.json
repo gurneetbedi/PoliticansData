@@ -1,0 +1,18 @@
+{
+  "state_name": "Arunachal Pradesh",
+  "report_topic": "Performance Audit of Select District Hospitals in Arunachal Pradesh",
+  "report_no": "2 of 2020",
+  "audit_period_start_fy": 2015,
+  "audit_period_end_fy": 2019,
+  "total_projects_audited": 7,
+  "projects_time_overrun": 0,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 5190.7,
+  "total_actual_expenditure_crore": 3855.81,
+  "financial_utilization_pct": 74.28,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit found significant deficiencies in financial management, leading to inadequate physical infrastructure, shortage of manpower, drugs, and equipment in District Hospitals. This resulted in suboptimal delivery of healthcare services, including OPD, IPD, emergency, and diagnostic services, and poor implementation of national health programs.",
+  "extraction_confidence": "high"
+}

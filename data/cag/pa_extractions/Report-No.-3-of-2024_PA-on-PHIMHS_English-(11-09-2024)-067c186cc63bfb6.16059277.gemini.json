@@ -1,0 +1,16 @@
+{
+  "state_name": "National Capital Territory of Delhi",
+  "report_topic": "Public Health Infrastructure and Management of Health Services",
+  "report_no": "3 of the year 2024",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2022,
+  "total_projects_audited": 8,
+  "projects_time_overrun": 7,
+  "projects_cost_overrun_over_10pct": 1,
+  "total_budgeted_crore": 787.91,
+  "total_actual_expenditure_crore": 542.84,
+  "financial_utilization_pct": 68.9,
+  "physical_achievement_pct": 30.0,
+  "observations_summary": "The audit found significant human resource shortages (e.g., 21% overall staff deficit, 30-38% in specialists/paramedics) and underutilization of funds (e.g., 57.79% unutilized for RMNCH+A, 510.71 crore unspent under NHM). There were delays up to six years in hospital project completion, with 7 out of 8 new hospital projects experiencing time overruns and one having a significant cost overrun. Essential drug lists were not updated, and procurement failures led to hospitals buying drugs directly. Infrastructure development was slow, and regulatory bodies were ineffective.",
+  "extraction_confidence": "high"
+}

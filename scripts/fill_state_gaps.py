@@ -137,8 +137,11 @@ def main():
     needs_cv.update(by_failure.get("no_pdf", []))
     needs_cv.update(by_failure.get("corrupt_pdf", []))
 
-    # Handle empty_ocr — delete stale PP + LX so they get re-processed
-    empty_ocr_files = by_failure.get("empty_ocr", [])
+    # Handle empty_ocr AND gemini_no_wealth — both mean the original
+    # OCR/Gemini pass produced junk. Delete stale PP + LX so the
+    # pipeline re-processes with the correct language hint.
+    empty_ocr_files = list(by_failure.get("empty_ocr", []))
+    empty_ocr_files.extend(by_failure.get("gemini_no_wealth", []))
     if empty_ocr_files:
         pp_root = ROOT / "data/eci/for_ai" / f"preprocessed_{slug_year}"
         lx_root = ROOT / "data/eci/for_ai/llm_extracted" / slug_year

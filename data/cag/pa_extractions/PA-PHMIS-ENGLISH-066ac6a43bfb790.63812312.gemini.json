@@ -1,0 +1,14 @@
+{
+  "state_name": "Telangana",
+  "report_topic": "Public Health Infrastructure and Management of Health Services in Telangana State",
+  "report_no": "4 of 2024",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2022,
+  "total_projects_audited": 1113,
+  "projects_time_overrun": 782,
+  "total_budgeted_crore": 44528,
+  "total_actual_expenditure_crore": 33369,
+  "physical_achievement_pct": 30,
+  "observations_summary": "The audit found significant human resource shortages (45% overall vacancies), inadequate infrastructure (e.g., 69% shortage in CHCs, 7,008 bed shortage), and non-functional facilities. Financial management showed underutilization of funds (36-63% for NHM) and low health sector spending (2.53-3.47% of state budget). Issues with drug procurement, quality control, and unutilized equipment were also noted.",
+  "extraction_confidence": "high"
+}

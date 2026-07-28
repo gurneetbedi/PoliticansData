@@ -1,0 +1,27 @@
+{
+  "state_name": "Telangana",
+  "audit_year": "2020-21",
+  "report_number": "Report No. 1 of 2022",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 5,
+    "revenue_deficit_pct_gsdp": 2.27,
+    "primary_deficit_pct_gsdp": 3.28,
+    "debt_pct_gsdp": 28.11,
+    "interest_pct_revenue_receipts": 16.69,
+    "capital_outlay_pct_gsdp": 1.62,
+    "revenue_receipts_pct_gsdp": 10.29,
+    "own_tax_revenue_pct_gsdp": 6.8
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 980407,
+    "outstanding_debt_crore": 278018
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 6041.46
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "State name and audit year from cover page. Report number from cover page. Fiscal indicators (as % of GSDP) are from Chart 1.8 (page 38), Table 2.11 (page 58), Table 2.3 (page 46), Table 2.15 (page 63), and text on page 81. GSDP (current) from Table 1.1 (page 25) and Appendix 1.1 (page 191). Outstanding debt from Table 2.28 (page 83) and text on page 81. Money value of observations from page 156 and page 182 (referring to financial impact on assets/liabilities). Figures for 'raised_this_year', 'outstanding_over_5_years', and 'pac_recommendations_pending' were not explicitly stated as single, clear numbers for the current audit year in the report."
+}

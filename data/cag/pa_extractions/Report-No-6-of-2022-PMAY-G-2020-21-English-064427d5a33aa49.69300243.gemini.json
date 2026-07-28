@@ -1,0 +1,18 @@
+{
+  "state_name": "Tamil Nadu",
+  "report_topic": "Performance Audit on implementation of Pradhan Mantri Awaas Yojana-Gramin",
+  "report_no": "6 of 2022",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2021,
+  "total_projects_audited": 508641,
+  "projects_time_overrun": 124359,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 6330.62,
+  "total_actual_expenditure_crore": 3804.62,
+  "financial_utilization_pct": 70.89,
+  "physical_achievement_pct": 55.04,
+  "observations_summary": "Major issues noticed during audit included non-receipt of GoI grant, inadmissible expenditure under Administrative Fund, wrong inclusion of ineligible beneficiaries, non-inclusion of eligible beneficiaries, shortfall in coverage of SC/ST beneficiaries, fraudulent sanction of houses and poor monitoring.",
+  "extraction_confidence": "high"
+}

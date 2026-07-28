@@ -1,0 +1,27 @@
+{
+  "state_name": "Jharkhand",
+  "audit_year": "2017-18",
+  "report_number": "Report No. 1 of the year 2019",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 4.67,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 2.85,
+    "debt_pct_gsdp": 30.2,
+    "interest_pct_revenue_receipts": 9.0,
+    "capital_outlay_pct_gsdp": 4.68,
+    "revenue_receipts_pct_gsdp": 20.67,
+    "own_tax_revenue_pct_gsdp": 4.84
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 255271.0,
+    "outstanding_debt_crore": 77095.0
+  },
+  "audit_paras": {
+    "raised_this_year": 2,
+    "outstanding_over_5_years": 2,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 38911.59
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Revenue deficit is reported as a surplus of 0.71% of GSDP, hence 0 is reported for revenue_deficit_pct_gsdp. Primary deficit is reported as -2.85% of GSDP, hence 2.85 is reported as positive magnitude. Outstanding audit paras over 5 years refers to the number of PSUs with accounts in arrears for more than six years (Page 76, Table 3.4). PAC recommendations pending could not be directly quantified, but the report states no recommendations were made for the current year's excess expenditure (Page 84, Section 3.10). Money value of observations is based on outstanding Utilisation Certificates (Page 73, Table 3.1)."
+}

@@ -1,0 +1,14 @@
+{
+  "state_name": "Karnataka",
+  "report_topic": "Public Health Infrastructure and Management of Health Services",
+  "report_no": "08 of 2024",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2022,
+  "total_projects_audited": 3104,
+  "projects_time_overrun": 1354,
+  "total_budgeted_crore": 63576.3,
+  "total_actual_expenditure_crore": 58998.26,
+  "financial_utilization_pct": 92.8,
+  "observations_summary": "The audit found deficiencies in public health infrastructure and management, including significant shortages of doctors and nurses, delays in drug and equipment supply, and inadequate maintenance of facilities. There was also insufficient budget allocation and underutilization of funds in the health sector.",
+  "extraction_confidence": "high"
+}

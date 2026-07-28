@@ -1,0 +1,24 @@
+{
+  "state_name": "Maharashtra",
+  "audit_year": "2021-22",
+  "report_number": "Report No. 2 of 2023",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.01,
+    "revenue_deficit_pct_gsdp": 0.51,
+    "primary_deficit_pct_gsdp": 0.76,
+    "debt_pct_gsdp": 18.53,
+    "interest_pct_revenue_receipts": 10.22,
+    "capital_outlay_pct_gsdp": 1.46,
+    "revenue_receipts_pct_gsdp": 10.42,
+    "own_tax_revenue_pct_gsdp": 6.91
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 3197782,
+    "outstanding_debt_crore": 606295
+  },
+  "audit_paras": {
+    "money_value_of_observations_crore": 3946.14
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "All fiscal indicators and absolute figures for 2021-22 were extracted directly from summary tables (Table 1.1, 1.2, 2.32) and the Executive Summary. The money value of observations is the 'Total' impact on Revenue deficit from audit observations as per Table 1.6 on page 34. Integer counts for audit paras (raised this year, outstanding over 5 years, PAC recommendations pending) were not explicitly found for the current audit year."
+}

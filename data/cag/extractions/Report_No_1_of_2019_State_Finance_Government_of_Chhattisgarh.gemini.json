@@ -1,0 +1,27 @@
+{
+  "state_name": "Chhattisgarh",
+  "audit_year": "2017-18",
+  "report_number": "Report No. 1 of the year 2019",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.33,
+    "revenue_deficit_pct_gsdp": 0,
+    "primary_deficit_pct_gsdp": 1.27,
+    "debt_pct_gsdp": 18.14,
+    "interest_pct_revenue_receipts": 5.19,
+    "capital_outlay_pct_gsdp": 3.43,
+    "revenue_receipts_pct_gsdp": 20.45,
+    "own_tax_revenue_pct_gsdp": 6.82
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 291681,
+    "outstanding_debt_crore": 52907
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 1663,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 2413.4
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal indicators are from Tables 1.1, 1.4, 1.5, 1.7, 1.8, 1.21, 1.32, 1.36. GSDP and Outstanding Debt absolute figures are from Tables 1.1 and 1.32 respectively. Revenue Deficit is reported as a surplus, hence 0. Primary Deficit calculated from Fiscal Deficit and Interest Payments. Outstanding audit paras over 5 years refers to the sum of 'losses and defalcations' cases older than 5 years from Table 3.5 (403+295+213+241+511). Money value of observations refers to outstanding Utilisation Certificates from Page 13. No specific count for 'raised_this_year' or 'PAC recommendations pending' was found."
+}

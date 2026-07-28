@@ -1,0 +1,18 @@
+{
+  "state_name": "Tamil Nadu",
+  "report_topic": "Performance Audit on Tamil Nadu Cements Corporation Limited",
+  "report_no": "12 of 2022",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2021,
+  "total_projects_audited": 152,
+  "projects_time_overrun": 1,
+  "projects_cost_overrun_over_10pct": 1,
+  "avg_time_overrun_months": 84,
+  "avg_cost_overrun_pct": 42.24,
+  "total_budgeted_crore": 542.52,
+  "total_actual_expenditure_crore": 771.66,
+  "financial_utilization_pct": 142.24,
+  "physical_achievement_pct": 44.71,
+  "observations_summary": "TANCEM incurred losses in three out of five years due to operational inefficiencies, penalties for illegal limestone extraction, and deficient financial management leading to wasteful expenditures. The company failed to obtain environmental clearance for most of its mines, operating them illegally and incurring penalty and royalty liabilities.",
+  "extraction_confidence": "high"
+}

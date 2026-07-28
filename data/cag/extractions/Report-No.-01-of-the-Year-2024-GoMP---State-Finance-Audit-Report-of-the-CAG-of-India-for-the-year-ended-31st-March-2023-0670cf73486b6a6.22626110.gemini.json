@@ -1,0 +1,27 @@
+{
+  "state_name": "Madhya Pradesh",
+  "audit_year": "2022-23",
+  "report_number": "Report No. 1 of the year 2024",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.11,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 1.64,
+    "debt_pct_gsdp": 26.68,
+    "interest_pct_revenue_receipts": 8.86,
+    "capital_outlay_pct_gsdp": 3.36,
+    "revenue_receipts_pct_gsdp": 15.42,
+    "own_tax_revenue_pct_gsdp": 5.49
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 1322821.0,
+    "outstanding_debt_crore": 364516.0
+  },
+  "audit_paras": {
+    "raised_this_year": 1,
+    "outstanding_over_5_years": 6,
+    "pac_recommendations_pending": 10,
+    "money_value_of_observations_crore": 39.13
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Revenue Deficit is reported as 0 as the state had a revenue surplus of 0.31% of GSDP in 2022-23 (Page 12, 29, 31). Primary Deficit is 1.64% from Executive Summary and Table 1.2/1.4(a), not 1.63% from Chart 1.5. Debt percentage (26.68%) is based on 'Total outstanding liability/GSDP' from Table 1.4(a) and Chart 2.20, which includes off-budget borrowings, as it is more comprehensive than 'Public Debt/GSDP' from Table 2.40. Audit paras counts are derived from Table 4.15 on page 172 and misappropriation value from page 170."
+}

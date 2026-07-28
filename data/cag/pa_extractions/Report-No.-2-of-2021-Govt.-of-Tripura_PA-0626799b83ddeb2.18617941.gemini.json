@@ -1,0 +1,18 @@
+{
+  "state_name": "Tripura",
+  "report_topic": "Performance Audit of Select District Hospitals in Tripura",
+  "report_no": "2 of 2021",
+  "audit_period_start_fy": 2015,
+  "audit_period_end_fy": 2019,
+  "total_projects_audited": 5,
+  "projects_time_overrun": 0,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 5107.24,
+  "total_actual_expenditure_crore": 3653.15,
+  "financial_utilization_pct": 71.53,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit found significant shortages in human resources (doctors, nurses, specialists) and essential equipment, leading to inadequate healthcare services, including OPD, IPD, emergency, and diagnostic facilities. Financial underutilization, poor drug management, lack of fire safety, and non-compliance with bio-medical waste rules further compromised the quality of care, resulting in high stillbirth and neo-natal death rates, and patients being compelled to purchase medicines.",
+  "extraction_confidence": "high"
+}

@@ -1,0 +1,16 @@
+{
+  "state_name": "Uttar Pradesh",
+  "report_topic": "Performance Audit of Outcomes in Surface Irrigation of Bansagar Canal Project and Modernisation of Chaudhary Charan Singh Lahchura Dam Project",
+  "report_no": "2 of the year 2023",
+  "audit_period_start_fy": 2015,
+  "audit_period_end_fy": 2021,
+  "total_projects_audited": 2,
+  "projects_time_overrun": 2,
+  "projects_cost_overrun_over_10pct": 2,
+  "avg_time_overrun_months": 120,
+  "avg_cost_overrun_pct": 582.5,
+  "total_budgeted_crore": 4102.74,
+  "total_actual_expenditure_crore": 4101.87,
+  "observations_summary": "Both projects experienced significant time and cost overruns due to deficient planning, frequent scope changes, and poor contract management. Key outcomes like increased irrigation intensity and water availability were largely unachieved, and canal networks were not properly maintained.",
+  "extraction_confidence": "high"
+}

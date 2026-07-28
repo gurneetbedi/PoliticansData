@@ -1,0 +1,27 @@
+{
+  "state_name": "Bihar",
+  "audit_year": "2019-20",
+  "report_number": "Report No. 4 of the year 2021",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.41,
+    "revenue_deficit_pct_gsdp": 0.29,
+    "primary_deficit_pct_gsdp": 0.61,
+    "debt_pct_gsdp": 31.61,
+    "interest_pct_revenue_receipts": 8.37,
+    "capital_outlay_pct_gsdp": 2.01,
+    "revenue_receipts_pct_gsdp": 20.31,
+    "own_tax_revenue_pct_gsdp": 4.93
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 611804,
+    "outstanding_debt_crore": 193381.85
+  },
+  "audit_paras": {
+    "raised_this_year": 266,
+    "outstanding_over_5_years": 1057,
+    "pac_recommendations_pending": 282,
+    "money_value_of_observations_crore": 30604.18
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "State name, audit year, and report number from page 1. Fiscal indicators: Gross Fiscal Deficit, Revenue Deficit, and Primary Deficit percentages from Page 23, Chart 1.4. Debt percentage from Page 22, Table 1.4 and Page 56, Table 2.31. Interest percentage from Page 59, Table 2.34. Capital Outlay percentage from Page 39, Table 2.12. Revenue Receipts percentage from Page 30, Table 2.3. Own Tax Revenue percentage from Page 117, Appendix-2.1. Absolute figures: GSDP from Page 15, Table 1.1. Outstanding Debt from Page 56, Table 2.31. Audit paras: 'raised_this_year' refers to tax evasion cases detected this year from Page 35, Table 2.6. 'outstanding_over_5_years' refers to the sum of outstanding UCs for 2014-15 and prior years from Page 97, Table 4.6. 'pac_recommendations_pending' from Page 110, 4.20 Conclusions. 'money_value_of_observations_crore' is the sum of outstanding Utilisation Certificates (21448.74 crore from Page 97, Table 4.6) and outstanding Abstract Contingent Bills (9155.44 crore from Page 98, Table 4.7)."
+}

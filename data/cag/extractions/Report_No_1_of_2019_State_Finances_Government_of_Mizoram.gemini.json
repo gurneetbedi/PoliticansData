@@ -1,0 +1,27 @@
+{
+  "state_name": "Mizoram",
+  "audit_year": "2017-18",
+  "report_number": "Report No. 1 of 2019",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 1.81,
+    "revenue_deficit_pct_gsdp": 0,
+    "primary_deficit_pct_gsdp": 0,
+    "debt_pct_gsdp": 41.15,
+    "interest_pct_revenue_receipts": 3.95,
+    "capital_outlay_pct_gsdp": 11.25,
+    "revenue_receipts_pct_gsdp": 48.37,
+    "own_tax_revenue_pct_gsdp": 3.08
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 17739.33,
+    "outstanding_debt_crore": 7300.3
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 44.78
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal Deficit and Primary Deficit are reported as positive magnitudes as per instructions, although the report shows them as negative (deficit) or positive (surplus). Revenue Deficit is 0 as the state had a revenue surplus. Capital Outlay as % of GSDP was calculated from absolute figures of Capital Outlay (1996.35 crore, page 32) and GSDP (17739.33 crore, page 17). Audit paras raised this year, outstanding over 5 years, and PAC recommendations pending were not explicitly stated as numerical counts. Money value of observations is a sum of outstanding DCC Bills (10.06 crore, page 12) and outstanding Utilisation Certificates (34.72 crore, page 13)."
+}

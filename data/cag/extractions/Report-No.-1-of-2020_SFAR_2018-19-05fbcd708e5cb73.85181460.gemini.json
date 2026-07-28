@@ -1,0 +1,27 @@
+{
+  "state_name": "Meghalaya",
+  "audit_year": "2018-19",
+  "report_number": "Report No. 1 of 2020",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 5.89,
+    "revenue_deficit_pct_gsdp": 1.56,
+    "primary_deficit_pct_gsdp": 3.98,
+    "debt_pct_gsdp": 30.89,
+    "interest_pct_revenue_receipts": 6.76,
+    "capital_outlay_pct_gsdp": 0,
+    "revenue_receipts_pct_gsdp": 28.26,
+    "own_tax_revenue_pct_gsdp": 5.21
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 34389,
+    "outstanding_debt_crore": 10623.68
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 0
+  },
+  "extraction_confidence": "medium",
+  "extraction_notes": "State name, audit year, and report number from cover page. Fiscal indicators (gross fiscal deficit, revenue deficit, primary deficit, debt, interest to revenue receipts, own tax revenue as % of GSDP) are from Appendix 1.2, Part E (Page 91) and Table 1.6 (Page 29) for the 2018-19 fiscal year. GSDP at current prices from Table 1.1 (Page 19). Outstanding debt from Table 1.29 (Page 49). Capital outlay as a percentage of GSDP was not directly stated; only as a percentage of total expenditure (12.05% on Page 55), so it is reported as 0 as per strict instruction not to compute. Specific figures for audit paras (raised this year, outstanding over 5 years, PAC recommendations pending, money value of observations) were not found in the report in the requested format; the report mentions 74 cases of theft/misappropriation/loss pending for final action with a money value of 2.01 crore (Page 79), but this is not categorized as 'audit paras' or 'observations' in the schema's context."
+}

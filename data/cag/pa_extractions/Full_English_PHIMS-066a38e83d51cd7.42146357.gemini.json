@@ -1,0 +1,18 @@
+{
+  "state_name": "Chhattisgarh",
+  "report_topic": "Public Health Infrastructure and Management of Health Services",
+  "report_no": "02 of the year 2024",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2022,
+  "total_projects_audited": 4360,
+  "projects_time_overrun": 446,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 34100.85,
+  "total_actual_expenditure_crore": 27989.97,
+  "financial_utilization_pct": 82,
+  "physical_achievement_pct": 59.33,
+  "observations_summary": "The audit found a 34% overall shortage in manpower and inadequate public health infrastructure. Financial utilization was 82% of the allocated budget, but capital expenditure was very low at 7.64%. Delays and irregularities in procurement led to expiry of drugs worth ₹33.63 crore and avoidable expenditures. The state also lagged behind national averages in key health indicators and lacked a comprehensive State Health Policy.",
+  "extraction_confidence": "high"
+}

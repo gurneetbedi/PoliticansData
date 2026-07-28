@@ -1,0 +1,13 @@
+{
+  "state_name": "Kerala",
+  "report_topic": "Welfare of Building and Other Construction Workers",
+  "report_no": "7 of 2024",
+  "audit_period_start_fy": 2018,
+  "audit_period_end_fy": 2023,
+  "total_projects_audited": 300,
+  "total_budgeted_crore": 2758.61,
+  "total_actual_expenditure_crore": 2578.19,
+  "financial_utilization_pct": 93.45,
+  "observations_summary": "The audit found significant under-registration of establishments and workers, leading to a substantial shortfall in cess collection (₹542.17 crore) and non-realization of interest (₹11.39 crore). Welfare benefits were delayed or denied due to insufficient funds and unreliable beneficiary data, while the Board's cash balance declined sharply and safety regulations were not enforced at worksites.",
+  "extraction_confidence": "high"
+}

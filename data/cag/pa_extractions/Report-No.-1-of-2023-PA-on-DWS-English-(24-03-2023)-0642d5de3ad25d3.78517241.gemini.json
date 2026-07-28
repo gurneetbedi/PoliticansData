@@ -1,0 +1,18 @@
+{
+  "state_name": "Himachal Pradesh",
+  "report_topic": "Drinking Water Services",
+  "report_no": "1 of the year 2023",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2021,
+  "total_projects_audited": 55,
+  "projects_time_overrun": 527,
+  "projects_cost_overrun_over_10pct": 95,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 153.98,
+  "total_actual_expenditure_crore": 154.53,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 76,
+  "observations_summary": "The audit found inefficient financial management, including unspent funds, diversion of funds, and unrecovered water charges. Institutional mechanisms for planning, monitoring, and community participation were largely non-functional, leading to significant delays, cost overruns, and deficiencies in water supply infrastructure, resulting in inadequate quantity and quality of drinking water and a high incidence of water-borne diseases.",
+  "extraction_confidence": "high"
+}

@@ -1,0 +1,22 @@
+{
+  "state_name": "TRIPURA",
+  "audit_year": "2021-22",
+  "report_number": "Report No. 1 of 2023",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 0,
+    "revenue_deficit_pct_gsdp": 0,
+    "primary_deficit_pct_gsdp": 0,
+    "debt_pct_gsdp": 33.55,
+    "interest_pct_revenue_receipts": 5.59,
+    "capital_outlay_pct_gsdp": 2.11,
+    "revenue_receipts_pct_gsdp": 27.19,
+    "own_tax_revenue_pct_gsdp": 4.04
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 64778.08,
+    "outstanding_debt_crore": 21732.42
+  },
+  "audit_paras": {},
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal Deficit, Revenue Deficit, and Primary Deficit are reported as 0 because the state had a surplus in 2021-22, as per the sign convention. GSDP value is provisional. Interest as % of revenue receipts is taken from Table 2.38. Audit paras information was not found in a summarized format."
+}

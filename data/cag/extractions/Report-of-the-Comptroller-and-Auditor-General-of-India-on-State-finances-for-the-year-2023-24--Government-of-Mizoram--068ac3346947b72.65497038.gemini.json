@@ -1,0 +1,27 @@
+{
+  "state_name": "Mizoram",
+  "audit_year": "2023-24",
+  "report_number": "Report No. 2 of 2025",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 1.9,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 0.27,
+    "debt_pct_gsdp": 33.96,
+    "interest_pct_revenue_receipts": 5.1,
+    "capital_outlay_pct_gsdp": 3.52,
+    "revenue_receipts_pct_gsdp": 32.08,
+    "own_tax_revenue_pct_gsdp": 3.36
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 35579.0,
+    "outstanding_debt_crore": 12082.26
+  },
+  "audit_paras": {
+    "raised_this_year": 3,
+    "outstanding_over_5_years": 1,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 3446.17
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Revenue deficit is reported as 0 as the state had a revenue surplus of 1.62% of GSDP (Page 14, 30, 32, 138). Fiscal deficit and primary deficit are reported as positive magnitudes, as per instructions, despite being shown with negative signs in some tables (Page 14, 30, 32, 33, 138). 'Raised this year' is derived from the 'total excess disbursement' occurring under 'two Grants and one Appropriation' (Page 101). 'Outstanding over 5 years' is derived from the oldest outstanding UC (1 UC from 2017-18, Page 116). No explicit count for 'PAC recommendations pending' was found. Money value of observations is taken as the total excess disbursement for the current year (Page 101, Table 3.7), as it is the most significant single financial observation related to budgetary control."
+}

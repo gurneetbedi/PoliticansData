@@ -1,0 +1,14 @@
+{
+  "state_name": "Bihar",
+  "report_topic": "Public Health Infrastructure and Management of Health Services",
+  "report_no": "4 of 2024",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2022,
+  "total_projects_audited": 91,
+  "total_budgeted_crore": 69790.83,
+  "total_actual_expenditure_crore": 48047.79,
+  "financial_utilization_pct": 69,
+  "physical_achievement_pct": 52,
+  "observations_summary": "The audit found significant deficiencies in public health infrastructure and management of health services in Bihar, including high vacancies (49%) in human resources, inadequate basic amenities and diagnostic services in healthcare facilities, and non-availability of essential drugs and equipment. Financial management was poor, with 31% budget savings and low health expenditure compared to national norms, while regulatory mechanisms were ineffective due to manpower shortages and delayed inspections.",
+  "extraction_confidence": "high"
+}

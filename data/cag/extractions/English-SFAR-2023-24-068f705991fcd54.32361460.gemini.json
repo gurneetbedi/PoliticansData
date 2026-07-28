@@ -1,0 +1,22 @@
+{
+  "state_name": "Tamil Nadu",
+  "audit_year": "2023-24",
+  "report_number": "Report No. 2 of 2025",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.32,
+    "revenue_deficit_pct_gsdp": 1.66,
+    "primary_deficit_pct_gsdp": 1.35,
+    "debt_pct_gsdp": 28,
+    "interest_pct_revenue_receipts": 20.34,
+    "capital_outlay_pct_gsdp": 1.49,
+    "revenue_receipts_pct_gsdp": 9.72,
+    "own_tax_revenue_pct_gsdp": 6.15
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 2721571,
+    "outstanding_debt_crore": 762006
+  },
+  "audit_paras": {},
+  "extraction_confidence": "high",
+  "extraction_notes": "All fiscal indicators and absolute figures for the audit year 2023-24 were directly extracted from the Executive Summary (pages 13-15) and tables in Chapter 1 (Table 1.2, 1.4) and Chapter 2 (Table 2.4, 2.12, 2.35). The debt_pct_gsdp and outstanding_debt_crore include Off Budget Borrowings as per report footnotes. Audit paras fields were not explicitly found in the requested format."
+}

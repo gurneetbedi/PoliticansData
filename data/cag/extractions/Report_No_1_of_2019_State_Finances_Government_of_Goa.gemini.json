@@ -1,0 +1,27 @@
+{
+  "state_name": "Goa",
+  "audit_year": "2017-18",
+  "report_number": "Report No. 1 of the year 2019",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.29,
+    "revenue_deficit_pct_gsdp": 0.52,
+    "primary_deficit_pct_gsdp": 0.52,
+    "debt_pct_gsdp": 26.4,
+    "interest_pct_revenue_receipts": 11.25,
+    "capital_outlay_pct_gsdp": 2.98,
+    "revenue_receipts_pct_gsdp": 15.73,
+    "own_tax_revenue_pct_gsdp": 6.73
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 70267,
+    "outstanding_debt_crore": 18552
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 7324,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 1914.7
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Revenue deficit and primary deficit percentages were reported as negative in Chart 1.19 (Page 61) but converted to positive magnitudes as per schema instructions. 'Outstanding over 5 years' and 'money_value_of_observations_crore' refer to Utilisation Certificates (UCs) as per Table 3.1 (Page 80), not audit paras directly. No explicit count for 'audit_paras.raised_this_year' or 'audit_paras.pac_recommendations_pending' was found, so 0 is reported."
+}

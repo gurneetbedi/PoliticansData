@@ -1,0 +1,27 @@
+{
+  "state_name": "Arunachal Pradesh",
+  "audit_year": "2023-24",
+  "report_number": "Report No. 1 of 2025",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.6,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 1.65,
+    "debt_pct_gsdp": 44.58,
+    "interest_pct_revenue_receipts": 3.13,
+    "capital_outlay_pct_gsdp": 19.24,
+    "revenue_receipts_pct_gsdp": 62.38,
+    "own_tax_revenue_pct_gsdp": 6.36
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 43991.61,
+    "outstanding_debt_crore": 19610.17
+  },
+  "audit_paras": {
+    "raised_this_year": 11,
+    "outstanding_over_5_years": 3343,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 816.97
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Revenue Deficit is reported as a surplus of 15.63% of GSDP for 2023-24 (Page 12, 39, 42), hence reported as 0.0 for deficit. Fiscal Deficit and Primary Deficit are reported as positive magnitudes as per instructions. Capital Outlay percentage is from Table 2.15 (Page 64). Outstanding over 5 years audit paras refers to pending regularisation of excess expenditure from 1986-87 to 2022-23 (Page 143, 159). Raised this year audit paras refers to the number of grants with excess expenditure in 2023-24 (Page 143, 159). Money value of observations refers to the value of excess expenditure in 2023-24 (Page 143, 159). PAC recommendations pending is 0 as per Page 180, 4.17, stating 'no Audit Findings incorporated as Paragraphs in the State Finances Audit Report (SFAR), was discussed'."
+}

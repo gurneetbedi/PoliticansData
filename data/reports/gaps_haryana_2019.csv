@@ -1,40 +1,9 @@
 pdf,candidate,constituency,party,failure
-ANOOP_DHANAK__1465.pdf,ANOOP DHANAK,Uklana (SC),Jannayak Janta Party,gemini_ok_but_apply
-ASHA_KHEDAR__2988.pdf,ASHA KHEDAR,Uklana (SC),Bharatiya Janata Party,gemini_ok_but_apply
-BALBIR_SINGH__2850.pdf,BALBIR SINGH,Israna (SC),Indian National Congress,gemini_ok_but_apply
-BALWANT_SINGH__2431.pdf,BALWANT SINGH,Sadhaura (SC),Bharatiya Janata Party,gemini_ok_but_apply
-BHAGWAN_DASS__1224.pdf,BHAGWAN DASS,Nilokheri (SC),Bharatiya Janata Party,gemini_ok_but_apply
-BISHAMBER_SINGH__2120.pdf,BISHAMBER SINGH,Bawani Khera (SC),Bharatiya Janata Party,gemini_ok_but_apply
-CHAUDHARY_DILU_RAM__7143.pdf,CHAUDHARY DILU RAM,Guhla (SC),Indian National Congress,gemini_ok_but_apply
 DEVENDER_KADIAN__1274.pdf,DEVENDER KADIAN,Panipat Rural,Jannayak Janta Party,gemini_ok_but_apply
-DHARAM_PAL_GONDER__7852.pdf,DHARAM PAL GONDER,Nilokheri (SC),Independent,gemini_ok_but_apply
-DR__BANWARI_LAL__10198.pdf,DR. BANWARI LAL,Bawal (SC),Bharatiya Janata Party,gemini_ok_but_apply
-DR__M_L__RANGA__7112.pdf,DR. M.L. RANGA,Bawal (SC),Indian National Congress,gemini_ok_but_apply
 DR__RAGHUVIR_SINGH_KADIAN__5407.pdf,DR. RAGHUVIR SINGH KADIAN,Beri,Indian National Congress,gemini_ok_but_apply
-GEETA_BHUKKAL__5896.pdf,GEETA BHUKKAL,Jhajjar (SC),Indian National Congress,gemini_ok_but_apply
-ISHWAR_SINGH__7224.pdf,ISHWAR SINGH,Guhla (SC),Jannayak Janta Party,gemini_ok_but_apply
-JAGDISH__9847.pdf,JAGDISH,Hodal (SC),Independent,gemini_ok_but_apply
-JAIVEER_SINGH__1738.pdf,JAIVEER SINGH,Kharkhauda (SC),Indian National Congress,gemini_ok_but_apply
-JARNAIL_SINGH__1774.pdf,JARNAIL SINGH,Ratia (SC),Indian National Congress,gemini_ok_but_apply
-KRISHAN_LAL_PANWAR__4924.pdf,KRISHAN LAL PANWAR,Israna (SC),Bharatiya Janata Party,gemini_ok_but_apply
 LALIT_NAGAR_S_O_SH__BHARAT_SINGH__4990.pdf,LALIT NAGAR S/O SH. BHARAT SINGH,Tigaon,Indian National Congress,gemini_raw
-NARENDER_SINGH_PAHARI__7016.pdf,NARENDER SINGH PAHARI,Pataudi (SC),Independent,gemini_ok_but_apply
-NARENDER_SINGH__1204.pdf,NARENDER SINGH,Assandh,Bahujan Samaj Party,gemini_ok_but_apply
-PARDEEP_CHAUDHARY__7047.pdf,PARDEEP CHAUDHARY,Kalka,Indian National Congress,gemini_ok_but_apply
-PAWAN_KUMAR__7023.pdf,PAWAN KUMAR,Kharkhauda (SC),Jannayak Janta Party,gemini_ok_but_apply
-RAJBIR_SINGH__3883.pdf,RAJBIR SINGH,Mulana (SC),Bharatiya Janata Party,gemini_ok_but_apply
-RAJINDER_SINGH_DESUJODHA__7340.pdf,RAJINDER SINGH DESUJODHA,Kalawali (SC),Shiromani Akali Dal,gemini_ok_but_apply
-RAKESH_KUMAR__2326.pdf,RAKESH KUMAR,Jhajjar (SC),Bharatiya Janata Party,gemini_ok_but_apply
-RAMAVTAR_BALMIKI__3988.pdf,RAMAVTAR BALMIKI,Kalanaur (SC),Bharatiya Janata Party,gemini_ok_but_apply
-RAMKISHAN_FAUJI__4133.pdf,RAMKISHAN FAUJI,Bawani Khera (SC),Indian National Congress,gemini_ok_but_apply
+NARENDER_SINGH__1204.pdf,NARENDER SINGH,Assandh,Bahujan Samaj Party,gemini_no_wealth
+PARDEEP_CHAUDHARY__7047.pdf,PARDEEP CHAUDHARY,Kalka,Indian National Congress,gemini_no_wealth
 RAM_KUMAR_S_O_RATAN_SINGH__VILLAGE_GAMRA__4488.pdf,"RAM KUMAR S/O RATAN SINGH, VILLAGE GAMRA",Narnaund,Independent,gemini_ok_but_apply
-RAM_NIWAS__6396.pdf,RAM NIWAS,Narwana (SC),Jannayak Janta Party,gemini_ok_but_apply
-RENU_BALA__4909.pdf,RENU BALA,Sadhaura (SC),Indian National Congress,gemini_ok_but_apply
-SANTOSH_RANI__7483.pdf,SANTOSH RANI,Narwana (SC),Bharatiya Janata Party,gemini_ok_but_apply
-SATYA_PARKASH__2658.pdf,SATYA PARKASH,Pataudi (SC),Bharatiya Janata Party,gemini_ok_but_apply
-SHAKUNTLA_KHATAK__1929.pdf,SHAKUNTLA KHATAK,Kalanaur (SC),Indian National Congress,gemini_ok_but_apply
-SHISHPAL_SINGH__7971.pdf,SHISHPAL SINGH,Kalawali (SC),Indian National Congress,gemini_ok_but_apply
 SRI_KRISHAN_HOODA__1618.pdf,SRI KRISHAN HOODA,Baroda,Indian National Congress,gemini_raw
 SUBHASH_GANGOLI__2291.pdf,SUBHASH GANGOLI,Safidon,Indian National Congress,gemini_raw
-UDAI_BHAN__3025.pdf,UDAI BHAN,Hodal (SC),Indian National Congress,gemini_ok_but_apply
-VARUN_CHAUDHARY__6299.pdf,VARUN CHAUDHARY,Mulana (SC),Indian National Congress,gemini_ok_but_apply

@@ -1,0 +1,27 @@
+{
+  "state_name": "Andhra Pradesh",
+  "audit_year": "2016-17",
+  "report_number": "Report No. 2 of the year 2018",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 4.42,
+    "revenue_deficit_pct_gsdp": 2.46,
+    "primary_deficit_pct_gsdp": 2.75,
+    "debt_pct_gsdp": 21.42,
+    "interest_pct_revenue_receipts": 0.12,
+    "capital_outlay_pct_gsdp": 2.16,
+    "revenue_receipts_pct_gsdp": 14.15,
+    "own_tax_revenue_pct_gsdp": 6.3
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 699307,
+    "outstanding_debt_crore": 149808
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 53673.19
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "State name and audit year from cover page. Report number from cover page. Gross fiscal deficit, revenue deficit, and primary deficit percentages from page 30 (1.14 Fiscal Imbalances). Debt as % of GSDP and interest as % of revenue receipts from page 29 (Table 1.22). Capital outlay as % of GSDP from page 26. Revenue receipts as % of GSDP from page 18 (Table 1.5). Own tax revenue as % of GSDP from page 103 (Appendix 1.6, Part E, I. Resource Mobilization). GSDP from page 13 (Table 1.1). Outstanding debt from page 29 (Table 1.22). The money value of observations refers to 'Excess expenditure over the allocation amounting to ₹53,673.19 crore pertaining to the years from 2004 to 2016 was yet to be regularized' as stated on page 10 and 38. Specific counts for audit paras raised this year, outstanding over 5 years, or PAC recommendations pending were not found explicitly in numerical form."
+}

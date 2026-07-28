@@ -1,0 +1,18 @@
+{
+  "state_name": "Punjab",
+  "report_topic": "Outcomes of Higher Education",
+  "report_no": "2 of the year 2022",
+  "audit_period_start_fy": 2016,
+  "audit_period_end_fy": 2020,
+  "total_projects_audited": 41,
+  "projects_time_overrun": 12,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 1916,
+  "total_actual_expenditure_crore": 1895.76,
+  "financial_utilization_pct": 98,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit revealed significant shortcomings in Punjab's higher education, including regional imbalances in college distribution, incomplete infrastructure projects, high student-teacher ratios, and inadequate research outcomes. Ineffective governance and substantial staff vacancies further hindered the system's readiness for the National Education Policy 2020.",
+  "extraction_confidence": "high"
+}

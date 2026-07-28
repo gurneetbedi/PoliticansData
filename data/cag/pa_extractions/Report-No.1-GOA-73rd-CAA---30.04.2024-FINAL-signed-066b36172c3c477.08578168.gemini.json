@@ -1,0 +1,18 @@
+{
+  "state_name": "Goa",
+  "report_topic": "Implementation of 73rd Constitutional Amendment Act",
+  "report_no": "1 of the year 2024",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2021,
+  "total_projects_audited": 18,
+  "projects_time_overrun": 0,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 213.98,
+  "total_actual_expenditure_crore": 87.7,
+  "financial_utilization_pct": 40.99,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit found that while State laws complied with the 73rd Constitutional Amendment Act, the State Government retained overriding powers, curtailing PRI autonomy. PRIs lacked adequate administrative, financial, and human resources, leading to partial implementation of devolved functions, dependence on government grants, and unrealistic budgets.",
+  "extraction_confidence": "high"
+}

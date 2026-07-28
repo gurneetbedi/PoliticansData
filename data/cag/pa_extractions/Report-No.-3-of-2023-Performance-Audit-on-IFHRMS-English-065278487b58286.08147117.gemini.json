@@ -1,0 +1,18 @@
+{
+  "state_name": "Tamil Nadu",
+  "report_topic": "Integrated Financial and Human Resource Management System in Tamil Nadu",
+  "report_no": "Report No. 3 of the year 2023",
+  "audit_period_start_fy": 2016,
+  "audit_period_end_fy": 2022,
+  "total_projects_audited": 4,
+  "projects_time_overrun": 1,
+  "projects_cost_overrun_over_10pct": 1,
+  "avg_time_overrun_months": 48.0,
+  "avg_cost_overrun_pct": 27.66,
+  "total_budgeted_crore": 288.91,
+  "total_actual_expenditure_crore": 368.82,
+  "financial_utilization_pct": 0.0,
+  "physical_achievement_pct": 0.0,
+  "observations_summary": "The audit found significant delays and cost overruns in the IFHRMS project due to deficient system requirements and poor project management. Key modules like budget operations, bill processing, pension management, and security had deficiencies, leading to issues like double payments, incorrect accounting, and data vulnerabilities.",
+  "extraction_confidence": "high"
+}

@@ -1,0 +1,27 @@
+{
+  "state_name": "Government of National Capital Territory of Delhi",
+  "audit_year": "2017-18",
+  "report_number": "Report No. 1 of the year 2019",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 0,
+    "revenue_deficit_pct_gsdp": 0,
+    "primary_deficit_pct_gsdp": 0,
+    "debt_pct_gsdp": 4.89,
+    "interest_pct_revenue_receipts": 7.42,
+    "capital_outlay_pct_gsdp": 0.47,
+    "revenue_receipts_pct_gsdp": 5.64,
+    "own_tax_revenue_pct_gsdp": 5.21
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 686017,
+    "outstanding_debt_crore": 33569
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 2074,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 6953.64
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal deficit, revenue deficit, and primary deficit are reported as 0 because the report explicitly states a surplus for these indicators in the audit year (Page 14, Page 40, Page 41). Capital outlay as a percentage of GSDP was calculated from Capital Expenditure (3,243 crore, Page 71) and GSDP (6,86,017 crore, Page 19). Revenue receipts as a percentage of GSDP was calculated from Revenue Receipts (38,667 crore, Page 22) and GSDP (6,86,017 crore, Page 19). The number of audit paras raised this year and PAC recommendations pending were not explicitly stated as numerical values. 'Outstanding over 5 years' refers to outstanding Utilisation Certificates (UCs) for periods over 5 years (sum of 6-8, 8-10, and 10+ years categories from Table 3.2 on page 58). 'Money value of observations_crore' refers to the total money value of outstanding Utilisation Certificates (Table 3.2 on page 58)."
+}

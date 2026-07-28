@@ -1,0 +1,27 @@
+{
+  "state_name": "Punjab",
+  "audit_year": "2019-20",
+  "report_number": "Report No. 2 of the year 2021",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.93,
+    "revenue_deficit_pct_gsdp": 2.49,
+    "primary_deficit_pct_gsdp": 0,
+    "debt_pct_gsdp": 39.9,
+    "interest_pct_revenue_receipts": 24.77,
+    "capital_outlay_pct_gsdp": 3.1,
+    "revenue_receipts_pct_gsdp": 10.71,
+    "own_tax_revenue_pct_gsdp": 5.22
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 574760,
+    "outstanding_debt_crore": 229354
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 12,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 2271.76
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Primary deficit was a surplus of 0.13% of GSDP (Page 13, 26, 150), reported as 0 as per instructions. Money value of observations is the sum of pending Utilisation Certificates (446.19 crore), Abstract Contingent bills awaiting adjustment (1,792.02 crore), and pending cases of misappropriation/losses/thefts (33.55 crore) as mentioned in the Executive Summary (Page 16)."
+}

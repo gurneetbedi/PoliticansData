@@ -1,0 +1,27 @@
+{
+  "state_name": "Bihar",
+  "audit_year": "2018-19",
+  "report_number": "Report No. 3 of the year 2020",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.48,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 0.67,
+    "debt_pct_gsdp": 30.3,
+    "interest_pct_revenue_receipts": 7.64,
+    "capital_outlay_pct_gsdp": 3.78,
+    "revenue_receipts_pct_gsdp": 23.64,
+    "own_tax_revenue_pct_gsdp": 5.28
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 557490.0,
+    "outstanding_debt_crore": 168921.0
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 55405.09
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Revenue deficit is reported as 0 as the state had a revenue surplus of 1.24% of GSDP. Money value of observations is based on outstanding Utilisation Certificates. Specific counts for audit paras (raised, outstanding, pending PAC) were not found explicitly in the provided pages."
+}

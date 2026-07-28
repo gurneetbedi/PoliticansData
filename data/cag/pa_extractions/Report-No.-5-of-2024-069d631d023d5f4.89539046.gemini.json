@@ -1,0 +1,18 @@
+{
+  "state_name": "Tamil Nadu",
+  "report_topic": "Performance Audit on Public Health Infrastructure and Management of Health Services",
+  "report_no": "5 of the year 2024",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2022,
+  "total_projects_audited": 47,
+  "projects_time_overrun": 0,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 85407.96,
+  "total_actual_expenditure_crore": 80453.33,
+  "financial_utilization_pct": 94.64,
+  "physical_achievement_pct": 84.0,
+  "observations_summary": "The audit revealed significant manpower shortages and recruitment delays, impacting healthcare services. Key findings included non-supply of drugs, lack of equipment maintenance, underutilization of funds, a high proportion of LSCS deliveries, and delays in implementing regulatory mechanisms and centrally sponsored schemes.",
+  "extraction_confidence": "high"
+}

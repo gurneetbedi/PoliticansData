@@ -1,0 +1,18 @@
+{
+  "state_name": "Andhra Pradesh",
+  "report_topic": "Efficacy of Implementation of 74th Constitutional Amendment Act",
+  "report_no": "2 of 2023",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2021,
+  "total_projects_audited": 110,
+  "projects_time_overrun": 102,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 18313.26,
+  "total_actual_expenditure_crore": 6686.34,
+  "financial_utilization_pct": 36.51,
+  "physical_achievement_pct": 49.03,
+  "observations_summary": "The audit found incomplete devolution of functions to Urban Local Bodies (ULBs), significant delays in elections, and non-constitution of key planning committees. ULBs lacked autonomy in revenue generation, leading to substantial pending property tax arrears. Water supply projects experienced significant time overruns, and connections were not provided to many households. Additionally, ULBs faced inadequate manpower and unrealistic budget preparation.",
+  "extraction_confidence": "high"
+}

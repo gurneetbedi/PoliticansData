@@ -1,0 +1,18 @@
+{
+  "state_name": "Kerala",
+  "report_topic": "Performance Audit on Integrated Financial Management System",
+  "report_no": "4 of 2025",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2023,
+  "total_projects_audited": 5,
+  "projects_time_overrun": 1,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 96,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 0,
+  "total_actual_expenditure_crore": 34.3,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 60.16,
+  "observations_summary": "The audit found significant deficiencies in the Integrated Financial Management System (IFMS-K) in Kerala. Key issues included the absence of a Service Level Agreement and comprehensive documentation, leading to prolonged, unstructured development. Many functionalities and 100 out of 251 specified requirements were not developed. The system suffered from inadequate budget, receipt, expenditure, and accounts management controls, including lack of automation, validation, and reconciliation, leading to financial discrepancies and operational inefficiencies. Furthermore, critical information system security controls, such as third-party testing, data retention, and disaster recovery plans, were either absent or inadequate.",
+  "extraction_confidence": "high"
+}

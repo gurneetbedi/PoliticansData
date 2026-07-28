@@ -1,0 +1,9 @@
+{
+  "state_name": "Uttar Pradesh",
+  "report_topic": "Information Technology System in Transport Department",
+  "report_no": "3 of the year 2022",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2021,
+  "observations_summary": "The implementation of Vahan 4.0 and Sarathi 4.0 applications was delayed, and deficiencies were found in general controls, business rule mapping, and data validation. This led to issues in levy and collection of taxes, unauthorised exemptions, and inability to reconcile online revenue collections.",
+  "extraction_confidence": "high"
+}

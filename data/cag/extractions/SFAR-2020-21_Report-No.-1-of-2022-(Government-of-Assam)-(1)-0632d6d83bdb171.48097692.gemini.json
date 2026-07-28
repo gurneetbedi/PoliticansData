@@ -1,0 +1,27 @@
+{
+  "state_name": "Assam",
+  "audit_year": "2020-21",
+  "report_number": "Report No. 1 of 2022",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.47,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 1.98,
+    "debt_pct_gsdp": 25.1,
+    "interest_pct_revenue_receipts": 8.01,
+    "capital_outlay_pct_gsdp": 3.56,
+    "revenue_receipts_pct_gsdp": 18.64,
+    "own_tax_revenue_pct_gsdp": 4.92
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 348277.17,
+    "outstanding_debt_crore": 87407.79
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 136.87
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Revenue Deficit for 2020-21 was a surplus of 0.11% of GSDP. GSDP is at 2011-12 series. Money value of observations refers to cases of theft, misappropriation, and losses. No explicit count for 'audit paras raised this year' or 'PAC recommendations pending' was found. No specific count for 'outstanding over 5 years' audit paras was found, though 7283 UCs were outstanding for more than 5 years."
+}

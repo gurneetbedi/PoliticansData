@@ -1,0 +1,27 @@
+{
+  "state_name": "Tamil Nadu",
+  "audit_year": "2017-18",
+  "report_number": "Report No. 1 of 2019",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.79,
+    "revenue_deficit_pct_gsdp": 1.51,
+    "primary_deficit_pct_gsdp": 0.97,
+    "debt_pct_gsdp": 22.88,
+    "interest_pct_revenue_receipts": 17.78,
+    "capital_outlay_pct_gsdp": 1.42,
+    "revenue_receipts_pct_gsdp": 10.25,
+    "own_tax_revenue_pct_gsdp": 6.57
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 1427074,
+    "outstanding_debt_crore": 326518
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 361,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 14.94
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "State name, audit year, and report number from cover page. Fiscal indicators from Executive Summary (pages 10, 14) and Chapter I (pages 21, 27, 28). GSDP and outstanding debt from Chapter I (pages 19, 47, 97). Audit paras for misappropriations, losses, defalcations from Executive Summary (page 16) and Chapter III (page 84). 'Raised this year' and 'PAC recommendations pending' for audit paras were not explicitly found as numerical counts."
+}

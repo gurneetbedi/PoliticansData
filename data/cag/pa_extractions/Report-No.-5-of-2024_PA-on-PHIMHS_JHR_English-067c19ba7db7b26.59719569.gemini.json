@@ -1,0 +1,16 @@
+{
+  "state_name": "Jharkhand",
+  "report_topic": "Performance Audit of Public Health Infrastructure and Management of Health Services",
+  "report_no": "5 of 2024",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2022,
+  "total_projects_audited": 63,
+  "projects_time_overrun": 63,
+  "projects_cost_overrun_over_10pct": 2,
+  "total_budgeted_crore": 27909,
+  "total_actual_expenditure_crore": 20703,
+  "financial_utilization_pct": 74.18,
+  "physical_achievement_pct": 83,
+  "observations_summary": "The audit found significant shortages in human resources across various healthcare facilities, including medical officers, specialists, staff nurses, and paramedics. There were also critical gaps in the availability of essential drugs, equipment, and infrastructure, leading to non-functional units and delays in service delivery. Financial management issues included underutilization of funds and unfruitful expenditures on incomplete or idle projects.",
+  "extraction_confidence": "high"
+}

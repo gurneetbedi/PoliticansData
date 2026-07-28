@@ -1,0 +1,18 @@
+{
+  "state_name": "West Bengal",
+  "report_topic": "Performance Audit of Pollution by Industries in West Bengal",
+  "report_no": "Report No. 5 of the year 2018",
+  "audit_period_start_fy": 2013,
+  "audit_period_end_fy": 2017,
+  "total_projects_audited": 51,
+  "projects_time_overrun": 2797,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 0,
+  "total_actual_expenditure_crore": 0,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit found significant deficiencies in the prevention, control, and monitoring of industrial pollution in West Bengal, including incomplete data, non-implementation of action plans, a majority of industries operating with expired consents, and inadequate monitoring infrastructure, leading to continued environmental degradation. These deficiencies contributed to West Bengal remaining one of the largest contributors of industrial pollution in India.",
+  "extraction_confidence": "high"
+}

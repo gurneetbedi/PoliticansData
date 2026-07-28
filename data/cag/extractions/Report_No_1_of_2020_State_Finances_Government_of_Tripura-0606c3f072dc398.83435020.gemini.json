@@ -1,0 +1,21 @@
+{
+  "state_name": "Tripura",
+  "audit_year": "2018-19",
+  "report_number": "Report No. 1 of 2020",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.65,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 0.63,
+    "debt_pct_gsdp": 29.83,
+    "interest_pct_revenue_receipts": 8.47,
+    "capital_outlay_pct_gsdp": 2.93,
+    "revenue_receipts_pct_gsdp": 23.8,
+    "own_tax_revenue_pct_gsdp": 3.49
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 50544.52,
+    "outstanding_debt_crore": 15078.81
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "State name, audit year, and report number from cover page. Gross fiscal deficit percentage from Executive Summary (Page 13) and confirmed in Table 1.2 (Page 25), Table 1.6 (Page 29), and Table 1.36 (Page 65). Revenue deficit is a surplus of 0.28% of GSDP (Page 13, Page 65), reported as 0 for deficit. Primary deficit percentage calculated from absolute value (₹320.75 crore from Page 27, Page 29, Page 32) and GSDP (₹50,544.52 crore from Page 23). Debt percentage (29.83%) and outstanding debt absolute figure (₹15,078.81 crore) from Executive Summary (Page 13) and Appendix 1.4 (Page 117), noting a slight discrepancy with 29.24% and ₹14,779.52 crore in Table 1.34 (Page 62) and Table 1.36 (Page 65). Interest percentage from Table 1.36 (Page 65) and calculated from Table 1.20 (Page 45). Capital outlay percentage from Chart 1.15 (Page 50). Revenue receipts and own tax revenue percentages calculated from absolute values (Page 33) and GSDP (Page 23). Audit paras information not found in provided pages."
+}

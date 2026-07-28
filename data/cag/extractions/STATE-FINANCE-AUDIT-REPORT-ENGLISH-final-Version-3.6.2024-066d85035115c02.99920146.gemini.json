@@ -1,0 +1,24 @@
+{
+  "state_name": "Punjab",
+  "audit_year": "2022-23",
+  "report_number": "Report No. 2 of the year 2024",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 5.04,
+    "revenue_deficit_pct_gsdp": 3.87,
+    "primary_deficit_pct_gsdp": 2.08,
+    "debt_pct_gsdp": 43.64,
+    "interest_pct_revenue_receipts": 20.12,
+    "capital_outlay_pct_gsdp": 0.99,
+    "revenue_receipts_pct_gsdp": 13.02,
+    "own_tax_revenue_pct_gsdp": 6.28
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 673107.0,
+    "outstanding_debt_crore": 314220.73
+  },
+  "audit_paras": {
+    "money_value_of_observations_crore": 519.92
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "State name, audit year, and report number from cover page. Fiscal indicators and GSDP from Executive Summary and Tables 1.2, 1.4(b), 2.3, 2.16, 2.41, Chart 1.6, 2.13, 2.23, Appendix 2.2. Outstanding debt (Total A+B+C) from Table 1.7. Money value of observations (financial position impact) from Executive Summary and Section 5.14. Fields for audit_paras.raised_this_year, audit_paras.outstanding_over_5_years, and audit_paras.pac_recommendations_pending were omitted as specific integer counts for 'audit paras' in general were not directly available in the report, only for specific categories like UCs, AC bills, or misappropriation cases."
+}

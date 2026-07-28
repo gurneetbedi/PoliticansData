@@ -1,0 +1,27 @@
+{
+  "state_name": "Delhi",
+  "audit_year": "2018-19",
+  "report_number": "Report No. 2 of the year 2020",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 0,
+    "revenue_deficit_pct_gsdp": 0,
+    "primary_deficit_pct_gsdp": 0,
+    "debt_pct_gsdp": 4.21,
+    "interest_pct_revenue_receipts": 6.65,
+    "capital_outlay_pct_gsdp": 0.42,
+    "revenue_receipts_pct_gsdp": 5.53,
+    "own_tax_revenue_pct_gsdp": 4.7
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 779652,
+    "outstanding_debt_crore": 32812
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 1154,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 5169
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal deficit, revenue deficit, and primary deficit are reported as 0 because the state had a surplus for these indicators in 2018-19, as indicated in Chart 1.12 (page 40) and Part C. Deficits (page 70). Capital outlay as percentage of GSDP was calculated using Capital Expenditure (3,266 crore from Table 1.2, page 20) and GSDP (7,79,652 crore from Table 1.1, page 19). Revenue receipts as percentage of GSDP was calculated using Revenue Receipts (43,113 crore from Table 1.2, page 20) and GSDP (7,79,652 crore from Table 1.1, page 19). Debt as percentage of GSDP is from Table 1.15 (page 37). Interest as percentage of revenue receipts is from Table 1.17 (page 38). Own tax revenue as percentage of GSDP is from Part E: Fiscal Health Indicators (page 70). Outstanding audit paras over 5 years is the sum of UCs outstanding for 6-8, 8-10, and 10+ years from Table 3.2 (page 57). Money value of observations is the total amount of outstanding Utilisation Certificates from Table 3.2 (page 57). No explicit numbers were found for 'raised_this_year' or 'pac_recommendations_pending'."
+}

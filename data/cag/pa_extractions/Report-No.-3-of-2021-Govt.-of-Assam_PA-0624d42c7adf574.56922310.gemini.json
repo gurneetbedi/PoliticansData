@@ -1,0 +1,13 @@
+{
+  "state_name": "Assam",
+  "report_topic": "Performance Audit of Select District Hospitals",
+  "report_no": "3 of 2021",
+  "audit_period_start_fy": 2015,
+  "audit_period_end_fy": 2019,
+  "total_projects_audited": 7,
+  "total_budgeted_crore": 24774,
+  "total_actual_expenditure_crore": 17065,
+  "financial_utilization_pct": 69,
+  "observations_summary": "The performance audit revealed significant deficiencies in human resources, essential equipment (47% shortfall), and drug availability in district hospitals of Assam, leading to inadequate patient care and non-functional critical services like ICU and trauma care. Financial underutilization and delayed state contributions further exacerbated these issues, contributing to higher maternal and infant mortality rates.",
+  "extraction_confidence": "high"
+}

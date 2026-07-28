@@ -1,0 +1,18 @@
+{
+  "state_name": "Madhya Pradesh",
+  "report_topic": "Development of Roads in Madhya Pradesh by MP Public Works Department",
+  "report_no": "7 of 2025",
+  "audit_period_start_fy": 2019,
+  "audit_period_end_fy": 2023,
+  "total_projects_audited": 286,
+  "projects_time_overrun": 240,
+  "projects_cost_overrun_over_10pct": 16,
+  "avg_time_overrun_months": 13.93,
+  "avg_cost_overrun_pct": 29.79,
+  "total_budgeted_crore": 30259.19,
+  "total_actual_expenditure_crore": 25959.95,
+  "financial_utilization_pct": 85.8,
+  "physical_achievement_pct": 86.25,
+  "observations_summary": "The audit found systemic deficiencies in planning, financial management, tendering, and execution of road projects, leading to significant delays (average 424 days for 240 works), underutilization of funds, misdirection of resources, and substandard quality, compromising road safety and durability.",
+  "extraction_confidence": "high"
+}

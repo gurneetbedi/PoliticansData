@@ -1,0 +1,27 @@
+{
+  "state_name": "Nagaland",
+  "audit_year": "2020-21",
+  "report_number": "Report No. 1 of the year 2022",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 4.44,
+    "revenue_deficit_pct_gsdp": 0,
+    "primary_deficit_pct_gsdp": 1.52,
+    "debt_pct_gsdp": 45.96,
+    "interest_pct_revenue_receipts": 7.5,
+    "capital_outlay_pct_gsdp": 5.7,
+    "revenue_receipts_pct_gsdp": 38.98,
+    "own_tax_revenue_pct_gsdp": 3.49
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 29312.83,
+    "outstanding_debt_crore": 13471.67
+  },
+  "audit_paras": {
+    "raised_this_year": 29,
+    "outstanding_over_5_years": 8,
+    "pac_recommendations_pending": 7,
+    "money_value_of_observations_crore": 243.98
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Revenue Deficit is reported as 0 because the state had a Revenue Surplus of 1.28% of GSDP in 2020-21 (Page 16, 33, 37, 159). 'PAC recommendations pending' refers to the number of audit reports (2012-13 to 2018-19) for which Action Taken Notes (ATNs) were yet to be received (Page 132, Table 4.17). 'Outstanding over 5 years' for audit paras is from Appendix 4.3, '5-10 years' column."
+}

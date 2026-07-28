@@ -1,0 +1,27 @@
+{
+  "state_name": "Uttar Pradesh",
+  "audit_year": "2021-22",
+  "report_number": "Report No. 3 of the year 2023",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.11,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 0.0,
+    "debt_pct_gsdp": 32.14,
+    "interest_pct_revenue_receipts": 11.56,
+    "capital_outlay_pct_gsdp": 3.83,
+    "revenue_receipts_pct_gsdp": 19.91,
+    "own_tax_revenue_pct_gsdp": 7.91
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 1863221.0,
+    "outstanding_debt_crore": 612956.33
+  },
+  "audit_paras": {
+    "raised_this_year": 135,
+    "outstanding_over_5_years": 135,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 9.3086
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal deficit, revenue deficit, and primary deficit percentages are based on GSDP. Revenue deficit and primary deficit are reported as 0 as the state had a surplus in 2021-22 (Page 10, 33). Outstanding debt is the figure reported in Finance Accounts before audit adjustments for extra-budgetary borrowings (Page 36, Table 1.8). Audit paras raised this year and outstanding over 5 years refer to the total pending cases of misappropriation, losses, thefts, etc. as of 31 March 2022 (Page 127, Table 4.17 & 4.18), as all listed cases in Table 4.18 are older than 5 years. No specific number for PAC recommendations pending was found, so 0 is reported."
+}

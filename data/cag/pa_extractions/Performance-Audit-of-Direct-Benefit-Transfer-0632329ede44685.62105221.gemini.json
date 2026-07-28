@@ -1,0 +1,17 @@
+{
+  "state_name": "Karnataka",
+  "report_topic": "Direct Benefit Transfer",
+  "report_no": "2 of the year 2022",
+  "audit_period_start_fy": 2018,
+  "audit_period_end_fy": 2020,
+  "total_projects_audited": 29049520,
+  "projects_time_overrun": 91283,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 1.5,
+  "total_budgeted_crore": 5883.57,
+  "total_actual_expenditure_crore": 4679.78,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit found slow onboarding of schemes onto the Core DBT Portal, leading to significant benefit disbursements outside the system. While 83% of transactions were successful, 14% were rejected, and many faced delays, depriving 6.67 lakh beneficiaries of ₹153.30 crore. Issues included incorrect credits, inadequate monitoring, and insufficient security measures.",
+  "extraction_confidence": "high"
+}

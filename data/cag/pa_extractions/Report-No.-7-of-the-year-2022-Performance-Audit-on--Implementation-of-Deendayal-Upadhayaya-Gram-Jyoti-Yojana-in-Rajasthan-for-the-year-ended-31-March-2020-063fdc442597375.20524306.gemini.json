@@ -1,0 +1,14 @@
+{
+  "state_name": "Rajasthan",
+  "report_topic": "Performance Audit on Implementation of Deendayal Upadhyaya Gram Jyoti Yojana in Rajasthan",
+  "report_no": "7 of the year 2022",
+  "audit_period_start_fy": 2016,
+  "audit_period_end_fy": 2020,
+  "total_projects_audited": 9,
+  "projects_time_overrun": 33,
+  "projects_cost_overrun_over_10pct": 19,
+  "total_budgeted_crore": 1026.53,
+  "physical_achievement_pct": 81.65,
+  "observations_summary": "The audit found significant delays in project award and execution, with none of the 33 projects completed within the original timeframe, and cost overruns in 19 projects. Deficiencies in project formulation, contract management, and quality assurance led to non-compliance with guidelines and sub-standard work, failing to achieve 100% village electrification and targeted AT&C loss reduction.",
+  "extraction_confidence": "high"
+}

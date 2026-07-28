@@ -1,0 +1,110 @@
+{
+  "reference_year": "2021-22",
+  "state_data": [
+    {
+      "state_name": "Assam",
+      "oope_pct_of_the": 27.6,
+      "source_table": "A.6"
+    },
+    {
+      "state_name": "Andhra Pradesh",
+      "oope_pct_of_the": 52.0,
+      "source_table": "A.6"
+    },
+    {
+      "state_name": "Bihar",
+      "oope_pct_of_the": 41.3,
+      "source_table": "A.6"
+    },
+    {
+      "state_name": "Chhattisgarh",
+      "oope_pct_of_the": 29.2,
+      "source_table": "A.6"
+    },
+    {
+      "state_name": "Gujarat",
+      "oope_pct_of_the": 35.0,
+      "source_table": "A.6"
+    },
+    {
+      "state_name": "Haryana",
+      "oope_pct_of_the": 37.5,
+      "source_table": "A.6"
+    },
+    {
+      "state_name": "Jammu and Kashmir",
+      "oope_pct_of_the": 25.9,
+      "source_table": "A.6"
+    },
+    {
+      "state_name": "Jharkhand",
+      "oope_pct_of_the": 47.5,
+      "source_table": "A.6"
+    },
+    {
+      "state_name": "Karnataka",
+      "oope_pct_of_the": 25.4,
+      "source_table": "A.6"
+    },
+    {
+      "state_name": "Kerala",
+      "oope_pct_of_the": 59.1,
+      "source_table": "A.6"
+    },
+    {
+      "state_name": "Madhya Pradesh",
+      "oope_pct_of_the": 43.3,
+      "source_table": "A.6"
+    },
+    {
+      "state_name": "Maharashtra",
+      "oope_pct_of_the": 38.1,
+      "source_table": "A.6"
+    },
+    {
+      "state_name": "Odisha",
+      "oope_pct_of_the": 37.1,
+      "source_table": "A.6"
+    },
+    {
+      "state_name": "Punjab",
+      "oope_pct_of_the": 57.2,
+      "source_table": "A.6"
+    },
+    {
+      "state_name": "Rajasthan",
+      "oope_pct_of_the": 37.1,
+      "source_table": "A.6"
+    },
+    {
+      "state_name": "Tamil Nadu",
+      "oope_pct_of_the": 34.6,
+      "source_table": "A.6"
+    },
+    {
+      "state_name": "Uttar Pradesh",
+      "oope_pct_of_the": 63.7,
+      "source_table": "A.6"
+    },
+    {
+      "state_name": "Uttarakhand",
+      "oope_pct_of_the": 26.9,
+      "source_table": "A.6"
+    },
+    {
+      "state_name": "West Bengal",
+      "oope_pct_of_the": 58.3,
+      "source_table": "A.6"
+    },
+    {
+      "state_name": "Telangana",
+      "oope_pct_of_the": 37.6,
+      "source_table": "A.6"
+    },
+    {
+      "state_name": "Himachal Pradesh",
+      "oope_pct_of_the": 39.6,
+      "source_table": "A.6"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "state_name": "Uttar Pradesh",
+  "report_topic": "Outcomes in Higher Education",
+  "report_no": "6 of the year 2022",
+  "audit_period_start_fy": 2015,
+  "audit_period_end_fy": 2020,
+  "projects_time_overrun": 14,
+  "total_budgeted_crore": 17298.95,
+  "total_actual_expenditure_crore": 13847.97,
+  "financial_utilization_pct": 80.0,
+  "observations_summary": "The audit found lower Gross Enrollment Ratio, poor NAAC accreditation, and stagnant growth in government colleges. Key issues included high student-teacher ratios, outdated curricula with low employability focus, significant delays in examination results and research projects, and ineffective governance with vacant posts and delayed fund releases.",
+  "extraction_confidence": "high"
+}

@@ -1,0 +1,18 @@
+{
+  "state_name": "Delhi",
+  "report_topic": "Children in Need of Care and Protection",
+  "report_no": "1/2023",
+  "audit_period_start_fy": 2019,
+  "audit_period_end_fy": 2021,
+  "total_projects_audited": 15,
+  "projects_time_overrun": 0,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 51.9249,
+  "total_actual_expenditure_crore": 36.3667,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 54.0,
+  "observations_summary": "GNCTD's efforts towards providing care and protection to children in need were deficient and slow, with poor financial management, unspent balances, and delayed fund releases. Child Care Institutions suffered from staff shortages, inadequate infrastructure, insufficient nutrition, clothing, bedding, medical facilities, and a significant absence of formal education. Monitoring by DCPUs and CWCs was also deficient, with delays in registration/renewal of CCIs and poor tracking of children.",
+  "extraction_confidence": "high"
+}

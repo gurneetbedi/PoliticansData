@@ -1,0 +1,22 @@
+{
+  "state_name": "West Bengal",
+  "audit_year": "2017-18",
+  "report_number": "Report No. 3 of 2019",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.83,
+    "revenue_deficit_pct_gsdp": 0.96,
+    "primary_deficit_pct_gsdp": 0.08,
+    "debt_pct_gsdp": 30.96,
+    "interest_pct_revenue_receipts": 21.39,
+    "capital_outlay_pct_gsdp": 1.9,
+    "revenue_receipts_pct_gsdp": 12.86,
+    "own_tax_revenue_pct_gsdp": 5.16
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 1020858,
+    "outstanding_debt_crore": 316011
+  },
+  "audit_paras": {},
+  "extraction_confidence": "high",
+  "extraction_notes": "Primary Deficit is reported as a positive magnitude from the -0.08% value in Chart 1.2. Specific consolidated figures for audit paras (raised this year, outstanding, PAC recommendations, and money value of observations) were not explicitly summarized in a single figure in the report."
+}

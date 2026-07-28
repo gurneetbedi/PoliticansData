@@ -193,6 +193,7 @@
       <a class="text-label-lg font-label-lg {% if request.url.path == '/browse' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/browse{{ _q }}">Rankings</a>
       <a class="text-label-lg font-label-lg {% if request.url.path == '/heatmap' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/heatmap{{ _q }}">Heatmap</a>
       <a class="text-label-lg font-label-lg {% if request.url.path == '/anomalies' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/anomalies{{ _q }}">Anomalies</a>
+      <a class="text-label-lg font-label-lg {% if request.url.path == '/gpi' %}text-primary border-b-2 border-secondary-container pb-1{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="/gpi{{ _q }}">GPI</a>
       {# Funding still hidden — no party-funding data yet.
       <a ... href="/funding{{ _q }}">Funding</a>
       #}
@@ -279,6 +280,9 @@
   </a>
   <a href="/heatmap{{ _q }}" class="flex flex-col items-center {% if request.url.path == '/heatmap' %}text-primary font-bold{% else %}text-on-surface-variant{% endif %}">
     <span class="material-symbols-outlined">map</span><span class="text-[10px]">Heatmap</span>
+  </a>
+  <a href="/gpi{{ _q }}" class="flex flex-col items-center {% if request.url.path == '/gpi' %}text-primary font-bold{% else %}text-on-surface-variant{% endif %}">
+    <span class="material-symbols-outlined">insights</span><span class="text-[10px]">GPI</span>
   </a>
   {# Anomalies / Funding / Affidavits mobile-nav entries hidden — see desktop nav comment above. #}
 </nav>

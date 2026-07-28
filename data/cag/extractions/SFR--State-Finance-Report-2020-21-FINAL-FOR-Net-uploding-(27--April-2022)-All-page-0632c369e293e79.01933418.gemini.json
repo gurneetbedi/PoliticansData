@@ -1,0 +1,24 @@
+{
+  "state_name": "Arunachal Pradesh",
+  "audit_year": "2020-21",
+  "report_number": "Report No. 1 of 2022",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.78,
+    "revenue_deficit_pct_gsdp": 0,
+    "primary_deficit_pct_gsdp": 1.16,
+    "debt_pct_gsdp": 47.69,
+    "interest_pct_revenue_receipts": 4.39,
+    "capital_outlay_pct_gsdp": 17.84,
+    "revenue_receipts_pct_gsdp": 59.62,
+    "own_tax_revenue_pct_gsdp": 4.98
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 28721.36,
+    "outstanding_debt_crore": 13696.61
+  },
+  "audit_paras": {
+    "money_value_of_observations_crore": 3195.54
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Revenue deficit is reported as 0 as the state had a revenue surplus. Interest_pct_revenue_receipts is taken from Table 2.35 (Debt Sustainability Indicators) which shows 4.39%, as opposed to 5.75% mentioned in the text on page 63, due to the table being a summary of indicators. Outstanding debt is total outstanding debt. Audit paras counts (raised_this_year, outstanding_over_5_years, pac_recommendations_pending) were not explicitly found."
+}

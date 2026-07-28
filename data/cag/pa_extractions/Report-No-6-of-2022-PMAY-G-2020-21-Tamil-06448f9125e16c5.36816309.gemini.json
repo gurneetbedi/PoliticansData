@@ -1,0 +1,14 @@
+{
+  "state_name": "Tamil Nadu",
+  "report_topic": "Pradhan Mantri Awaas Yojana - Gramin Implementation",
+  "report_no": "6 - 2022",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2021,
+  "total_projects_audited": 509000,
+  "total_budgeted_crore": 3798.37,
+  "total_actual_expenditure_crore": 2282.77,
+  "financial_utilization_pct": 60,
+  "physical_achievement_pct": 55.03,
+  "observations_summary": "The audit found that 55.03% of sanctioned houses were completed by March 2021. Key issues included non-receipt of ₹1,515.60 crore in central assistance, improper utilization of administrative funds, and fraudulent approval of 3,354 houses to ineligible beneficiaries, leading to a loss of ₹50.28 crore. There were also significant irregularities in geotagging and time-stamping of house construction photos.",
+  "extraction_confidence": "high"
+}

@@ -1,0 +1,16 @@
+{
+  "state_name": "Odisha",
+  "report_topic": "Surface Irrigation",
+  "report_no": "1 of the year 2022",
+  "audit_period_start_fy": 2015,
+  "audit_period_end_fy": 2020,
+  "total_projects_audited": 24,
+  "projects_time_overrun": 4,
+  "projects_cost_overrun_over_10pct": 15,
+  "total_budgeted_crore": 30366.51,
+  "total_actual_expenditure_crore": 25153.35,
+  "financial_utilization_pct": 83,
+  "physical_achievement_pct": 24,
+  "observations_summary": "The Performance Audit revealed several deficiencies in the planning, implementation and monitoring of the projects. Financial management was marred by fund surrenders, non-receipt of central assistance, and parking of funds. Projects faced significant cost overruns (182-4596%) and time overruns (13-43 years), leading to only 24% physical achievement of irrigation potential against the target.",
+  "extraction_confidence": "high"
+}

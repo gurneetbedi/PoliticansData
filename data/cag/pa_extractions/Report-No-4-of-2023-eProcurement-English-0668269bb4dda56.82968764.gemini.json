@@ -1,0 +1,18 @@
+{
+  "state_name": "Tamil Nadu",
+  "report_topic": "Implementation of eProcurement system",
+  "report_no": "4 of the year 2023",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2022,
+  "total_projects_audited": 1260,
+  "projects_time_overrun": 5726,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 0,
+  "total_actual_expenditure_crore": 0,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The eProcurement system in Tamil Nadu suffered from partial implementation, lack of mandatory usage, and inadequate monitoring, leading to incomplete tender evaluation reports and reduced transparency. Many procuring entities did not utilize the portal, and the state ranked low in updating tender process stages.",
+  "extraction_confidence": "high"
+}

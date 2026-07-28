@@ -1,0 +1,27 @@
+{
+  "state_name": "Madhya Pradesh",
+  "audit_year": "2021-22",
+  "report_number": "Report No. 4 of the year 2023",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.21,
+    "revenue_deficit_pct_gsdp": 0,
+    "primary_deficit_pct_gsdp": 1.63,
+    "debt_pct_gsdp": 21.63,
+    "interest_pct_revenue_receipts": 9.14,
+    "capital_outlay_pct_gsdp": 3.48,
+    "revenue_receipts_pct_gsdp": 15.9,
+    "own_tax_revenue_pct_gsdp": 5.67
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 1169004,
+    "outstanding_debt_crore": 323794
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 30926.48
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Revenue Deficit is reported as a surplus of 0.41% of GSDP in Table 1.4 and 1.5, hence reported as 0 for deficit. Debt % GSDP is taken from Table 2.38, which provides a more refined figure after exclusions. Money value of observations is taken from Table 4.8, representing pending Utilisation Certificates. Specific counts for audit paras (raised this year, outstanding over 5 years, PAC recommendations pending) were not directly found as single, clear figures for the current year."
+}

@@ -1,0 +1,18 @@
+{
+  "state_name": "Uttar Pradesh",
+  "report_topic": "Land Acquisition and Allotment of Properties in Greater Noida Industrial Development Authority (GNIDA)",
+  "report_no": "4/2023",
+  "audit_period_start_fy": 2006,
+  "audit_period_end_fy": 2018,
+  "total_projects_audited": 569,
+  "projects_time_overrun": 1194,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 0,
+  "total_actual_expenditure_crore": 0,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit found significant lapses in planning, land acquisition, pricing, and allotment of properties by GNIDA, leading to a loss of ₹13,362 crore and overdue payments of ₹19,500 crore. Issues included misuse of urgency clauses for land acquisition, arbitrary fixation of sale prices, and failure to ensure project completion, with many industrial and housing projects remaining incomplete.",
+  "extraction_confidence": "high"
+}

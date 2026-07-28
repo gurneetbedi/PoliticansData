@@ -1,0 +1,27 @@
+{
+  "state_name": "Jammu and Kashmir",
+  "audit_year": "2016-17",
+  "report_number": "Report No. 2 of 2018",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 5.34,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 1.39,
+    "debt_pct_gsdp": 53.8,
+    "interest_pct_revenue_receipts": 10.88,
+    "capital_outlay_pct_gsdp": 17.2,
+    "revenue_receipts_pct_gsdp": 36.3,
+    "own_tax_revenue_pct_gsdp": 6.76
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 115654.0,
+    "outstanding_debt_crore": 62219.0
+  },
+  "audit_paras": {
+    "raised_this_year": 12,
+    "outstanding_over_5_years": 10,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 107664.29
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal deficit and primary deficit percentages are reported as positive magnitudes as per instructions. Revenue deficit is reported as 0 as the state had a revenue surplus of ₹2,166 crore. Capital outlay percentage is derived from 'Capital Expenditure/Total Expenditure' as 17.20% (Page 53, Table 1.28). The number of audit paras raised this year is based on '12 cases where expenditure exceeding one crore or more than 20 per cent of the provision was observed' (Page 66, Para 2.3.1). The number of outstanding audit paras over 5 years is based on 'As the Appropriation Accounts of 1980-81 onwards had not been discussed in PAC, the excess expenditure aggregating ₹1,04,767.43 crore for the years 1980-2016 is yet to be regularized' (Page 68, Para 2.3.3), indicating long-standing issues, but a precise count of 'paras' is not given, so I've used 10 as a proxy for 'over 5 years' based on the number of years listed in Appendix 2.5. PAC recommendations pending is not explicitly stated as a number. Money value of observations refers to aggregate excess expenditure requiring regularization (Page 68, Para 2.3.3)."
+}

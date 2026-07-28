@@ -1,0 +1,18 @@
+{
+  "state_name": "Delhi",
+  "report_topic": "Functioning of Delhi Transport Corporation",
+  "report_no": "4 of 2024",
+  "audit_period_start_fy": 2016,
+  "audit_period_end_fy": 2022,
+  "total_projects_audited": 0,
+  "projects_time_overrun": 0,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 0,
+  "total_actual_expenditure_crore": 0,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit found that the Delhi Transport Corporation continuously incurred losses due to a lack of business planning, deficient route planning, and low operational efficiency, exacerbated by a reduced and aging bus fleet, delays in new bus procurement, and non-functional intelligent transport systems. Significant financial irregularities included unrecovered dues, lost revenue opportunities, and avoidable penalties due to internal control deficiencies.",
+  "extraction_confidence": "high"
+}

@@ -1,0 +1,27 @@
+{
+  "state_name": "Haryana",
+  "audit_year": "2023-24",
+  "report_number": "Report No. 1 of 2025",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.87,
+    "revenue_deficit_pct_gsdp": 1.08,
+    "primary_deficit_pct_gsdp": 0.9,
+    "debt_pct_gsdp": 29.81,
+    "interest_pct_revenue_receipts": 21.32,
+    "capital_outlay_pct_gsdp": 1.45,
+    "revenue_receipts_pct_gsdp": 9.25,
+    "own_tax_revenue_pct_gsdp": 6.62
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 1095535,
+    "outstanding_debt_crore": 326622
+  },
+  "audit_paras": {
+    "raised_this_year": 2,
+    "outstanding_over_5_years": 800,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 17019.5
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal deficit, revenue deficit, primary deficit, capital outlay, revenue receipts, and own tax revenue percentages are from Table 1.2. Debt percentage is from Table 1.4 and 2.37. Interest percentage of revenue receipts is from Table 2.19 and 2.37. GSDP is from Executive Summary and Table 1.1. Outstanding debt is from Table 2.32 and 2.37. Audit paras raised this year refers to excess disbursements from page 118. Outstanding over 5 years and money value of observations are from outstanding Utilisation Certificates in Table 4.3 and page 19/143. PAC recommendations pending was not found in the provided pages."
+}

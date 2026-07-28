@@ -1,0 +1,27 @@
+{
+  "state_name": "Bihar",
+  "audit_year": "2021-22",
+  "report_number": "Report No. 01 of the year 2023",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.78,
+    "revenue_deficit_pct_gsdp": 0.06,
+    "primary_deficit_pct_gsdp": 1.74,
+    "debt_pct_gsdp": 37.07,
+    "interest_pct_revenue_receipts": 8.7,
+    "capital_outlay_pct_gsdp": 3.51,
+    "revenue_receipts_pct_gsdp": 23.51,
+    "own_tax_revenue_pct_gsdp": 5.16
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 675448.0,
+    "outstanding_debt_crore": 257510.21
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 327,
+    "money_value_of_observations_crore": 0.0
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal indicators are primarily from Table 1.2 and Table 1.5. GSDP is from Table 1.1. Outstanding debt is from Table 2.41. The debt_pct_gsdp value of 37.07% is explicitly noted as 'effective' after excluding GST compensation. Revenue deficit is reported as a positive magnitude. PAC recommendations pending is from page 160, section 4.18. Other audit paras figures were not explicitly found."
+}

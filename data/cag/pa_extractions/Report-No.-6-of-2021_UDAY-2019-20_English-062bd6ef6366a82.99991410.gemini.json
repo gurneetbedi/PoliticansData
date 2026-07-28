@@ -1,0 +1,18 @@
+{
+  "state_name": "Punjab",
+  "report_topic": "Performance audit on Pre and Post Ujwal Discom Assurance Yojna in Punjab State Power Corporation Limited",
+  "report_no": "6 of the year 2021",
+  "audit_period_start_fy": 2016,
+  "audit_period_end_fy": 2020,
+  "total_projects_audited": 0,
+  "projects_time_overrun": 0,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 40852.0,
+  "total_actual_expenditure_crore": 35455.81,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 0,
+  "observations_summary": "The audit found dismal performance in implementing the UDAY scheme, with the State Government violating MoU provisions by converting debt to equity and failing to pay subsidy dues, leading to increased outstanding loans and higher interest costs for PSPCL. Operational targets for AT&C losses, billing, collection efficiency, smart metering, and feeder segregation were largely unmet, and monitoring mechanisms were deficient.",
+  "extraction_confidence": "high"
+}

@@ -1,0 +1,27 @@
+{
+  "state_name": "Odisha",
+  "audit_year": "2022-23",
+  "report_number": "Report No. 5 of the year 2024",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 1.96,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 1.25,
+    "debt_pct_gsdp": 13.12,
+    "interest_pct_revenue_receipts": 3.66,
+    "capital_outlay_pct_gsdp": 4.3,
+    "revenue_receipts_pct_gsdp": 19.42,
+    "own_tax_revenue_pct_gsdp": 6.01
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 774869.0,
+    "outstanding_debt_crore": 101699.79
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 673,
+    "pac_recommendations_pending": 361,
+    "money_value_of_observations_crore": 18.45
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Revenue deficit is 0 as the state had a revenue surplus (₹19,456 crore). Primary deficit is reported as positive magnitude from a negative primary surplus (-1.25% of GSDP). Outstanding audit paras over 5 years calculated from Table 4.9 (sum of cases >5 years old). PAC recommendations pending refers to audit paragraphs pending discussion by PAC. 'Raised this year' was not explicitly found."
+}

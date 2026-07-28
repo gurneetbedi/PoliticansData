@@ -1,0 +1,27 @@
+{
+  "state_name": "Arunachal Pradesh",
+  "audit_year": "2016-17",
+  "report_number": "Report No. 1 of 2018",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 0,
+    "revenue_deficit_pct_gsdp": 0,
+    "primary_deficit_pct_gsdp": 0,
+    "debt_pct_gsdp": 23.38,
+    "interest_pct_revenue_receipts": 0,
+    "capital_outlay_pct_gsdp": 0,
+    "revenue_receipts_pct_gsdp": 48.97,
+    "own_tax_revenue_pct_gsdp": 2.95
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 24056,
+    "outstanding_debt_crore": 5625.09
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 2636.87
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal, Revenue, and Primary Deficits are reported as surpluses in the source document (pages 11, 19, 44, 83), hence reported as 0 for deficit percentages. Capital Outlay as % of GSDP and Interest Payments as % of Revenue Receipts were not found directly as percentages. Money value of observations refers to unregularized excess expenditure from 1986-87 to 2015-16 (page 62). Specific counts for audit paras were not consolidated in the report."
+}

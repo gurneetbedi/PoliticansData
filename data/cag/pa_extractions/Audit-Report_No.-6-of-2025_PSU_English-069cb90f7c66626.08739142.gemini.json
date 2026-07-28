@@ -1,0 +1,14 @@
+{
+  "state_name": "Odisha",
+  "report_topic": "Compliance and Performance Audit of State Public Sector Enterprises",
+  "report_no": "6 of the year 2025",
+  "audit_period_start_fy": 2019,
+  "audit_period_end_fy": 2023,
+  "total_projects_audited": 6,
+  "projects_time_overrun": 4,
+  "projects_cost_overrun_over_10pct": 1,
+  "avg_time_overrun_months": 117.0,
+  "total_budgeted_crore": 5495.9,
+  "observations_summary": "The audit found significant avoidable expenditures and revenue losses across State Public Sector Enterprises (SPSEs) in Odisha, particularly in Odisha Mining Corporation (OMC), Odisha Power Generation Corporation (OPGC), and Odisha Power Transmission Corporation (OPTCL), stemming from issues like non-operation of mines, delayed clearances, improper project planning, contract management deficiencies, and non-compliance with corporate governance and CSR provisions.",
+  "extraction_confidence": "high"
+}

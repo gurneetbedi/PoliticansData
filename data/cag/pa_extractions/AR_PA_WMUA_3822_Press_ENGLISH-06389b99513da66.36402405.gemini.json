@@ -1,0 +1,18 @@
+{
+  "state_name": "Odisha",
+  "report_topic": "Waste Management in Urban Areas",
+  "report_no": "6 of the year 2022",
+  "audit_period_start_fy": 2016,
+  "audit_period_end_fy": 2020,
+  "total_projects_audited": 45,
+  "projects_time_overrun": 0,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 3130.34,
+  "total_actual_expenditure_crore": 2165.51,
+  "financial_utilization_pct": 69.18,
+  "physical_achievement_pct": 4.53,
+  "observations_summary": "The audit found inadequate planning, implementation, and monitoring of waste management in urban areas, with ULBs failing to collect user fees and losing central assistance. A significant portion (90%) of waste was disposed to landfills without processing due to lack of infrastructure, non-segregation, and non-compliance with rules for various waste types.",
+  "extraction_confidence": "high"
+}

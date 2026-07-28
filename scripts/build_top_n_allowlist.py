@@ -287,8 +287,67 @@ def main():
                 unmatched.append((const_norm, wc["name"],
                                    f"best_score={best_score} for {best.get('name') if best else '(none)'!r}"))
                 per_const[const_norm]["unmatched_names"].append(wc["name"])
+    out_path = Path(args.output)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text("\n".join(sorted(allowlist)) + "\n")
+    # 4. Collision detector — safeguard for future builds.
+    #    Any (normalized_name, normalized_const) that maps to multiple
+    #    manifest rows (different aff_ids / parties) is a collision that
+    #    the downstream apply matcher CANNOT resolve via (name, const)
+    #    alone. Emit these to a sidecar report so we know to handle them
+    #    explicitly.
 
-    # 4. Write allowlist
+
+
+    collisions: list[dict] = []
+    from collections import defaultdict
+    dupes = defaultdict(list)   # (name_norm, const_norm) → [manifest rows]
+    for const_norm, mcs in manifest_by_const.items():
+        for mc in mcs:
+            n = _normalize_name(mc.get("name", ""))
+            if not n:
+                continue
+            dupes[(n, const_norm)].append(mc)
+    for (name_norm, const_norm), rows in dupes.items():
+        if len(rows) <= 1:
+            continue
+        parties = sorted({r.get("party", "") for r in rows if r.get("party")})
+        collisions.append({
+            "constituency_norm": const_norm,
+            "name_norm":         name_norm,
+            "count":             len(rows),
+            "parties":           parties,
+            "candidates": [
+                {"name": r.get("name"), "party": r.get("party"),
+                 "pdf": r.get("pdf_filename")}
+                for r in rows
+            ],
+            # Flag as "resolvable via party" if all parties differ;
+            # else "true collision" (same-name, same-const, same-party).
+            "verdict": ("resolvable_via_party" if len(parties) == len(rows)
+                        else "true_collision"),
+        })
+
+    if collisions:
+        report_dir = out_path.parent.parent / "reports" / "allowlist_collisions"
+        report_dir.mkdir(parents=True, exist_ok=True)
+        # Slug from output filename: extracts state_year
+        base = out_path.stem.replace("_top", "").rsplit("_", 1)[0] \
+                if "_top" in out_path.stem else out_path.stem
+        report_path = report_dir / f"{out_path.stem}.jsonl"
+        with report_path.open("w", encoding="utf-8") as f:
+            for c in collisions:
+                f.write(json.dumps(c) + "\n")
+        print(f"\n⚠ {len(collisions)} (name, constituency) collisions detected — "
+                f"see {report_path}",
+                file=sys.stderr,
+                )
+        for c in collisions[:3]:
+            print(f"    • {c['name_norm']} in {c['constituency_norm']}: "
+                  f"{c['count']} candidates, parties {c['parties']}, "
+                  f"verdict={c['verdict']}", file=sys.stderr)
+
+    # 5. Write allowlist (unchanged format — pipeline stays compatible)
     out_path = Path(args.output)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text("\n".join(sorted(allowlist)) + "\n")

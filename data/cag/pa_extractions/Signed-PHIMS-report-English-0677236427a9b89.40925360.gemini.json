@@ -1,0 +1,16 @@
+{
+  "state_name": "Himachal Pradesh",
+  "report_topic": "Public Health Infrastructure and Management of Health Services",
+  "report_no": "2 of the year 2024",
+  "audit_period_start_fy": 2017,
+  "audit_period_end_fy": 2021,
+  "total_projects_audited": 449,
+  "projects_time_overrun": 69,
+  "avg_time_overrun_months": 20.5,
+  "total_budgeted_crore": 14393.05,
+  "total_actual_expenditure_crore": 12966.02,
+  "financial_utilization_pct": 90.09,
+  "physical_achievement_pct": 90.61,
+  "observations_summary": "The audit found significant deficiencies in human resources (41.87% overall shortfall), inadequate healthcare infrastructure (113 works not started, 69 STPs delayed by 19-22 months), and issues with drug and equipment management (341.59 lakh quantities of drugs expired, 149 ventilators non-functional). Regulatory mechanisms were also weak, with many clinical establishments operating without proper registration or inspections.",
+  "extraction_confidence": "high"
+}

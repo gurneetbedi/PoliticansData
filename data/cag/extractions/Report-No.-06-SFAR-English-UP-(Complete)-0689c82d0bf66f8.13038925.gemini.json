@@ -1,0 +1,27 @@
+{
+  "state_name": "Uttar Pradesh",
+  "audit_year": "2023-24",
+  "report_number": "Report No. 6 of 2025",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.17,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 1.31,
+    "debt_pct_gsdp": 31.09,
+    "interest_pct_revenue_receipts": 10.15,
+    "capital_outlay_pct_gsdp": 4.34,
+    "revenue_receipts_pct_gsdp": 18.28,
+    "own_tax_revenue_pct_gsdp": 7.58
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 2547861.0,
+    "outstanding_debt_crore": 792189.45
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 32533.56
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Revenue deficit is reported as a surplus of 1.41% of GSDP (Page 31, Table 1.2), hence reported as 0 for deficit. Debt % of GSDP and outstanding debt crore include off-budget borrowings as per the report's overall liability calculation (Page 39, Table 1.8). Money value of observations refers to excess expenditure of ₹32,533.56 crore pertaining to 2005-06 to 2023-24 yet to be regularised (Page 17). Specific counts for audit paras raised this year, outstanding over 5 years, or PAC recommendations pending are not clearly aggregated in the report."
+}

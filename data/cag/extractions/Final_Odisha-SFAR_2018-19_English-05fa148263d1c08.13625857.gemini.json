@@ -1,0 +1,27 @@
+{
+  "state_name": "Odisha",
+  "audit_year": "2018-19",
+  "report_number": "Report No.4 of the year 2020",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 2.4,
+    "revenue_deficit_pct_gsdp": 0.0,
+    "primary_deficit_pct_gsdp": 0.0,
+    "debt_pct_gsdp": 22.3,
+    "interest_pct_revenue_receipts": 5.83,
+    "capital_outlay_pct_gsdp": 4.84,
+    "revenue_receipts_pct_gsdp": 20.51,
+    "own_tax_revenue_pct_gsdp": 6.25
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 485376.0,
+    "outstanding_debt_crore": 108258.0
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 45340.89
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal Deficit: Used the 'effective' fiscal deficit percentage (2.40%) as highlighted in the Executive Summary (page 11), which differs from the 'reported' fiscal deficit (2.09%) mentioned in a footnote and Chart 1.2. Revenue Deficit: Reported as 0 because the state had an 'effective' revenue surplus of ₹12,695 crore (page 11). Primary Deficit: Reported as 0 because the state had a primary surplus of ₹4,357 crore (page 22, Table 1.23). Audit Paras: Counts for 'raised_this_year', 'outstanding_over_5_years', and 'pac_recommendations_pending' were not explicitly available as integer counts of paras/recommendations. 'money_value_of_observations_crore' is based on outstanding Utilisation Certificates (UCs) as it was the largest monetary observation found (page 83)."
+}

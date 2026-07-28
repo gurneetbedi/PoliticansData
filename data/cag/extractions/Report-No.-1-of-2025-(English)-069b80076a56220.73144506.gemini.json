@@ -1,0 +1,27 @@
+{
+  "state_name": "Punjab",
+  "audit_year": "2023-24",
+  "report_number": "Report No. 1 of 2025",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 4.45,
+    "revenue_deficit_pct_gsdp": 3.79,
+    "primary_deficit_pct_gsdp": 1.42,
+    "debt_pct_gsdp": 43.72,
+    "interest_pct_revenue_receipts": 25.28,
+    "capital_outlay_pct_gsdp": 0.64,
+    "revenue_receipts_pct_gsdp": 11.97,
+    "own_tax_revenue_pct_gsdp": 6.34
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 744899.0,
+    "outstanding_debt_crore": 325693.66
+  },
+  "audit_paras": {
+    "raised_this_year": 0,
+    "outstanding_over_5_years": 0,
+    "pac_recommendations_pending": 0,
+    "money_value_of_observations_crore": 11586.27
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Fiscal deficit, revenue deficit, and primary deficit are reported as positive magnitudes. Debt percentage of GSDP (43.72%) does not include off-budget borrowings; if included, the overall liability to GSDP would be 44.27% (Page 19). The money value of observations includes: excess expenditure (₹5,242.75 crore), outstanding Utilisation Certificates (₹3,089.57 crore), pending Abstract Contingent bills (₹2,804.85 crore), funds not deposited into Government Account (₹406.98 crore), and non-discharge of interest liability (₹42.12 crore). Specific counts for 'audit paras raised this year', 'outstanding over 5 years', and 'PAC recommendations pending' were not explicitly found as formal audit paragraphs, but rather as counts of specific pending items (UCs, AC bills) which are not directly mapped to the schema's 'audit_paras' fields."
+}

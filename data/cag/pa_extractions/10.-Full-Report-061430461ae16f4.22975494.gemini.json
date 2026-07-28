@@ -1,0 +1,18 @@
+{
+  "state_name": "Karnataka",
+  "report_topic": "Management of Storm Water in Bengaluru Urban Area",
+  "report_no": "2 of 2021",
+  "audit_period_start_fy": 2014,
+  "audit_period_end_fy": 2018,
+  "total_projects_audited": 143,
+  "projects_time_overrun": 25,
+  "projects_cost_overrun_over_10pct": 0,
+  "avg_time_overrun_months": 0,
+  "avg_cost_overrun_pct": 0,
+  "total_budgeted_crore": 770.38,
+  "total_actual_expenditure_crore": 1138.34,
+  "financial_utilization_pct": 0,
+  "physical_achievement_pct": 15,
+  "observations_summary": "The audit revealed significant deficiencies in storm water management in Bengaluru, including large-scale encroachment of lakes and drains, depletion of natural drainage systems, and rampant mixing of sewage with storm water. Poor planning, execution, and financial controls, along with a lack of comprehensive policies and maintenance, contributed to frequent flooding and environmental degradation.",
+  "extraction_confidence": "high"
+}

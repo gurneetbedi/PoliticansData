@@ -1,0 +1,24 @@
+{
+  "state_name": "Himachal Pradesh",
+  "audit_year": "2019-20",
+  "report_number": "Report No. 3 of the year 2021",
+  "fiscal_indicators": {
+    "gross_fiscal_deficit_pct_gsdp": 3.38,
+    "revenue_deficit_pct_gsdp": 0.01,
+    "primary_deficit_pct_gsdp": 0.82,
+    "debt_pct_gsdp": 37.6,
+    "interest_pct_revenue_receipts": 9.99,
+    "capital_outlay_pct_gsdp": 3.13,
+    "revenue_receipts_pct_gsdp": 18.58,
+    "own_tax_revenue_pct_gsdp": 4.61
+  },
+  "absolute_figures": {
+    "gsdp_current_crore": 165472.39,
+    "outstanding_debt_crore": 62212
+  },
+  "audit_paras": {
+    "money_value_of_observations_crore": 49.91
+  },
+  "extraction_confidence": "high",
+  "extraction_notes": "Revenue Deficit is reported as a surplus of 0.01% of GSDP (Page 33, Chart 1.5). Primary Deficit is reported as a deficit of 0.82% of GSDP (Page 33, Chart 1.5). Own Tax Revenue % GSDP was calculated from absolute figures of Own Tax Revenue (7,623.82 crore from Table 2.2, Page 43) and GSDP (1,65,472.39 crore from Table 1.1, Page 21) for 2019-20. Money value of observations refers to the excess expenditure of the current year requiring regularization (Page 17, 106, 119). Specific counts for audit paras (raised, outstanding, PAC pending) were not explicitly provided in the report."
+}

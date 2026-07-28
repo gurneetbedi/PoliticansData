@@ -1,0 +1,15 @@
+{
+  "state_name": "Punjab",
+  "report_topic": "Performance Audits of Punjab Agricultural University and Solid Waste Management by Urban Local Bodies in Punjab",
+  "report_no": "5 of 2025",
+  "audit_period_start_fy": 2018,
+  "audit_period_end_fy": 2022,
+  "total_projects_audited": 8,
+  "projects_time_overrun": 7,
+  "projects_cost_overrun_over_10pct": 1,
+  "total_budgeted_crore": 1011.33,
+  "total_actual_expenditure_crore": 692.32,
+  "physical_achievement_pct": 35,
+  "observations_summary": "The audit found that Urban Local Bodies in Punjab failed to optimally utilize funds for Solid Waste Management, with only 35% of collected waste being treated. Key infrastructure was inadequate or non-operational, and 7 out of 8 identified PPP projects were not operative, indicating significant delays and implementation issues.",
+  "extraction_confidence": "high"
+}
