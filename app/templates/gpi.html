@@ -32,6 +32,142 @@
   {% endif %}
 {% endmacro %}
 
+{# ── Minister chip for a pillar section header. `ministers` is the list
+     from ministers_by_pillar[pillar_code]. Renders "Health Minister:
+     Dr. X (AAP)" — takes the first minister if a pillar has more than one
+     (e.g., separate Finance + Revenue ministers). Sources link back to
+     the underlying Wikipedia article for provenance. ── #}
+{% macro minister_chip(ministers, minister_label) %}
+  {% if ministers and ministers|length > 0 %}
+    {% set m = ministers[0] %}
+    <a href="{{ m.source }}" target="_blank" rel="noopener"
+       class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full
+              bg-surface-container-lowest border border-outline-variant
+              text-label-sm text-on-surface hover:border-primary transition-colors mt-2">
+      <span class="material-symbols-outlined text-[14px] text-on-surface-variant">person</span>
+      <span class="text-on-surface-variant font-bold uppercase tracking-widest text-[10px]">
+        {{ minister_label or 'Minister' }}
+      </span>
+      <span class="font-bold text-on-surface">{{ m.name }}</span>
+      {% if m.party %}
+        <span class="text-on-surface-variant">·</span>
+        <span class="text-on-surface-variant">{{ m.party }}</span>
+      {% endif %}
+      {% if m.is_cm %}
+        <span class="text-[9px] font-bold uppercase tracking-widest text-primary bg-primary/10 px-1.5 py-0.5 rounded">CM</span>
+      {% endif %}
+    </a>
+  {% endif %}
+{% endmacro %}
+
+{# ── Reusable peer comparison card block. Pass in the dict produced by
+     _compute_pillar_peers() in main.py + pillar display name + optional
+     footnote text. Used by every pillar section. ── #}
+{% macro pillar_peer_cards(peer_data, pillar_display_name, footnote='') %}
+  {% set peers = peer_data.peers if peer_data else [] %}
+  {% set med   = peer_data.median if peer_data else None %}
+  {% set year  = peer_data.year if peer_data else None %}
+  {% if peers %}
+    {% set top_peers    = peers | selectattr('tag', 'equalto', 'top')    | list %}
+    {% set you_peer     = peers | selectattr('tag', 'equalto', 'you')    | list | first %}
+    {% set bottom_peers = peers | selectattr('tag', 'equalto', 'bottom') | list %}
+    {% if not you_peer %}
+      {% set you_peer = peers | selectattr('is_current') | list | first %}
+    {% endif %}
+
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
+      <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
+        <div>
+          <h3 class="text-label-lg font-bold uppercase tracking-widest text-on-surface-variant">
+            {{ pillar_display_name }} · Peer Comparison
+          </h3>
+          <p class="text-label-sm text-on-surface-variant mt-1">
+            Top 3, national median, this state, and bottom 2 — {{ pillar_display_name }} pillar score.
+          </p>
+        </div>
+        <div class="text-label-sm text-on-surface-variant">
+          FY {{ year }} · {{ peers[0].total }} states
+        </div>
+      </div>
+
+      {# Top performers #}
+      <div class="mb-6">
+        <div class="text-label-sm uppercase tracking-widest font-bold text-green-700 mb-3">Top Performers</div>
+        <div class="grid grid-cols-3 gap-3">
+          {% for p in top_peers %}
+            <div class="rounded-xl p-4 border {% if p.is_current %}bg-primary/10 border-primary{% else %}bg-green-50 border-green-200{% endif %}">
+              <div class="flex items-baseline justify-between mb-1">
+                <span class="text-label-sm font-bold tabular-nums {% if p.is_current %}text-primary{% else %}text-green-700{% endif %}">
+                  #{{ '%02d'|format(p.rank) }}
+                </span>
+                {% if p.is_current %}<span class="text-[10px] font-bold uppercase tracking-widest text-primary">You</span>{% endif %}
+              </div>
+              <div class="text-label-lg font-bold text-on-surface truncate" title="{{ p.name }}">{{ p.name }}</div>
+              <div class="text-[28px] font-bold text-on-surface leading-none mt-1 tabular-nums">{{ '%.1f'|format(p.score) }}</div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      {# Your state (only if not already shown in top 3) #}
+      {% if you_peer and not (you_peer.tag == 'top') %}
+        <div class="mb-6">
+          <div class="text-label-sm uppercase tracking-widest font-bold text-primary mb-3">Your State</div>
+          <div class="rounded-xl p-4 bg-primary/10 border border-primary flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-4">
+              <span class="text-label-sm font-bold text-primary tabular-nums">#{{ '%02d'|format(you_peer.rank) }}</span>
+              <div>
+                <div class="text-label-lg font-bold text-on-surface">{{ you_peer.name }}</div>
+                <div class="text-label-sm text-on-surface-variant">Rank {{ you_peer.rank }} of {{ you_peer.total }}</div>
+              </div>
+            </div>
+            <div class="text-[36px] font-bold text-on-surface leading-none tabular-nums">
+              {{ '%.1f'|format(you_peer.score) }}
+            </div>
+            {% if med is not none %}
+              {% set delta = you_peer.score - med %}
+              <div class="text-right">
+                <div class="text-label-sm text-on-surface-variant">vs national median ({{ '%.1f'|format(med) }})</div>
+                <div class="text-label-lg font-bold tabular-nums
+                            {% if delta > 0 %}text-green-700{% elif delta < 0 %}text-red-700{% else %}text-on-surface{% endif %}">
+                  {% if delta > 0 %}+{% endif %}{{ '%.1f'|format(delta) }}
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      {# Bottom performers #}
+      {% if bottom_peers %}
+        <div>
+          <div class="text-label-sm uppercase tracking-widest font-bold text-red-700 mb-3">Bottom Performers</div>
+          <div class="grid grid-cols-2 gap-3">
+            {% for p in bottom_peers %}
+              <div class="rounded-xl p-4 border {% if p.is_current %}bg-primary/10 border-primary{% else %}bg-red-50 border-red-200{% endif %}">
+                <div class="flex items-baseline justify-between mb-1">
+                  <span class="text-label-sm font-bold tabular-nums {% if p.is_current %}text-primary{% else %}text-red-700{% endif %}">
+                    #{{ '%02d'|format(p.rank) }}
+                  </span>
+                  {% if p.is_current %}<span class="text-[10px] font-bold uppercase tracking-widest text-primary">You</span>{% endif %}
+                </div>
+                <div class="text-label-lg font-bold text-on-surface truncate" title="{{ p.name }}">{{ p.name }}</div>
+                <div class="text-[28px] font-bold text-on-surface leading-none mt-1 tabular-nums">{{ '%.1f'|format(p.score) }}</div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if footnote %}
+        <p class="text-label-sm text-on-surface-variant italic mt-6 pt-4 border-t border-outline-variant">
+          {{ footnote }}
+        </p>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endmacro %}
+
 {% block content %}
 
 <main class="w-full max-w-container-max mx-auto p-margin-mobile md:p-margin-desktop">
@@ -481,6 +617,9 @@
       <p class="text-body-md text-on-surface-variant">
         How well the state converts money into services — revenue capacity + project delivery.
       </p>
+      {# Efficiency doesn't have a dedicated portfolio; show the Finance
+         Minister (public_finance pillar) since it's the closest fit. #}
+      {{ minister_chip(ministers_by_pillar.get('public_finance'), 'Finance Minister') }}
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter items-stretch">
@@ -632,7 +771,106 @@
         </div>
       </div>
     </div>
+
   </section>
+
+  {# ═══════════════════════════ Pillar × State Heatmap ═════════════════ #}
+  {# Cross-pillar performance across all states in one dense view.
+     Replaces the Efficiency peer_cards + the Sectoral Peer Comparison
+     section — same data (per-pillar scores) presented as a heatmap so
+     users can scan every state × pillar combination at a glance. #}
+  {% if gpi_data and gpi_data.heatmap_matrix %}
+  <section class="mb-stack-lg">
+    <div class="mb-4 flex flex-wrap items-end justify-between gap-3">
+      <div>
+        <h2 class="font-headline-md text-headline-md text-on-surface">Pillar Comparison Heatmap</h2>
+        <p class="text-body-md text-on-surface-variant">
+          Top 5 states by aggregate GPI score plus {{ state }} —
+          scored across all 8 pillars. Darker green = higher rank on that pillar.
+        </p>
+      </div>
+      <div class="flex items-center gap-2 text-label-sm text-on-surface-variant">
+        <span class="uppercase tracking-widest font-bold">Rank</span>
+        <span>Worst</span>
+        <div class="w-32 h-2 rounded"
+             style="background: linear-gradient(to right, #dc2626 0%, #f59e0b 50%, #16a34a 100%);"></div>
+        <span>Best</span>
+      </div>
+    </div>
+
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse min-w-[720px]">
+          <thead>
+            <tr class="border-b border-outline-variant bg-surface-container-low">
+              <th class="sticky left-0 z-10 bg-surface-container-low px-4 py-3 text-label-sm font-bold uppercase tracking-widest text-on-surface-variant">
+                State
+              </th>
+              {% for _code, label in gpi_data.heatmap_pillar_labels %}
+                <th class="px-2 py-3 text-center text-label-sm font-bold uppercase tracking-widest text-on-surface-variant">
+                  {{ label }}
+                </th>
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in gpi_data.heatmap_matrix %}
+              <tr class="border-t border-outline-variant
+                          {% if row.is_current %}bg-primary/10{% else %}hover:bg-surface-container-low/60{% endif %}">
+                <td class="sticky left-0 z-10 px-4 py-2 text-label-md font-bold text-on-surface whitespace-nowrap
+                            {% if row.is_current %}bg-primary/10 text-primary{% else %}bg-surface-container-lowest{% endif %}">
+                  {{ row.state_name }}{% if row.is_current %} <span class="text-[10px] font-normal opacity-70">· you</span>{% endif %}
+                </td>
+                {% for cell in row.cells %}
+                  {% if cell.score is not none and cell.rank and cell.total %}
+                    {# Rank-based color ramp (matches the map). t=1 best, t=0 worst. #}
+                    {% set t = 1.0 - ((cell.rank - 1) / (cell.total - 1)) if cell.total > 1 else 1.0 %}
+                    {% if t < 0.5 %}
+                      {% set u = t / 0.5 %}
+                      {% set R = (220 + (245 - 220) * u) | int %}
+                      {% set G = (38  + (158 - 38)  * u) | int %}
+                      {% set B = (38  + (11  - 38)  * u) | int %}
+                    {% else %}
+                      {% set u = (t - 0.5) / 0.5 %}
+                      {% set R = (245 + (22  - 245) * u) | int %}
+                      {% set G = (158 + (163 - 158) * u) | int %}
+                      {% set B = (11  + (74  - 11)  * u) | int %}
+                    {% endif %}
+                    {% set is_dark = (R + G + B) < 380 %}
+                    <td class="px-1 py-2 text-center">
+                      <div class="mx-auto rounded-md py-2 min-w-[44px]"
+                           style="background: rgb({{ R }}, {{ G }}, {{ B }});
+                                  color: {% if is_dark %}#ffffff{% else %}#0b1c30{% endif %};"
+                           title="{{ row.state_name }} · {{ cell.code }} · rank {{ cell.rank }}/{{ cell.total }}">
+                        <div class="text-label-md font-bold tabular-nums leading-none">
+                          {{ '%.0f'|format(cell.score) }}
+                        </div>
+                        <div class="text-[9px] font-bold opacity-80 mt-0.5">
+                          #{{ cell.rank }}
+                        </div>
+                      </div>
+                    </td>
+                  {% else %}
+                    <td class="px-1 py-2 text-center">
+                      <div class="mx-auto rounded-md py-2 min-w-[44px] bg-surface-container text-on-surface-variant">
+                        <div class="text-label-md font-bold leading-none">—</div>
+                        <div class="text-[9px] font-bold opacity-60 mt-0.5">n/a</div>
+                      </div>
+                    </td>
+                  {% endif %}
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="px-4 py-3 border-t border-outline-variant bg-surface-container-low text-label-sm text-on-surface-variant italic">
+        Big number = pillar score (0-100). Small number = national rank.
+        Each pillar uses its most-recent year with ≥50% state coverage.
+      </div>
+    </div>
+  </section>
+  {% endif %}
 
   {# ═══════════════════════════ Governance & Public Trust ═════════════ #}
   {% set gov = gpi_data.governance_data if gpi_data else {} %}
@@ -642,146 +880,136 @@
       <p class="text-body-md text-on-surface-variant">
         Audit-verified accountability metrics sourced from CAG State Finances Audit Reports.
       </p>
+      {{ minister_chip(ministers_by_pillar.get('governance'), 'General Admin') }}
     </div>
 
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-gutter mb-6">
-      {% set gov_cards = [
-        {"label": "Audit Paras Raised", "code": "G01", "icon": "flag",
-         "sub": "Total audit findings", "fmt": "int"},
-        {"label": "Long-Pending Paras (>5yr)", "code": "G02", "icon": "schedule",
-         "sub": "Unresolved audit items", "fmt": "int"},
-        {"label": "PAC Recommendations Pending", "code": "G03", "icon": "how_to_vote",
-         "sub": "Legislative follow-up gap", "fmt": "int"},
-        {"label": "Audit Money Value / GSDP", "code": "G04", "icon": "attach_money",
-         "sub": "Fiscal significance of findings", "fmt": "pct"},
-      ] %}
-      {% for card in gov_cards %}
-        {% set v = gov.get(card.code) if gov else None %}
-        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 shadow-sm">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="material-symbols-outlined text-[18px] text-on-surface-variant">{{ card.icon }}</span>
-            <span class="text-label-sm uppercase tracking-widest text-on-surface-variant">{{ card.label }}</span>
-          </div>
-          {% if v %}
-            <div class="text-[36px] font-bold text-on-surface leading-none">
-              {% if card.fmt == "pct" %}{{ '%.2f'|format(v.raw) }}%{% else %}{{ v.raw|int }}{% endif %}
-            </div>
-            <div class="text-label-sm text-on-surface-variant mt-2">FY{{ v.year }}{% if v.rank %} · rank {{ v.rank }}{% endif %}</div>
-          {% else %}
-            <div class="text-[36px] font-bold text-on-surface-variant leading-none">—</div>
-            <div class="text-label-sm text-on-surface-variant mt-2">{{ card.sub }}</div>
+    {# ── Governance detail: Peer Comparison (bars) + Compliance Metrics Table ── #}
+    {% if gpi_data %}
+      {% set gov_peer = gpi_data.pillar_peers.governance %}
+      {% set gov_bar_rows = [] %}
+      {% if gov_peer and gov_peer.median is not none %}
+        {% set _ = gov_bar_rows.append({
+          'label': 'National median', 'score': gov_peer.median,
+          'is_current': False, 'is_median': True,
+        }) %}
+      {% endif %}
+      {% if gov_peer and gov_peer.peers %}
+        {# Prepend the current state's row (highlighted). #}
+        {% set _you = gov_peer.peers | selectattr('is_current') | list | first %}
+        {% if _you %}
+          {% set _ = gov_bar_rows.append({
+            'label': _you.name, 'score': _you.score,
+            'rank':  _you.rank,  'is_current': True, 'is_median': False,
+          }) %}
+        {% endif %}
+        {# Then 3 peer comparators: top 2 + the state ranked just above the median #}
+        {% set top_two = gov_peer.peers | selectattr('tag', 'equalto', 'top') | list %}
+        {% for tp in top_two[:3] %}
+          {% if not tp.is_current %}
+            {% set _ = gov_bar_rows.append({
+              'label': tp.name, 'score': tp.score,
+              'rank':  tp.rank, 'is_current': False, 'is_median': False,
+            }) %}
           {% endif %}
-        </div>
-      {% endfor %}
-    </div>
+        {% endfor %}
+      {% endif %}
+      {% set gov_max = ([1] + gov_bar_rows|map(attribute='score')|list)|max %}
+    {% endif %}
 
-    {# Peer comparison — Governance pillar, this state vs top/median/bottom.
-       Replaces the flat "5-year rolling average" chart, which had almost
-       no visible signal because governance scores compress ~50-60. #}
-    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
-      <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
-        <div>
-          <h3 class="text-label-lg font-bold uppercase tracking-widest text-on-surface-variant">
-            Governance · Peer Comparison
-          </h3>
-          <p class="text-label-sm text-on-surface-variant mt-1">
-            Top 3, national median, this state, and bottom 2 — Governance pillar score.
-          </p>
-        </div>
-        {% if gpi_data and gpi_data.governance_peers %}
-        <div class="flex flex-wrap gap-3 text-label-sm text-on-surface-variant">
-          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-green-600"></span> Top performers</span>
-          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-primary"></span> {{ state }}</span>
-          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span> National median</span>
-          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-red-600"></span> Bottom performers</span>
-        </div>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+      {# ── LEFT: Peer Comparison (bars) ────────────────────────────── #}
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
+        <h3 class="text-body-lg font-bold text-on-surface mb-5">Peer Comparison</h3>
+        {% if gov_bar_rows and gov_bar_rows|length > 0 %}
+          <div class="space-y-5">
+            {% for row in gov_bar_rows %}
+              <div>
+                <div class="flex items-baseline justify-between mb-1.5">
+                  <span class="text-label-sm uppercase tracking-wider
+                               {% if row.is_current %}font-bold text-on-surface{% else %}text-on-surface-variant{% endif %}">
+                    {{ row.label }}
+                  </span>
+                  <span class="text-label-md tabular-nums
+                               {% if row.is_current %}font-bold text-on-surface{% else %}text-on-surface-variant{% endif %}">
+                    {{ '%.1f'|format(row.score) }}
+                  </span>
+                </div>
+                <div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+                  <div class="h-full rounded-full"
+                       style="width: {{ (row.score / gov_max) * 100 }}%;
+                              background: {% if row.is_current %}#0b1c30{% else %}#94a3b8{% endif %};"></div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p class="text-label-sm italic text-on-surface-variant">Peer data pending.</p>
         {% endif %}
       </div>
 
-      {% if gpi_data and gpi_data.governance_peers %}
-        {% set peers = gpi_data.governance_peers %}
-        {% set med = gpi_data.governance_median %}
-        {% set max_score = ([100] + peers|map(attribute='score')|list)|max %}
-
-        {# ── Assemble render order: Top 3 → Median → You → Bottom 2 ─── #}
-        {% set top_peers    = peers | selectattr('tag', 'equalto', 'top')    | list %}
-        {% set you_peer     = peers | selectattr('tag', 'equalto', 'you')    | list | first %}
-        {% set bottom_peers = peers | selectattr('tag', 'equalto', 'bottom') | list %}
-
-        {% set render_order = top_peers %}
-        {% if med is not none %}
-          {% set render_order = render_order + [{'name': 'National median',
-                                                    'score': med, 'rank': None,
-                                                    'tag': 'median',
-                                                    'is_current': False}] %}
-        {% endif %}
-        {% if you_peer %}
-          {% set render_order = render_order + [you_peer] %}
-        {% endif %}
-        {% set render_order = render_order + bottom_peers %}
-
-        {# ── Vertical bar chart. Fixed 220px chart height so bars are
-             visually comparable across states regardless of score range. ── #}
-        <div class="flex items-end justify-between gap-2 md:gap-4 h-64 pt-4">
-          {% for p in render_order %}
-            {% if p.tag == 'top' %}
-              {% set bar_color = '#16a34a' %}
-            {% elif p.tag == 'bottom' %}
-              {% set bar_color = '#dc2626' %}
-            {% elif p.tag == 'median' %}
-              {% set bar_color = '#eab308' %}
-            {% elif p.is_current %}
-              {% set bar_color = '#131b2e' %}
-            {% else %}
-              {% set bar_color = '#6b7280' %}
-            {% endif %}
-            {% set bar_h_pct = (p.score / max_score) * 100 %}
-
-            <div class="flex-1 flex flex-col items-center justify-end min-w-0 gap-2">
-              {# Score label above the bar #}
-              <div class="text-label-md font-bold text-on-surface tabular-nums">
-                {{ '%.1f'|format(p.score) }}
-              </div>
-
-              {# The bar itself #}
-              <div class="w-full max-w-[80px] rounded-t-md relative"
-                   style="height: {{ bar_h_pct }}%; background: {{ bar_color }};
-                          min-height: 8px;">
-                {% if p.is_current %}
-                  <div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[9px] font-bold text-primary uppercase tracking-widest whitespace-nowrap">
-                    you
-                  </div>
-                {% endif %}
-              </div>
-
-              {# Rank + state name below the bar #}
-              <div class="text-center min-w-0 w-full">
-                {% if p.rank %}
-                  <div class="text-label-sm font-bold text-on-surface-variant tabular-nums leading-none">
-                    {{ '%02d'|format(p.rank) }}
-                  </div>
-                {% else %}
-                  <div class="text-label-sm font-bold text-on-surface-variant leading-none">—</div>
-                {% endif %}
-                <div class="text-label-sm font-bold text-on-surface truncate mt-1 {% if p.is_current %}text-primary{% endif %}"
-                     title="{{ p.name }}">
-                  {{ p.name }}
-                </div>
-              </div>
-            </div>
-          {% endfor %}
+      {# ── RIGHT: Compliance Metrics Breakdown ────────────────────── #}
+      <div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm overflow-hidden">
+        <div class="flex flex-wrap items-center justify-between gap-3 px-6 py-4 border-b border-outline-variant">
+          <h3 class="text-body-lg font-bold text-on-surface">Compliance Metrics Breakdown</h3>
+          <a href="/gpi?state={{ state | urlencode }}#gpi-full-rankings"
+             class="inline-flex items-center gap-1.5 text-label-sm font-bold text-on-surface-variant hover:text-primary uppercase tracking-wider transition-colors">
+            <span class="material-symbols-outlined text-[16px]">download</span>
+            Export Full Data
+          </a>
         </div>
 
-        <p class="text-label-sm text-on-surface-variant italic mt-4 pt-4 border-t border-outline-variant">
-          Governance pillar composited from audit paras raised, long-pending
-          paras, PAC recommendations pending, and audit money value / GSDP.
-          Sourced from CAG State Finances Audit Reports.
-        </p>
-      {% else %}
-        <p class="text-label-sm text-on-surface-variant italic">
-          Governance peer data pending — CAG SFAR ingestion in progress.
-        </p>
-      {% endif %}
+        <table class="w-full text-left">
+          <thead class="border-b border-outline-variant bg-surface-container-low">
+            <tr class="text-label-sm uppercase tracking-widest text-on-surface-variant">
+              <th class="px-6 py-3 font-bold">Sub-Indicator</th>
+              <th class="px-6 py-3 font-bold text-right">Value</th>
+              <th class="px-6 py-3 font-bold text-center">Trend</th>
+              <th class="px-6 py-3 font-bold text-center">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if gpi_data and gpi_data.governance_metrics %}
+              {% for m in gpi_data.governance_metrics %}
+                <tr class="border-t border-outline-variant hover:bg-surface-container-low transition-colors">
+                  <td class="px-6 py-4">
+                    <div class="font-bold text-on-surface">{{ m.name }}</div>
+                    {% if m.year %}
+                      <div class="text-label-sm text-on-surface-variant">FY {{ m.year }}</div>
+                    {% endif %}
+                  </td>
+                  <td class="px-6 py-4 text-right tabular-nums font-bold text-on-surface">
+                    {% if m.value is not none %}
+                      {% if m.unit == '%' or m.unit == '% of GSDP' %}{{ '%.1f'|format(m.value) }}%
+                      {% elif m.unit == 'count' %}{{ m.value|int }}
+                      {% else %}{{ '%.1f'|format(m.value) }}{% endif %}
+                    {% else %}—{% endif %}
+                  </td>
+                  <td class="px-6 py-4 text-center">
+                    {% if m.trend == 'up' %}
+                      <span class="material-symbols-outlined text-blue-600" title="Improving">trending_up</span>
+                    {% elif m.trend == 'down' %}
+                      <span class="material-symbols-outlined text-red-600" title="Declining">trending_down</span>
+                    {% else %}
+                      <span class="material-symbols-outlined text-on-surface-variant" title="Flat">trending_flat</span>
+                    {% endif %}
+                  </td>
+                  <td class="px-6 py-4 text-center">
+                    {% if m.status == 'VERIFIED' %}
+                      <span class="inline-flex px-2.5 py-1 text-label-sm font-bold rounded uppercase tracking-widest bg-blue-100 text-blue-800">Verified</span>
+                    {% elif m.status == 'PRELIM' %}
+                      <span class="inline-flex px-2.5 py-1 text-label-sm font-bold rounded uppercase tracking-widest bg-red-100 text-red-800">Prelim</span>
+                    {% else %}
+                      <span class="inline-flex px-2.5 py-1 text-label-sm font-bold rounded uppercase tracking-widest bg-surface-container text-on-surface-variant">Missing</span>
+                    {% endif %}
+                  </td>
+                </tr>
+              {% endfor %}
+            {% else %}
+              <tr><td colspan="4" class="px-6 py-6 text-center italic text-on-surface-variant">Compliance data pending — CAG SFAR ingestion in progress.</td></tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 

@@ -590,10 +590,31 @@ def gpi(
     """
     from app.gpi_models import (
         GpiPillar, GpiPillarScore, GpiScore, GpiIndicator, GpiIndicatorValue,
+        StateMinister,
     )
 
     st = db.query(State).filter_by(name=state).one_or_none()
     gpi_data = None
+
+    # Current cabinet ministers for this state, keyed by pillar_code so the
+    # template can drop a chip on each pillar section header.
+    ministers_by_pillar: dict[str, list[dict]] = {}
+    if st:
+        active_ministers = (
+            db.query(StateMinister)
+            .filter_by(state_id=st.id, end_date=None)
+            .filter(StateMinister.pillar_code.isnot(None))
+            .all()
+        )
+        for m in active_ministers:
+            ministers_by_pillar.setdefault(m.pillar_code, []).append({
+                "name":      m.minister_name,
+                "party":     m.party,
+                "portfolio": m.portfolio_display,
+                "is_cm":     m.is_cm,
+                "sworn_in":  m.sworn_in_date.isoformat() if m.sworn_in_date else None,
+                "source":    m.source_url,
+            })
 
     # ── Available years for the year-selector chip ─────────────────────
     # DESC so the dropdown shows newest first.
@@ -771,13 +792,238 @@ def gpi(
                     "total_actual":       pa_stats_row.total_actual or 0,
                 }
 
-            # Historical governance pillar series (for the Transparency Trend chart)
+            # Reusable helper: given a pillar code, return {peers, median}
+            # peers = top 3 + this state (if not in top 3) + bottom 2,
+            # each annotated with tag ("top"|"you"|"bottom") + is_current + rank.
+            # Uses the most-recent year with SUBSTANTIAL coverage (≥ half
+            # the states) — the raw MAX(year) can hit a partial-ingestion
+            # year where only a handful of states have data yet.
+            total_states = db.query(func.count(State.id)).scalar() or 31
+            min_needed = max(10, total_states // 2)
+
+            def _compute_pillar_peers(pillar_code: str):
+                pillar_obj = db.query(GpiPillar).filter_by(code=pillar_code).one_or_none()
+                if not pillar_obj:
+                    return {"peers": [], "median": None, "year": None}
+
+                year_coverage = (
+                    db.query(GpiPillarScore.fiscal_year,
+                              func.count(GpiPillarScore.state_id).label("n"))
+                    .filter_by(pillar_id=pillar_obj.id)
+                    .group_by(GpiPillarScore.fiscal_year)
+                    .order_by(GpiPillarScore.fiscal_year.desc())
+                    .all()
+                )
+                pillar_year = next(
+                    (fy for fy, n in year_coverage if n >= min_needed),
+                    year_coverage[0][0] if year_coverage else None,
+                )
+                if not pillar_year:
+                    return {"peers": [], "median": None, "year": None}
+
+                rows = (
+                    db.query(GpiPillarScore, State)
+                    .join(State, State.id == GpiPillarScore.state_id)
+                    .filter(GpiPillarScore.pillar_id == pillar_obj.id,
+                            GpiPillarScore.fiscal_year == pillar_year)
+                    .order_by(GpiPillarScore.score.desc())
+                    .all()
+                )
+                n = len(rows)
+                if not n:
+                    return {"peers": [], "median": None, "year": pillar_year}
+
+                median_score = round(rows[n // 2][0].score, 1)
+
+                peers_out: list[dict] = []
+                seen_ids: set[int] = set()
+
+                def _add(idx, tag):
+                    if not (0 <= idx < n):
+                        return
+                    ps, s_row = rows[idx]
+                    if s_row.id in seen_ids:
+                        return
+                    seen_ids.add(s_row.id)
+                    peers_out.append({
+                        "name":       s_row.name,
+                        "score":      round(ps.score, 1),
+                        "rank":       idx + 1,
+                        "total":      n,
+                        "tag":        tag,
+                        "is_current": (s_row.id == st.id),
+                    })
+
+                for i in range(min(3, n)):
+                    _add(i, "top")
+                current_idx = next(
+                    (i for i, (_, s_row) in enumerate(rows) if s_row.id == st.id),
+                    None,
+                )
+                if current_idx is not None and current_idx >= 3:
+                    _add(current_idx, "you")
+                for i in range(max(0, n - 2), n):
+                    _add(i, "bottom")
+
+                return {"peers": peers_out, "median": median_score, "year": pillar_year}
+
+            # Compute peers for every pillar. Template picks by code.
+            pillar_peers = {
+                code: _compute_pillar_peers(code) for code in [
+                    "economy", "public_finance", "education", "healthcare",
+                    "infrastructure", "law_and_order", "governance", "efficiency",
+                ]
+            }
+
+            # Backwards-compatible aliases for the existing template refs
+            governance_peers = pillar_peers["governance"]["peers"]
+            governance_median = pillar_peers["governance"]["median"]
+
+            # ── Governance sub-indicator metrics table (right column of the
+            # Governance section). For each of G01-G04 for the current state,
+            # compute value + trend direction (from last 2 fiscal years'
+            # values) + a "status" tag (VERIFIED if we have current-year data,
+            # PRELIM if only older-year fallback).
+            def _sub_indicator_metrics(codes: list[str]) -> list[dict]:
+                out = []
+                for code in codes:
+                    ind = db.query(GpiIndicator).filter_by(code=code).one_or_none()
+                    if not ind:
+                        out.append({"code": code, "name": code, "value": None,
+                                     "unit": "", "trend": "flat", "status": "MISSING",
+                                     "year": None})
+                        continue
+                    hist = (
+                        db.query(GpiIndicatorValue)
+                        .filter_by(indicator_id=ind.id, state_id=st.id)
+                        .filter(GpiIndicatorValue.raw_value.isnot(None))
+                        .order_by(GpiIndicatorValue.fiscal_year.desc())
+                        .all()
+                    )
+                    if not hist:
+                        out.append({"code": code, "name": ind.name, "value": None,
+                                     "unit": ind.unit or "", "trend": "flat",
+                                     "status": "MISSING", "year": None,
+                                     "direction": ind.direction})
+                        continue
+                    latest = hist[0]
+                    prior = hist[1] if len(hist) > 1 else None
+                    trend = "flat"
+                    if prior:
+                        delta = latest.raw_value - prior.raw_value
+                        # For lower_better indicators, a decrease is improvement (up trend).
+                        if ind.direction == "lower_better":
+                            delta = -delta
+                        if abs(delta) < 0.5:
+                            trend = "flat"
+                        elif delta > 0:
+                            trend = "up"
+                        else:
+                            trend = "down"
+                    # Status: verified if current year has data; prelim if fallback used
+                    max_fy = db.query(func.max(GpiIndicatorValue.fiscal_year)).filter_by(
+                        indicator_id=ind.id
+                    ).scalar()
+                    status = "VERIFIED" if (max_fy is None or latest.fiscal_year >= max_fy - 1) else "PRELIM"
+                    out.append({
+                        "code":      code,
+                        "name":      ind.name,
+                        "value":     latest.raw_value,
+                        "unit":      ind.unit or "",
+                        "trend":     trend,
+                        "status":    status,
+                        "year":      latest.fiscal_year,
+                        "direction": ind.direction,
+                    })
+                return out
+
+            governance_metrics = _sub_indicator_metrics(["G01", "G02", "G03", "G04"])
+
+            # ── Pillar × State heatmap matrix ─────────────────────────
+            # For each pillar, use the same "most recent well-covered year"
+            # as the peer comparison (already computed above). For each
+            # state, look up its score at that year. Compute rank percentile
+            # per pillar so cell colors are comparable across pillars with
+            # different score distributions.
+            pillar_order = [
+                ("economy",        "Economy"),
+                ("public_finance", "Fiscal"),
+                ("education",      "Education"),
+                ("healthcare",     "Health"),
+                ("infrastructure", "Infra"),
+                ("law_and_order",  "L&O"),
+                ("governance",     "Governance"),
+                ("efficiency",     "Efficiency"),
+            ]
+
+            # Only show current state + top 5 by aggregate GPI score to keep
+            # the heatmap compact and readable. `all_state_gpi` is already
+            # sorted high→low by aggregate score above.
+            top5_names = [row["name"] for row in all_state_gpi[:5]]
+            heatmap_names = list(top5_names)
+            if state not in heatmap_names:
+                heatmap_names.append(state)
+
+            all_states_ordered = (
+                db.query(State).filter(State.name.in_(heatmap_names)).all()
+            )
+            # Preserve rank order: top 5 first (in ranking order), then
+            # current state at the end if it wasn't already in the top 5.
+            by_name = {s.name: s for s in all_states_ordered}
+            all_states_ordered = [by_name[n] for n in heatmap_names if n in by_name]
+
+            heatmap_matrix = []
+            for s_row in all_states_ordered:
+                row = {"state_id": s_row.id, "state_name": s_row.name,
+                        "is_current": (s_row.id == st.id), "cells": []}
+                for code, _label in pillar_order:
+                    peer = pillar_peers.get(code, {})
+                    pillar_year = peer.get("year")
+                    peers_list = peer.get("peers", []) or []
+                    # Compute this state's rank + score at pillar_year
+                    pillar_score = None
+                    pillar_rank = None
+                    pillar_total = None
+                    if pillar_year:
+                        # Fetch the state's score directly (may not be in the
+                        # peers subset which is top/bottom only).
+                        pillar_obj = db.query(GpiPillar).filter_by(code=code).one_or_none()
+                        if pillar_obj:
+                            ps = db.query(GpiPillarScore).filter_by(
+                                state_id=s_row.id,
+                                pillar_id=pillar_obj.id,
+                                fiscal_year=pillar_year,
+                            ).one_or_none()
+                            if ps:
+                                pillar_score = round(ps.score, 1)
+                                total_at_year = db.query(func.count(GpiPillarScore.id)).filter_by(
+                                    pillar_id=pillar_obj.id,
+                                    fiscal_year=pillar_year,
+                                ).scalar()
+                                pillar_total = total_at_year or 0
+                                # rank = states with strictly higher score + 1
+                                better = db.query(func.count(GpiPillarScore.id)).filter(
+                                    GpiPillarScore.pillar_id == pillar_obj.id,
+                                    GpiPillarScore.fiscal_year == pillar_year,
+                                    GpiPillarScore.score > ps.score,
+                                ).scalar()
+                                pillar_rank = (better or 0) + 1
+                    row["cells"].append({
+                        "code":  code,
+                        "score": pillar_score,
+                        "rank":  pillar_rank,
+                        "total": pillar_total,
+                    })
+                heatmap_matrix.append(row)
+
+            heatmap_pillar_labels = pillar_order
+
+            # Historical governance pillar series (for other charts if needed)
             governance_pillar = next(
                 (p for p in db.query(GpiPillar).filter_by(code="governance").all()),
                 None,
             )
             governance_series = []
-            governance_peers = []
             if governance_pillar:
                 governance_series = (
                     db.query(GpiPillarScore)
@@ -785,79 +1031,6 @@ def gpi(
                     .order_by(GpiPillarScore.fiscal_year)
                     .all()
                 )
-
-                # Peer comparison — top 3 + this state + national median + bottom 2.
-                # Pick the most-recent year with SUBSTANTIAL coverage (≥ half
-                # the states) — the raw MAX(year) can hit a partial-ingestion
-                # year where only a handful of states have data yet.
-                year_coverage = (
-                    db.query(GpiPillarScore.fiscal_year,
-                              func.count(GpiPillarScore.state_id).label("n"))
-                    .filter_by(pillar_id=governance_pillar.id)
-                    .group_by(GpiPillarScore.fiscal_year)
-                    .order_by(GpiPillarScore.fiscal_year.desc())
-                    .all()
-                )
-                # Threshold: half of all tracked states (or fewer if we have very few).
-                total_states = db.query(func.count(State.id)).scalar() or 31
-                min_needed = max(10, total_states // 2)
-                gov_latest_year = next(
-                    (fy for fy, n in year_coverage if n >= min_needed),
-                    year_coverage[0][0] if year_coverage else None,
-                )
-
-                if gov_latest_year:
-                    gov_rows = (
-                        db.query(GpiPillarScore, State)
-                        .join(State, State.id == GpiPillarScore.state_id)
-                        .filter(GpiPillarScore.pillar_id == governance_pillar.id,
-                                GpiPillarScore.fiscal_year == gov_latest_year)
-                        .order_by(GpiPillarScore.score.desc())
-                        .all()
-                    )
-                    n = len(gov_rows)
-                    if n:
-                        # National median = the middle-ranked state's score
-                        median_score = round(gov_rows[n // 2][0].score, 1)
-
-                        seen_ids = set()
-                        def _add(idx, tag):
-                            if 0 <= idx < n:
-                                ps, s_row = gov_rows[idx]
-                                if s_row.id in seen_ids:
-                                    return
-                                seen_ids.add(s_row.id)
-                                governance_peers.append({
-                                    "name":     s_row.name,
-                                    "score":    round(ps.score, 1),
-                                    "rank":     idx + 1,
-                                    "total":    n,
-                                    "tag":      tag,
-                                    "is_current": (s_row.id == st.id),
-                                })
-
-                        # Top 3
-                        for i in range(min(3, n)):
-                            _add(i, "top")
-
-                        # This state (only if not already in top 3)
-                        current_idx = next((i for i, (_, s_row) in enumerate(gov_rows)
-                                             if s_row.id == st.id), None)
-                        if current_idx is not None and current_idx >= 3:
-                            _add(current_idx, "you")
-
-                        # Bottom 2
-                        for i in range(max(0, n - 2), n):
-                            _add(i, "bottom")
-
-                        # Attach the median row for the template to render
-                        governance_median = median_score
-                    else:
-                        governance_median = None
-                else:
-                    governance_median = None
-            else:
-                governance_median = None
 
             gpi_data = {
                 "latest_year":       latest_year,
@@ -868,10 +1041,14 @@ def gpi(
                 "pillar_rows":       pillar_rows,
                 "efficiency_data":   efficiency_data,
                 "governance_data":   governance_data,
-                "governance_series": governance_series,
-                "governance_peers":  governance_peers,
-                "governance_median": governance_median,
-                "pa_stats":          pa_stats,
+                "governance_series":  governance_series,
+                "governance_peers":   governance_peers,
+                "governance_median":  governance_median,
+                "governance_metrics":     governance_metrics,
+                "pillar_peers":           pillar_peers,
+                "pa_stats":               pa_stats,
+                "heatmap_matrix":         heatmap_matrix,
+                "heatmap_pillar_labels":  heatmap_pillar_labels,
                 # Data confidence proxy: fraction of 8 pillars with data
                 "confidence_pct": round(100.0 * latest.pillars_scored / 8.0, 1),
             }
@@ -885,6 +1062,9 @@ def gpi(
         # Individual pillar drill-downs still use each pillar's own latest year.
         "available_years": available_years,
         "selected_year":   target_year,
+        # Current cabinet ministers keyed by pillar code — renders as a chip
+        # under each pillar section header on the /gpi page.
+        "ministers_by_pillar": ministers_by_pillar,
     })
 
 

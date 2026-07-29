@@ -16,7 +16,7 @@ UDISE+, NFHS, HMIS, NCRB, and others documented in the GPI Phase 1 spec).
 """
 from datetime import datetime
 from sqlalchemy import (
-    Column, Integer, String, Text, Float, DateTime,
+    Column, Integer, String, Text, Float, Boolean, DateTime, Date,
     ForeignKey, Index, UniqueConstraint,
 )
 from sqlalchemy.orm import relationship
@@ -49,7 +49,8 @@ class GpiSource(Base):
     publisher = Column(String)
     url = Column(String)                                     # canonical landing URL
     format = Column(String(32))                              # "PDF", "XLSX", "Dashboard"
-    refresh_cadence = Column(String(32))                     # "Annual", "Monthly", "Real-time"
+    refresh_cadence = Column(String(128))                    # "Annual", "Monthly", "Real-time",
+                                                              # or longer notes like "Sporadic (2018, 2019; covers 25 states + 2 UTs)"
     notes = Column(Text)
 
     indicators = relationship("GpiIndicator", back_populates="source")
@@ -245,6 +246,46 @@ class GpiCagPaExtraction(Base):
         UniqueConstraint("state_id", "report_no",
                           name="uq_cag_pa_state_report"),
     )
+
+
+class StateMinister(Base):
+    """State cabinet ministers by portfolio, with change tracking.
+
+    Design: each row is one (state, portfolio, minister) assignment. When a
+    minister changes hands, we DON'T delete the old row — we set its end_date
+    and insert a new row for the incoming minister. This preserves history
+    so we can show "Punjab Finance Minister since 2022 · previously X".
+
+    `portfolio_key` is our canonical mapping ("finance", "health", etc.).
+    `portfolio_display` is the raw label from the source ("Finance & Planning
+    and Programme Implementation"). We show display but query on key.
+
+    `pillar_code` maps the portfolio to one of our GPI pillars — used to
+    render the minister chip on the correct pillar section on /gpi.
+    """
+    __tablename__ = "state_ministers"
+    id = Column(Integer, primary_key=True)
+    state_id           = Column(Integer, ForeignKey("states.id"), nullable=False)
+
+    # Portfolio identity
+    portfolio_key      = Column(String(32), nullable=False)  # "finance", "health", "home"
+    portfolio_display  = Column(String(256), nullable=False) # raw label from source
+    pillar_code        = Column(String(32))                  # GPI pillar this maps to
+
+    # Minister identity
+    minister_name      = Column(String(128), nullable=False)
+    party              = Column(String(64))
+    is_cm              = Column(Boolean, default=False)      # Chief Minister also holding this portfolio?
+
+    # Tenure — end_date NULL means "currently holding"
+    sworn_in_date      = Column(Date)
+    end_date           = Column(Date)                        # null = current
+
+    # Provenance
+    source_url         = Column(String(512))
+    source_type        = Column(String(32), default="wikipedia")  # "wikipedia" | "state_portal" | "pib"
+    scraped_at         = Column(DateTime, default=datetime.utcnow)
+    notes              = Column(Text)
 
 
 class GpiScore(Base):
