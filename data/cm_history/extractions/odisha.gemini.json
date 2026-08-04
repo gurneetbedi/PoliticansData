@@ -1,0 +1,84 @@
+{
+  "terms": [
+    {
+      "name": "Biju Patnaik",
+      "party": "JD",
+      "sworn_in_date": "1990-03-05",
+      "end_date": "1995-03-15",
+      "election_year": 1990,
+      "notes": ""
+    },
+    {
+      "name": "Janaki Ballabh Patnaik",
+      "party": "INC",
+      "sworn_in_date": "1995-03-15",
+      "end_date": "1999-02-17",
+      "election_year": 1995,
+      "notes": ""
+    },
+    {
+      "name": "Giridhar Gamang",
+      "party": "INC",
+      "sworn_in_date": "1999-02-17",
+      "end_date": "1999-12-06",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Hemananda Biswal",
+      "party": "INC",
+      "sworn_in_date": "1999-12-06",
+      "end_date": "2000-03-05",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Naveen Patnaik",
+      "party": "BJD",
+      "sworn_in_date": "2000-03-05",
+      "end_date": "2004-05-16",
+      "election_year": 2000,
+      "notes": ""
+    },
+    {
+      "name": "Naveen Patnaik",
+      "party": "BJD",
+      "sworn_in_date": "2004-05-16",
+      "end_date": "2009-05-21",
+      "election_year": 2004,
+      "notes": ""
+    },
+    {
+      "name": "Naveen Patnaik",
+      "party": "BJD",
+      "sworn_in_date": "2009-05-21",
+      "end_date": "2014-05-21",
+      "election_year": 2009,
+      "notes": ""
+    },
+    {
+      "name": "Naveen Patnaik",
+      "party": "BJD",
+      "sworn_in_date": "2014-05-21",
+      "end_date": "2019-05-29",
+      "election_year": 2014,
+      "notes": ""
+    },
+    {
+      "name": "Naveen Patnaik",
+      "party": "BJD",
+      "sworn_in_date": "2019-05-29",
+      "end_date": "2024-06-12",
+      "election_year": 2019,
+      "notes": ""
+    },
+    {
+      "name": "Mohan Charan Majhi",
+      "party": "BJP",
+      "sworn_in_date": "2024-06-12",
+      "end_date": "",
+      "election_year": 2024,
+      "notes": ""
+    }
+  ]
+}

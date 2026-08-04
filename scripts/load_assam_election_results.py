@@ -51,7 +51,22 @@ ASSAM_2026_COLS = {
         "runner_pct": -3
     },
 }
-ASSAM_2021_COLS = {"table_index": None, "header_rows": 2, "cols": {}}
+ASSAM_2021_COLS = {
+    # Filled in by auto_fill_column_map.py via Gemini.
+    "table_index": 15,
+    "header_rows": 2,
+    "cols": {
+        "constituency": -12,
+        "winner_name": -10,
+        "winner_party": -8,
+        "winner_votes": -7,
+        "winner_pct": -6,
+        "runner_name": -5,
+        "runner_party": -3,
+        "runner_votes": -2,
+        "runner_pct": -1
+    },
+}
 
 COL_MAPS = {2026: ASSAM_2026_COLS, 2021: ASSAM_2021_COLS}
 

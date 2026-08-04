@@ -1,0 +1,76 @@
+{
+  "terms": [
+    {
+      "name": "K. Karunakaran",
+      "party": "INC",
+      "sworn_in_date": "1991-06-24",
+      "end_date": "1995-03-22",
+      "election_year": 1991,
+      "notes": ""
+    },
+    {
+      "name": "A. K. Antony",
+      "party": "INC",
+      "sworn_in_date": "1995-03-22",
+      "end_date": "1996-05-20",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "E. K. Nayanar",
+      "party": "CPI(M)",
+      "sworn_in_date": "1996-05-20",
+      "end_date": "2001-05-17",
+      "election_year": 1996,
+      "notes": ""
+    },
+    {
+      "name": "A. K. Antony",
+      "party": "INC",
+      "sworn_in_date": "2001-05-17",
+      "end_date": "2004-08-31",
+      "election_year": 2001,
+      "notes": ""
+    },
+    {
+      "name": "Oommen Chandy",
+      "party": "INC",
+      "sworn_in_date": "2004-08-31",
+      "end_date": "2006-05-18",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "V. S. Achuthanandan",
+      "party": "CPI(M)",
+      "sworn_in_date": "2006-05-18",
+      "end_date": "2011-05-18",
+      "election_year": 2006,
+      "notes": ""
+    },
+    {
+      "name": "Oommen Chandy",
+      "party": "INC",
+      "sworn_in_date": "2011-05-18",
+      "end_date": "2016-05-25",
+      "election_year": 2011,
+      "notes": ""
+    },
+    {
+      "name": "Pinarayi Vijayan",
+      "party": "CPI(M)",
+      "sworn_in_date": "2016-05-25",
+      "end_date": "2021-05-19",
+      "election_year": 2016,
+      "notes": ""
+    },
+    {
+      "name": "Pinarayi Vijayan",
+      "party": "CPI(M)",
+      "sworn_in_date": "2021-05-20",
+      "end_date": "2026-05-18",
+      "election_year": 2021,
+      "notes": ""
+    }
+  ]
+}

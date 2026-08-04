@@ -1,0 +1,52 @@
+{
+  "terms": [
+    {
+      "name": "Ajit Jogi",
+      "party": "INC",
+      "sworn_in_date": "2000-11-01",
+      "end_date": "2003-12-07",
+      "election_year": null,
+      "notes": "interim"
+    },
+    {
+      "name": "Raman Singh",
+      "party": "BJP",
+      "sworn_in_date": "2003-12-07",
+      "end_date": "2008-12-12",
+      "election_year": 2003,
+      "notes": ""
+    },
+    {
+      "name": "Raman Singh",
+      "party": "BJP",
+      "sworn_in_date": "2008-12-12",
+      "end_date": "2013-12-12",
+      "election_year": 2008,
+      "notes": ""
+    },
+    {
+      "name": "Raman Singh",
+      "party": "BJP",
+      "sworn_in_date": "2013-12-12",
+      "end_date": "2018-12-11",
+      "election_year": 2013,
+      "notes": ""
+    },
+    {
+      "name": "Bhupesh Baghel",
+      "party": "INC",
+      "sworn_in_date": "2018-12-17",
+      "end_date": "2023-12-13",
+      "election_year": 2018,
+      "notes": ""
+    },
+    {
+      "name": "Vishnu Deo Sai",
+      "party": "BJP",
+      "sworn_in_date": "2023-12-13",
+      "end_date": "",
+      "election_year": 2023,
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "terms": [
+    {
+      "name": "Nityanand Swami",
+      "party": "BJP",
+      "sworn_in_date": "2000-11-09",
+      "end_date": "2001-10-29",
+      "election_year": null,
+      "notes": "Interim"
+    },
+    {
+      "name": "Bhagat Singh Koshyari",
+      "party": "BJP",
+      "sworn_in_date": "2001-10-30",
+      "end_date": "2002-03-01",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "N. D. Tiwari",
+      "party": "INC",
+      "sworn_in_date": "2002-03-02",
+      "end_date": "2007-03-07",
+      "election_year": 2002,
+      "notes": ""
+    },
+    {
+      "name": "B. C. Khanduri",
+      "party": "BJP",
+      "sworn_in_date": "2007-03-07",
+      "end_date": "2009-06-27",
+      "election_year": 2007,
+      "notes": ""
+    },
+    {
+      "name": "Ramesh Pokhriyal",
+      "party": "BJP",
+      "sworn_in_date": "2009-06-27",
+      "end_date": "2011-09-11",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "B. C. Khanduri",
+      "party": "BJP",
+      "sworn_in_date": "2011-09-11",
+      "end_date": "2012-03-13",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Vijay Bahuguna",
+      "party": "INC",
+      "sworn_in_date": "2012-03-13",
+      "end_date": "2014-01-31",
+      "election_year": 2012,
+      "notes": ""
+    },
+    {
+      "name": "Harish Rawat",
+      "party": "INC",
+      "sworn_in_date": "2014-02-01",
+      "end_date": "2016-03-27",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Harish Rawat",
+      "party": "INC",
+      "sworn_in_date": "2016-04-21",
+      "end_date": "2016-04-22",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Harish Rawat",
+      "party": "INC",
+      "sworn_in_date": "2016-05-11",
+      "end_date": "2017-03-18",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Trivendra Singh Rawat",
+      "party": "BJP",
+      "sworn_in_date": "2017-03-18",
+      "end_date": "2021-03-10",
+      "election_year": 2017,
+      "notes": ""
+    },
+    {
+      "name": "Tirath Singh Rawat",
+      "party": "BJP",
+      "sworn_in_date": "2021-03-10",
+      "end_date": "2021-07-04",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Pushkar Singh Dhami",
+      "party": "BJP",
+      "sworn_in_date": "2021-07-04",
+      "end_date": "2022-03-23",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Pushkar Singh Dhami",
+      "party": "BJP",
+      "sworn_in_date": "2022-03-23",
+      "end_date": "",
+      "election_year": 2022,
+      "notes": ""
+    }
+  ]
+}

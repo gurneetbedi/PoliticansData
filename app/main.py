@@ -590,11 +590,62 @@ def gpi(
     """
     from app.gpi_models import (
         GpiPillar, GpiPillarScore, GpiScore, GpiIndicator, GpiIndicatorValue,
-        StateMinister,
+        StateMinister, ChiefMinisterTerm,
     )
+    from datetime import date as _date
 
     st = db.query(State).filter_by(name=state).one_or_none()
     gpi_data = None
+
+    # ── Available years for the year-selector chip ─────────────────────
+    # Resolved up here (before the CM lookup + all-state ranking) so both
+    # can read target_year without an UnboundLocalError.
+    available_years = [
+        y for (y,) in
+        db.query(GpiScore.fiscal_year).distinct().order_by(GpiScore.fiscal_year.desc()).all()
+    ]
+    if year and year in available_years:
+        target_year = year
+    else:
+        target_year = available_years[0] if available_years else None
+
+    # ── Year-aware CM lookup ───────────────────────────────────────────
+    # For a given (state, target_year), find the CM whose tenure covers
+    # July 1st of that year (midpoint of Indian FY April–March). Falls
+    # back to most-recent CM if the year is outside all known tenures.
+    cm_for_year = None
+    if st and target_year:
+        target_midpoint = _date(target_year, 7, 1)
+        # Prefer a term whose (sworn_in <= midpoint <= end_date or NULL)
+        cm_row = (
+            db.query(ChiefMinisterTerm)
+            .filter(ChiefMinisterTerm.state_id == st.id)
+            .filter(ChiefMinisterTerm.sworn_in_date <= target_midpoint)
+            .filter(
+                (ChiefMinisterTerm.end_date.is_(None))
+                | (ChiefMinisterTerm.end_date >= target_midpoint)
+            )
+            .order_by(ChiefMinisterTerm.sworn_in_date.desc())
+            .first()
+        )
+        # Fall back to most-recent term if no tenure covered the midpoint
+        # (happens for very early or very future years).
+        if not cm_row:
+            cm_row = (
+                db.query(ChiefMinisterTerm)
+                .filter_by(state_id=st.id)
+                .order_by(ChiefMinisterTerm.sworn_in_date.desc())
+                .first()
+            )
+        if cm_row:
+            cm_for_year = {
+                "name":          cm_row.name,
+                "party":         cm_row.party,
+                "sworn_in":      cm_row.sworn_in_date.strftime("%b %Y") if cm_row.sworn_in_date else None,
+                "constituency":  None,   # not in the CM tenure table
+                "election_year": cm_row.election_year,
+                "is_incumbent":  cm_row.end_date is None,
+            }
 
     # Current cabinet ministers for this state, keyed by pillar_code so the
     # template can drop a chip on each pillar section header.
@@ -616,22 +667,8 @@ def gpi(
                 "source":    m.source_url,
             })
 
-    # ── Available years for the year-selector chip ─────────────────────
-    # DESC so the dropdown shows newest first.
-    available_years = [
-        y for (y,) in
-        db.query(GpiScore.fiscal_year).distinct().order_by(GpiScore.fiscal_year.desc()).all()
-    ]
-
-    # Resolve the target year for the map + national ranking view.
-    # Defaults to latest, clamped to what's actually available.
-    if year and year in available_years:
-        target_year = year
-    else:
-        target_year = available_years[0] if available_years else None
-
     # ── All-state GPI ranking (drives the choropleth + Top-5 sidebar +
-    # Full Rankings bar chart) — now scoped to target_year, not always latest.
+    # Full Rankings table) — scoped to target_year with YoY delta + status.
     all_state_gpi = []
     if target_year:
         rows = (
@@ -641,13 +678,75 @@ def gpi(
             .order_by(GpiScore.score.desc())
             .all()
         )
+        # Previous year's scores keyed by state_id — used to compute YoY delta
+        # + Improving/Stable/Declining status classification.
+        prev_scores = dict(
+            db.query(GpiScore.state_id, GpiScore.score)
+            .filter(GpiScore.fiscal_year == target_year - 1)
+            .all()
+        )
+        n_rows = len(rows)
+
+        # Bulk-load per-state pillar scores at each pillar's own most-recent
+        # well-covered year. Gives us the 8 pillar breakdown for every state
+        # in one query per pillar (8 queries total, cheap).
+        # Coverage threshold: half the states or 10, whichever is higher.
+        _total_states = db.query(func.count(State.id)).scalar() or 31
+        _min_needed = max(10, _total_states // 2)
+        state_pillar_scores = {}   # {state_id: {pillar_code: score}}
+        for pcode in ["economy", "public_finance", "education", "healthcare",
+                       "infrastructure", "law_and_order", "governance", "efficiency"]:
+            p_obj = db.query(GpiPillar).filter_by(code=pcode).one_or_none()
+            if not p_obj:
+                continue
+            year_cov = (
+                db.query(GpiPillarScore.fiscal_year,
+                          func.count(GpiPillarScore.state_id).label("n"))
+                .filter_by(pillar_id=p_obj.id)
+                .group_by(GpiPillarScore.fiscal_year)
+                .order_by(GpiPillarScore.fiscal_year.desc())
+                .all()
+            )
+            p_year = next(
+                (fy for fy, n in year_cov if n >= _min_needed),
+                year_cov[0][0] if year_cov else None,
+            )
+            if not p_year:
+                continue
+            for ps in (db.query(GpiPillarScore)
+                         .filter_by(pillar_id=p_obj.id, fiscal_year=p_year)
+                         .all()):
+                state_pillar_scores.setdefault(ps.state_id, {})[pcode] = round(ps.score, 1)
+
         for i, (gs, s) in enumerate(rows, start=1):
+            prev_score = prev_scores.get(s.id)
+            yoy_delta = None if prev_score is None else round(gs.score - prev_score, 1)
+
+            # Status classification — combines rank position + YoY movement.
+            # "High Performer" for top quintile; else look at YoY trend.
+            if i <= max(1, n_rows // 5):
+                status = "top"
+                status_label = "High Performer"
+            elif yoy_delta is None or abs(yoy_delta) < 0.5:
+                status = "stable"
+                status_label = "Stable"
+            elif yoy_delta > 0:
+                status = "up"
+                status_label = "Improving"
+            else:
+                status = "down"
+                status_label = "Declining"
+
             all_state_gpi.append({
-                "name":  s.name,
-                "score": round(gs.score, 1),
-                "rank":  i,
-                "total": len(rows),
-                "year":  gs.fiscal_year,
+                "name":         s.name,
+                "score":        round(gs.score, 1),
+                "rank":         i,
+                "total":        n_rows,
+                "year":         gs.fiscal_year,
+                "yoy_delta":    yoy_delta,
+                "status":       status,
+                "status_label": status_label,
+                "pillar_scores": state_pillar_scores.get(s.id, {}),
             })
 
     if st:
@@ -727,9 +826,10 @@ def gpi(
             from app.gpi_models import GpiIndicatorValue
 
             def _latest_indicator_value(code: str):
-                """Return (raw_value, fiscal_year, national_rank) for the state's
-                most recent value of a given indicator code, or None."""
-                row = (
+                """Return (raw_value, fiscal_year, rank, yoy_delta, direction)
+                for the state's most recent value, plus the delta vs the
+                previous year's value if available."""
+                rows = (
                     db.query(GpiIndicatorValue, GpiIndicator)
                     .join(GpiIndicator, GpiIndicator.id == GpiIndicatorValue.indicator_id)
                     .filter(
@@ -738,22 +838,32 @@ def gpi(
                         GpiIndicatorValue.raw_value.isnot(None),
                     )
                     .order_by(GpiIndicatorValue.fiscal_year.desc())
-                    .first()
+                    .limit(2)
+                    .all()
                 )
-                if not row:
+                if not rows:
                     return None
-                iv, ind = row
+                iv, ind = rows[0]
+                prev_val = rows[1][0].raw_value if len(rows) > 1 else None
+                yoy_delta = None
+                if prev_val is not None:
+                    yoy_delta = round(iv.raw_value - prev_val, 1)
                 return {
-                    "raw":  iv.raw_value,
-                    "year": iv.fiscal_year,
-                    "rank": iv.national_rank,
-                    "unit": ind.unit,
-                    "name": ind.name,
+                    "raw":       iv.raw_value,
+                    "year":      iv.fiscal_year,
+                    "rank":      iv.national_rank,
+                    "unit":      ind.unit,
+                    "name":      ind.name,
+                    "direction": ind.direction,
+                    "yoy_delta": yoy_delta,
                 }
 
             efficiency_data = {
                 code: _latest_indicator_value(code)
-                for code in ["EF01", "EF02", "EF03", "EF04", "EF05", "EF06"]
+                # E01 (GSDP growth) is technically Economy pillar, but we
+                # surface it in the Efficiency section as the lead growth
+                # indicator alongside the fiscal-integrity metrics.
+                for code in ["E01", "EF01", "EF02", "EF03", "EF04", "EF05", "EF06"]
             }
             governance_data = {
                 code: _latest_indicator_value(code)
@@ -1058,13 +1168,19 @@ def gpi(
         "state":    state,
         "gpi_data": gpi_data,
         "all_state_gpi": all_state_gpi,
-        # Year-picker for the national ranking view (map + Top-5 + Full Rankings).
+        # Year-picker for the national ranking view (map + Top-10 + Full Rankings).
         # Individual pillar drill-downs still use each pillar's own latest year.
         "available_years": available_years,
         "selected_year":   target_year,
         # Current cabinet ministers keyed by pillar code — renders as a chip
         # under each pillar section header on the /gpi page.
         "ministers_by_pillar": ministers_by_pillar,
+        # Chief Minister for the SELECTED YEAR — sourced from
+        # chief_minister_terms table (scraped from Wikipedia). Falls back
+        # to static chief_ministers.json only for the constituency string
+        # (which we don't scrape from the tenure article).
+        "cm_for_year":  cm_for_year,
+        "chief_ministers": CHIEF_MINISTERS,     # kept for constituency fallback
     })
 
 

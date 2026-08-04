@@ -9,6 +9,8 @@ venv/
 # Database
 *.db
 *.db.bak
+*.db.corrupt
+*.db.recovered
 *.db-journal
 *.db-wal
 *.db-shm
@@ -161,3 +163,7 @@ data/eci/kejriwal_eci_parse.json
 # Original 5 sample PDFs from the pre-ECI-pivot reconnaissance.
 # Kept on disk for reference but not committed.
 Affadivit/
+
+# CM history: raw Wikipedia HTML is regenerable (12MB); extractions/ ARE kept
+# for reproducibility (small JSON, one per state).
+data/cm_history/html/

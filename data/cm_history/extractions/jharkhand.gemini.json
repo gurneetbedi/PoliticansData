@@ -1,0 +1,116 @@
+{
+  "terms": [
+    {
+      "name": "Babulal Marandi",
+      "party": "BJP",
+      "sworn_in_date": "2000-11-15",
+      "end_date": "2003-03-18",
+      "election_year": 2000,
+      "notes": ""
+    },
+    {
+      "name": "Arjun Munda",
+      "party": "BJP",
+      "sworn_in_date": "2003-03-18",
+      "end_date": "2005-03-02",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Shibu Soren",
+      "party": "JMM",
+      "sworn_in_date": "2005-03-02",
+      "end_date": "2005-03-12",
+      "election_year": 2005,
+      "notes": ""
+    },
+    {
+      "name": "Arjun Munda",
+      "party": "BJP",
+      "sworn_in_date": "2005-03-12",
+      "end_date": "2006-09-18",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Madhu Koda",
+      "party": "IND",
+      "sworn_in_date": "2006-09-18",
+      "end_date": "2008-08-27",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Shibu Soren",
+      "party": "JMM",
+      "sworn_in_date": "2008-08-27",
+      "end_date": "2009-01-19",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Shibu Soren",
+      "party": "JMM",
+      "sworn_in_date": "2009-12-30",
+      "end_date": "2010-06-01",
+      "election_year": 2009,
+      "notes": ""
+    },
+    {
+      "name": "Arjun Munda",
+      "party": "BJP",
+      "sworn_in_date": "2010-09-11",
+      "end_date": "2013-01-18",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Hemant Soren",
+      "party": "JMM",
+      "sworn_in_date": "2013-07-13",
+      "end_date": "2014-12-28",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Raghubar Das",
+      "party": "BJP",
+      "sworn_in_date": "2014-12-28",
+      "end_date": "2019-12-29",
+      "election_year": 2014,
+      "notes": ""
+    },
+    {
+      "name": "Hemant Soren",
+      "party": "JMM",
+      "sworn_in_date": "2019-12-29",
+      "end_date": "2024-02-02",
+      "election_year": 2019,
+      "notes": ""
+    },
+    {
+      "name": "Champai Soren",
+      "party": "JMM",
+      "sworn_in_date": "2024-02-02",
+      "end_date": "2024-07-03",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Hemant Soren",
+      "party": "JMM",
+      "sworn_in_date": "2024-07-04",
+      "end_date": "2024-11-28",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Hemant Soren",
+      "party": "JMM",
+      "sworn_in_date": "2024-11-28",
+      "end_date": "",
+      "election_year": 2024,
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "terms": [
+    {
+      "name": "Madan Lal Khurana",
+      "party": "BJP",
+      "sworn_in_date": "1993-12-02",
+      "end_date": "1996-02-26",
+      "election_year": 1993,
+      "notes": ""
+    },
+    {
+      "name": "Sahib Singh Verma",
+      "party": "BJP",
+      "sworn_in_date": "1996-02-26",
+      "end_date": "1998-10-12",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Sushma Swaraj",
+      "party": "BJP",
+      "sworn_in_date": "1998-10-12",
+      "end_date": "1998-12-03",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Sheila Dikshit",
+      "party": "INC",
+      "sworn_in_date": "1998-12-03",
+      "end_date": "2003-12-02",
+      "election_year": 1998,
+      "notes": ""
+    },
+    {
+      "name": "Sheila Dikshit",
+      "party": "INC",
+      "sworn_in_date": "2003-12-02",
+      "end_date": "2008-11-30",
+      "election_year": 2003,
+      "notes": ""
+    },
+    {
+      "name": "Sheila Dikshit",
+      "party": "INC",
+      "sworn_in_date": "2008-11-30",
+      "end_date": "2013-12-28",
+      "election_year": 2008,
+      "notes": ""
+    },
+    {
+      "name": "Arvind Kejriwal",
+      "party": "AAP",
+      "sworn_in_date": "2013-12-28",
+      "end_date": "2014-02-14",
+      "election_year": 2013,
+      "notes": ""
+    },
+    {
+      "name": "Arvind Kejriwal",
+      "party": "AAP",
+      "sworn_in_date": "2015-02-14",
+      "end_date": "2020-02-16",
+      "election_year": 2015,
+      "notes": ""
+    },
+    {
+      "name": "Arvind Kejriwal",
+      "party": "AAP",
+      "sworn_in_date": "2020-02-16",
+      "end_date": "2024-09-21",
+      "election_year": 2020,
+      "notes": ""
+    },
+    {
+      "name": "Atishi Marlena",
+      "party": "AAP",
+      "sworn_in_date": "2024-09-21",
+      "end_date": "2025-02-20",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Rekha Gupta",
+      "party": "BJP",
+      "sworn_in_date": "2025-02-20",
+      "end_date": "",
+      "election_year": 2025,
+      "notes": ""
+    }
+  ]
+}

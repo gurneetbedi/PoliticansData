@@ -1,0 +1,76 @@
+{
+  "terms": [
+    {
+      "name": "K. L. Chishi",
+      "party": "INC",
+      "sworn_in_date": "1990-05-16",
+      "end_date": "1990-06-19",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Vamüzo Phesao",
+      "party": "NPC",
+      "sworn_in_date": "1990-06-19",
+      "end_date": "1992-04-02",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "S. C. Jamir",
+      "party": "INC",
+      "sworn_in_date": "1993-02-22",
+      "end_date": "2003-03-06",
+      "election_year": 1993,
+      "notes": ""
+    },
+    {
+      "name": "Neiphiu Rio",
+      "party": "NPF",
+      "sworn_in_date": "2003-03-06",
+      "end_date": "2008-01-03",
+      "election_year": 2003,
+      "notes": ""
+    },
+    {
+      "name": "Neiphiu Rio",
+      "party": "NPF",
+      "sworn_in_date": "2008-03-12",
+      "end_date": "2014-05-24",
+      "election_year": 2008,
+      "notes": ""
+    },
+    {
+      "name": "T. R. Zeliang",
+      "party": "NPF",
+      "sworn_in_date": "2014-05-24",
+      "end_date": "2017-02-22",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Shürhozelie Liezietsu",
+      "party": "NPF",
+      "sworn_in_date": "2017-02-22",
+      "end_date": "2017-07-19",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "T. R. Zeliang",
+      "party": "NPF",
+      "sworn_in_date": "2017-07-19",
+      "end_date": "2018-03-08",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Neiphiu Rio",
+      "party": "NDPP",
+      "sworn_in_date": "2018-03-08",
+      "end_date": "",
+      "election_year": 2018,
+      "notes": ""
+    }
+  ]
+}

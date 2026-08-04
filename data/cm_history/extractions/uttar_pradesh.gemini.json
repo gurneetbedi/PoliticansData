@@ -1,0 +1,116 @@
+{
+  "terms": [
+    {
+      "name": "Mulayam Singh Yadav",
+      "party": "JD",
+      "sworn_in_date": "1989-12-05",
+      "end_date": "1991-06-24",
+      "election_year": 1989,
+      "notes": ""
+    },
+    {
+      "name": "Kalyan Singh",
+      "party": "BJP",
+      "sworn_in_date": "1991-06-24",
+      "end_date": "1992-12-06",
+      "election_year": 1991,
+      "notes": ""
+    },
+    {
+      "name": "Mulayam Singh Yadav",
+      "party": "SP",
+      "sworn_in_date": "1993-12-04",
+      "end_date": "1995-06-03",
+      "election_year": 1993,
+      "notes": ""
+    },
+    {
+      "name": "Mayawati",
+      "party": "BSP",
+      "sworn_in_date": "1995-06-03",
+      "end_date": "1995-10-18",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Mayawati",
+      "party": "BSP",
+      "sworn_in_date": "1997-03-21",
+      "end_date": "1997-09-21",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Kalyan Singh",
+      "party": "BJP",
+      "sworn_in_date": "1997-09-21",
+      "end_date": "1999-11-12",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Ram Prakash Gupta",
+      "party": "BJP",
+      "sworn_in_date": "1999-11-12",
+      "end_date": "2000-10-28",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Rajnath Singh",
+      "party": "BJP",
+      "sworn_in_date": "2000-10-28",
+      "end_date": "2002-03-08",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Mayawati",
+      "party": "BSP",
+      "sworn_in_date": "2002-05-03",
+      "end_date": "2003-08-29",
+      "election_year": 2002,
+      "notes": ""
+    },
+    {
+      "name": "Mulayam Singh Yadav",
+      "party": "SP",
+      "sworn_in_date": "2003-08-29",
+      "end_date": "2007-05-13",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Mayawati",
+      "party": "BSP",
+      "sworn_in_date": "2007-05-13",
+      "end_date": "2012-03-15",
+      "election_year": 2007,
+      "notes": ""
+    },
+    {
+      "name": "Akhilesh Yadav",
+      "party": "SP",
+      "sworn_in_date": "2012-03-15",
+      "end_date": "2017-03-19",
+      "election_year": 2012,
+      "notes": ""
+    },
+    {
+      "name": "Yogi Adityanath",
+      "party": "BJP",
+      "sworn_in_date": "2017-03-19",
+      "end_date": "2022-03-25",
+      "election_year": 2017,
+      "notes": ""
+    },
+    {
+      "name": "Yogi Adityanath",
+      "party": "BJP",
+      "sworn_in_date": "2022-03-25",
+      "end_date": "",
+      "election_year": 2022,
+      "notes": ""
+    }
+  ]
+}

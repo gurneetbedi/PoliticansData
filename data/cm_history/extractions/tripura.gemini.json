@@ -1,0 +1,44 @@
+{
+  "terms": [
+    {
+      "name": "Samir Ranjan Barman",
+      "party": "INC",
+      "sworn_in_date": "1992-02-19",
+      "end_date": "1993-03-10",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Dasarath Deb",
+      "party": "CPI(M)",
+      "sworn_in_date": "1993-04-10",
+      "end_date": "1998-03-11",
+      "election_year": 1993,
+      "notes": ""
+    },
+    {
+      "name": "Manik Sarkar",
+      "party": "CPI(M)",
+      "sworn_in_date": "1998-03-11",
+      "end_date": "2018-03-09",
+      "election_year": 1998,
+      "notes": ""
+    },
+    {
+      "name": "Biplab Kumar Deb",
+      "party": "BJP",
+      "sworn_in_date": "2018-03-09",
+      "end_date": "2022-05-15",
+      "election_year": 2018,
+      "notes": ""
+    },
+    {
+      "name": "Manik Saha",
+      "party": "BJP",
+      "sworn_in_date": "2022-05-15",
+      "end_date": "",
+      "election_year": null,
+      "notes": ""
+    }
+  ]
+}

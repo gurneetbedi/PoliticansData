@@ -1,0 +1,124 @@
+{
+  "terms": [
+    {
+      "name": "Om Prakash Chautala",
+      "party": "JD",
+      "sworn_in_date": "1989-12-02",
+      "end_date": "1990-05-22",
+      "election_year": 1987,
+      "notes": ""
+    },
+    {
+      "name": "Banarsi Das Gupta",
+      "party": "JD",
+      "sworn_in_date": "1990-05-22",
+      "end_date": "1990-07-12",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Om Prakash Chautala",
+      "party": "JD",
+      "sworn_in_date": "1990-07-12",
+      "end_date": "1990-07-17",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Hukam Singh",
+      "party": "JD",
+      "sworn_in_date": "1990-07-17",
+      "end_date": "1991-03-22",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Om Prakash Chautala",
+      "party": "SJP(R)",
+      "sworn_in_date": "1991-03-22",
+      "end_date": "1991-04-06",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Bhajan Lal",
+      "party": "INC",
+      "sworn_in_date": "1991-06-23",
+      "end_date": "1996-05-11",
+      "election_year": 1991,
+      "notes": ""
+    },
+    {
+      "name": "Bansi Lal",
+      "party": "HVP",
+      "sworn_in_date": "1996-05-11",
+      "end_date": "1999-07-24",
+      "election_year": 1996,
+      "notes": ""
+    },
+    {
+      "name": "Om Prakash Chautala",
+      "party": "INLD",
+      "sworn_in_date": "1999-07-24",
+      "end_date": "2000-03-02",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Om Prakash Chautala",
+      "party": "INLD",
+      "sworn_in_date": "2000-03-02",
+      "end_date": "2005-03-05",
+      "election_year": 2000,
+      "notes": ""
+    },
+    {
+      "name": "Bhupinder Singh Hooda",
+      "party": "INC",
+      "sworn_in_date": "2005-03-05",
+      "end_date": "2009-10-25",
+      "election_year": 2005,
+      "notes": ""
+    },
+    {
+      "name": "Bhupinder Singh Hooda",
+      "party": "INC",
+      "sworn_in_date": "2009-10-25",
+      "end_date": "2014-10-26",
+      "election_year": 2009,
+      "notes": ""
+    },
+    {
+      "name": "Manohar Lal Khattar",
+      "party": "BJP",
+      "sworn_in_date": "2014-10-26",
+      "end_date": "2019-10-27",
+      "election_year": 2014,
+      "notes": ""
+    },
+    {
+      "name": "Manohar Lal Khattar",
+      "party": "BJP",
+      "sworn_in_date": "2019-10-27",
+      "end_date": "2024-03-12",
+      "election_year": 2019,
+      "notes": ""
+    },
+    {
+      "name": "Nayab Singh Saini",
+      "party": "BJP",
+      "sworn_in_date": "2024-03-12",
+      "end_date": "2024-10-17",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Nayab Singh Saini",
+      "party": "BJP",
+      "sworn_in_date": "2024-10-17",
+      "end_date": "",
+      "election_year": 2024,
+      "notes": ""
+    }
+  ]
+}

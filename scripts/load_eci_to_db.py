@@ -205,7 +205,20 @@ def main():
                          "OCR-extracted equivalents in the CSV. Strongly "
                          "recommended for cycles where the source PDFs are "
                          "image-scanned (no text layer) — OCR for these "
-                         "fields can be as low as 50%% accurate.")
+                         "fields can be as low as 50%% accurate. If NOT "
+                         "provided, auto-discovers manifest.jsonl at "
+                         "data/eci/raw_pdfs/{state-slug}-{year}/manifest.jsonl.")
+    ap.add_argument("--llm-dir", default="",
+                    help="Path to the LLM extraction directory "
+                         "(usually data/eci/for_ai/llm_extracted/{state}_{year}/). "
+                         "When provided, any fields still missing after CSV + "
+                         "manifest enrichment are hydrated from the LLM JSON. "
+                         "Fixes the case where a candidate had no PDF on disk "
+                         "(top-N allowlist) but did have an LLM extraction — "
+                         "previously those rows landed with empty constituency/"
+                         "party and were skipped by the migration step. If "
+                         "NOT provided, auto-discovers "
+                         "data/eci/for_ai/llm_extracted/{state}_{year}/.")
     args = ap.parse_args()
 
     # Normalize --state to TitleCase so downstream joins are case-consistent.
@@ -243,6 +256,20 @@ def main():
     # Build {affidavit_id: {name, party, constituency, status}} dict from
     # the fetcher's manifest.jsonl. These values come from the listing-
     # page HTML, so they're authoritative for these four fields.
+    #
+    # Auto-discovery: if --manifest wasn't passed, look for
+    # data/eci/raw_pdfs/{state-slug}-{year}/manifest.jsonl next to the
+    # source PDFs. Prevents the Kerala-2021 failure mode where the
+    # manifest existed but was never wired in, so affidavit_status
+    # landed empty and the migrate step (WHERE affidavit_status='Accepted')
+    # silently skipped every row.
+    if not args.manifest:
+        _state_slug = args.state.lower().replace(" ", "").replace("&", "and")
+        _candidate = Path.cwd() / "data" / "eci" / "raw_pdfs" / \
+            f"{_state_slug}-{args.election_year}" / "manifest.jsonl"
+        if _candidate.exists():
+            args.manifest = str(_candidate)
+            print(f"Auto-discovered manifest: {_candidate}", file=sys.stderr)
     manifest_by_aff: dict[str, dict] = {}
     if args.manifest:
         import json as _json
@@ -274,6 +301,81 @@ def main():
         print(f"Loaded {len(manifest_by_aff)} manifest entries for enrichment",
               file=sys.stderr)
 
+    # ── LLM JSON hydration (final fallback) ──────────────────────────────
+    # Read every LLM extraction JSON under `--llm-dir` (or the auto-
+    # discovered default) into `llm_by_aff` keyed by affidavit_id. If the
+    # CSV + manifest still leave constituency / party / age / finance /
+    # liabilities / criminal-case fields blank, we hydrate them from
+    # here. This is what saves the top-N-allowlist candidates who never
+    # had a PDF on disk (so no OCR CSV row) but DO have an LLM extract.
+    if not args.llm_dir:
+        _llm_default = Path.cwd() / "data" / "eci" / "for_ai" / \
+            "llm_extracted" / f"{args.state.lower().replace(' ', '_')}_{args.election_year}"
+        if _llm_default.exists():
+            args.llm_dir = str(_llm_default)
+            print(f"Auto-discovered LLM dir: {_llm_default}", file=sys.stderr)
+    llm_by_aff: dict[str, dict] = {}
+    if args.llm_dir:
+        import json as _json2
+        _llmp = Path(args.llm_dir)
+        if not _llmp.exists():
+            print(f"  ⚠ --llm-dir not found: {_llmp}", file=sys.stderr)
+        else:
+            for _f in _llmp.iterdir():
+                if _f.suffix != ".json":
+                    continue
+                try:
+                    _j = _json2.loads(_f.read_text())
+                except Exception:
+                    continue
+                _aff = str(_j.get("affidavit_id") or "").strip()
+                if not _aff:
+                    continue
+                llm_by_aff[_aff] = _j
+            print(f"Loaded {len(llm_by_aff)} LLM-extract JSONs for hydration",
+                  file=sys.stderr)
+
+    def _hydrate_from_llm(row: dict, aff_id: str) -> int:
+        """Fill any missing fields in `row` from the LLM JSON for `aff_id`.
+        Returns the number of fields hydrated."""
+        j = llm_by_aff.get(aff_id)
+        if not j:
+            return 0
+        ext = j.get("extraction") or {}
+        pol = ext.get("political") or {}
+        ident = ext.get("identity") or {}
+        contact = ext.get("contact") or {}
+        crim = ext.get("criminal") or {}
+        fin = ext.get("finance") or {}
+        fin_self = fin.get("self") or {}
+        fin_spouse = fin.get("spouse") or {}
+        liab = ext.get("liabilities") or {}
+        # (field on provisional row -> LLM value)
+        _mapping = {
+            "constituency":         pol.get("constituency_name"),
+            "party":                pol.get("party_name") or
+                                    ("Independent" if pol.get("is_independent") else None),
+            "age":                  ident.get("age_years"),
+            "father_or_husband":    ident.get("father_or_husband_name"),
+            "relationship":         ident.get("relationship"),
+            "phone":                contact.get("phone"),
+            "email":                contact.get("email"),
+            "pending_cases":        crim.get("pending_cases_count"),
+            "convictions":          crim.get("convictions_count"),
+            "movable_self":         fin_self.get("total_movable_inr"),
+            "movable_spouse":       fin_spouse.get("total_movable_inr"),
+            "liabilities_bank":     liab.get("bank_loans_inr"),
+            "liabilities_disputed": liab.get("disputed_liabilities_inr"),
+        }
+        hydrated = 0
+        for k, v in _mapping.items():
+            if v in (None, "", []):
+                continue
+            if not _is_present(row.get(k)):
+                row[k] = v
+                hydrated += 1
+        return hydrated
+
     csv_path = Path(args.csv).resolve()
     if not csv_path.exists():
         sys.exit(f"CSV not found: {csv_path}")
@@ -304,7 +406,26 @@ def main():
     review_examples: list[tuple[str, list[str]]] = []
 
     enriched_n = 0
+    hydrated_rows = 0
+    hydrated_fields_total = 0
     affidavit_status_by_aff: dict[str, str] = {}
+
+    # If we have LLM extractions for affidavits that don't appear in the
+    # CSV at all (e.g. the top-N-allowlist path where PDFs — and therefore
+    # OCR CSV rows — only exist for a subset), synthesize skeleton CSV
+    # rows for the LLM-only affidavits so they still land in provisional
+    # and get hydrated by _hydrate_from_llm below. Without this, they
+    # never reach the row loop.
+    _csv_affs = {(r.get("affidavit_id") or "").strip() for r in rows_in}
+    for _aff, _j in llm_by_aff.items():
+        if _aff in _csv_affs:
+            continue
+        rows_in.append({
+            "affidavit_id": _aff,
+            "source_pdf": _j.get("source_pdf") or "",
+            "candidate_name": (_j.get("extraction") or {}).get("identity", {}).get("name_in_english") or "",
+        })
+
     for r in rows_in:
         affidavit_id = (r.get("affidavit_id") or "").strip()
         if not affidavit_id:
@@ -324,6 +445,23 @@ def main():
             if _m["status"]:
                 affidavit_status_by_aff[affidavit_id] = _m["status"]
             enriched_n += 1
+
+        # LLM hydration: fill any still-empty fields from the LLM JSON.
+        # Also promotes affidavit_status to 'Accepted' if we have a good
+        # extraction — otherwise the migrate step's WHERE affidavit_status
+        # = 'Accepted' filter would skip it.
+        _h = _hydrate_from_llm(r, affidavit_id)
+        if _h:
+            hydrated_rows += 1
+            hydrated_fields_total += _h
+            if not affidavit_status_by_aff.get(affidavit_id) and \
+               _to_str_or_none(r.get("affidavit_status")) in (None, ""):
+                affidavit_status_by_aff[affidavit_id] = "Accepted"
+
+        # Skip rows we truly can't identify (no name AT ALL after every
+        # enrichment path). Prevents NOT NULL crashes on candidate_name.
+        if not _is_present(r.get("candidate_name")):
+            continue
 
         quality_status, missing_fields = compute_quality(r)
         fields_present = len(EXTRACTABLE_FIELDS) - len(missing_fields)
@@ -436,6 +574,10 @@ def main():
         print(f"  Manifest enrichment: {enriched_n} rows had "
               f"name/party/constituency overridden from listing scrape",
               file=sys.stderr)
+    if llm_by_aff:
+        print(f"  LLM hydration:       {hydrated_rows} rows had "
+              f"{hydrated_fields_total} fields hydrated from LLM JSON "
+              f"(and status → Accepted where blank)", file=sys.stderr)
     print(file=sys.stderr)
     print(f"Sample of NEEDS_REVIEW candidates (first 10):", file=sys.stderr)
     for name, missing in review_examples:

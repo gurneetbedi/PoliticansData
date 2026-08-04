@@ -1,0 +1,156 @@
+{
+  "terms": [
+    {
+      "name": "Gegong Apang",
+      "party": "INC",
+      "sworn_in_date": "1987-02-20",
+      "end_date": "1990-03-19",
+      "election_year": 1984,
+      "notes": ""
+    },
+    {
+      "name": "Gegong Apang",
+      "party": "INC",
+      "sworn_in_date": "1990-03-19",
+      "end_date": "1995-03-21",
+      "election_year": 1990,
+      "notes": ""
+    },
+    {
+      "name": "Gegong Apang",
+      "party": "AC",
+      "sworn_in_date": "1995-03-21",
+      "end_date": "1999-01-19",
+      "election_year": 1995,
+      "notes": ""
+    },
+    {
+      "name": "Mukut Mithi",
+      "party": "INC",
+      "sworn_in_date": "1999-01-19",
+      "end_date": "2003-08-03",
+      "election_year": 1999,
+      "notes": ""
+    },
+    {
+      "name": "Gegong Apang",
+      "party": "UDF",
+      "sworn_in_date": "2003-08-03",
+      "end_date": "2003-08-30",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Gegong Apang",
+      "party": "BJP",
+      "sworn_in_date": "2003-08-30",
+      "end_date": "2004-10-16",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Gegong Apang",
+      "party": "INC",
+      "sworn_in_date": "2004-10-16",
+      "end_date": "2007-04-09",
+      "election_year": 2004,
+      "notes": ""
+    },
+    {
+      "name": "Dorjee Khandu",
+      "party": "INC",
+      "sworn_in_date": "2007-04-09",
+      "end_date": "2009-10-25",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Dorjee Khandu",
+      "party": "INC",
+      "sworn_in_date": "2009-10-25",
+      "end_date": "2011-04-30",
+      "election_year": 2009,
+      "notes": ""
+    },
+    {
+      "name": "Jarbom Gamlin",
+      "party": "INC",
+      "sworn_in_date": "2011-05-05",
+      "end_date": "2011-11-01",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Nabam Tuki",
+      "party": "INC",
+      "sworn_in_date": "2011-11-01",
+      "end_date": "2014-05-18",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Nabam Tuki",
+      "party": "INC",
+      "sworn_in_date": "2014-05-18",
+      "end_date": "2016-01-26",
+      "election_year": 2014,
+      "notes": ""
+    },
+    {
+      "name": "Kalikho Pul",
+      "party": "PPA",
+      "sworn_in_date": "2016-02-19",
+      "end_date": "2016-07-13",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Nabam Tuki",
+      "party": "INC",
+      "sworn_in_date": "2016-07-13",
+      "end_date": "2016-07-17",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Pema Khandu",
+      "party": "INC",
+      "sworn_in_date": "2016-07-17",
+      "end_date": "2016-09-16",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Pema Khandu",
+      "party": "PPA",
+      "sworn_in_date": "2016-09-16",
+      "end_date": "2016-12-31",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Pema Khandu",
+      "party": "BJP",
+      "sworn_in_date": "2016-12-31",
+      "end_date": "2019-05-29",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Pema Khandu",
+      "party": "BJP",
+      "sworn_in_date": "2019-05-29",
+      "end_date": "2024-06-13",
+      "election_year": 2019,
+      "notes": ""
+    },
+    {
+      "name": "Pema Khandu",
+      "party": "BJP",
+      "sworn_in_date": "2024-06-13",
+      "end_date": "",
+      "election_year": 2024,
+      "notes": ""
+    }
+  ]
+}

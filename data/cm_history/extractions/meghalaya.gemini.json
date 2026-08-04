@@ -1,0 +1,140 @@
+{
+  "terms": [
+    {
+      "name": "B. B. Lyngdoh",
+      "party": "HPU",
+      "sworn_in_date": "1990-03-26",
+      "end_date": "1991-10-10",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "D. D. Lapang",
+      "party": "INC",
+      "sworn_in_date": "1992-02-05",
+      "end_date": "1993-02-19",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "S. C. Marak",
+      "party": "INC",
+      "sworn_in_date": "1993-02-19",
+      "end_date": "1998-02-27",
+      "election_year": 1993,
+      "notes": ""
+    },
+    {
+      "name": "S. C. Marak",
+      "party": "INC",
+      "sworn_in_date": "1998-02-27",
+      "end_date": "1998-03-10",
+      "election_year": 1998,
+      "notes": ""
+    },
+    {
+      "name": "B. B. Lyngdoh",
+      "party": "UDP",
+      "sworn_in_date": "1998-03-10",
+      "end_date": "2000-03-08",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "E. K. Mawlong",
+      "party": "IND",
+      "sworn_in_date": "2000-03-08",
+      "end_date": "2001-12-08",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Flinder Anderson Khonglam",
+      "party": "IND",
+      "sworn_in_date": "2001-12-08",
+      "end_date": "2003-03-04",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "D. D. Lapang",
+      "party": "INC",
+      "sworn_in_date": "2003-03-04",
+      "end_date": "2006-06-15",
+      "election_year": 2003,
+      "notes": ""
+    },
+    {
+      "name": "J. Dringwell Rymbai",
+      "party": "INC",
+      "sworn_in_date": "2006-06-15",
+      "end_date": "2007-03-10",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "D. D. Lapang",
+      "party": "INC",
+      "sworn_in_date": "2007-03-10",
+      "end_date": "2008-03-10",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "D. D. Lapang",
+      "party": "INC",
+      "sworn_in_date": "2008-03-10",
+      "end_date": "2008-03-19",
+      "election_year": 2008,
+      "notes": ""
+    },
+    {
+      "name": "Donkupar Roy",
+      "party": "UDP",
+      "sworn_in_date": "2008-03-19",
+      "end_date": "2009-03-19",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "D. D. Lapang",
+      "party": "INC",
+      "sworn_in_date": "2009-05-13",
+      "end_date": "2010-04-19",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Mukul Sangma",
+      "party": "INC",
+      "sworn_in_date": "2010-04-20",
+      "end_date": "2013-03-05",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Mukul Sangma",
+      "party": "INC",
+      "sworn_in_date": "2013-03-05",
+      "end_date": "2018-03-06",
+      "election_year": 2013,
+      "notes": ""
+    },
+    {
+      "name": "Conrad Sangma",
+      "party": "NPP",
+      "sworn_in_date": "2018-03-06",
+      "end_date": "2023-03-07",
+      "election_year": 2018,
+      "notes": ""
+    },
+    {
+      "name": "Conrad Sangma",
+      "party": "NPP",
+      "sworn_in_date": "2023-03-07",
+      "end_date": "",
+      "election_year": 2023,
+      "notes": ""
+    }
+  ]
+}

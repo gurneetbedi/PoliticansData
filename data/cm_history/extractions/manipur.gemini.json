@@ -1,0 +1,68 @@
+{
+  "terms": [
+    {
+      "name": "Rajkumar Ranbir Singh",
+      "party": "MPP",
+      "sworn_in_date": "1990-02-23",
+      "end_date": "1992-01-06",
+      "election_year": 1990,
+      "notes": ""
+    },
+    {
+      "name": "Rajkumar Dorendra Singh",
+      "party": "INC",
+      "sworn_in_date": "1992-04-08",
+      "end_date": "1993-12-31",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Rishang Keishing",
+      "party": "INC",
+      "sworn_in_date": "1994-12-14",
+      "end_date": "1997-12-15",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Wahengbam Nipamacha Singh",
+      "party": "MSCP",
+      "sworn_in_date": "1997-12-16",
+      "end_date": "2001-02-14",
+      "election_year": 2000,
+      "notes": ""
+    },
+    {
+      "name": "Radhabinod Koijam",
+      "party": "SAP",
+      "sworn_in_date": "2001-02-15",
+      "end_date": "2001-06-01",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Okram Ibobi Singh",
+      "party": "INC",
+      "sworn_in_date": "2002-03-07",
+      "end_date": "2017-03-14",
+      "election_year": 2002,
+      "notes": ""
+    },
+    {
+      "name": "Nongthombam Biren Singh",
+      "party": "BJP",
+      "sworn_in_date": "2017-03-15",
+      "end_date": "2025-02-13",
+      "election_year": 2017,
+      "notes": ""
+    },
+    {
+      "name": "Yumnam Khemchand Singh",
+      "party": "BJP",
+      "sworn_in_date": "2026-02-04",
+      "end_date": "",
+      "election_year": 2022,
+      "notes": ""
+    }
+  ]
+}

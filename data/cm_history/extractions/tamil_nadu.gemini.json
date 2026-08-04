@@ -1,0 +1,116 @@
+{
+  "terms": [
+    {
+      "name": "J. Jayalalithaa",
+      "party": "AIADMK",
+      "sworn_in_date": "1991-06-24",
+      "end_date": "1996-05-12",
+      "election_year": 1991,
+      "notes": ""
+    },
+    {
+      "name": "M. Karunanidhi",
+      "party": "DMK",
+      "sworn_in_date": "1996-05-13",
+      "end_date": "2001-05-13",
+      "election_year": 1996,
+      "notes": ""
+    },
+    {
+      "name": "J. Jayalalithaa",
+      "party": "AIADMK",
+      "sworn_in_date": "2001-05-14",
+      "end_date": "2001-09-21",
+      "election_year": 2001,
+      "notes": "resigned"
+    },
+    {
+      "name": "O. Panneerselvam",
+      "party": "AIADMK",
+      "sworn_in_date": "2001-09-21",
+      "end_date": "2002-03-02",
+      "election_year": null,
+      "notes": "resigned"
+    },
+    {
+      "name": "J. Jayalalithaa",
+      "party": "AIADMK",
+      "sworn_in_date": "2002-03-02",
+      "end_date": "2006-05-12",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "M. Karunanidhi",
+      "party": "DMK",
+      "sworn_in_date": "2006-05-13",
+      "end_date": "2011-05-15",
+      "election_year": 2006,
+      "notes": ""
+    },
+    {
+      "name": "J. Jayalalithaa",
+      "party": "AIADMK",
+      "sworn_in_date": "2011-05-16",
+      "end_date": "2014-09-27",
+      "election_year": 2011,
+      "notes": ""
+    },
+    {
+      "name": "O. Panneerselvam",
+      "party": "AIADMK",
+      "sworn_in_date": "2014-09-28",
+      "end_date": "2015-05-23",
+      "election_year": null,
+      "notes": "resigned"
+    },
+    {
+      "name": "J. Jayalalithaa",
+      "party": "AIADMK",
+      "sworn_in_date": "2015-05-23",
+      "end_date": "2016-05-22",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "J. Jayalalithaa",
+      "party": "AIADMK",
+      "sworn_in_date": "2016-05-23",
+      "end_date": "2016-12-05",
+      "election_year": 2016,
+      "notes": "died in office"
+    },
+    {
+      "name": "O. Panneerselvam",
+      "party": "AIADMK",
+      "sworn_in_date": "2016-12-06",
+      "end_date": "2017-02-15",
+      "election_year": null,
+      "notes": "resigned"
+    },
+    {
+      "name": "Edappadi K. Palaniswami",
+      "party": "AIADMK",
+      "sworn_in_date": "2017-02-16",
+      "end_date": "2021-05-06",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "M. K. Stalin",
+      "party": "DMK",
+      "sworn_in_date": "2021-05-07",
+      "end_date": "2026-05-09",
+      "election_year": 2021,
+      "notes": ""
+    },
+    {
+      "name": "C. Joseph Vijay",
+      "party": "TVK",
+      "sworn_in_date": "2026-05-10",
+      "end_date": "",
+      "election_year": 2026,
+      "notes": ""
+    }
+  ]
+}

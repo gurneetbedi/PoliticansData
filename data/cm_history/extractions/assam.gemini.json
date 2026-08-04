@@ -1,0 +1,84 @@
+{
+  "terms": [
+    {
+      "name": "Prafulla Kumar Mahanta",
+      "party": "AGP",
+      "sworn_in_date": "1985-12-24",
+      "end_date": "1990-11-28",
+      "election_year": 1985,
+      "notes": ""
+    },
+    {
+      "name": "Hiteswar Saikia",
+      "party": "INC",
+      "sworn_in_date": "1991-06-30",
+      "end_date": "1996-04-22",
+      "election_year": 1991,
+      "notes": "died in office"
+    },
+    {
+      "name": "Bhumidhar Barman",
+      "party": "INC",
+      "sworn_in_date": "1996-04-22",
+      "end_date": "1996-05-15",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Prafulla Kumar Mahanta",
+      "party": "AGP",
+      "sworn_in_date": "1996-05-15",
+      "end_date": "2001-05-18",
+      "election_year": 1996,
+      "notes": ""
+    },
+    {
+      "name": "Tarun Gogoi",
+      "party": "INC",
+      "sworn_in_date": "2001-05-18",
+      "end_date": "2006-05-29",
+      "election_year": 2001,
+      "notes": ""
+    },
+    {
+      "name": "Tarun Gogoi",
+      "party": "INC",
+      "sworn_in_date": "2006-05-29",
+      "end_date": "2011-05-13",
+      "election_year": 2006,
+      "notes": ""
+    },
+    {
+      "name": "Tarun Gogoi",
+      "party": "INC",
+      "sworn_in_date": "2011-05-13",
+      "end_date": "2016-05-24",
+      "election_year": 2011,
+      "notes": ""
+    },
+    {
+      "name": "Sarbananda Sonowal",
+      "party": "BJP",
+      "sworn_in_date": "2016-05-24",
+      "end_date": "2021-05-10",
+      "election_year": 2016,
+      "notes": ""
+    },
+    {
+      "name": "Himanta Biswa Sarma",
+      "party": "BJP",
+      "sworn_in_date": "2021-05-10",
+      "end_date": "2026-05-12",
+      "election_year": 2021,
+      "notes": ""
+    },
+    {
+      "name": "Himanta Biswa Sarma",
+      "party": "BJP",
+      "sworn_in_date": "2026-05-12",
+      "end_date": "",
+      "election_year": 2026,
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "terms": [
+    {
+      "name": "Sunder Lal Patwa",
+      "party": "BJP",
+      "sworn_in_date": "1990-03-05",
+      "end_date": "1992-12-15",
+      "election_year": 1990,
+      "notes": ""
+    },
+    {
+      "name": "Digvijaya Singh",
+      "party": "INC",
+      "sworn_in_date": "1993-12-07",
+      "end_date": "1998-12-01",
+      "election_year": 1993,
+      "notes": ""
+    },
+    {
+      "name": "Digvijaya Singh",
+      "party": "INC",
+      "sworn_in_date": "1998-12-01",
+      "end_date": "2003-12-08",
+      "election_year": 1998,
+      "notes": ""
+    },
+    {
+      "name": "Uma Bharti",
+      "party": "BJP",
+      "sworn_in_date": "2003-12-08",
+      "end_date": "2004-08-23",
+      "election_year": 2003,
+      "notes": ""
+    },
+    {
+      "name": "Babulal Gaur",
+      "party": "BJP",
+      "sworn_in_date": "2004-08-23",
+      "end_date": "2005-11-29",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Shivraj Singh Chouhan",
+      "party": "BJP",
+      "sworn_in_date": "2005-11-29",
+      "end_date": "2008-12-12",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Shivraj Singh Chouhan",
+      "party": "BJP",
+      "sworn_in_date": "2008-12-12",
+      "end_date": "2013-12-13",
+      "election_year": 2008,
+      "notes": ""
+    },
+    {
+      "name": "Shivraj Singh Chouhan",
+      "party": "BJP",
+      "sworn_in_date": "2013-12-14",
+      "end_date": "2018-12-17",
+      "election_year": 2013,
+      "notes": ""
+    },
+    {
+      "name": "Kamal Nath",
+      "party": "INC",
+      "sworn_in_date": "2018-12-17",
+      "end_date": "2020-03-23",
+      "election_year": 2018,
+      "notes": ""
+    },
+    {
+      "name": "Shivraj Singh Chouhan",
+      "party": "BJP",
+      "sworn_in_date": "2020-03-23",
+      "end_date": "2023-12-13",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Mohan Yadav",
+      "party": "BJP",
+      "sworn_in_date": "2023-12-13",
+      "end_date": "",
+      "election_year": 2023,
+      "notes": ""
+    }
+  ]
+}

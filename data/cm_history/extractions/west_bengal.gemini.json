@@ -1,0 +1,84 @@
+{
+  "terms": [
+    {
+      "name": "Jyoti Basu",
+      "party": "CPI(M)",
+      "sworn_in_date": "1987-03-30",
+      "end_date": "1991-06-18",
+      "election_year": 1987,
+      "notes": ""
+    },
+    {
+      "name": "Jyoti Basu",
+      "party": "CPI(M)",
+      "sworn_in_date": "1991-06-19",
+      "end_date": "1996-05-15",
+      "election_year": 1991,
+      "notes": ""
+    },
+    {
+      "name": "Jyoti Basu",
+      "party": "CPI(M)",
+      "sworn_in_date": "1996-05-16",
+      "end_date": "2000-11-06",
+      "election_year": 1996,
+      "notes": ""
+    },
+    {
+      "name": "Buddhadeb Bhattacharya",
+      "party": "CPI(M)",
+      "sworn_in_date": "2000-11-06",
+      "end_date": "2001-05-14",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Buddhadeb Bhattacharya",
+      "party": "CPI(M)",
+      "sworn_in_date": "2001-05-15",
+      "end_date": "2006-05-17",
+      "election_year": 2001,
+      "notes": ""
+    },
+    {
+      "name": "Buddhadeb Bhattacharya",
+      "party": "CPI(M)",
+      "sworn_in_date": "2006-05-18",
+      "end_date": "2011-05-20",
+      "election_year": 2006,
+      "notes": ""
+    },
+    {
+      "name": "Mamata Banerjee",
+      "party": "TMC",
+      "sworn_in_date": "2011-05-20",
+      "end_date": "2016-05-25",
+      "election_year": 2011,
+      "notes": ""
+    },
+    {
+      "name": "Mamata Banerjee",
+      "party": "TMC",
+      "sworn_in_date": "2016-05-26",
+      "end_date": "2021-05-04",
+      "election_year": 2016,
+      "notes": ""
+    },
+    {
+      "name": "Mamata Banerjee",
+      "party": "TMC",
+      "sworn_in_date": "2021-05-05",
+      "end_date": "2026-05-07",
+      "election_year": 2021,
+      "notes": ""
+    },
+    {
+      "name": "Suvendu Adhikari",
+      "party": "BJP",
+      "sworn_in_date": "2026-05-09",
+      "end_date": "",
+      "election_year": 2026,
+      "notes": ""
+    }
+  ]
+}

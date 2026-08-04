@@ -1,0 +1,68 @@
+{
+  "terms": [
+    {
+      "name": "Shanta Kumar",
+      "party": "BJP",
+      "sworn_in_date": "1990-03-05",
+      "end_date": "1992-12-15",
+      "election_year": 1990,
+      "notes": ""
+    },
+    {
+      "name": "Virbhadra Singh",
+      "party": "INC",
+      "sworn_in_date": "1993-12-03",
+      "end_date": "1998-03-24",
+      "election_year": 1993,
+      "notes": ""
+    },
+    {
+      "name": "Prem Kumar Dhumal",
+      "party": "BJP",
+      "sworn_in_date": "1998-03-24",
+      "end_date": "2003-03-06",
+      "election_year": 1998,
+      "notes": ""
+    },
+    {
+      "name": "Virbhadra Singh",
+      "party": "INC",
+      "sworn_in_date": "2003-03-06",
+      "end_date": "2007-12-30",
+      "election_year": 2003,
+      "notes": ""
+    },
+    {
+      "name": "Prem Kumar Dhumal",
+      "party": "BJP",
+      "sworn_in_date": "2007-12-30",
+      "end_date": "2012-12-25",
+      "election_year": 2007,
+      "notes": ""
+    },
+    {
+      "name": "Virbhadra Singh",
+      "party": "INC",
+      "sworn_in_date": "2012-12-25",
+      "end_date": "2017-12-27",
+      "election_year": 2012,
+      "notes": ""
+    },
+    {
+      "name": "Jai Ram Thakur",
+      "party": "BJP",
+      "sworn_in_date": "2017-12-27",
+      "end_date": "2022-12-11",
+      "election_year": 2017,
+      "notes": ""
+    },
+    {
+      "name": "Sukhvinder Singh Sukhu",
+      "party": "INC",
+      "sworn_in_date": "2022-12-11",
+      "end_date": "",
+      "election_year": 2022,
+      "notes": ""
+    }
+  ]
+}

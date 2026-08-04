@@ -1,0 +1,108 @@
+{
+  "terms": [
+    {
+      "name": "Marri Chenna Reddy",
+      "party": "INC",
+      "sworn_in_date": "1989-12-03",
+      "end_date": "1990-12-17",
+      "election_year": 1989,
+      "notes": "resigned"
+    },
+    {
+      "name": "Nedurumalli Janardhana Reddy",
+      "party": "INC",
+      "sworn_in_date": "1990-12-17",
+      "end_date": "1992-10-09",
+      "election_year": null,
+      "notes": "resigned"
+    },
+    {
+      "name": "Kotla Vijaya Bhaskara Reddy",
+      "party": "INC",
+      "sworn_in_date": "1992-10-09",
+      "end_date": "1994-12-12",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Nandamuri Taraka Rama Rao",
+      "party": "TDP",
+      "sworn_in_date": "1994-12-12",
+      "end_date": "1995-09-01",
+      "election_year": 1994,
+      "notes": "resigned"
+    },
+    {
+      "name": "N. Chandrababu Naidu",
+      "party": "TDP",
+      "sworn_in_date": "1995-09-01",
+      "end_date": "1999-10-11",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "N. Chandrababu Naidu",
+      "party": "TDP",
+      "sworn_in_date": "1999-10-11",
+      "end_date": "2004-05-13",
+      "election_year": 1999,
+      "notes": ""
+    },
+    {
+      "name": "Y. S. Rajasekhara Reddy",
+      "party": "INC",
+      "sworn_in_date": "2004-05-14",
+      "end_date": "2009-05-20",
+      "election_year": 2004,
+      "notes": ""
+    },
+    {
+      "name": "Y. S. Rajasekhara Reddy",
+      "party": "INC",
+      "sworn_in_date": "2009-05-20",
+      "end_date": "2009-09-02",
+      "election_year": 2009,
+      "notes": "died in office"
+    },
+    {
+      "name": "Konijeti Rosaiah",
+      "party": "INC",
+      "sworn_in_date": "2009-09-03",
+      "end_date": "2010-11-24",
+      "election_year": null,
+      "notes": "resigned"
+    },
+    {
+      "name": "N. Kiran Kumar Reddy",
+      "party": "INC",
+      "sworn_in_date": "2010-11-25",
+      "end_date": "2014-03-01",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "N. Chandrababu Naidu",
+      "party": "TDP",
+      "sworn_in_date": "2014-06-08",
+      "end_date": "2019-05-29",
+      "election_year": 2014,
+      "notes": ""
+    },
+    {
+      "name": "Y. S. Jagan Mohan Reddy",
+      "party": "YSRCP",
+      "sworn_in_date": "2019-05-30",
+      "end_date": "2024-06-11",
+      "election_year": 2019,
+      "notes": ""
+    },
+    {
+      "name": "N. Chandrababu Naidu",
+      "party": "TDP",
+      "sworn_in_date": "2024-06-12",
+      "end_date": "",
+      "election_year": 2024,
+      "notes": ""
+    }
+  ]
+}

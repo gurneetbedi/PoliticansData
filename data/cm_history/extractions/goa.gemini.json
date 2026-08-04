@@ -1,0 +1,180 @@
+{
+  "terms": [
+    {
+      "name": "Pratapsingh Rane",
+      "party": "INC",
+      "sworn_in_date": "1990-01-09",
+      "end_date": "1990-03-27",
+      "election_year": 1989,
+      "notes": ""
+    },
+    {
+      "name": "Churchill Alemao",
+      "party": "Progressive Democratic Front",
+      "sworn_in_date": "1990-03-27",
+      "end_date": "1990-04-14",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Luis Proto Barbosa",
+      "party": "INC",
+      "sworn_in_date": "1990-04-14",
+      "end_date": "1990-12-14",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Ravi Naik",
+      "party": "INC",
+      "sworn_in_date": "1991-01-25",
+      "end_date": "1993-05-18",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Wilfred de Souza",
+      "party": "INC",
+      "sworn_in_date": "1993-05-18",
+      "end_date": "1994-04-02",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Ravi Naik",
+      "party": "INC",
+      "sworn_in_date": "1994-04-02",
+      "end_date": "1994-04-08",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Wilfred de Souza",
+      "party": "INC",
+      "sworn_in_date": "1994-04-08",
+      "end_date": "1994-12-16",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Pratapsingh Rane",
+      "party": "INC",
+      "sworn_in_date": "1994-12-16",
+      "end_date": "1998-07-29",
+      "election_year": 1994,
+      "notes": ""
+    },
+    {
+      "name": "Wilfred de Souza",
+      "party": "Goa Rajiv Congress Party",
+      "sworn_in_date": "1998-07-29",
+      "end_date": "1998-11-26",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Luizinho Faleiro",
+      "party": "INC",
+      "sworn_in_date": "1998-11-26",
+      "end_date": "1999-02-10",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Luizinho Faleiro",
+      "party": "INC",
+      "sworn_in_date": "1999-06-09",
+      "end_date": "1999-11-24",
+      "election_year": 1999,
+      "notes": ""
+    },
+    {
+      "name": "Francisco Sardinha",
+      "party": "Goa People's Congress",
+      "sworn_in_date": "1999-11-24",
+      "end_date": "2000-10-24",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Manohar Parrikar",
+      "party": "BJP",
+      "sworn_in_date": "2000-10-24",
+      "end_date": "2002-06-03",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Manohar Parrikar",
+      "party": "BJP",
+      "sworn_in_date": "2002-06-03",
+      "end_date": "2005-02-03",
+      "election_year": 2002,
+      "notes": ""
+    },
+    {
+      "name": "Pratapsingh Rane",
+      "party": "INC",
+      "sworn_in_date": "2005-02-03",
+      "end_date": "2005-03-04",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Pratapsingh Rane",
+      "party": "INC",
+      "sworn_in_date": "2005-06-07",
+      "end_date": "2007-06-08",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Digambar Kamat",
+      "party": "INC",
+      "sworn_in_date": "2007-06-08",
+      "end_date": "2012-03-09",
+      "election_year": 2007,
+      "notes": ""
+    },
+    {
+      "name": "Manohar Parrikar",
+      "party": "BJP",
+      "sworn_in_date": "2012-03-09",
+      "end_date": "2014-11-08",
+      "election_year": 2012,
+      "notes": ""
+    },
+    {
+      "name": "Laxmikant Parsekar",
+      "party": "BJP",
+      "sworn_in_date": "2014-11-08",
+      "end_date": "2017-03-14",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Manohar Parrikar",
+      "party": "BJP",
+      "sworn_in_date": "2017-03-14",
+      "end_date": "2019-03-17",
+      "election_year": 2017,
+      "notes": ""
+    },
+    {
+      "name": "Pramod Sawant",
+      "party": "BJP",
+      "sworn_in_date": "2019-03-19",
+      "end_date": "2022-03-28",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Pramod Sawant",
+      "party": "BJP",
+      "sworn_in_date": "2022-03-28",
+      "end_date": "",
+      "election_year": 2022,
+      "notes": ""
+    }
+  ]
+}

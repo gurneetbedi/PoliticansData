@@ -1,0 +1,68 @@
+{
+  "terms": [
+    {
+      "name": "Sanchaman Limboo",
+      "party": "SSP",
+      "sworn_in_date": "1994-05-18",
+      "end_date": "1994-12-12",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Pawan Kumar Chamling",
+      "party": "SDF",
+      "sworn_in_date": "1994-12-13",
+      "end_date": "1999-10-10",
+      "election_year": 1994,
+      "notes": ""
+    },
+    {
+      "name": "Pawan Kumar Chamling",
+      "party": "SDF",
+      "sworn_in_date": "1999-10-11",
+      "end_date": "2004-05-21",
+      "election_year": 1999,
+      "notes": ""
+    },
+    {
+      "name": "Pawan Kumar Chamling",
+      "party": "SDF",
+      "sworn_in_date": "2004-05-21",
+      "end_date": "2009-05-20",
+      "election_year": 2004,
+      "notes": ""
+    },
+    {
+      "name": "Pawan Kumar Chamling",
+      "party": "SDF",
+      "sworn_in_date": "2009-05-20",
+      "end_date": "2014-05-21",
+      "election_year": 2009,
+      "notes": ""
+    },
+    {
+      "name": "Pawan Kumar Chamling",
+      "party": "SDF",
+      "sworn_in_date": "2014-05-21",
+      "end_date": "2019-05-27",
+      "election_year": 2014,
+      "notes": ""
+    },
+    {
+      "name": "Prem Singh Tamang",
+      "party": "SKM",
+      "sworn_in_date": "2019-05-27",
+      "end_date": "2024-06-10",
+      "election_year": 2019,
+      "notes": ""
+    },
+    {
+      "name": "Prem Singh Tamang",
+      "party": "SKM",
+      "sworn_in_date": "2024-06-10",
+      "end_date": "",
+      "election_year": 2024,
+      "notes": ""
+    }
+  ]
+}

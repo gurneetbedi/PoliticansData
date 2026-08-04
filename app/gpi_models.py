@@ -248,6 +248,39 @@ class GpiCagPaExtraction(Base):
     )
 
 
+class ChiefMinisterTerm(Base):
+    """Chief Minister tenures per state, with full history.
+
+    Each row is one continuous term of a single CM. Terms may span multiple
+    election cycles OR change hands mid-cycle (e.g., Punjab 2017: Amarinder
+    Singh → Charanjit Channi both under the 2017 election mandate).
+
+    Lookup pattern — given (state, target_year):
+      row = query where sworn_in_date <= YYYY-07-01 <= (end_date or today)
+    Falls back to most-recent row if no exact tenure covers that midpoint.
+    """
+    __tablename__ = "chief_minister_terms"
+    id = Column(Integer, primary_key=True)
+    state_id       = Column(Integer, ForeignKey("states.id"), nullable=False)
+
+    name           = Column(String(128), nullable=False)
+    party          = Column(String(64))
+
+    # Tenure — end_date NULL means currently holding.
+    sworn_in_date  = Column(Date, nullable=False)
+    end_date       = Column(Date)
+
+    # The general-election year that put this government in office. May be
+    # null for pre-history seed entries or acting CMs during transitions.
+    election_year  = Column(Integer)
+
+    # Provenance
+    source_url     = Column(String(512))
+    source_type    = Column(String(32), default="wikipedia")
+    scraped_at     = Column(DateTime, default=datetime.utcnow)
+    notes          = Column(Text)
+
+
 class StateMinister(Base):
     """State cabinet ministers by portfolio, with change tracking.
 

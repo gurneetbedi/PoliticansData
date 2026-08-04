@@ -1,0 +1,100 @@
+{
+  "terms": [
+    {
+      "name": "M. D. R. Ramachandran",
+      "party": "DMK",
+      "sworn_in_date": "1990-03-08",
+      "end_date": "1991-03-04",
+      "election_year": 1990,
+      "notes": "no confidence"
+    },
+    {
+      "name": "V. Vaithilingam",
+      "party": "INC",
+      "sworn_in_date": "1991-07-04",
+      "end_date": "1996-05-26",
+      "election_year": 1991,
+      "notes": ""
+    },
+    {
+      "name": "R. V. Janakiraman",
+      "party": "DMK",
+      "sworn_in_date": "1996-05-27",
+      "end_date": "2000-03-21",
+      "election_year": 1996,
+      "notes": "no confidence"
+    },
+    {
+      "name": "P. Shanmugam",
+      "party": "INC",
+      "sworn_in_date": "2000-03-22",
+      "end_date": "2001-05-23",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "P. Shanmugam",
+      "party": "INC",
+      "sworn_in_date": "2001-05-24",
+      "end_date": "2001-10-26",
+      "election_year": 2001,
+      "notes": "resigned"
+    },
+    {
+      "name": "N. Rangasamy",
+      "party": "INC",
+      "sworn_in_date": "2001-10-27",
+      "end_date": "2006-05-17",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "N. Rangasamy",
+      "party": "INC",
+      "sworn_in_date": "2006-05-18",
+      "end_date": "2008-09-03",
+      "election_year": 2006,
+      "notes": "resigned"
+    },
+    {
+      "name": "V. Vaithilingam",
+      "party": "INC",
+      "sworn_in_date": "2008-09-04",
+      "end_date": "2011-05-15",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "N. Rangasamy",
+      "party": "AINRC",
+      "sworn_in_date": "2011-05-16",
+      "end_date": "2016-06-05",
+      "election_year": 2011,
+      "notes": ""
+    },
+    {
+      "name": "V. Narayanasamy",
+      "party": "INC",
+      "sworn_in_date": "2016-06-06",
+      "end_date": "2021-02-25",
+      "election_year": 2016,
+      "notes": "no confidence"
+    },
+    {
+      "name": "N. Rangasamy",
+      "party": "AINRC",
+      "sworn_in_date": "2021-05-07",
+      "end_date": "2026-05-12",
+      "election_year": 2021,
+      "notes": ""
+    },
+    {
+      "name": "N. Rangasamy",
+      "party": "AINRC",
+      "sworn_in_date": "2026-05-13",
+      "end_date": "",
+      "election_year": 2026,
+      "notes": ""
+    }
+  ]
+}

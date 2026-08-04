@@ -1,0 +1,84 @@
+{
+  "terms": [
+    {
+      "name": "Lalu Prasad Yadav",
+      "party": "JD",
+      "sworn_in_date": "1990-03-10",
+      "end_date": "1995-03-28",
+      "election_year": 1990,
+      "notes": ""
+    },
+    {
+      "name": "Lalu Prasad Yadav",
+      "party": "JD",
+      "sworn_in_date": "1995-04-04",
+      "end_date": "1997-07-25",
+      "election_year": 1995,
+      "notes": ""
+    },
+    {
+      "name": "Rabri Devi",
+      "party": "RJD",
+      "sworn_in_date": "1997-07-25",
+      "end_date": "1999-02-11",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Rabri Devi",
+      "party": "RJD",
+      "sworn_in_date": "1999-03-09",
+      "end_date": "2000-03-02",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Nitish Kumar",
+      "party": "Samata Party",
+      "sworn_in_date": "2000-03-03",
+      "end_date": "2000-03-10",
+      "election_year": 2000,
+      "notes": ""
+    },
+    {
+      "name": "Rabri Devi",
+      "party": "RJD",
+      "sworn_in_date": "2000-03-11",
+      "end_date": "2005-03-06",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Nitish Kumar",
+      "party": "JD(U)",
+      "sworn_in_date": "2005-11-24",
+      "end_date": "2014-05-20",
+      "election_year": 2005,
+      "notes": "resigned"
+    },
+    {
+      "name": "Jitan Ram Manjhi",
+      "party": "JD(U)",
+      "sworn_in_date": "2014-05-20",
+      "end_date": "2015-02-22",
+      "election_year": null,
+      "notes": ""
+    },
+    {
+      "name": "Nitish Kumar",
+      "party": "JD(U)",
+      "sworn_in_date": "2015-02-22",
+      "end_date": "2026-04-15",
+      "election_year": null,
+      "notes": "resigned"
+    },
+    {
+      "name": "Samrat Choudhary",
+      "party": "BJP",
+      "sworn_in_date": "2026-04-15",
+      "end_date": "",
+      "election_year": null,
+      "notes": ""
+    }
+  ]
+}

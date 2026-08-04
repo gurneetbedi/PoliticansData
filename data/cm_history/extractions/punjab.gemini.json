@@ -1,0 +1,84 @@
+{
+  "terms": [
+    {
+      "name": "Beant Singh",
+      "party": "INC",
+      "sworn_in_date": "1992-02-25",
+      "end_date": "1995-08-31",
+      "election_year": 1992,
+      "notes": "assassinated"
+    },
+    {
+      "name": "Harcharan Singh Brar",
+      "party": "INC",
+      "sworn_in_date": "1995-08-31",
+      "end_date": "1996-11-21",
+      "election_year": null,
+      "notes": "resigned"
+    },
+    {
+      "name": "Rajinder Kaur Bhattal",
+      "party": "INC",
+      "sworn_in_date": "1996-11-21",
+      "end_date": "1997-02-11",
+      "election_year": null,
+      "notes": "loss of election"
+    },
+    {
+      "name": "Parkash Singh Badal",
+      "party": "SAD",
+      "sworn_in_date": "1997-02-12",
+      "end_date": "2002-02-26",
+      "election_year": 1997,
+      "notes": "loss of election"
+    },
+    {
+      "name": "Amarinder Singh",
+      "party": "INC",
+      "sworn_in_date": "2002-02-26",
+      "end_date": "2007-03-01",
+      "election_year": 2002,
+      "notes": "loss of election"
+    },
+    {
+      "name": "Parkash Singh Badal",
+      "party": "SAD",
+      "sworn_in_date": "2007-03-01",
+      "end_date": "2012-03-14",
+      "election_year": 2007,
+      "notes": "loss of election"
+    },
+    {
+      "name": "Parkash Singh Badal",
+      "party": "SAD",
+      "sworn_in_date": "2012-03-14",
+      "end_date": "2017-03-16",
+      "election_year": 2012,
+      "notes": "loss of election"
+    },
+    {
+      "name": "Amarinder Singh",
+      "party": "INC",
+      "sworn_in_date": "2017-03-16",
+      "end_date": "2021-09-20",
+      "election_year": 2017,
+      "notes": "resigned"
+    },
+    {
+      "name": "Charanjit Singh Channi",
+      "party": "INC",
+      "sworn_in_date": "2021-09-20",
+      "end_date": "2022-03-16",
+      "election_year": null,
+      "notes": "loss of election"
+    },
+    {
+      "name": "Bhagwant Mann",
+      "party": "AAP",
+      "sworn_in_date": "2022-03-16",
+      "end_date": "",
+      "election_year": 2022,
+      "notes": ""
+    }
+  ]
+}

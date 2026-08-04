@@ -191,7 +191,7 @@
       <span class="text-on-surface">{{ state }}</span>
     </h1>
     <p class="font-body-md text-on-surface-variant mb-4">
-      Objective, data-driven assessment of public sector performance across <span class="font-semibold text-on-surface">eight pillars</span> — fiscal audits, NCRB, RBI, and citizen-facing outcomes.
+      Objective, data-driven assessment of public sector performance across eight pillars: Economy, Public Finance, Education, Healthcare, Infrastructure, Law &amp; Order, Governance, and Fiscal Efficiency.
     </p>
 
     <div class="flex flex-wrap gap-2 items-center">
@@ -231,13 +231,11 @@
      to its /gpi?state=X page. Right sidebar shows Top 5 + Your State. #}
   {% if all_state_gpi %}
   <section class="mb-stack-lg">
-    <div class="mb-4 flex flex-wrap items-start justify-between gap-4">
+    <div class="mb-4 flex flex-wrap items-center justify-between gap-4">
       <div class="flex-1 min-w-0">
         <h2 class="font-headline-md text-headline-md text-on-surface">National GPI Ranking</h2>
         <p class="text-body-md text-on-surface-variant">
-          All {{ all_state_gpi|length }} states ranked by aggregate GPI score for
-          <span class="font-bold text-on-surface">FY {{ selected_year }}</span>. Hover any state on the map for its score;
-          scroll down for the full ranked list.
+          All {{ all_state_gpi|length }} states ranked by aggregate GPI score for FY {{ selected_year }}. Hover any state on the map for its score.
         </p>
       </div>
 
@@ -248,7 +246,11 @@
          (different sources publish at different cadences). #}
       {% if available_years and available_years|length > 1 %}
       {% set _recent_years = available_years[:5] | list | reverse | list %}
-      <div class="flex flex-col items-end gap-1.5">
+      <div class="flex flex-col items-end gap-2">
+        <div class="text-[11px] text-on-surface-variant italic max-w-[280px] text-right leading-snug">
+          Reshuffles the map, Top&nbsp;5, and Full Rankings.<br>
+          Pillar sections stay on their own latest year.
+        </div>
         <div class="text-label-sm uppercase tracking-widest text-on-surface-variant font-bold">Fiscal Year</div>
         <div class="inline-flex bg-surface-container p-1 rounded-lg border border-outline-variant">
           {% for y in _recent_years %}
@@ -260,53 +262,133 @@
             </a>
           {% endfor %}
         </div>
-        <div class="text-[11px] text-on-surface-variant italic max-w-[280px] text-right leading-snug">
-          Reshuffles the map, Top&nbsp;5, and Full Rankings.
-          Pillar detail sections stay on their own latest year.
-        </div>
       </div>
       {% endif %}
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-gutter">
-      {# ── LEFT: choropleth map (3/4 width) ────────────────────────────── #}
-      <div class="lg:col-span-3 bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
-        <div id="gpiIndiaMap" style="height: 520px; background: #eff4ff;"></div>
+      {# ── Map card: full-width map with floating overlays (3/4 width outer) ── #}
+      <div class="lg:col-span-3 relative bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm"
+           style="height: 540px;">
+        {# Choropleth map — fills the ENTIRE container. Floating cards sit
+           on top of it so Leaflet has the full width to draw the map. #}
+        <div id="gpiIndiaMap" class="absolute inset-0"
+             style="background: #eff4ff;"></div>
 
-        <div class="flex flex-wrap items-center justify-between gap-3 px-4 py-3 border-t border-outline-variant bg-surface-container-low">
-          <div class="flex items-center gap-3 text-label-sm text-on-surface-variant">
-            <span class="font-bold">Rank</span>
-            <div class="flex items-center gap-1">
-              <span>Worst</span>
-              <div class="w-40 h-2 rounded"
-                   style="background: linear-gradient(to right, #dc2626 0%, #f59e0b 50%, #16a34a 100%);"></div>
-              <span>Best</span>
-            </div>
+        {# ── LEFT overlay: Rank legend + "your state" summary ── #}
+        <div class="absolute top-4 left-4 z-[400] bg-surface-container-lowest/95 backdrop-blur border border-outline-variant rounded-xl shadow-md px-4 py-3"
+             style="width: 220px;">
+          <p class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant mb-2">Rank</p>
+          <div class="flex items-center gap-2 text-label-sm text-on-surface-variant mb-3">
+            <span>Worst</span>
+            <div class="flex-1 h-2 rounded"
+                 style="background: linear-gradient(to right, #dc2626 0%, #f59e0b 50%, #16a34a 100%);"></div>
+            <span>Best</span>
           </div>
-          <div class="text-label-sm text-on-surface-variant">
+          <div class="text-label-sm text-on-surface-variant border-t border-outline-variant pt-2 leading-relaxed">
             <span class="font-bold text-on-surface">{{ state }}</span>
             {% set _cs = (all_state_gpi | selectattr('name', 'equalto', state) | list | first) %}
             {% if _cs %}
-              · rank <span class="font-bold">{{ _cs.rank }}/{{ _cs.total }}</span>
-              · score <span class="font-bold">{{ _cs.score }}</span>
+              · rank <span class="font-bold text-on-surface">{{ _cs.rank }}/{{ _cs.total }}</span>
+              <br>score <span class="font-bold text-on-surface">{{ _cs.score }}</span>
             {% else %}
               · <span class="italic">no data</span>
             {% endif %}
           </div>
         </div>
+
+        {# ── RIGHT overlay: Chief Minister card ────────────────────────
+             Uses `cm_for_year` (from chief_minister_terms table, year-aware).
+             Falls back to `chief_ministers.get(state)` only when no tenure
+             data exists for this state. `constituency` is only in the
+             static JSON fallback — the tenure table doesn't include it.
+        ── #}
+        {% set cm_static = chief_ministers.get(state) if chief_ministers else None %}
+        {% set cm = cm_for_year or cm_static %}
+        {% if cm %}
+        <div class="absolute top-4 right-4 z-[400] bg-surface-container-lowest/95 backdrop-blur border border-outline-variant rounded-xl shadow-md p-4 text-center"
+             style="width: 230px;">
+          <p class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant mb-3">
+            Chief Minister · {{ state }}
+            {% if cm_for_year and selected_year %}
+              <span class="block text-[9px] text-on-surface-variant/70 font-normal normal-case tracking-normal mt-0.5">
+                FY {{ selected_year }}{% if cm.is_incumbent %} · incumbent{% endif %}
+              </span>
+            {% endif %}
+          </p>
+          <div class="w-20 h-20 rounded-full bg-surface-container-high border border-outline-variant flex-shrink-0 overflow-hidden flex items-center justify-center mx-auto mb-3">
+            {# Photo slug — only the CURRENT CM has a photo file locally.
+               For historical CMs the img errors out and we fall back to
+               initials, which is fine visually. #}
+            {% set slug = state | lower | replace(' and ', '-') | replace(' & ', '-') | replace(' ', '-') | replace('(', '') | replace(')', '') %}
+            {% set cm_name_photo = cm_static.name if cm_static and cm.name == cm_static.name else '' %}
+            <img src="/static/cms/{{ slug if cm_name_photo else '__none__' }}.jpg"
+                 alt="{{ cm.name }}"
+                 class="w-full h-full object-cover"
+                 onerror="this.parentElement.innerHTML='<span class=\'text-body-lg font-bold text-on-surface-variant\'>{{ (cm.name.split()[0][0] if cm.name else '?') ~ (cm.name.split()[-1][0] if cm.name and cm.name.split()|length > 1 else '') }}</span>'">
+          </div>
+          <p class="font-bold text-on-surface text-body-md leading-tight">{{ cm.name }}</p>
+          {% set _party        = cm.party %}
+          {% set _constituency = cm.constituency if cm.constituency else (cm_static.constituency if cm_static and cm.name == cm_static.name else None) %}
+          {% if _party or _constituency %}
+            <p class="text-label-sm text-on-surface-variant mt-1">
+              {% if _party %}<span class="font-bold text-on-surface">{{ _party }}</span>{% endif %}
+              {% if _party and _constituency %} · {% endif %}
+              {% if _constituency %}{{ _constituency }}{% endif %}
+            </p>
+          {% endif %}
+          {% if cm.sworn_in %}
+            <p class="text-[10px] uppercase tracking-widest text-on-surface-variant/70 mt-2 pt-2 border-t border-outline-variant">
+              Sworn in {{ cm.sworn_in }}
+              {% if cm.election_year %} · {{ cm.election_year }} mandate{% endif %}
+            </p>
+          {% endif %}
+
+          {# ── Key Portfolios — Finance / Home / Health / Education. Names
+              come from ministers_by_pillar (scraped from Wikipedia state
+              cabinet pages). Shown left-aligned for readability. ── #}
+          {% if ministers_by_pillar %}
+            {% set _key_portfolios = [
+              ('public_finance', 'Finance'),
+              ('law_and_order',  'Home'),
+              ('healthcare',     'Health'),
+              ('education',      'Education'),
+            ] %}
+            {% set _has_any = _key_portfolios | selectattr(0, 'in', ministers_by_pillar) | list %}
+            {% if _has_any %}
+            <div class="mt-3 pt-3 border-t border-outline-variant text-left space-y-1.5">
+              <p class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant mb-2 text-center">
+                Key Portfolios
+              </p>
+              {% for pkey, plabel in _key_portfolios %}
+                {% set _m_list = ministers_by_pillar.get(pkey) %}
+                {% if _m_list %}
+                  {% set _m = _m_list[0] %}
+                  <div class="flex items-baseline justify-between gap-2 text-label-sm">
+                    <span class="text-[10px] uppercase tracking-widest text-on-surface-variant/70 flex-shrink-0">{{ plabel }}</span>
+                    <span class="text-on-surface text-right truncate" title="{{ _m.name }}{% if _m.party %} ({{ _m.party }}){% endif %}">
+                      {{ _m.name }}
+                    </span>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+            {% endif %}
+          {% endif %}
+        </div>
+        {% endif %}
       </div>
 
-      {# ── RIGHT: Top 5 + Your State ranking list (1/4 width) ─────────── #}
+      {# ── RIGHT: Top 10 · Your State ranking list (1/4 width) ────────── #}
       <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm flex flex-col">
         <div class="p-4 border-b border-outline-variant bg-surface-container-low">
           <h3 class="text-label-lg font-bold uppercase tracking-widest text-on-surface-variant">
-            Top 5 · Your State
+            Top 10 · Your State
           </h3>
         </div>
 
         <div class="p-3 space-y-1 flex-1">
-          {# Top 5 states #}
-          {% for s in all_state_gpi[:5] %}
+          {% for s in all_state_gpi[:10] %}
             {% set is_current = s.name == state %}
             <a href="/gpi?state={{ s.name | urlencode }}"
                class="flex items-center justify-between px-3 py-2 rounded-lg
@@ -323,11 +405,11 @@
             </a>
           {% endfor %}
 
-          {# Divider + Your State if not already in top 5 #}
+          {# Divider + Your State if not already in top 10 #}
           {% set current_row = (all_state_gpi | selectattr('name', 'equalto', state) | list | first) %}
-          {% if current_row and current_row.rank > 5 %}
+          {% if current_row and current_row.rank > 10 %}
             <div class="pt-2 pb-1 px-3 text-label-sm text-on-surface-variant/60 italic">
-              ... {{ current_row.rank - 5 - 1 }} more
+              ... {{ current_row.rank - 10 - 1 }} more
             </div>
             <a href="/gpi?state={{ state | urlencode }}"
                class="flex items-center justify-between px-3 py-2 rounded-lg bg-primary text-on-primary">
@@ -450,7 +532,9 @@
       function addGpiLabel(feature, lyr, name) {
         if (LABEL_SKIP.has(name)) return;
         const row = byName[name];
-        if (!row) return;                        // no GPI data → no label
+        const isUT = NON_SCORED_UTS.has(name);
+        // Skip label if we have neither GPI data nor UT designation.
+        if (!row && !isUT) return;
 
         try {
           const bounds = lyr.getBounds();
@@ -492,6 +576,20 @@
         return canon(p.ST_NM || p.st_nm || p.NAME_1 || p.name || '');
       }
 
+      // Union Territories WITHOUT a state legislature — GPI can't score them
+      // because our indicators come from state-level sources. Marked greyed
+      // out on the map with a "Union Territory" tooltip so users know it's
+      // not missing data, it's out of scope by design. Delhi, J&K, and
+      // Puducherry are excluded from this set (they do have legislatures
+      // and ARE scored in GPI).
+      const NON_SCORED_UTS = new Set([
+        "Ladakh",
+        "Chandigarh",
+        "Lakshadweep",
+        "Andaman and Nicobar Islands",
+        "Dadra and Nagar Haveli and Daman and Diu",
+      ]);
+
       fetch('/static/india_states.geojson')
         .then(r => r.json())
         .then(geo => {
@@ -500,9 +598,15 @@
               const name = featureStateName(feature);
               const row = byName[name];
               const isCurrent = (name === currentState);
+              const isUT = NON_SCORED_UTS.has(name);
               return {
-                fillColor:   rankColor(row ? row.rank : null, row ? row.total : null),
-                fillOpacity: row ? 0.9 : 0.3,
+                // UTs without a legislature (Ladakh, Chandigarh, Lakshadweep,
+                // A&N, DN&DD) get a stronger neutral grey so they're clearly
+                // out of scope — not confused with "no data" or a scored state.
+                fillColor:   isUT ? '#6b7280'
+                                  : rankColor(row ? row.rank : null, row ? row.total : null),
+                fillOpacity: isUT ? 0.85
+                                  : (row ? 0.9 : 0.3),
                 color:       isCurrent ? '#0b1c30' : '#ffffff',
                 weight:      isCurrent ? 3 : 0.8,
               };
@@ -510,9 +614,15 @@
             onEachFeature: (feature, lyr) => {
               const name = featureStateName(feature);
               const row = byName[name];
-              const label = row
-                ? `<b>${name}</b><br>GPI ${row.score} · rank ${row.rank}/${row.total}`
-                : `<b>${name}</b><br><i>no GPI data</i>`;
+              const isUT = NON_SCORED_UTS.has(name);
+              let label;
+              if (isUT) {
+                label = `<b>${name}</b><br><i>Union Territory</i><br><span style="font-size:10px; opacity:0.8;">Not scored — no state legislature</span>`;
+              } else if (row) {
+                label = `<b>${name}</b><br>GPI ${row.score} · rank ${row.rank}/${row.total}`;
+              } else {
+                label = `<b>${name}</b><br><i>no GPI data</i>`;
+              }
               lyr.bindTooltip(label, { sticky: true });
 
               // Permanent name + rank label rendered on top of the polygon
@@ -534,7 +644,15 @@
             },
           }).addTo(map);
           // Fit the map to the geojson bounds so the layout renders consistently
+          // Force Leaflet to re-measure the container (float overlays don't
+          // shrink it) and fit the geojson bounds. Extra deferred calls
+          // guard against font-load / image-load reflows that would
+          // otherwise leave the map showing at a stale size.
+          map.invalidateSize(true);
           map.fitBounds(layer.getBounds(), { padding: [10, 10] });
+          setTimeout(() => { map.invalidateSize(true); map.fitBounds(layer.getBounds(), { padding: [10, 10] }); }, 150);
+          setTimeout(() => { map.invalidateSize(true); map.fitBounds(layer.getBounds(), { padding: [10, 10] }); }, 500);
+          window.addEventListener('resize', () => { map.invalidateSize(true); });
         })
         .catch(err => console.warn('GPI map: could not load geojson —', err));
     })();
@@ -612,42 +730,77 @@
   {# ═══════════════════════════ Efficiency & Fiscal Integrity ═════════ #}
   {% set eff = gpi_data.efficiency_data if gpi_data else {} %}
   <section class="mb-stack-lg">
-    <div class="mb-4">
-      <h2 class="font-headline-md text-headline-md text-on-surface">Efficiency &amp; Fiscal Integrity</h2>
-      <p class="text-body-md text-on-surface-variant">
-        How well the state converts money into services — revenue capacity + project delivery.
-      </p>
+    <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex-1 min-w-0">
+        <h2 class="font-headline-md text-headline-md text-on-surface">Efficiency &amp; Fiscal Integrity</h2>
+        <p class="text-body-md text-on-surface-variant">
+          How well the state converts money into services — revenue capacity + project delivery.
+        </p>
+      </div>
       {# Efficiency doesn't have a dedicated portfolio; show the Finance
-         Minister (public_finance pillar) since it's the closest fit. #}
-      {{ minister_chip(ministers_by_pillar.get('public_finance'), 'Finance Minister') }}
+         Minister (public_finance pillar) since it's the closest fit. Chip
+         now sits to the RIGHT of the section title, mt-0 override so it
+         doesn't add the default top margin from the macro. #}
+      <div class="flex-shrink-0 [&_a]:mt-0">
+        {{ minister_chip(ministers_by_pillar.get('public_finance'), 'Finance Minister') }}
+      </div>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter items-stretch">
-      {# 3 revenue-capacity cards on the left — real EF01, EF02, EF03.
-         Uses flex-col + flex-1 so all 3 cards distribute evenly across
-         the container's full height, matching the right column and
-         eliminating the trailing white space. #}
-      <div class="flex flex-col gap-gutter">
+      {# 2×2 grid on the left — 4 headline growth + revenue cards. GSDP
+         growth (E01) leads because it's the primary "what's happening in
+         the economy" number. The other 3 are fiscal-capacity indicators
+         (EF01-EF03). Grid + flex-1 fills the column height evenly so both
+         columns end at the same y-coordinate as the right panel. #}
+      <div class="grid grid-cols-2 gap-gutter content-stretch">
         {% set eff_cards = [
+          ("GSDP Growth Rate", "E01", "%",
+           "Year-on-year real growth of Gross State Domestic Product — the state's overall economic expansion after inflation. Higher = faster-growing economy."),
           ("Own Tax / GSDP", "EF01", "%",
-           "Tax collected by the state government itself (excluding central transfers) as a share of the state economy. Higher = stronger indigenous tax-collection capacity."),
+           "Tax collected by the state government itself (excluding central transfers) as a share of the state economy. Higher = stronger indigenous tax capacity."),
           ("Revenue Receipts / GSDP", "EF02", "%",
-           "Total government revenue (own taxes + non-tax + central transfers) as a share of the state economy. Higher = greater overall fiscal capacity per unit of GSDP."),
+           "Total government revenue (own taxes + non-tax + central transfers) as a share of the state economy. Higher = greater overall fiscal capacity."),
           ("Project Delay Rate", "EF03", "%",
-           "% of audited government projects and schemes that ran past their planned completion date. Aggregated across all Performance Audits for the state. Lower = more reliable delivery."),
+           "% of audited government projects that ran past their planned completion date. Aggregated across CAG Performance Audits. Lower = more reliable delivery."),
         ] %}
         {% for label, code, unit, desc in eff_cards %}
           {% set v = eff.get(code) if eff else None %}
-          <div class="flex-1 bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm flex flex-col">
-            <div class="text-label-sm uppercase tracking-widest text-on-surface-variant mb-3">{{ label }}</div>
+          <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 shadow-sm flex flex-col">
+            <div class="text-label-sm uppercase tracking-widest text-on-surface-variant mb-2 leading-tight">{{ label }}</div>
             {% if v %}
-              <div class="text-[42px] font-bold text-on-surface leading-none">{{ '%.1f'|format(v.raw) }}{{ unit }}</div>
-              <div class="text-label-sm text-on-surface-variant mt-2 mb-3">FY{{ v.year }}{% if v.rank %} · rank {{ v.rank }}{% endif %}</div>
+              <div class="text-[32px] font-bold text-on-surface leading-none">{{ '%.1f'|format(v.raw) }}{{ unit }}</div>
+              <div class="text-label-sm text-on-surface-variant mt-1.5 mb-3">FY{{ v.year }}{% if v.rank %} · rank {{ v.rank }}{% endif %}</div>
+
+              {# ── YoY delta chip ─────────────────────────────────────
+                 For lower_better indicators (Project Delay Rate), a
+                 negative delta is an improvement → flip the sign colour.
+                 "pp" = percentage points, since all four cards are % units. #}
+              {% if v.yoy_delta is not none %}
+                {% set _adjusted = -v.yoy_delta if v.direction == 'lower_better' else v.yoy_delta %}
+                {% if _adjusted > 0.1 %}
+                  <div class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-green-50 border border-green-200 text-green-800 text-label-sm font-bold w-fit">
+                    <span class="material-symbols-outlined text-[14px]">trending_up</span>
+                    {% if v.yoy_delta > 0 %}+{% endif %}{{ '%.1f'|format(v.yoy_delta) }} pp YoY
+                  </div>
+                {% elif _adjusted < -0.1 %}
+                  <div class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-red-50 border border-red-200 text-red-800 text-label-sm font-bold w-fit">
+                    <span class="material-symbols-outlined text-[14px]">trending_down</span>
+                    {% if v.yoy_delta > 0 %}+{% endif %}{{ '%.1f'|format(v.yoy_delta) }} pp YoY
+                  </div>
+                {% else %}
+                  <div class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-surface-container border border-outline-variant text-on-surface-variant text-label-sm font-bold w-fit">
+                    <span class="material-symbols-outlined text-[14px]">trending_flat</span>
+                    {% if v.yoy_delta > 0 %}+{% endif %}{{ '%.1f'|format(v.yoy_delta) }} pp YoY
+                  </div>
+                {% endif %}
+              {% else %}
+                <div class="text-[10px] text-on-surface-variant/60 italic">No prior year</div>
+              {% endif %}
             {% else %}
-              <div class="text-[42px] font-bold text-on-surface-variant leading-none">—</div>
-              <div class="text-label-sm text-on-surface-variant mt-2 mb-3">No data</div>
+              <div class="text-[32px] font-bold text-on-surface-variant leading-none">—</div>
+              <div class="text-label-sm text-on-surface-variant mt-1.5 mb-2">No data</div>
             {% endif %}
-            <p class="text-[11px] text-on-surface-variant leading-snug mt-auto">{{ desc }}</p>
+            <p class="text-[10px] text-on-surface-variant leading-snug mt-auto pt-3">{{ desc }}</p>
           </div>
         {% endfor %}
       </div>
@@ -876,11 +1029,20 @@
   {% set gov = gpi_data.governance_data if gpi_data else {} %}
   <section class="mb-stack-lg">
     <div class="mb-4">
-      <h2 class="font-headline-md text-headline-md text-on-surface">Governance &amp; Public Trust</h2>
-      <p class="text-body-md text-on-surface-variant">
-        Audit-verified accountability metrics sourced from CAG State Finances Audit Reports.
-      </p>
-      {{ minister_chip(ministers_by_pillar.get('governance'), 'General Admin') }}
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div class="flex-1 min-w-0">
+          <h2 class="font-headline-md text-headline-md text-on-surface">Governance &amp; Public Trust</h2>
+          <p class="text-body-md text-on-surface-variant">
+            Audit-verified accountability metrics sourced from CAG State Finances Audit Reports.
+          </p>
+        </div>
+        {# Minister chip moved to the RIGHT of the section title, matching
+           the Efficiency section treatment. [&_a]:mt-0 resets the macro's
+           default top margin so the chip baseline-aligns with the title. #}
+        <div class="flex-shrink-0 [&_a]:mt-0">
+          {{ minister_chip(ministers_by_pillar.get('governance'), 'General Admin') }}
+        </div>
+      </div>
     </div>
 
     {# ── Governance detail: Peer Comparison (bars) + Compliance Metrics Table ── #}
@@ -1022,64 +1184,128 @@
     <div class="mb-4">
       <h2 class="font-headline-md text-headline-md text-on-surface">Full State Rankings</h2>
       <p class="text-body-md text-on-surface-variant">
-        All {{ all_state_gpi|length }} states ranked by aggregate GPI score,
-        FY {{ selected_year }}. Bar length = score, color = rank position
-        (green best, red worst). Click a state to open its detail page.
-        Change the fiscal year using the picker near the map.
+        All {{ all_state_gpi|length }} states for FY {{ selected_year }}. Click any row to expand and see the 8 pillar breakdown. Click the state name to open its detail page.
       </p>
     </div>
 
-    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm p-6">
-      <div class="space-y-1">
-        {% set total = all_state_gpi | length %}
-        {% for s in all_state_gpi %}
-          {% set is_current = (s.name == state) %}
-          {# Rank-based color ramp — mirrors the map's rankColor() JS.
-             worst=#dc2626 red-600 → mid=#f59e0b amber-500 → best=#16a34a #}
-          {% set t = 1.0 - ((s.rank - 1) / (total - 1)) %}
-          {% if t < 0.5 %}
-            {% set u = t / 0.5 %}
-            {% set R = (220 + (245 - 220) * u) | int %}
-            {% set G = (38  + (158 - 38)  * u) | int %}
-            {% set B = (38  + (11  - 38)  * u) | int %}
-          {% else %}
-            {% set u = (t - 0.5) / 0.5 %}
-            {% set R = (245 + (22  - 245) * u) | int %}
-            {% set G = (158 + (163 - 158) * u) | int %}
-            {% set B = (11  + (74  - 11)  * u) | int %}
-          {% endif %}
-          {% set bar_pct = (s.score / 100) * 100 %}
-          <a href="/gpi?state={{ s.name | urlencode }}"
-             class="flex items-center gap-3 py-1.5 px-2 rounded-lg
-                    {% if is_current %}bg-primary/5 border border-primary/30{% else %}hover:bg-surface-container-low border border-transparent{% endif %}
-                    transition-colors">
-            <span class="text-label-sm font-bold tabular-nums w-8
-                         {% if is_current %}text-primary{% else %}text-on-surface-variant{% endif %}">
-              {{ '%02d'|format(s.rank) }}
-            </span>
-            <span class="text-label-lg font-bold text-on-surface w-40 truncate">
-              {{ s.name }}{% if is_current %} <span class="text-label-sm font-normal text-primary/70">· you</span>{% endif %}
-            </span>
-            <div class="flex-1 h-3 bg-surface-container rounded-full overflow-hidden">
-              <div class="h-full rounded-full"
-                   style="width: {{ bar_pct }}%; background: rgb({{ R }}, {{ G }}, {{ B }});"></div>
-            </div>
-            <span class="text-label-lg font-bold tabular-nums w-14 text-right text-on-surface">
-              {{ '%.1f'|format(s.score) }}
-            </span>
-          </a>
-        {% endfor %}
-      </div>
+    {# Pillar column definitions — kept in one place so header + expanded row body stay in sync #}
+    {% set _pillar_cols = [
+      ('economy',        'Economy'),
+      ('public_finance', 'Fiscal'),
+      ('education',      'Edu'),
+      ('healthcare',     'Health'),
+      ('infrastructure', 'Infra'),
+      ('law_and_order',  'L&O'),
+      ('governance',     'Gov'),
+      ('efficiency',     'Effcy'),
+    ] %}
 
-      {# Legend at the bottom mirrors the map's legend #}
-      <div class="flex items-center gap-2 text-label-sm text-on-surface-variant mt-4 pt-4 border-t border-outline-variant">
-        <span class="font-bold">Rank</span>
-        <span>Worst</span>
-        <div class="w-40 h-2 rounded"
-             style="background: linear-gradient(to right, #dc2626 0%, #f59e0b 50%, #16a34a 100%);"></div>
-        <span>Best</span>
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse min-w-[720px]">
+          <thead>
+            <tr class="border-b border-outline-variant bg-surface-container-low">
+              <th class="px-4 py-3 text-label-sm font-bold uppercase tracking-widest text-on-surface-variant">Rank</th>
+              <th class="px-4 py-3 text-label-sm font-bold uppercase tracking-widest text-on-surface-variant">State / UT</th>
+              <th class="px-4 py-3 text-label-sm font-bold uppercase tracking-widest text-on-surface-variant">GPI Score</th>
+              <th class="px-4 py-3 text-label-sm font-bold uppercase tracking-widest text-on-surface-variant">YoY Trend</th>
+              <th class="px-4 py-3 text-label-sm font-bold uppercase tracking-widest text-on-surface-variant text-center">Status</th>
+              <th class="px-4 py-3 text-label-sm font-bold uppercase tracking-widest text-on-surface-variant text-right">Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for s in all_state_gpi %}
+              {% set is_current = (s.name == state) %}
+              <tr class="fgpi-row border-t border-outline-variant cursor-pointer
+                          {% if is_current %}bg-primary/5{% else %}hover:bg-surface-container-low/60{% endif %}
+                          transition-colors"
+                  data-target="fgpi-details-{{ loop.index }}">
+                <td class="px-4 py-4 tabular-nums font-bold text-on-surface">#{{ '%02d'|format(s.rank) }}</td>
+                <td class="px-4 py-4">
+                  <a href="/gpi?state={{ s.name | urlencode }}"
+                     class="font-bold text-on-surface hover:text-primary transition-colors"
+                     onclick="event.stopPropagation();">
+                    {{ s.name }}{% if is_current %} <span class="text-label-sm font-normal text-primary/70">· you</span>{% endif %}
+                  </a>
+                </td>
+                <td class="px-4 py-4 tabular-nums text-headline-sm font-bold text-on-surface">
+                  {{ '%.1f'|format(s.score) }}
+                </td>
+                <td class="px-4 py-4">
+                  {% if s.yoy_delta is not none %}
+                    <span class="inline-flex items-center gap-1 tabular-nums font-bold
+                                 {% if s.yoy_delta > 0.5 %}text-green-700
+                                 {% elif s.yoy_delta < -0.5 %}text-red-700
+                                 {% else %}text-on-surface-variant{% endif %}">
+                      <span class="material-symbols-outlined text-[16px]">
+                        {% if s.yoy_delta > 0.5 %}trending_up
+                        {% elif s.yoy_delta < -0.5 %}trending_down
+                        {% else %}trending_flat{% endif %}
+                      </span>
+                      {% if s.yoy_delta > 0 %}+{% endif %}{{ '%.1f'|format(s.yoy_delta) }}
+                    </span>
+                  {% else %}
+                    <span class="text-on-surface-variant/60 italic text-label-sm">no history</span>
+                  {% endif %}
+                </td>
+                <td class="px-4 py-4 text-center">
+                  {% if s.status == 'top' %}
+                    <span class="inline-flex px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-green-600 text-white">High Performer</span>
+                  {% elif s.status == 'up' %}
+                    <span class="inline-flex px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-green-100 text-green-800 border border-green-600">Improving</span>
+                  {% elif s.status == 'down' %}
+                    <span class="inline-flex px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-red-100 text-red-800 border border-red-600">Declining</span>
+                  {% else %}
+                    <span class="inline-flex px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-surface-container text-on-surface-variant border border-outline-variant">Stable</span>
+                  {% endif %}
+                </td>
+                <td class="px-4 py-4 text-right">
+                  <span class="material-symbols-outlined text-on-surface-variant fgpi-chevron transition-transform">chevron_right</span>
+                </td>
+              </tr>
+
+              {# ── Expanded row: 8 pillar scores in a compact grid ── #}
+              <tr id="fgpi-details-{{ loop.index }}" class="hidden bg-surface-container-low/50">
+                <td colspan="6" class="px-6 py-4">
+                  <div class="grid grid-cols-4 md:grid-cols-8 gap-2">
+                    {% for pcode, plabel in _pillar_cols %}
+                      {% set pscore = s.pillar_scores.get(pcode) if s.pillar_scores else None %}
+                      <div class="p-3 border border-outline-variant bg-surface-container-lowest rounded-md">
+                        <p class="text-[10px] text-on-surface-variant uppercase tracking-widest mb-1">{{ plabel }}</p>
+                        {% if pscore is not none %}
+                          <p class="tabular-nums font-bold text-on-surface">{{ '%.1f'|format(pscore) }}</p>
+                        {% else %}
+                          <p class="tabular-nums font-bold text-on-surface-variant">—</p>
+                        {% endif %}
+                      </div>
+                    {% endfor %}
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="px-4 py-3 border-t border-outline-variant bg-surface-container-low text-label-sm text-on-surface-variant flex flex-wrap gap-4 items-center justify-between">
+        <span>Showing {{ all_state_gpi|length }} of {{ all_state_gpi|length }} states · FY {{ selected_year }}</span>
+        <span class="italic">Click any row to expand the pillar breakdown.</span>
       </div>
     </div>
+
+    <script>
+      (function() {
+        document.querySelectorAll('tr.fgpi-row').forEach(row => {
+          row.addEventListener('click', () => {
+            const target = document.getElementById(row.dataset.target);
+            const chev   = row.querySelector('.fgpi-chevron');
+            if (!target) return;
+            const isHidden = target.classList.contains('hidden');
+            target.classList.toggle('hidden');
+            if (chev) chev.style.transform = isHidden ? 'rotate(90deg)' : '';
+          });
+        });
+      })();
+    </script>
   </section>
   {% endif %}
 
